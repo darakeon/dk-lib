@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{ED39BCED-DE3F-45DB-BB83-39EC967C92E8}</ProjectGuid>
+    <ProjectGuid>{5CCE8FD9-BF36-4C3B-8651-D2FB97295D74}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ak.MVC</RootNamespace>
-    <AssemblyName>Ak.MVC</AssemblyName>
+    <RootNamespace>Ak.NHibernate</RootNamespace>
+    <AssemblyName>Ak.NHibernate</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Ak.NHibernate.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,10 +32,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\Library\FluentNHibernate\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\Library\FluentNHibernate\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,13 +48,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication\AjaxAuthorize.cs" />
-    <Compile Include="Authentication\Authenticate.cs" />
-    <Compile Include="Authentication\IRole.cs" />
-    <Compile Include="Forms\HtmlHelperExtension.cs" />
-    <Compile Include="Forms\SelectListExtension.cs" />
+    <Compile Include="AutoMapping\AutoMappingOne2One.cs" />
+    <Compile Include="Conventions\CascadeConvention.cs" />
+    <Compile Include="Conventions\EnumConvention.cs" />
+    <Compile Include="Conventions\NameConvention.cs" />
+    <Compile Include="Conventions\NullableConvention.cs" />
+    <Compile Include="Helpers\Enums.cs" />
+    <Compile Include="Helpers\SchemaChanger.cs" />
+    <Compile Include="Helpers\StoreConfiguration.cs" />
+    <Compile Include="Helpers\StringsAsLike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Route\RouteInfo.cs" />
+    <Compile Include="SessionBuilder.cs" />
+    <Compile Include="SessionFactoryBuilder.cs" />
+    <Compile Include="UserPassed\AutoMappingInfo.cs" />
+    <Compile Include="UserPassed\ConnectionInfo.cs" />
+    <Compile Include="UserPassed\DataInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ak.Generic\Ak.Generic.csproj">

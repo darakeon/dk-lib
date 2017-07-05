@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using Ak.DataAccess.NHibernate.Helpers;
 
 namespace Ak.All
 {
@@ -49,8 +47,7 @@ namespace Ak.All
 
             projects = new Dictionary<String, String>
                            {
-                               {"DFM", mainDir + @"03 - DFM\Projeto\source\Library"},
-                               {"Responde", mainDir + @"02 - Responde\Source\Library"},
+                               {"DFM", mainDir + @"03 - DFM\Projeto\site\Library"},
                                {"Stories", mainDir + @"06 - Stories\Source\Library"}
                            };
         }

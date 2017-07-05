@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Ak.MVC")]
+[assembly: AssemblyTitle("Ak.XML")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Ak.MVC")]
+[assembly: AssemblyProduct("Ak.XML")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("dc75904d-b8e5-4d45-bbb7-fea05ecbf666")]
+[assembly: Guid("772add5e-ce5e-4b45-9c06-5fdca829ba32")]
 
 // Version information for an assembly consists of the following four values:
 //

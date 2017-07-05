@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{ED39BCED-DE3F-45DB-BB83-39EC967C92E8}</ProjectGuid>
+    <ProjectGuid>{F2EDE40B-6855-4801-AA0F-74E5412C1B0A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ak.MVC</RootNamespace>
-    <AssemblyName>Ak.MVC</AssemblyName>
+    <RootNamespace>Ak.Excel</RootNamespace>
+    <AssemblyName>Ak.Excel</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Ak.Excel.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,8 +34,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,19 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication\AjaxAuthorize.cs" />
-    <Compile Include="Authentication\Authenticate.cs" />
-    <Compile Include="Authentication\IRole.cs" />
-    <Compile Include="Forms\HtmlHelperExtension.cs" />
-    <Compile Include="Forms\SelectListExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Route\RouteInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Ak.Generic\Ak.Generic.csproj">
-      <Project>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</Project>
-      <Name>Ak.Generic</Name>
-    </ProjectReference>
+    <Compile Include="Reader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

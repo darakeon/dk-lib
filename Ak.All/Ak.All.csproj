@@ -51,17 +51,25 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ak.DataAccess\Ak.DataAccess.csproj">
-      <Project>{DFC0990E-F17C-414B-BB07-10DC86835EC1}</Project>
-      <Name>Ak.DataAccess</Name>
+    <ProjectReference Include="..\Ak.Excel\Ak.Excel.csproj">
+      <Project>{F2EDE40B-6855-4801-AA0F-74E5412C1B0A}</Project>
+      <Name>Ak.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ak.Facebook\Ak.Facebook.csproj">
+      <Project>{BD75CF69-95B8-4BCB-B1E6-DF449417439F}</Project>
+      <Name>Ak.Facebook</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ak.Generic\Ak.Generic.csproj">
       <Project>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</Project>
       <Name>Ak.Generic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ak.MVC\Ak.MVC.csproj">
-      <Project>{A768A712-F7D0-4D39-934D-25370B14BC16}</Project>
-      <Name>Ak.MVC</Name>
+    <ProjectReference Include="..\Ak.NHibernate\Ak.NHibernate.csproj">
+      <Project>{5CCE8FD9-BF36-4C3B-8651-D2FB97295D74}</Project>
+      <Name>Ak.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ak.XML\Ak.XML.csproj">
+      <Project>{BE5C6AFD-8D76-4A62-B77A-C5503FCDBE57}</Project>
+      <Name>Ak.XML</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
