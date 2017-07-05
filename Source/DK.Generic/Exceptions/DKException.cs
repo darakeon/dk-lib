@@ -12,6 +12,9 @@ namespace DK.Generic.Exceptions
         ///</summary>
         public DKException(String message) : base(message) { }
 
+        /// <summary>
+        /// Too Large Exception
+        /// </summary>
         public static void TestOtherIfTooLarge(Exception e)
         {
             if (e.InnerException != null && e.InnerException.Message.StartsWith("Data too long for column"))
