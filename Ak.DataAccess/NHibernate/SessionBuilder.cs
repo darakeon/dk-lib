@@ -59,7 +59,8 @@ namespace Ak.DataAccess.NHibernate
             {
                 var scriptFileFullName = CM.AppSettings["ScriptFileFullName"];
 
-                if (scriptFileFullName.ToLower() == "current")
+                if (scriptFileFullName != null 
+                    && scriptFileFullName.ToLower() == "current")
                 {
                     scriptFileFullName = Directory.GetCurrentDirectory();
                     var filename = DateTime.Now.ToString(@"Ba\seyyyyMMddhhmmss");
