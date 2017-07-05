@@ -34,6 +34,31 @@ namespace Ak.NHibernate.Base
 
             return this;
         }
+		
+		/// <summary>
+		/// To make a filter with ascending entities
+		/// </summary>
+		/// <typeparam name="TFinalEntity">The entity with the property to be compared</typeparam>
+		/// <param name="where">Lambda for filter</param>
+		/// <param name="levels">All the entities between current and final</param>
+		/// <returns></returns>
+		public Query<T> FilterWithAscending<TFinalEntity>(Expression<Func<TFinalEntity, Boolean>> where, params Type[] levels)
+		{
+			var newCriteria = criteria;
+
+			foreach (var level in levels)
+			{
+				newCriteria = newCriteria.CreateCriteria(level.Name);
+			}
+
+			newCriteria = newCriteria.CreateCriteria(typeof(TFinalEntity).Name);
+
+			newCriteria.Add(Restrictions.Where(where));
+
+			return this;
+		}
+
+
 
         /// <summary>
         /// Search for text inside entity property values
@@ -156,13 +181,20 @@ namespace Ak.NHibernate.Base
 
 		/// <summary>
 		/// Execute the query, return just one result
-		/// It will throw Exception
 		/// </summary>
 		/// <exception cref="NonUniqueResultException">If there is more than one result from constructed query</exception>
 		public T UniqueResult
         {
             get { return criteria.UniqueResult<T>(); }
         }
+		
+		/// <summary>
+		/// Return first result of list, or null if list is empty
+		/// </summary>
+		public T FirstOrDefault
+		{
+			get { return Page(1).UniqueResult; }
+		}
 
 
     }
