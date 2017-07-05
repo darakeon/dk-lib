@@ -3,11 +3,24 @@ using FluentNHibernate.Conventions.Instances;
 
 namespace Ak.NHibernate.Conventions
 {
-    internal class CascadeConvention : IReferenceConvention
+    internal class CascadeConvention
     {
-        public void Apply(IManyToOneInstance instance)
-        {
-            instance.Cascade.SaveUpdate();
-        }
+		public class ManyToOne : IReferenceConvention
+	    {
+			public void Apply(IManyToOneInstance instance)
+			{
+				instance.Cascade.None();
+			}
+		}
+
+	    public class OneToMany : IHasManyConvention
+	    {
+		    public void Apply(IOneToManyCollectionInstance instance)
+		    {
+				instance.Cascade.None();
+			}
+	    }
+
+
     }
 }
