@@ -33,7 +33,7 @@ namespace Ak.All
 
         private static void welcome()
         {
-            Console.WriteLine("AKEON LIBRARY");
+            Console.WriteLine("KEON LIBRARY");
             Console.WriteLine("===================================");
         }
 
