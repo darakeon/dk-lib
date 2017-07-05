@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core">
-      <HintPath>..\..\..\03 - DFM\Source\DFM.MVC\Bin\Castle.Core.dll</HintPath>
+      <HintPath>..\Library\FluentNHibernate\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

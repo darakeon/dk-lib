@@ -34,14 +34,16 @@ namespace Ak.DataAccess.NHibernate.Helpers
             scriptAction(schema.Execute, true);
 
 
-            if (schema.Exceptions.Any())
-            {
-                var message = new StringBuilder();
+            if (!schema.Exceptions.Any())
+                return;
 
-                schema.Exceptions.ForEach(e => message.AppendLine(e.Message));
+            
+            var message = new StringBuilder();
 
-                throw new AkException(message.ToString());
-            }
+            schema.Exceptions.ForEach(
+                e => message.AppendLine(e.Message));
+
+            throw new AkException(message.ToString());
         }
 
         internal void Validate(Configuration config)
@@ -79,5 +81,6 @@ namespace Ak.DataAccess.NHibernate.Helpers
                 }
             }
         }
+
     }
 }
