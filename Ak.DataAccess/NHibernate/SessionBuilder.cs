@@ -149,6 +149,8 @@ namespace Ak.DataAccess.NHibernate
         {
             if (hasTransaction)
                 transaction.Rollback();
+            else if (hasSession)
+                Session.Clear();
         }
 
 
