@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ak.Generic", "Ak.Generic\Ak.Generic.csproj", "{CF70FB71-50D7-4014-92CF-9ABF51579EC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ak.All", "Ak.All\Ak.All.csproj", "{83ED2E58-E590-4E6A-B976-6595049551E7}"

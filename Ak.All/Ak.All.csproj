@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Ak.All</RootNamespace>
     <AssemblyName>Ak.All</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -25,6 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Ak.All.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -34,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -63,6 +65,10 @@
       <Project>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</Project>
       <Name>Ak.Generic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ak.MVC\Ak.MVC.csproj">
+      <Project>{ed39bced-de3f-45db-bb83-39ec967c92e8}</Project>
+      <Name>Ak.MVC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ak.NHibernate\Ak.NHibernate.csproj">
       <Project>{5CCE8FD9-BF36-4C3B-8651-D2FB97295D74}</Project>
       <Name>Ak.NHibernate</Name>
@@ -71,9 +77,6 @@
       <Project>{BE5C6AFD-8D76-4A62-B77A-C5503FCDBE57}</Project>
       <Name>Ak.XML</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
