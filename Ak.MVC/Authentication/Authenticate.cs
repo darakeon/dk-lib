@@ -16,6 +16,7 @@ namespace Ak.MVC.Authentication
         private static IPrincipal user
         {
             get { return HttpContext.Current.User; }
+            set { HttpContext.Current.User = value; }
         }
 
         
@@ -59,6 +60,11 @@ namespace Ak.MVC.Authentication
             var arrRoles = roleList
                     .Select(r => r.Name)
                     .ToArray();
+
+            var identity = new GenericIdentity(username);
+            var principal = new GenericPrincipal(identity, arrRoles);
+
+            user = principal;
 
             var ticket = new FormsAuthenticationTicket(1, username, DateTime.Now, DateTime.Now.AddDays(1), isPersistent, String.Join(",", arrRoles));
             var encryptedTicket = FormsAuthentication.Encrypt(ticket);
