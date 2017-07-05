@@ -7,16 +7,16 @@ namespace Ak.NHibernate.Conventions
 {
     internal class NameConvention
     {
-        internal class N2N : ManyToManyTableNameConvention
+        internal class ManyToMany : ManyToManyTableNameConvention
         {
             protected override String GetBiDirectionalTableName(IManyToManyCollectionInspector collection, IManyToManyCollectionInspector otherSide)
             {
-                return String.Format("{0}{1}", collection.EntityType.Name, otherSide.EntityType.Name);
+                return String.Format("{0}_{1}", collection.EntityType.Name, otherSide.EntityType.Name);
             }
 
             protected override String GetUniDirectionalTableName(IManyToManyCollectionInspector collection)
             {
-                return String.Format("{0}{1}", collection.EntityType.Name, collection.ChildType.Name);
+                return String.Format("{0}_{1}", collection.EntityType.Name, collection.ChildType.Name);
             }
         }
 
@@ -27,6 +27,10 @@ namespace Ak.NHibernate.Conventions
                 var propertyName = putID(instance.Property.Name);
 
                 instance.Column(propertyName);
+
+                instance.ForeignKey(String.Format("FK_{0}_{1}"
+                    , instance.EntityType.Name
+                    , instance.Name));
             }
         }
 
@@ -37,16 +41,20 @@ namespace Ak.NHibernate.Conventions
                 var propertyName = instance.Member.Name.Replace("List", "");
                 var propertyType = instance.Relationship.Class.Name;
 
-                propertyName = propertyName.Contains(propertyType)
-                    ? instance.EntityType.Name
-                    : propertyName;
+                propertyName =
+                    propertyName.ToLower()
+                            .Contains(propertyType.ToLower())
+                        ? instance.EntityType.Name
+                        : propertyName;
+
+                var constraintName = String.Format("FK_{0}_{1}", propertyType, propertyName);
+                instance.Key.ForeignKey(constraintName);
 
                 propertyName = putID(propertyName);
-
                 instance.Key.Column(propertyName);
             }
         }
-    
+
         private static String putID(String name)
         {
             return String.Format("{0}_ID", name);
