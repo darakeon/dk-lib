@@ -201,9 +201,18 @@ namespace Ak.DataAccess.XML
         /// </summary>
         public void BackUpAndSave()
         {
-            backUp();
+            BackUpAndSave(null);
+        }
+
+        /// <summary>
+        /// Create a backup of the old file in a subfolder backup and override the original file
+        /// </summary>
+        public void BackUpAndSave(String backupPath)
+        {
+            backUp(backupPath);
             save();
         }
+
 
         /// <summary>
         /// Saves OVERWRITING the original file 
@@ -250,16 +259,21 @@ namespace Ak.DataAccess.XML
             textWriter.WriteEndElement();
         }
 
-        private static void backUp()
+        private static void backUp(String fileFullName)
         {
-            var path = file.Substring(0, file.LastIndexOf(@"\") + 1) + "BackUp";
-            var name = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + file.Substring(file.LastIndexOf(@"\") + 1);
+            var copy = fileFullName;
 
-            var copy = Path.Combine(path, name);
+            if (fileFullName == null)
+            {
+                var path = file.Substring(0, file.LastIndexOf(@"\") + 1) + "BackUp";
+                var name = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + file.Substring(file.LastIndexOf(@"\") + 1);
 
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-            
+                copy = Path.Combine(path, name);
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+            }
+
             File.Copy(file, copy);
         }
 

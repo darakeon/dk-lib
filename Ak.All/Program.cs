@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Ak.DataAccess.XML;
 
 namespace Ak.All
 {
@@ -14,6 +12,8 @@ namespace Ak.All
         private static String chosenProject;
         private static IDictionary<String, String> currentLibs;
 
+        ///<summary>
+        ///</summary>
         public static void Main()
         {
             welcome();
@@ -41,11 +41,15 @@ namespace Ak.All
 
         private static void setProjectOptions()
         {
+            var projectDir = Directory.GetCurrentDirectory();
+            var localDir = projectDir.IndexOf("Akeon");
+            var mainDir = projectDir.Substring(0, localDir);
+
             projects = new Dictionary<String, String>
                            {
-                               {"DFM", @"D:\Lucas\Akeon\03 - DFM\Source\Library"},
-                               {"Responde", @"D:\Lucas\Akeon\02 - Responde\Source\Library"},
-                               {"Stories", @"D:\Lucas\Akeon\06 - Stories\Source\Library"}
+                               {"DFM", mainDir + @"Akeon\03 - DFM\Source\Library"},
+                               {"Responde", mainDir + @"Akeon\02 - Responde\Source\Library"},
+                               {"Stories", mainDir + @"Akeon\06 - Stories\Source\Library"}
                            };
         }
 
@@ -116,6 +120,8 @@ namespace Ak.All
                 {
                     copyLibs(project.Value);
                 }
+
+            Console.WriteLine("Done.");
         }
 
         private static void copyLibs(string path)
