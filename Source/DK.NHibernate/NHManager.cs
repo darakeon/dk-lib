@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using DK.Generic.Exceptions;
-using DK.MVC.Cookies;
 using DK.NHibernate.Base;
 using DK.NHibernate.UserPassed;
 using FluentNHibernate.Automapping.Alterations;
@@ -32,7 +31,7 @@ namespace DK.NHibernate
         {
             if (!sessionList.ContainsKey(sessionKey))
             {
-                var session = SessionBuilder.Open();
+                var session = SessionManager.GetCurrent();
 
                 try
                 {
@@ -60,10 +59,12 @@ namespace DK.NHibernate
         /// </summary>
         /// <typeparam name="TMap">AutoMappingOverride sample</typeparam>
         /// <typeparam name="TEntity">Entity sample</typeparam>
-        public static void Start<TMap, TEntity>() 
+        public static void Start<TMap, TEntity>(GetKey getKey) 
             where TMap : IAutoMappingOverride<TEntity>
         {
-            var mapInfo = new AutoMappingInfo<TMap, TEntity>();
+	        NHManager.getKey = getKey;
+
+			var mapInfo = new AutoMappingInfo<TMap, TEntity>();
 
             SessionBuilder.Start(mapInfo);
         }
@@ -124,7 +125,12 @@ namespace DK.NHibernate
 
 
 
-        private static String key => MyCookie.Get();
+	    /// <summary>
+	    /// Delegate of method to get key for NH
+	    /// </summary>
+	    public delegate String GetKey();
+	    private static event GetKey getKey;
+		private static String key => getKey?.Invoke();
 	    private static String keyOld => key + "_old";
 
 

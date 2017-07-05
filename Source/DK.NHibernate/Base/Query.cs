@@ -1,10 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
+using DK.Generic.DB;
 using DK.Generic.Reflection;
+using DK.NHibernate.Helpers;
 using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.SqlCommand;
+using NHibernate.Transform;
 
 namespace DK.NHibernate.Base
 {
@@ -12,190 +17,636 @@ namespace DK.NHibernate.Base
     /// Object to handle database fluently
     /// </summary>
     /// <typeparam name="T">Entity Type</typeparam>
-    public class Query<T> where T : class
-    {
-        private ICriteria criteria;
+    public class Query<T> where T : class, IEntity, new()
+	{
+		private ICriteria criteria { get; set; }
+		private Boolean distinctMainEntity { get; set; }
 
-        /// <summary></summary>
-        /// <param name="session">NH Session</param>
-        public Query(ISession session)
+		/// <summary></summary>
+		/// <param name="session">NH Session</param>
+		public Query(ISession session)
         {
-            criteria = session.CreateCriteria<T>();
-        }
+			criteria = session.CreateCriteria<T>();
+		}
 
 
-        /// <summary>
-        /// Make a filter with lambda expression
-        /// </summary>
-        /// <param name="where">Lambda expression</param>
-        public Query<T> Filter(Expression<Func<T, Boolean>> where)
+		/// <summary>
+		/// Make a filter with lambda expression
+		/// </summary>
+		/// <param name="where">Lambda expression</param>
+		public Query<T> SimpleFilter(Expression<Func<T, Boolean>> where)
         {
             criteria = criteria.Add(Restrictions.Where(where));
-
             return this;
         }
-		
+
+
 		/// <summary>
-		/// To make a filter with ascending entities
+		/// Make a filter with lambda expression
 		/// </summary>
-		/// <typeparam name="TFinalEntity">The entity with the property to be compared</typeparam>
-		/// <param name="where">Lambda for filter</param>
-		/// <param name="levels">All the entities between current and final</param>
-		/// <returns></returns>
-		public Query<T> FilterWithAscending<TFinalEntity>(Expression<Func<TFinalEntity, Boolean>> where, params Type[] levels)
+		/// <param name="entityRelation">Lambda expression for parent entity</param>
+		/// <param name="where">Lambda expression of condition</param>
+		public Query<T> SimpleFilter<TEntity>(Expression<Func<T, TEntity>> entityRelation, Expression<Func<TEntity, Boolean>> where)
 		{
-			var newCriteria = criteria;
-
-			foreach (var level in levels)
-			{
-				newCriteria = newCriteria.CreateCriteria(level.Name);
-			}
-
-			newCriteria = newCriteria.CreateCriteria(typeof(TFinalEntity).Name);
-
+			var newCriteria = criteria.GetOrCreateRelationCriteria(entityRelation);
 			newCriteria.Add(Restrictions.Where(where));
+			return this;
+		}
+
+		/// <summary>
+		/// Make a filter with lambda expression
+		/// </summary>
+		/// <param name="entityRelation">Lambda expression for child entity</param>
+		/// <param name="where">Lambda expression of condition</param>
+		public Query<T> SimpleFilter<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation, Expression<Func<TEntity, Boolean>> where)
+		{
+			var newCriteria = criteria.GetOrCreateRelationCriteria(entityRelation);
+			newCriteria.Add(Restrictions.Where(where));
+			return this;
+		}
+
+
+
+		/// <summary>
+		/// List of entities where certain property is in a list of possibilities
+		/// </summary>
+		/// <param name="property">Lambda of property to test</param>
+		/// <param name="contains">List to be verified</param>
+		public Query<T> InCondition<TEntity>(Expression<Func<T, TEntity>> property, IList<TEntity> contains)
+		{
+			var propertyName = property.GetName();
+			var newCriteria = criteria.GetOrCreatePropertyCriteria(property);
+			newCriteria.Add(Restrictions.In(propertyName, contains.ToArray()));
 
 			return this;
 		}
 
 
 
-        /// <summary>
-        /// Search for text inside entity property values
-        /// </summary>
-		/// <param name="property">Lambda of property</param>
-		/// <param name="term">Text to search</param>
-        public Query<T> LikeCondition(Expression<Func<T, object>> property, String term)
-        {
-            var searchTerms = new List<SearchItem<T>>
-            {
-                new SearchItem<T>(property, term)
-            };
+		/// <summary>
+		/// Test whether a list is not empty
+		/// </summary>
+		public Query<T> IsNotEmpty<TL>(Expression<Func<T, IList<TL>>> listProperty)
+		{
+			var newCriteria = criteria.GetOrCreateRelationCriteria(listProperty, JoinType.LeftOuterJoin);
+			newCriteria.Add(Restrictions.IsNotNull(Projections.Id()));
+			return this;
+		}
 
-            criteria = criteria.Add(accumulateLikeOr(searchTerms));
+		/// <summary>
+		/// Test whether a list is empty
+		/// </summary>
+		public Query<T> IsEmpty<TL>(Expression<Func<T, IList<TL>>> listProperty)
+		{
+			var newCriteria = criteria.GetOrCreateRelationCriteria(listProperty, JoinType.LeftOuterJoin);
+			newCriteria.Add(Restrictions.IsNull(Projections.Id()));
+			return this;
+		}
 
-            return this;
-        }
+
+	    /// <summary>
+	    /// Search for text inside entity property values
+	    /// </summary>
+	    /// <param name="property">Lambda of property</param>
+	    /// <param name="term">Text to search</param>
+	    /// <param name="likeType">Start, End, Both</param>
+	    public Query<T> LikeCondition(Expression<Func<T, object>> property, String term, LikeType likeType = LikeType.Both)
+		{
+			var searchTerms = new List<SearchItem<T>>
+			{
+				new SearchItem<T>(property, term)
+			};
+
+			criteria = criteria.Add(accumulateLikeOr(searchTerms, likeType));
+
+			return this;
+		}
+
+		/// <summary>
+		/// Search for text inside entity property values
+		/// </summary>
+		/// <param name="ascendingRelation">Relation to parent entity</param>
+		/// <param name="property">Property of parent</param>
+		/// <param name="term">Terms of search</param>
+		public Query<T> LikeCondition<TAscending>(Expression<Func<T, TAscending>> ascendingRelation, Expression<Func<TAscending, object>> property, String term)
+		{
+			var newCriteria = criteria.GetOrCreateRelationCriteria(ascendingRelation);
+
+			var searchTerms = new List<SearchItem<TAscending>>
+			{
+				new SearchItem<TAscending>(property, term)
+			};
+
+			newCriteria.Add(accumulateLikeOr(searchTerms));
+
+			return this;
+		}
 
 		/// <summary>
 		/// Search for text inside entity property values
 		/// </summary>
 		/// <param name="searchTerms">Fields and texts to search</param>
 		public Query<T> LikeCondition(IList<SearchItem<T>> searchTerms)
-        {
-            criteria = criteria.Add(accumulateLikeOr(searchTerms));
-
-            foreach (var searchTerm in searchTerms)
-            {
-                if (searchTerm.ParentType() != typeof (T))
-                {
-                    var typeName = searchTerm.ParentType().Name;
-
-                    criteria.CreateAlias(typeName, typeName, CriteriaSpecification.InnerJoin);
-                }
-            }
-
-            return this;
-        }
-
-        private AbstractCriterion accumulateLikeOr(IList<SearchItem<T>> searchTerms)
-        {
-            if (!searchTerms.Any())
-                return null;
-
-            var searchTerm = searchTerms.First();
-            var restriction = Restrictions.On(searchTerm.Property).IsLike("%" + searchTerm.Term + "%");
-
-            if (searchTerms.Count() == 1)
-            {
-                return restriction;
-            }
-
-            var otherTerms = searchTerms.Skip(1).ToList();
-            var otherProcessedTerms = accumulateLikeOr(otherTerms);
-
-            return Restrictions.Or(restriction, otherProcessedTerms);
-        }
-
-        
-
-        /// <summary>
-        /// Reordering results
-        /// </summary>
-        /// <param name="order">Property to order</param>
-        /// <param name="ascending">Whether the order is ascending (true) or descending (false)</param>
-        public Query<T> OrderBy<TPropOrder>(Expression<Func<T, TPropOrder>> order, Boolean? ascending = true)
-        {
-            var propName = order.GetName();
-            var orderBy = ascending.HasValue && ascending.Value
-                ? Order.Asc(propName) : Order.Desc(propName);
-
-            criteria = criteria.AddOrder(orderBy);
-
-            return this;
-        }
-
-
-        /// <summary>
-        /// To get a page of the results
-        /// </summary>
-        /// <param name="itemsPerPage">Amount of items in each page</param>
-        /// <param name="page">Page to get</param>
-        public Query<T> Page(Int32? itemsPerPage, Int32? page = 1)
-        {
-            if (itemsPerPage.HasValue && page != 0)
-            {
-                var skip = ((page ?? 1) - 1) * itemsPerPage.Value;
-
-                criteria = criteria
-                    .SetFirstResult(skip)
-                    .SetMaxResults(itemsPerPage.Value);
-            }
-
-            return this;
-        }
-
-
-
-        /// <summary>
-        /// Execute the query, getting just the amount of items
-        /// </summary>
-        public Int32 Count
-        {
-            get
-            {
-                return criteria
-                    .SetProjection(Projections.Count(Projections.Id()))
-                    .List<Int32>()
-                    .Sum();
-            }
-        }
-
-		/// <summary>
-		/// Execute the query, getting all the results
-		/// </summary>
-		public IList<T> Result
-        {
-            get { return criteria.List<T>(); }
-        }
-
-		/// <summary>
-		/// Execute the query, return just one result
-		/// </summary>
-		/// <exception cref="NonUniqueResultException">If there is more than one result from constructed query</exception>
-		public T UniqueResult
-        {
-            get { return criteria.UniqueResult<T>(); }
-        }
-		
-		/// <summary>
-		/// Return first result of list, or null if list is empty
-		/// </summary>
-		public T FirstOrDefault
 		{
-			get { return Page(1).UniqueResult; }
+			criteria = criteria.Add(accumulateLikeOr(searchTerms));
+
+			foreach (var searchTerm in searchTerms)
+			{
+				if (searchTerm.ParentType() != typeof(T))
+				{
+					var type = searchTerm.ParentType();
+
+					addParent(type);
+				}
+			}
+
+			return this;
+		}
+
+		private AbstractCriterion accumulateLikeOr<TSearch>(IList<SearchItem<TSearch>> searchTerms, LikeType likeType = LikeType.Both)
+		{
+			if (!searchTerms.Any())
+				return null;
+
+			var searchTerm = searchTerms.First();
+
+			var likeTerm = searchTerm.Term;
+
+			if (likeType != LikeType.JustEnd)
+			{
+				likeTerm = likeTerm + "%";
+			}
+
+			if (likeType != LikeType.JustStart)
+			{
+				likeTerm = "%" + likeTerm;
+			}
+
+			var restriction = Restrictions.On(searchTerm.Property).IsInsensitiveLike(likeTerm);
+
+			if (searchTerms.Count == 1)
+			{
+				return restriction;
+			}
+
+			var otherTerms = searchTerms.Skip(1).ToList();
+			var otherProcessedTerms = accumulateLikeOr(otherTerms);
+
+			return Restrictions.Or(restriction, otherProcessedTerms);
+		}
+
+		private readonly IList<String> aliases = new List<String>();
+
+		private void addParent(Type type)
+		{
+			if (!aliases.Contains(type.Name))
+			{
+				aliases.Add(type.Name);
+				criteria.CreateAlias(type.Name, type.Name, JoinType.LeftOuterJoin);
+			}
 		}
 
 
-    }
+
+		/// <summary>
+		/// Show primary entity even if the other entity doesn't exists
+		/// </summary>
+		/// <param name="entityRelation">Parent entity</param>
+		public Query<T> LeftJoin<TEntity>(Expression<Func<T, TEntity>> entityRelation)
+		{
+			criteria.GetOrCreateRelationCriteria(entityRelation, JoinType.LeftOuterJoin);
+
+			return this;
+		}
+
+		/// <summary>
+		/// Show primary entity even if the other entity doesn't exists
+		/// </summary>
+		/// <param name="entityRelation">Child entity</param>
+		public Query<T> LeftJoin<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation)
+		{
+			criteria.GetOrCreateRelationCriteria(entityRelation, JoinType.LeftOuterJoin);
+
+			return this;
+		}
+
+		/// <summary>
+		/// Fetch eagerly, using a separate select.
+		/// </summary>
+		public Query<T> FetchModeEager<TEntity>(Expression<Func<T, IList<TEntity>>> listProperty)
+		{
+			var name = listProperty.GetName();
+			criteria.SetFetchMode(name, FetchMode.Eager);
+
+			return this;
+		}
+
+
+
+		/// <summary>
+		/// Verify if a flagged enum has a specific flag
+		/// </summary>
+		/// <param name="func">Property to be checked</param>
+		/// <param name="value">Value to find</param>
+		public Query<T> HasFlag<TEnum>(Expression<Func<T, TEnum>> func, TEnum value)
+			where TEnum : struct, IConvertible
+		{
+			var columnName = func.GetName();
+			var integerValue = value.ToInt32(new NumberFormatInfo());
+			var query = String.Format("({{alias}}.{0} & {1}) as FlagCheck", columnName, integerValue);
+
+			var sqlProjection = Projections.SqlProjection(query, null, null);
+			var equal = Restrictions.Eq(sqlProjection, integerValue);
+
+			criteria.Add(equal);
+
+			return this;
+		}
+
+		
+
+		/// <summary>
+		/// Reordering results
+		/// </summary>
+		/// <param name="order">Property to order</param>
+		/// <param name="ascending">Whether the order is ascending (true) or descending (false)</param>
+		public Query<T> OrderBy<TPropOrder>(Expression<Func<T, TPropOrder>> order, Boolean? ascending = true)
+        {
+            var propName = order.GetName();
+
+			var orderBy = ascending.HasValue && ascending.Value
+				? Order.Asc(propName)
+				: Order.Desc(propName);
+
+			criteria = criteria.AddOrder(orderBy);
+
+            return this;
+        }
+
+		/// <summary>
+		/// Ordering using parent entity
+		/// </summary>
+		public Query<T> OrderByParent<TPropOrder>(Expression<Func<T, TPropOrder>> order, Boolean? ascending = true)
+		{
+			criteria.GetOrCreatePropertyCriteria(order, JoinType.LeftOuterJoin);
+
+			var normalizedPropertyName = order.NormalizePropertyName();
+			var propName = String.Join(".", normalizedPropertyName);
+
+			var orderBy = ascending.HasValue && ascending.Value
+				? Order.Asc(propName)
+				: Order.Desc(propName);
+
+			criteria = criteria.AddOrder(orderBy);
+
+			DistinctMainEntity();
+
+			return this;
+		}
+
+
+
+
+
+		/// <summary>
+		/// Take just the first items
+		/// </summary>
+		/// <param name="topItems">Number of items to take</param>
+		public Query<T> Take(Int32 topItems)
+		{
+			if (topItems != 0)
+			{
+				criteria = criteria
+					.SetMaxResults(topItems);
+			}
+
+			return this;
+		}
+
+		/// <summary>
+		/// Verify if there is any item that corresponds to the query
+		/// </summary>
+		public Boolean Any()
+		{
+			return Take(1).Result.Count > 0;
+		}
+
+	    /// <summary>
+	    /// To get a page of the results
+	    /// </summary>
+	    /// <param name="search">Parameters of paging</param>
+	    public Query<T> Page(ISearch search)
+		{
+			return page(search.ItemsPerPage, search.Page);
+		}
+
+		private Query<T> page(Int32? itemsPerPage, Int32? page = 1)
+		{
+			if (itemsPerPage.HasValue && page != 0)
+			{
+				var skip = ((page ?? 1) - 1) * itemsPerPage.Value;
+
+				criteria = criteria
+					.SetFirstResult(skip)
+					.SetMaxResults(itemsPerPage.Value);
+			}
+
+			return this;
+		}
+
+
+
+		/// <summary>
+		/// To do not duplicate main entity
+		/// </summary>
+		public Query<T> DistinctMainEntity()
+		{
+			criteria.SetResultTransformer(Transformers.DistinctRootEntity);
+
+			distinctMainEntity = true;
+
+			return this;
+		}
+
+
+		/// <summary>
+		/// Group and summarize result
+		/// </summary>
+		/// <param name="groupProperties">Group by</param>
+		/// <param name="summarizeProperties">Summarize properties (Count, Max, Sum)</param>
+		/// <typeparam name="TDestiny">Type of class to be returned (summarized)</typeparam>
+		/// <typeparam name="TGroupBy">Need to construct from Query.GroupBy</typeparam>
+		/// <typeparam name="TSummarize">Need to construct from Query.Summarize</typeparam>
+		public Query<T> TransformResult<TDestiny, TGroupBy, TSummarize>(IList<TGroupBy> groupProperties, IList<TSummarize> summarizeProperties)
+			where TGroupBy : GroupBy<TDestiny>
+			where TSummarize : Summarize<TDestiny>
+			where TDestiny : new()
+		{
+			setProjections<TDestiny, TGroupBy, TSummarize>(groupProperties, summarizeProperties);
+			criteria.SetResultTransformer(Transformers.AliasToBean(typeof(TDestiny)));
+
+			return this;
+		}
+
+		private void setProjections<TDestiny, TGroupBy, TSummarize>(IEnumerable<TGroupBy> groupProperties, IEnumerable<TSummarize> summarizeProperties)
+			where TGroupBy : GroupBy<TDestiny>
+			where TSummarize : Summarize<TDestiny>
+			where TDestiny : new()
+		{
+			var projections = Projections.ProjectionList();
+
+			setGroupProjections<TDestiny, TGroupBy>(projections, groupProperties);
+			setSummarizeProjections<TDestiny, TSummarize>(projections, summarizeProperties);
+
+			criteria.SetProjection(projections);
+		}
+
+		/// <summary>
+		/// Group and summarize result
+		/// </summary>
+		/// <param name="groupProperties">Group by</param>
+		/// <typeparam name="TDestiny">Type of class to be returned (summarized)</typeparam>
+		/// <typeparam name="TGroupBy">Need to construct from Query.GroupBy</typeparam>
+		public Query<T> TransformResult<TDestiny, TGroupBy>(IList<TGroupBy> groupProperties)
+			where TGroupBy : GroupBy<TDestiny> where TDestiny : new()
+		{
+			setProjections<TDestiny, TGroupBy>(groupProperties);
+			criteria.SetResultTransformer(Transformers.AliasToBean(typeof(TDestiny)));
+
+			return this;
+		}
+
+		private void setProjections<TDestiny, TGroupBy>(IEnumerable<TGroupBy> groupProperties)
+			where TGroupBy : GroupBy<TDestiny>
+			where TDestiny : new()
+		{
+			var projections = Projections.ProjectionList();
+
+			setGroupProjections<TDestiny, TGroupBy>(projections, groupProperties);
+
+			criteria.SetProjection(projections);
+		}
+
+		private void setGroupProjections<TDestiny, TGroupBy>(ProjectionList list, IEnumerable<TGroupBy> group)
+			where TGroupBy : GroupBy<TDestiny>
+			where TDestiny : new()
+		{
+			foreach (var expression in group)
+			{
+				list.Add(Projections.Alias(Projections.GroupProperty(expression.Origin), expression.Destiny));
+			}
+		}
+
+		private static void setSummarizeProjections<TDestiny, TSummarize>(ProjectionList projections, IEnumerable<TSummarize> summarizeProperties)
+			where TSummarize : Summarize<TDestiny> where TDestiny : new()
+		{
+			foreach (var associationProperty in summarizeProperties)
+			{
+				var projection = getProjection(associationProperty.Origin, associationProperty.Type);
+				projections.Add(Projections.Alias(projection, associationProperty.Destiny));
+			}
+		}
+
+		private static IProjection getProjection(String property, SummarizeType type)
+		{
+			switch (type)
+			{
+				case SummarizeType.Count:
+					return Projections.Count(property);
+				case SummarizeType.Max:
+					return Projections.Max(property);
+				case SummarizeType.Sum:
+					return Projections.Sum(property);
+				default:
+					throw new NotImplementedException();
+			}
+		}
+
+
+
+
+		/// <summary>
+		/// Execute the query, getting just the amount of items
+		/// </summary>
+		public Int32 Count
+        {
+            get
+            {
+				var countProjection = distinctMainEntity
+					? Projections.Count(Projections.Distinct(Projections.Id()))
+					: Projections.Count(Projections.Id());
+
+				return criteria
+					.SetProjection(countProjection)
+					.List<Int32>()
+					.Sum();
+            }
+        }
+
+		
+		/// <summary>
+		/// Execute the query, getting all the results
+		/// </summary>
+		public IList<T> Result => criteria.List<T>();
+
+
+	    /// <summary>
+		/// Execute the query, return just one result
+		/// </summary>
+		/// <exception cref="NonUniqueResultException">If there is more than one result from constructed query</exception>
+		public T UniqueResult => criteria.UniqueResult<T>();
+
+
+		/// <summary>
+		/// Return first result of list, or null if list is empty
+		/// </summary>
+		public T FirstOrDefault => page(1).UniqueResult;
+
+
+		/// <summary>
+		/// Result for summarized queries
+		/// </summary>
+		public IList<TResult> ResultAs<TResult>()
+		{
+			return criteria.List<TResult>();
+		}
+
+
+	    /// <summary>
+		/// Sum for Int32 field
+		/// </summary>
+		public Int32 SumInt(Expression<Func<T, object>> property)
+		{
+			return (Int32?)criteria
+				.SetProjection(Projections.Sum(property))
+				.UniqueResult() ?? 0;
+		}
+
+		/// <summary>
+		/// Sum for Int64 field
+		/// </summary>
+		public Int64 SumLong(Expression<Func<T, object>> property)
+		{
+			return (Int64?)criteria
+				.SetProjection(Projections.Sum(property))
+				.UniqueResult() ?? 0;
+		}
+
+		/// <summary>
+		/// Sum for Decimal field
+		/// </summary>
+		public Decimal SumDecimal(Expression<Func<T, object>> property)
+		{
+			return (Decimal?)criteria
+				.SetProjection(Projections.Sum(property))
+				.UniqueResult() ?? 0;
+		}
+
+
+
+
+
+
+		/// <summary>
+		/// Class to construct Summarize parameters
+		/// </summary>
+		/// <typeparam name="TDestiny">Result class of summarize</typeparam>
+		public class Summarize<TDestiny>
+			where TDestiny : new()
+		{
+			private Summarize() { }
+
+			/// <summary>
+			/// To construct each parameter of summarize
+			/// </summary>
+			/// <param name="origin">Property on original entity</param>
+			/// <param name="destiny">Corresponding property on result class</param>
+			/// <param name="type">(Count, Max, Sum)</param>
+			public static Summarize<TDestiny> GetSummarize<TProp>(Expression<Func<T, TProp>> origin, Expression<Func<TDestiny, TProp>> destiny, SummarizeType type)
+			{
+				return new Summarize<TDestiny>
+				{
+					Origin = origin.GetName(),
+					Destiny = destiny.GetName(),
+					Type = type
+				};
+			}
+
+			internal String Origin;
+			internal String Destiny;
+			internal SummarizeType Type;
+		}
+
+		/// <summary>
+		/// Class to construct Summarize parameters
+		/// </summary>
+		/// <typeparam name="TDestiny">Result class of grouping</typeparam>
+		public class GroupBy<TDestiny>
+			where TDestiny : new()
+		{
+			private GroupBy() { }
+
+			/// <summary>
+			/// To construct each parameter of grouping
+			/// </summary>
+			/// <param name="origin">Property on original entity</param>
+			/// <param name="destiny">Corresponding property on result class</param>
+			public static GroupBy<TDestiny> GetGroupBy<TProp>(Expression<Func<T, TProp>> origin, Expression<Func<TDestiny, TProp>> destiny)
+			{
+				return new GroupBy<TDestiny>
+				{
+					Origin = origin.GetName(),
+					Destiny = destiny.GetName(),
+				};
+			}
+
+			internal String Origin;
+			internal String Destiny;
+		}
+
+		/// <summary>
+		/// Type of summarize
+		/// </summary>
+		public enum SummarizeType
+		{
+			/// <summary>
+			/// Count items
+			/// </summary>
+			Count = 1,
+
+			/// <summary>
+			/// Get biggest item
+			/// </summary>
+			Max = 2,
+
+			/// <summary>
+			/// Sum all items
+			/// </summary>
+			Sum = 3,
+		}
+
+		/// <summary>
+		/// Type of like comparison
+		/// </summary>
+		public enum LikeType
+		{
+			/// <summary>
+			/// Look start and end of string
+			/// </summary>
+			Both = 1,
+			
+			/// <summary>
+			/// Look just at start of string
+			/// </summary>
+			JustStart = 2,
+
+			/// <summary>
+			/// Look just at end of string
+			/// </summary>
+			JustEnd = 3,
+		}
+
+
+
+	}
 }

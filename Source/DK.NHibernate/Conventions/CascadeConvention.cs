@@ -1,4 +1,5 @@
-﻿using FluentNHibernate.Conventions;
+﻿using DK.NHibernate.Helpers;
+using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.Instances;
 
 namespace DK.NHibernate.Conventions
@@ -9,6 +10,8 @@ namespace DK.NHibernate.Conventions
 	    {
 			public void Apply(IManyToOneInstance instance)
 			{
+				//The weak entity should not update the strong one.
+				//Changing to SaveUpdate, transaction stops working.
 				instance.Cascade.None();
 			}
 		}
@@ -17,9 +20,17 @@ namespace DK.NHibernate.Conventions
 	    {
 		    public void Apply(IOneToManyCollectionInstance instance)
 		    {
-				instance.Cascade.None();
+				if (instance.IsSystemEntity())
+				{
+					instance.Cascade.None();
+					instance.Inverse();
+				}
+				else
+				{
+					instance.Cascade.All();
+				}
 			}
-	    }
+		}
 
 
     }

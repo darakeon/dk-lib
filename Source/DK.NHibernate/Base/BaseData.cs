@@ -1,7 +1,6 @@
 ﻿using System;
 using DK.Generic.DB;
 using DK.Generic.Exceptions;
-using NHibernate;
 
 namespace DK.NHibernate.Base
 {
@@ -10,20 +9,8 @@ namespace DK.NHibernate.Base
     /// </summary>
     /// <typeparam name="T">Entity type</typeparam>
     internal class BaseData<T>
-        where T : class, IEntity
+        where T : class, IEntity, new()
     {
-        private static ISession session
-        {
-            get { return NHManager.Session; }
-        }
-
-        private static ISession sessionOld
-        {
-            get { return NHManager.SessionOld; }
-        }
-
-
-
         internal T SaveOrUpdate(T entity, params BaseRepository<T>.DelegateAction[] actions)
         {
             foreach (var delegateAction in actions)
@@ -36,13 +23,10 @@ namespace DK.NHibernate.Base
 
         private static T saveOrUpdate(T entity)
         {
-            try
-            {
-                //TODO
-                //if (entity.ID == 0)
-                //    session.Save(entity);
-                //else if (session.Contains(entity))
-                //    session.Update(entity);
+			var session = SessionManager.GetCurrent();
+
+			try
+			{
                 if (entity.ID == 0 || session.Contains(entity))
                     session.SaveOrUpdate(entity);
                 else
@@ -56,34 +40,51 @@ namespace DK.NHibernate.Base
             return entity;
         }
 
-		
 
-        internal T GetOldById(Int32 id)
-        {
-            return sessionOld.Get<T>(id);
-        }
+
+		public T GetNonCached(Int32 id)
+		{
+			return SessionManager.GetNonCached<T>(id);
+		}
 
 
 
         internal void Delete(T obj)
         {
-            if (obj != null)
+			var session = SessionManager.GetCurrent();
+
+			if (obj != null)
                 session.Delete(obj);
         }
 
 
         internal T GetById(Int32 id)
         {
-            return session.Get<T>(id);
+			var session = SessionManager.GetCurrent();
+			return session.Get<T>(id);
         }
 
 
 
 		public Query<T> NewQuery()
 		{
+			var session = SessionManager.GetCurrent();
 			return new Query<T>(session);
 		}
 
+		public TResult NewNonCachedQuery<TResult>(Func<Query<T>, TResult> action)
+		{
+			TResult result;
+			using (var otherSession = SessionManager.GetNonCached())
+			{
+				var query = new Query<T>(otherSession);
+				result = action(query);
+				otherSession.Close();
+				otherSession.Dispose();
+			}
+			return result;
+		}
 
-    }
+
+	}
 }

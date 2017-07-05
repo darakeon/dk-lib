@@ -10,11 +10,12 @@ namespace DK.NHibernate.Conventions
 	{
 		public void Accept(IAcceptanceCriteria<IPropertyInspector> criteria)
 		{
-			criteria.Expect(p => p.Type == typeof(Boolean));
+			criteria.Expect(p => p.Type == typeof(Boolean) || p.Type == typeof(Boolean?));
 		}
 
 		public void Apply(IPropertyInstance instance)
 		{
+			instance.CustomType(instance.Property.PropertyType);
 			instance.CustomSqlType("bit");
 		}
 	}

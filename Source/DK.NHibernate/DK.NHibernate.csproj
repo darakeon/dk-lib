@@ -55,6 +55,8 @@
     <Compile Include="Base\BaseData.cs" />
     <Compile Include="Base\BaseRepository.cs" />
     <Compile Include="Base\BaseService.cs" />
+    <Compile Include="Base\IUpload.cs" />
+    <Compile Include="Base\IUploadParent.cs" />
     <Compile Include="Base\SearchItem.cs" />
     <Compile Include="Base\TransactionController.cs" />
     <Compile Include="Conventions\BooleanConvention.cs" />
@@ -66,25 +68,31 @@
     <Compile Include="Helpers\SchemaChanger.cs" />
     <Compile Include="Helpers\StoreConfiguration.cs" />
     <Compile Include="Helpers\StringsAsLike.cs" />
-    <Compile Include="NHManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Base\SessionBuilder.cs" />
     <Compile Include="Base\SessionFactoryBuilder.cs" />
     <Compile Include="Base\Query.cs" />
     <Compile Include="UserPassed\AutoMappingInfo.cs" />
     <Compile Include="UserPassed\ConnectionInfo.cs" />
     <Compile Include="UserPassed\DataInitializer.cs" />
+    <Compile Include="Helpers\CriteriaExtension.cs" />
+    <Compile Include="Base\ISearch.cs" />
+    <Compile Include="AutoMapping\AutoMappingOne2ManyEnum.cs" />
+    <Compile Include="AutoMapping\ReservedWord.cs" />
+    <Compile Include="Conventions\DecimalConvention.cs" />
+    <Compile Include="Conventions\StringTypeConvention.cs" />
+    <Compile Include="Helpers\OneToManyCollectionInstanceExtension.cs" />
+    <Compile Include="Helpers\PropertyPartExtension.cs" />
+    <Compile Include="Helpers\SessionExtension.cs" />
+    <Compile Include="Base\SessionFactoryManager.cs" />
+    <Compile Include="Base\SessionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DK.Generic\DK.Generic.csproj">
       <Project>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</Project>
       <Name>DK.Generic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DK.MVC\DK.MVC.csproj">
-      <Project>{ED39BCED-DE3F-45DB-BB83-39EC967C92E8}</Project>
-      <Name>DK.MVC</Name>
-    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

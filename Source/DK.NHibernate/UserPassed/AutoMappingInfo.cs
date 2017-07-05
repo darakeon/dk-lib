@@ -15,15 +15,15 @@ namespace DK.NHibernate.UserPassed
     //public class AutoMappingInfo<TM, TE> where TM : IAutoMappingOverride<TE>
     public class AutoMappingInfo<TM, TE> where TM : IAutoMappingOverride<TE>
     {
-        /// <summary>
-        /// EntityBase, if it exists, to be ignored on mapping
-        /// </summary>
-        public Type EntityBase { get; set; }
+		/// <summary>
+		/// BaseEntities, if it exists, to be ignored on mapping
+		/// </summary>
+		public Type[] BaseEntities { get; set; }
 
-        /// <summary>
-        /// Classes which subclasses use its table
-        /// </summary>
-        public Type[] SuperEntities { get; set; }
+		/// <summary>
+		/// Classes which subclasses use its table
+		/// </summary>
+		public Type[] SuperEntities { get; set; }
 
         /// <summary>
         /// Conventions to configure Fluent
@@ -34,27 +34,33 @@ namespace DK.NHibernate.UserPassed
 
         internal AutoPersistenceModel CreateAutoMapping()
         {
-            var storeConfiguration = new StoreConfiguration(typeof(TE), SuperEntities);
+            var storeConfiguration = new StoreConfiguration(SuperEntities);
             var assembly = typeof(TE).Assembly;
 
             var autoMap = AutoMap
                 .Assemblies(storeConfiguration, assembly)
                 .UseOverridesFromAssemblyOf<TM>()
-                .IgnoreBase(EntityBase)
+				.Conventions.AddFromAssemblyOf<EnumConvention>()
                 .Conventions.Add(
                     new NullableConvention.Property(),
                     new NullableConvention.Reference(),
-                    new EnumConvention(),
-                    new BooleanConvention(),
 					new CascadeConvention.OneToMany(),
 					new CascadeConvention.ManyToOne(),
                     new NameConvention.ManyToMany(),
                     new NameConvention.HasMany(),
-                    new NameConvention.Reference()
+                    new NameConvention.Reference(),
+                    new NameConvention.TableNameConvention()
                 );
 
+			if (BaseEntities != null)
+			{
+				foreach (var baseEntity in BaseEntities)
+				{
+					autoMap = autoMap.IgnoreBase(baseEntity);
+				}
+			}
 
-            if (Conventions != null)
+			if (Conventions != null)
                 autoMap = autoMap.Conventions.Add(Conventions);
 
             return autoMap;

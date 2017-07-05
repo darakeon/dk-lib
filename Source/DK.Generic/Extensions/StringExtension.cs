@@ -28,5 +28,21 @@ namespace DK.Generic.Extensions
                         current.Replace("{{" + replace.Key + "}}", replace.Value));
         }
 
+
+
+	    /// <summary>
+	    /// Cast to Enum
+	    /// </summary>
+	    public static T Cast<T>(this String text)
+			where T : struct
+	    {
+		    var type = typeof (T);
+
+			if (!type.IsEnum)
+				throw new ArgumentException("The type " + type + " is not an enum");
+
+		    return (T) Enum.Parse(typeof (T), text);
+	    }
+
     }
 }

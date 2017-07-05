@@ -13,17 +13,25 @@ namespace DK.NHibernate.Helpers
     public class SchemaChanger
     {
         private readonly String scriptFileName;
+		private readonly String scriptFilePath;
 
-        public SchemaChanger(String scriptFileName)
+		public SchemaChanger(String scriptFileName)
         {
             var addressPattern = new Regex(@"^(\\|[A-Z]\:).*");
 
             this.scriptFileName = addressPattern.IsMatch(scriptFileName)
                 ? scriptFileName
-                : Path.Combine(Directory.GetCurrentDirectory(), scriptFileName);
-        }
+				: Path.Combine(AppDomain.CurrentDomain.BaseDirectory, scriptFileName);
 
-        internal void Build(Configuration config)
+			var info = new FileInfo(this.scriptFileName);
+
+			if (info.Directory != null && !info.Directory.Exists)
+			{
+				Directory.CreateDirectory(info.Directory.FullName);
+			}
+		}
+
+		internal void Build(Configuration config)
         {
             var schema = new SchemaExport(config);
 

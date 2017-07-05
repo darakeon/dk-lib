@@ -10,7 +10,7 @@ namespace DK.NHibernate.Helpers
         public static Disjunction GenericSearch<T>(String[] words)
         {
             var type = typeof(T);
-            var meta = SessionFactoryBuilder.GetClassMetadata(type);
+            var meta = SessionFactoryManager.Instance.GetClassMetadata(type);
 
             var disjunction = new Disjunction();
 

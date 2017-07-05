@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq.Expressions;
 using DK.Generic.DB;
+using DK.Generic.Extensions;
 
 namespace DK.NHibernate.Base
 {
 	/// <summary>
 	/// Higher level queries
 	/// </summary>
-	public class BaseRepository<T> where T : class, IEntity
+	public class BaseRepository<T> 
+		where T : class, IEntity, new()
 	{
 		private readonly BaseData<T> data;
 
@@ -50,11 +53,18 @@ namespace DK.NHibernate.Base
 		/// <summary>
 		/// Get old data of the entity
 		/// </summary>
-		public T GetOldById(Int32 id)
+		protected T GetNonCached(Int32 id)
 		{
-			return data.GetOldById(id);
+			return data.GetNonCached(id);
 		}
 
+		/// <summary>
+		/// Get old data of query
+		/// </summary>
+		protected TResult NewNonCachedQuery<TResult>(Func<Query<T>, TResult> action)
+		{
+			return data.NewNonCachedQuery(action);
+		}
 
 
 		/// <summary>
@@ -64,7 +74,7 @@ namespace DK.NHibernate.Base
 		/// <returns></returns>
 		public Boolean Any(Expression<Func<T, Boolean>> func)
 		{
-			return data.NewQuery().Filter(func).Count > 0;
+			return data.NewQuery().SimpleFilter(func).Count > 0;
 		}
 
 
@@ -74,7 +84,7 @@ namespace DK.NHibernate.Base
 		/// <exception cref="Exception">Not unique object</exception>
 		public T SingleOrDefault(Expression<Func<T, Boolean>> func)
 		{
-			return data.NewQuery().Filter(func).UniqueResult;
+			return data.NewQuery().SimpleFilter(func).UniqueResult;
 		}
 
 
@@ -118,7 +128,7 @@ namespace DK.NHibernate.Base
 		/// <param name="condition">Lambda expression condition</param>
 		public IList<T> SimpleFilter(Expression<Func<T, bool>> condition)
 		{
-			return data.NewQuery().Filter(condition).Result;
+			return data.NewQuery().SimpleFilter(condition).Result;
 		}
 
 		/// <summary>
@@ -135,12 +145,31 @@ namespace DK.NHibernate.Base
 		/// <param name="condition">Lambda expression condition</param>
 		public Int32 Count(Expression<Func<T, Boolean>> condition)
 		{
-			return data.NewQuery().Filter(condition).Count;
+			return data.NewQuery().SimpleFilter(condition).Count;
 		}
 
+		
 
+		/// <summary>
+		/// Save file method for attach file to entity
+		/// </summary>
+		protected static void SaveFile<TUpload, TEntity>(TUpload upload, TEntity entity, String uploadsDirectory)
+			where TUpload : IUpload
+			where TEntity : IUploadParent
+		{
+			var info = new FileInfo(upload.OriginalName);
+			var siteDirectory = Directory.GetCurrentDirectory();
+			var directory = Path.Combine(siteDirectory, uploadsDirectory);
+			var newFileName = Token.New() + info.Extension;
+			var path = Path.Combine(directory, newFileName);
 
+			if (!Directory.Exists(directory))
+				Directory.CreateDirectory(directory);
 
+			upload.Save(path);
+
+			entity.SetFileNames(newFileName, upload.OriginalName);
+		}
 
 
 

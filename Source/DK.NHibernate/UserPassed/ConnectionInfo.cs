@@ -44,21 +44,10 @@ namespace DK.NHibernate.UserPassed
 
 
         /// <summary>
-        /// The Action to be executed when SessionFactory is Created
-        /// Old CreateDB.
-        /// </summary>
-        public DBAction DBAction { get; set; }
-
-        /// <summary>
         /// The File Full Name for export Script.
         /// Just fill if see the script is needed
         /// </summary>
         public String ScriptFileFullName { get; set; }
-
-        /// <summary>
-        /// Data to initialize the DB.
-        /// </summary>
-        public IDataInitializer DataInitializer { get; set; }
 
         /// <summary>
         /// Whether to show SQL in log

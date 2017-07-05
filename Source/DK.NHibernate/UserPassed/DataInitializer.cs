@@ -1,4 +1,6 @@
-﻿namespace DK.NHibernate.UserPassed
+﻿using DK.NHibernate.Helpers;
+
+namespace DK.NHibernate.UserPassed
 {
     /// <summary>
     /// Inherit this class and pass yours to ConnectionInfo class to fill the DB after create.
@@ -6,9 +8,11 @@
     /// </summary>
     public interface IDataInitializer
     {
-        /// <summary>
-        /// Fill the Database.
-        /// </summary>
-        void Initialize();
-    }
+		/// <summary>
+		/// Fill the Database.
+		/// </summary>
+		void PopulateDB();
+
+		DBAction DBAction { get; }
+	}
 }
