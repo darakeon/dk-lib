@@ -114,18 +114,20 @@ namespace Ak.All
         private static void copyLibs()
         {
             if (chosenProject != "All")
-                copyLibs(projects[chosenProject]);
+                copyLibs(chosenProject, projects[chosenProject]);
             else
                 foreach (var project in projects)
                 {
-                    copyLibs(project.Value);
+                    copyLibs(project.Key, project.Value);
                 }
 
             Console.WriteLine("Done.");
         }
 
-        private static void copyLibs(string path)
+        private static void copyLibs(String name, String path)
         {
+            Console.WriteLine("Copying to {0}", name);
+
             foreach (var lib in currentLibs)
             {
                 var fileName = lib.Key;
