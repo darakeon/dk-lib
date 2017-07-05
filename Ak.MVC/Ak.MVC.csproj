@@ -39,6 +39,7 @@
     <Compile Include="Authentication\Authenticate.cs" />
     <Compile Include="Authentication\IRole.cs" />
     <Compile Include="Forms\CheckBoxList.cs" />
+    <Compile Include="Forms\Captcha.cs" />
     <Compile Include="Forms\HtmlHelperExtension.cs" />
     <Compile Include="Forms\IListable.cs" />
     <Compile Include="Forms\SelectListExtension.cs" />
@@ -53,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
