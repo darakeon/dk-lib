@@ -13,35 +13,41 @@ namespace Ak.XML
     /// </summary>
     public class Node
     {
-        #region Contructors
-        /// <summary>
-        /// Xml node structure
-        /// </summary>
-        public Node()
+	    private readonly Encoding encoding;
+
+		#region Contructors
+		///<summary>
+		///Xml node structure
+		///</summary>
+		///<param name="encoding">Encoding for the file</param>
+		public Node(Encoding encoding = null)
         {
-            Attributes = new Dictionary<String, String>();
+	        this.encoding = encoding ?? Encoding.UTF8;
+	        Attributes = new Dictionary<String, String>();
             Childs = new List<Node>();
             Value = String.Empty;
         }
 
-        /// <summary>
-        /// Xml node structure
-        /// </summary>
-        ///<param name="name">Name for the new Node</param>
-        ///<param name="value">Text Content for the new Node</param>
-        public Node(String name, String value) : this()
+	    ///<summary>
+	    ///Xml node structure
+	    ///</summary>
+	    ///<param name="name">Name for the new Node</param>
+	    ///<param name="value">Text Content for the new Node</param>
+	    ///<param name="encoding">Encoding for the file</param>
+	    public Node(String name, String value, Encoding encoding = null) : this(encoding)
         {
             Name = name;
             Value = value;
         }
 
-        /// <summary>
-        /// Xml node structure
-        /// </summary>
-        ///<param name="xmlNode">Initial XMLNode</param>
-        ///<param name="readChilds">Whether is to read all the childs (recursive read)</param>
-        private Node(XmlNode xmlNode, Boolean readChilds = true)
-            : this()
+		/// <summary>
+		/// Xml node structure
+		/// </summary>
+		///<param name="xmlNode">Initial XMLNode</param>
+		///<param name="readChilds">Whether is to read all the childs (recursive read)</param>
+		///<param name="encoding">Encoding for the file</param>
+		private Node(XmlNode xmlNode, Boolean readChilds = true, Encoding encoding = null)
+            : this(encoding)
         {
             if (xmlNode == null)
                 throw new AkException("XmlNode needed. Use another initialization if won't have it.");
@@ -80,12 +86,13 @@ namespace Ak.XML
             }
         }
 
-        /// <summary>
-        /// Xml node structure
-        /// </summary>
-        ///<param name="path">Path of the XML file</param>
-        ///<param name="readChilds">Whether is to read all the childs (recursive read)</param>
-        public Node(String path, Boolean readChilds = true) : this(createNodesFromFile(path), readChilds) { }
+		/// <summary>
+		/// Xml node structure
+		/// </summary>
+		///<param name="path">Path of the XML file</param>
+		///<param name="readChilds">Whether is to read all the childs (recursive read)</param>
+		///<param name="encoding">Encoding for the file</param>
+        public Node(String path, Boolean readChilds = true, Encoding encoding = null) : this(createNodesFromFile(path), readChilds, encoding) { }
 
         private static XmlNode createNodesFromFile(String path)
         {
@@ -224,8 +231,8 @@ namespace Ak.XML
 
         private void save()
         {
-            var textWriter = new XmlTextWriter(file, Encoding.UTF8) 
-                                { Formatting = Formatting.Indented, IndentChar = '\t', Indentation = 1 };
+            var textWriter = new XmlTextWriter(file, encoding) 
+                { Formatting = Formatting.Indented, IndentChar = '\t', Indentation = 1 };
 
             textWriter.WriteStartDocument();
 
