@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collection\IGroupable.cs" />
-    <Compile Include="Collection\InExtension.cs" />
+    <Compile Include="Collection\IsInExtension.cs" />
     <Compile Include="Enums\String2Enum.cs" />
     <Compile Include="Exceptions\AkException.cs" />
     <Compile Include="Exceptions\ErrorComposedReturn.cs" />

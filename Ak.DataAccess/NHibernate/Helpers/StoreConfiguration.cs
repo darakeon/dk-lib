@@ -22,7 +22,7 @@ namespace Ak.DataAccess.NHibernate.Helpers
 
         public override Boolean IsDiscriminated(Type type)
         {
-            return type.In(superEntities);
+            return type.IsIn(superEntities);
         }
 
         
