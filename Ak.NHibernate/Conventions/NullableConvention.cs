@@ -9,7 +9,10 @@ namespace Ak.NHibernate.Conventions
         {
             public void Apply(IPropertyInstance instance)
             {
-                instance.Not.Nullable();
+				if (instance.Type.IsGenericType && instance.Type.IsNullable)
+					instance.Nullable();
+				else
+					instance.Not.Nullable();
             }
         }
 
