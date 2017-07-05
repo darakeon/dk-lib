@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Ak.DataAccess.NHibernate.Helpers;
 using Ak.DataAccess.NHibernate.UserPassed;
 using Ak.Generic.Exceptions;
@@ -75,5 +76,6 @@ namespace Ak.DataAccess.NHibernate
         {
             return sessionFactory.GetClassMetadata(type);
         }
+
     }
 }

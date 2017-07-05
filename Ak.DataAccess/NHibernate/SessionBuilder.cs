@@ -15,35 +15,6 @@ namespace Ak.DataAccess.NHibernate
     /// </summary>
     public class SessionBuilder
     {
-        /// <summary>
-        /// Session of NHibernate
-        /// </summary>
-        public static ISession Session
-        {
-            get { return HttpContext.Current == null ? null : (ISession) HttpContext.Current.Items["NhSession"]; }
-            private set { HttpContext.Current.Items.Add("NhSession", value); }
-        }
-
-        private static Boolean hasSession
-        {
-            get { return Session != null && Session.IsOpen; }
-        }
-
-        private static Boolean hasTransaction
-        {
-            get
-            {
-                return hasSession && transaction.IsActive
-                    && !transaction.WasRolledBack;
-            }
-        }
-
-        private static ITransaction transaction
-        {
-            get { return Session.Transaction; }
-        }
-
-
         ///<summary>
         /// Create Session Factory.
         /// To be used at Application_Start.
@@ -107,10 +78,9 @@ namespace Ak.DataAccess.NHibernate
         /// Open the NH session.
         /// To be used at Application_BeginRequest.
         /// </summary>
-        public static void Open()
+        public static ISession Open()
         {
-            Session = SessionFactoryBuilder.OpenSession();
-            Session.BeginTransaction();
+            return SessionFactoryBuilder.OpenSession();
         }
 
         
@@ -119,13 +89,9 @@ namespace Ak.DataAccess.NHibernate
         /// Disconnect from DB.
         /// To be used at Application_EndRequest.
         ///</summary>
-        public static void Close()
+        public static void Close(ISession session)
         {
-            if (!hasTransaction) 
-                return;
-
-            transaction.Commit();
-            Session.Flush();
+            session.Flush();
         }
 
         ///<summary>
@@ -134,9 +100,6 @@ namespace Ak.DataAccess.NHibernate
         ///</summary>
         public static void End()
         {
-            if (hasSession)
-                Session.Close();
-
             SessionFactoryBuilder.End();
         }
 
@@ -146,12 +109,9 @@ namespace Ak.DataAccess.NHibernate
         /// Rollback the actions in case of Error.
         /// To be used at Application_Error.
         ///</summary>
-        public static void Error()
+        public static void Error(ISession session)
         {
-            if (hasTransaction)
-                transaction.Rollback();
-            else if (hasSession)
-                Session.Clear();
+            session.Clear();
         }
 
 
@@ -159,9 +119,9 @@ namespace Ak.DataAccess.NHibernate
         ///<summary>
         /// Force the Initialize of NHibernate objects.
         ///</summary>
-        public static void NhInitialize(object obj)
+        public static void NhInitialize(ISession session, object obj)
         {
-            if (hasSession && !Session.Contains(obj))
+            if (!session.Contains(obj))
                 NHibernateUtil.Initialize(obj);
         }
     }
