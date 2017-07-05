@@ -95,7 +95,7 @@ namespace DK.All
             {
                 var fileName = new FileInfo(lib).Name;
 
-                if (fileName.Contains("Ak.All")) continue;
+                if (fileName.Contains("DK.All")) continue;
 
                 currentLibs.Add(fileName, lib);
             }
@@ -105,7 +105,7 @@ namespace DK.All
         {
             var currentDirectoryPath = Directory.GetCurrentDirectory();
 
-            return Directory.GetFiles(currentDirectoryPath, "Ak.*");
+            return Directory.GetFiles(currentDirectoryPath, "DK.*");
         }
 
 
@@ -132,7 +132,7 @@ namespace DK.All
                 var fileName = lib.Key;
                 var original = lib.Value;
 
-                var libCopy = Path.Combine(path, "Ak", fileName);
+                var libCopy = Path.Combine(path, "DK", fileName);
 
                 File.Copy(original, libCopy, true);
                 Console.WriteLine("Copied: {0}", libCopy);

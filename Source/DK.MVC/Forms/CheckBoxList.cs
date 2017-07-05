@@ -72,7 +72,7 @@ namespace DK.MVC.Forms
         /// Past it in Views/Shared/EditorTemplates/CheckboxList.cshtml
         /// </summary>
         public readonly String View = @"
-@model Ak.MVC.Forms.CheckBoxList
+@model DK.MVC.Forms.CheckBoxList
 
 <ul>
     @for (var e = 0; e < Model.Items.Count; e++)

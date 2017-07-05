@@ -8,7 +8,7 @@ namespace DK.Generic.Exceptions
     public class DKException : Exception
     {
         ///<summary>
-        /// Any exception thrown by Ak library
+        /// Any exception thrown by DK library
         ///</summary>
         public DKException(String message) : base(message) { }
 
