@@ -52,10 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMapping\AutoMappingOne2One.cs" />
-    <Compile Include="BaseData.cs" />
-    <Compile Include="BaseRepository.cs" />
-    <Compile Include="BaseService.cs" />
-    <Compile Include="TransactionController.cs" />
+    <Compile Include="Base\BaseData.cs" />
+    <Compile Include="Base\BaseRepository.cs" />
+    <Compile Include="Base\BaseService.cs" />
+    <Compile Include="Base\TransactionController.cs" />
     <Compile Include="Conventions\CascadeConvention.cs" />
     <Compile Include="Conventions\EnumConvention.cs" />
     <Compile Include="Conventions\NameConvention.cs" />
@@ -66,8 +66,8 @@
     <Compile Include="Helpers\StringsAsLike.cs" />
     <Compile Include="NHManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SessionBuilder.cs" />
-    <Compile Include="SessionFactoryBuilder.cs" />
+    <Compile Include="Base\SessionBuilder.cs" />
+    <Compile Include="Base\SessionFactoryBuilder.cs" />
     <Compile Include="UserPassed\AutoMappingInfo.cs" />
     <Compile Include="UserPassed\ConnectionInfo.cs" />
     <Compile Include="UserPassed\DataInitializer.cs" />
