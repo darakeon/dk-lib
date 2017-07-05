@@ -61,7 +61,9 @@ namespace Ak.NHibernate
             if (sessionFactory == null)
                 throw new AkException("Restart the Application.");
 
-            return sessionFactory.OpenSession();
+            var session = sessionFactory.OpenSession();
+
+            return session;
         }
 
         internal static void End()

@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMapping\AutoMappingOne2One.cs" />
+    <Compile Include="BaseData.cs" />
+    <Compile Include="BaseRepository.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="TransactionController.cs" />
     <Compile Include="Conventions\CascadeConvention.cs" />
     <Compile Include="Conventions\EnumConvention.cs" />
     <Compile Include="Conventions\NameConvention.cs" />
@@ -60,6 +64,7 @@
     <Compile Include="Helpers\SchemaChanger.cs" />
     <Compile Include="Helpers\StoreConfiguration.cs" />
     <Compile Include="Helpers\StringsAsLike.cs" />
+    <Compile Include="NHManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionBuilder.cs" />
     <Compile Include="SessionFactoryBuilder.cs" />
@@ -71,6 +76,10 @@
     <ProjectReference Include="..\Ak.Generic\Ak.Generic.csproj">
       <Project>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</Project>
       <Name>Ak.Generic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ak.MVC\Ak.MVC.csproj">
+      <Project>{ED39BCED-DE3F-45DB-BB83-39EC967C92E8}</Project>
+      <Name>Ak.MVC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

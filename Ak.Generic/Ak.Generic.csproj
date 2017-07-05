@@ -37,10 +37,12 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collection\IGroupable.cs" />
     <Compile Include="Collection\IsInExtension.cs" />
+    <Compile Include="DB\IEntity.cs" />
     <Compile Include="Enums\String2Enum.cs" />
     <Compile Include="Exceptions\AkException.cs" />
     <Compile Include="Exceptions\ComposedResult.cs" />
@@ -51,6 +53,7 @@
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\Property.cs" />
+    <Compile Include="Extensions\Token.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

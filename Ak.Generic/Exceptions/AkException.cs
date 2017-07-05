@@ -12,5 +12,12 @@ namespace Ak.Generic.Exceptions
         ///</summary>
         public AkException(String message) : base(message) { }
 
+        public static void TestOtherIfTooLarge(Exception e)
+        {
+            if (e.InnerException != null && e.InnerException.Message.StartsWith("Data too long for column"))
+                throw new AkException("TooLargeData");
+
+            throw e;
+        }
     }
 }
