@@ -82,9 +82,9 @@ namespace DK.NHibernate.Base
 		/// Get objects from DB without NH cache
 		/// </summary>
 		internal static ISession GetNonCached()
-        {
-            return SessionFactoryManager.Instance.OpenSession();
-        }
+		{
+			return SessionFactoryManager.Instance.OpenSession();
+		}
 
 
 
