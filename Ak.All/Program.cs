@@ -44,14 +44,14 @@ namespace Ak.All
         private static void setProjectOptions()
         {
             var projectDir = Directory.GetCurrentDirectory();
-            var localDir = projectDir.IndexOf("Akeon");
+            var localDir = projectDir.IndexOf("Keon") + 5;
             var mainDir = projectDir.Substring(0, localDir);
 
             projects = new Dictionary<String, String>
                            {
-                               {"DFM", mainDir + @"Akeon\03 - DFM\Source\Library"},
-                               {"Responde", mainDir + @"Akeon\02 - Responde\Source\Library"},
-                               {"Stories", mainDir + @"Akeon\06 - Stories\Source\Library"}
+                               {"DFM", mainDir + @"03 - DFM\Source\Library"},
+                               {"Responde", mainDir + @"02 - Responde\Source\Library"},
+                               {"Stories", mainDir + @"06 - Stories\Source\Library"}
                            };
         }
 
