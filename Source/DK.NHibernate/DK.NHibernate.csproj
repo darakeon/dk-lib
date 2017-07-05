@@ -75,11 +75,11 @@
     <Compile Include="UserPassed\DataInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ak.Generic\DK.Generic.csproj">
+    <ProjectReference Include="..\DK.Generic\DK.Generic.csproj">
       <Project>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</Project>
       <Name>DK.Generic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ak.MVC\DK.MVC.csproj">
+    <ProjectReference Include="..\DK.MVC\DK.MVC.csproj">
       <Project>{ED39BCED-DE3F-45DB-BB83-39EC967C92E8}</Project>
       <Name>DK.MVC</Name>
     </ProjectReference>

@@ -48,7 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ak.Generic\DK.Generic.csproj">
+    <ProjectReference Include="..\DK.Generic\DK.Generic.csproj">
       <Project>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</Project>
       <Name>DK.Generic</Name>
     </ProjectReference>
