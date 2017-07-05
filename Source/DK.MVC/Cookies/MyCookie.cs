@@ -1,118 +1,86 @@
-﻿using System;
+using System;
 using System.Web;
+using DK.Generic.Exceptions;
 using DK.Generic.Extensions;
-using DK.MVC.Route;
 
 namespace DK.MVC.Cookies
 {
-    /// <summary>
-    /// "Cookie" for browser, cellphone or local
-    /// </summary>
-    public static class MyCookie
-    {
-        /// <summary>
-        /// Get (if needed, create) ticket
-        /// </summary>
-        public static PseudoTicket Get()
-        {
-            if (context == null)
-            {
-                var ticket = local ?? (local = Token.New());
-                return new PseudoTicket(ticket, TicketType.Local);
-            }
+	/// <summary>
+	/// "Cookie" for browser, cellphone or local
+	/// </summary>
+	public static class MyCookie
+	{
+		/// <summary>
+		/// Get (if needed, create) ticket
+		/// </summary>
+		public static String Get()
+		{
+			if (context == null)
+			{
+				throw new DKException("No http context");
+			}
 
-            var routeInfo = new RouteInfo();
-            var routeData = routeInfo.RouteData;
+			if (get() == null)
+				add(Token.New());
 
-            if (routeData != null)
-            {
-                var routeTicket = routeData.Values["ticket"];
-
-                if (routeTicket != null)
-                    return new PseudoTicket(routeTicket.ToString(), TicketType.Cellphone);
-            }
-
-            if (get() == null)
-                add(Token.New());
-
-            var isApi = context.Request.Url.AbsolutePath
-                .StartsWith("/API", StringComparison.InvariantCultureIgnoreCase);
-
-            var type = isApi
-                ? TicketType.Cellphone
-                : TicketType.Browser;
-
-            return new PseudoTicket(get(), type);
-        }
+			return get();
+		}
 
 
 
-        private static String local;
+		private const String name = "DFM";
+
+		private static HttpContext context => HttpContext.Current;
+		private static HttpCookieCollection requestCookies => context.Request.Cookies;
+		private static HttpCookieCollection responseCookies => context.Response.Cookies;
+
+
+		private static String get()
+		{
+			var cookie = requestCookies[name]
+			             ?? responseCookies[name];
+
+			if (cookie == null)
+				return null;
+
+			if (cookie.Value == null)
+				remove();
+
+			return cookie.Value;
+		}
 
 
 
-        private const String name = "DFM";
+		private static void add(String value)
+		{
+			remove();
 
-        private static HttpContext context
-        {
-            get { return HttpContext.Current; }
-        }
+			var cookie = new HttpCookie(name)
+			{
+				Value = value,
+				Expires = DateTime.UtcNow.AddDays(7)
+			};
 
-        private static HttpCookieCollection requestCookies
-        {
-            get { return context.Request.Cookies; }
-        }
+			requestCookies.Add(cookie);
+			responseCookies.Add(cookie);
 
-        private static HttpCookieCollection responseCookies
-        {
-            get { return context.Response.Cookies; }
-        }
+			// ReSharper disable PossibleNullReferenceException
+			requestCookies[name].Value = value;
+			responseCookies[name].Value = value;
+			// ReSharper enable PossibleNullReferenceException
+		}
 
+		private static void remove()
+		{
+			if (requestCookies[name] != null)
+				requestCookies[name].Expires =
+					DateTime.UtcNow.AddDays(-1);
 
-        private static String get()
-        {
-            var cookie = requestCookies[name]
-                            ?? responseCookies[name];
-
-            if (cookie == null)
-                return null;
-
-            if (cookie.Value == null)
-                remove();
-
-            return cookie.Value;
-        }
+			if (responseCookies[name] != null)
+				responseCookies[name].Expires =
+					DateTime.UtcNow.AddDays(-1);
+		}
 
 
-
-        private static void add(String value)
-        {
-            remove();
-
-            var cookie = new HttpCookie(name)
-            {
-                Value = value,
-                Expires = DateTime.UtcNow.AddDays(7)
-            };
-
-            requestCookies.Add(cookie);
-            responseCookies.Add(cookie);
-
-            requestCookies[name].Value = value;
-            responseCookies[name].Value = value;
-        }
-
-        private static void remove()
-        {
-            if (requestCookies[name] != null)
-                requestCookies[name].Expires =
-                    DateTime.UtcNow.AddDays(-1);
-
-            if (responseCookies[name] != null)
-                responseCookies[name].Expires =
-                    DateTime.UtcNow.AddDays(-1);
-        }
-
-
-    }
+	}
 }

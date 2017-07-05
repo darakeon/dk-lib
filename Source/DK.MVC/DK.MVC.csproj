@@ -39,8 +39,6 @@
     <Compile Include="Authentication\Authenticate.cs" />
     <Compile Include="Authentication\IRole.cs" />
     <Compile Include="Cookies\MyCookie.cs" />
-    <Compile Include="Cookies\PseudoTicket.cs" />
-    <Compile Include="Cookies\TicketType.cs" />
     <Compile Include="Forms\CheckBoxList.cs" />
     <Compile Include="Forms\Captcha.cs" />
     <Compile Include="Forms\HtmlHelperExtension.cs" />

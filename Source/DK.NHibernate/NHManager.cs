@@ -19,20 +19,16 @@ namespace DK.NHibernate
         /// <summary>
         /// Communicates with DB
         /// </summary>
-        public static ISession Session
-        {
-            get { return getSession(key).NHSession; }
-        }
+        public static ISession Session => getSession(key).NHSession;
 
-        /// <summary>
+	    
+		/// <summary>
         /// Helps to get old data without messing with changed entities
         /// </summary>
-        public static ISession SessionOld
-        {
-            get { return getSession(keyOld).NHSession; }
-        }
+        public static ISession SessionOld => getSession(keyOld).NHSession;
 
-        private static SessionWithCount getSession(String sessionKey)
+
+	    private static SessionWithCount getSession(String sessionKey)
         {
             if (!sessionList.ContainsKey(sessionKey))
             {
@@ -128,32 +124,18 @@ namespace DK.NHibernate
 
 
 
-        private static String key
-        {
-            get { return MyCookie.Get().Key; }
-        }
-
-        private static String keyOld
-        {
-            get { return key + "_old"; }
-        }
+        private static String key => MyCookie.Get();
+	    private static String keyOld => key + "_old";
 
 
-
-        /// <summary>
+	    /// <summary>
         /// Verify whether can use session
         /// </summary>
-        public static Boolean IsActive
-        {
-            get { return isActive(key); }
-        }
+        public static Boolean IsActive => isActive(key);
+	    private static Boolean isActiveOld => isActive(keyOld);
 
-        private static Boolean isActiveOld
-        {
-            get { return isActive(keyOld); }
-        }
 
-        private static Boolean isActive(String sessionKey)
+	    private static Boolean isActive(String sessionKey)
         {
             try
             {
@@ -190,7 +172,7 @@ namespace DK.NHibernate
                 return Count > 0;
             }
 
-            public ISession NHSession { get; private set; }
+            public ISession NHSession { get; }
             public Int32 Count { get; private set; }
 
         }
