@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.Instances;
 
-namespace Ak.NHibernate.Conventions
+namespace DK.NHibernate.Conventions
 {
     internal class CascadeConvention
     {

@@ -3,12 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Ak.Generic.Exceptions;
+using DK.Generic.Exceptions;
 using NHibernate.Cfg;
 using NHibernate.Linq;
 using NHibernate.Tool.hbm2ddl;
 
-namespace Ak.NHibernate.Helpers
+namespace DK.NHibernate.Helpers
 {
     public class SchemaChanger
     {

@@ -1,9 +1,9 @@
 ﻿using System;
-using Ak.NHibernate.Base;
+using DK.NHibernate.Base;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace Ak.NHibernate.Helpers
+namespace DK.NHibernate.Helpers
 {
     internal class StringsAsLike
     {

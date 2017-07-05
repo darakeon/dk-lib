@@ -8,8 +8,8 @@
     <ProjectGuid>{5CCE8FD9-BF36-4C3B-8651-D2FB97295D74}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ak.NHibernate</RootNamespace>
-    <AssemblyName>Ak.NHibernate</AssemblyName>
+    <RootNamespace>DK.NHibernate</RootNamespace>
+    <AssemblyName>DK.NHibernate</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Ak.NHibernate.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\DK.NHibernate.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

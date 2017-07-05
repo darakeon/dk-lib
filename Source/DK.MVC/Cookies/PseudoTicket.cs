@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ak.MVC.Cookies
+namespace DK.MVC.Cookies
 {
     /// <summary>
     /// Ticket for cookie

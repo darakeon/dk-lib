@@ -8,8 +8,8 @@
     <ProjectGuid>{BD75CF69-95B8-4BCB-B1E6-DF449417439F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ak.Facebook</RootNamespace>
-    <AssemblyName>Ak.Facebook</AssemblyName>
+    <RootNamespace>DK.Facebook</RootNamespace>
+    <AssemblyName>DK.Facebook</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Ak.Facebook.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\DK.Facebook.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

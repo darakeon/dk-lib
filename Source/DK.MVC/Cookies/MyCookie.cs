@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web;
-using Ak.Generic.Extensions;
-using Ak.MVC.Route;
+using DK.Generic.Extensions;
+using DK.MVC.Route;
 
-namespace Ak.MVC.Cookies
+namespace DK.MVC.Cookies
 {
     /// <summary>
     /// "Cookie" for browser, cellphone or local

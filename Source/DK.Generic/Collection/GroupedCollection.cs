@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Collections;
 
-namespace Ak.Generic.Collection
+namespace DK.Generic.Collection
 {
     /// <summary>
     /// Collection Grouped by one of the properties of the original IList

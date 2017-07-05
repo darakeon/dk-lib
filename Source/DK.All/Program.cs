@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Ak.All
+namespace DK.All
 {
     ///<summary>
     ///</summary>

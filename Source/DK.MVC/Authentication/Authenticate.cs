@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
-using System.Web.Security;
 using System.Web.Configuration;
+using System.Web.Security;
 
-namespace Ak.MVC.Authentication
+namespace DK.MVC.Authentication
 {
     ///<summary>
     /// To make authentication in MVC easier

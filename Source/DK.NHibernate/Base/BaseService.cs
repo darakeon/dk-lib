@@ -1,7 +1,7 @@
 ﻿using System;
-using Ak.Generic.Exceptions;
+using DK.Generic.Exceptions;
 
-namespace Ak.NHibernate.Base
+namespace DK.NHibernate.Base
 {
     /// <summary>
     /// Base for services, to have transaction

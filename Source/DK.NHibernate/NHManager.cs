@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Ak.Generic.Exceptions;
-using Ak.MVC.Cookies;
-using Ak.NHibernate.Base;
-using Ak.NHibernate.UserPassed;
+using DK.Generic.Exceptions;
+using DK.MVC.Cookies;
+using DK.NHibernate.Base;
+using DK.NHibernate.UserPassed;
 using FluentNHibernate.Automapping.Alterations;
 using NHibernate;
 
-namespace Ak.NHibernate
+namespace DK.NHibernate
 {
     /// <summary>
     /// Session Manager

@@ -1,8 +1,8 @@
 ﻿using System;
-using Ak.Generic.Exceptions;
+using DK.Generic.Exceptions;
 using NHibernate;
 
-namespace Ak.NHibernate.Base
+namespace DK.NHibernate.Base
 {
     internal class TransactionController
     {

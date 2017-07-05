@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ak.Generic.Extensions
+namespace DK.Generic.Extensions
 {
     ///<summary>
     /// Enum extensions to String

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Ak.Generic.Collection
+namespace DK.Generic.Collection
 {
     ///<summary>
     ///</summary>

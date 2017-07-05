@@ -1,4 +1,4 @@
-namespace Ak.Generic.Exceptions
+namespace DK.Generic.Exceptions
 {
     /// <summary>
     /// Class to return an object composed by the return error and the success return

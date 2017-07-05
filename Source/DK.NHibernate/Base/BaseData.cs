@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using Ak.Generic.DB;
-using Ak.Generic.Exceptions;
+using DK.Generic.DB;
+using DK.Generic.Exceptions;
 using NHibernate;
-using NHibernate.Criterion;
 
-namespace Ak.NHibernate.Base
+namespace DK.NHibernate.Base
 {
     /// <summary>
     /// Base communication with DB

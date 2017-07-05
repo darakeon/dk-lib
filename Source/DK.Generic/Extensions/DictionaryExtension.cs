@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Ak.Generic.Extensions
+namespace DK.Generic.Extensions
 {
     ///<summary>
     ///</summary>

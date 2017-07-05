@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ak.Generic.Extensions
+namespace DK.Generic.Extensions
 {
     ///<summary>
     ///</summary>

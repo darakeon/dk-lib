@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace Ak.MVC.Authentication
+namespace DK.MVC.Authentication
 {
     ///<summary>
     /// To Force error when the user is not logged-in

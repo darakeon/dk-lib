@@ -4,7 +4,7 @@ using System.Linq;
 using Facebook;
 using Facebook.Web;
 
-namespace Ak.Facebook
+namespace DK.Facebook
 {
     ///<summary>
     /// To Get Data from Facebook

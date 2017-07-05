@@ -8,8 +8,8 @@
     <ProjectGuid>{F2EDE40B-6855-4801-AA0F-74E5412C1B0A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ak.Excel</RootNamespace>
-    <AssemblyName>Ak.Excel</AssemblyName>
+    <RootNamespace>DK.Excel</RootNamespace>
+    <AssemblyName>DK.Excel</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Ak.Excel.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\DK.Excel.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

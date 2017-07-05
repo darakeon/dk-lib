@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Ak.Generic.Reflection;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Mapping;
 
-namespace Ak.NHibernate.AutoMapping
+namespace DK.NHibernate.AutoMapping
 {
 	///<summary>
 	/// Extensions to relation 1:1

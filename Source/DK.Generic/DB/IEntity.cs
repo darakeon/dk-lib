@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ak.Generic.DB
+namespace DK.Generic.DB
 {
     /// <summary>
     /// Minimum entity for DB

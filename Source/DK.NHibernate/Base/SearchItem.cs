@@ -1,8 +1,8 @@
 using System;
 using System.Linq.Expressions;
-using Ak.Generic.Reflection;
+using DK.Generic.Reflection;
 
-namespace Ak.NHibernate.Base
+namespace DK.NHibernate.Base
 {
 	/// <summary>
 	/// To search for string

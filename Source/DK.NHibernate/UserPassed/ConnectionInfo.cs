@@ -1,9 +1,9 @@
 ﻿using System;
-using Ak.Generic.Exceptions;
-using Ak.NHibernate.Helpers;
+using DK.Generic.Exceptions;
+using DK.NHibernate.Helpers;
 using FluentNHibernate.Cfg.Db;
 
-namespace Ak.NHibernate.UserPassed
+namespace DK.NHibernate.UserPassed
 {
     /// <summary>
     /// Information to Connect to the Database.

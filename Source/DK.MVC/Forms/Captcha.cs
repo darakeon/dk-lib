@@ -7,7 +7,7 @@ using System.IO;
 using System.Web;
 using System.Web.SessionState;
 
-namespace Ak.MVC.Forms
+namespace DK.MVC.Forms
 {
     public class Captcha
     {

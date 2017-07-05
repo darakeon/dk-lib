@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ak.MVC.Authentication
+namespace DK.MVC.Authentication
 {
     ///<summary>
     /// The Interface to paas Roles (permissions) to Authenticate

@@ -1,11 +1,11 @@
 ﻿using System;
-using Ak.NHibernate.Conventions;
-using Ak.NHibernate.Helpers;
+using DK.NHibernate.Conventions;
+using DK.NHibernate.Helpers;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Automapping.Alterations;
 using FluentNHibernate.Conventions;
 
-namespace Ak.NHibernate.UserPassed
+namespace DK.NHibernate.UserPassed
 {
     /// <summary>
     /// Information to use Automapping of Fluent

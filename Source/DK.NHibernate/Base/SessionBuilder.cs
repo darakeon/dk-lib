@@ -1,13 +1,13 @@
 using System;
 using System.Configuration;
 using System.IO;
-using Ak.Generic.Enums;
-using Ak.NHibernate.Helpers;
-using Ak.NHibernate.UserPassed;
+using DK.Generic.Enums;
+using DK.NHibernate.Helpers;
+using DK.NHibernate.UserPassed;
 using FluentNHibernate.Automapping.Alterations;
 using NHibernate;
 
-namespace Ak.NHibernate.Base
+namespace DK.NHibernate.Base
 {
     /// <summary>
     /// To create NHibernate Session and communicate with DB

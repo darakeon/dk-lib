@@ -8,8 +8,8 @@
     <ProjectGuid>{BE5C6AFD-8D76-4A62-B77A-C5503FCDBE57}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ak.XML</RootNamespace>
-    <AssemblyName>Ak.XML</AssemblyName>
+    <RootNamespace>DK.XML</RootNamespace>
+    <AssemblyName>DK.XML</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Ak.XML.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\DK.XML.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

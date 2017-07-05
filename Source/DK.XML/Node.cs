@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using Ak.Generic.Exceptions;
+using DK.Generic.Exceptions;
 
-namespace Ak.XML
+namespace DK.XML
 {
     /// <summary>
     /// Xml node structure

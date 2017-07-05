@@ -3,7 +3,7 @@ using FluentNHibernate.Conventions.AcceptanceCriteria;
 using FluentNHibernate.Conventions.Inspections;
 using FluentNHibernate.Conventions.Instances;
 
-namespace Ak.NHibernate.Conventions
+namespace DK.NHibernate.Conventions
 {
     internal class EnumConvention : IUserTypeConvention
     {

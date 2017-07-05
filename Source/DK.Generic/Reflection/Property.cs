@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Ak.Generic.Reflection
+namespace DK.Generic.Reflection
 {
     ///<summary>
     /// Helper of PropertyInfo

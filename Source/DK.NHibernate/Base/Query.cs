@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Ak.Generic.Reflection;
+using DK.Generic.Reflection;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace Ak.NHibernate.Base
+namespace DK.NHibernate.Base
 {
     /// <summary>
     /// Object to handle database fluently

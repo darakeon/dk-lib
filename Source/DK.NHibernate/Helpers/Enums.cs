@@ -1,4 +1,4 @@
-﻿namespace Ak.NHibernate.Helpers
+﻿namespace DK.NHibernate.Helpers
 {
     /// <summary>
     /// List of accepted DBMSs

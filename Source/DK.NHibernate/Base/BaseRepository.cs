@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Ak.Generic.DB;
+using DK.Generic.DB;
 
-namespace Ak.NHibernate.Base
+namespace DK.NHibernate.Base
 {
 	/// <summary>
 	/// Higher level queries

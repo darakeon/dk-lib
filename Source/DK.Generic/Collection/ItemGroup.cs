@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 
-namespace Ak.Generic.Collection
+namespace DK.Generic.Collection
 {
     /// <summary>
     /// Item of a Grouped Collection

@@ -8,8 +8,8 @@
     <ProjectGuid>{ED39BCED-DE3F-45DB-BB83-39EC967C92E8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ak.MVC</RootNamespace>
-    <AssemblyName>Ak.MVC</AssemblyName>
+    <RootNamespace>DK.MVC</RootNamespace>
+    <AssemblyName>DK.MVC</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -23,7 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Debug\Ak.MVC.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\DK.MVC.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

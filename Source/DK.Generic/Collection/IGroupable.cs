@@ -1,4 +1,4 @@
-﻿namespace Ak.Generic.Collection
+﻿namespace DK.Generic.Collection
 {
     ///<summary>
     /// Interface to use GroupedCollection

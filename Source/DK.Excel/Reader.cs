@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 
-namespace Ak.Excel
+namespace DK.Excel
 {
     internal class Reader
     {

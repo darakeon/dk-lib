@@ -1,13 +1,13 @@
 ﻿using System;
-using Ak.Generic.Exceptions;
-using Ak.NHibernate.Helpers;
-using Ak.NHibernate.UserPassed;
+using DK.Generic.Exceptions;
+using DK.NHibernate.Helpers;
+using DK.NHibernate.UserPassed;
 using FluentNHibernate.Automapping.Alterations;
 using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Metadata;
 
-namespace Ak.NHibernate.Base
+namespace DK.NHibernate.Base
 {
     internal class SessionFactoryBuilder
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using Ak.Generic.Collection;
+using DK.Generic.Collection;
 using FluentNHibernate.Automapping;
 
-namespace Ak.NHibernate.Helpers
+namespace DK.NHibernate.Helpers
 {
     internal class StoreConfiguration : DefaultAutomappingConfiguration
     {

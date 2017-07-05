@@ -1,4 +1,4 @@
-﻿namespace Ak.MVC.Cookies
+﻿namespace DK.MVC.Cookies
 {
     /// <summary>
     /// Cookie ticket type
