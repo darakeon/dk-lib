@@ -13,41 +13,35 @@ namespace DK.XML
     /// </summary>
     public class Node
     {
-	    private readonly Encoding encoding;
-
 		#region Contructors
 		///<summary>
-		///Xml node structure
+		/// Xml node structure
 		///</summary>
-		///<param name="encoding">Encoding for the file</param>
-		public Node(Encoding encoding = null)
+		public Node()
         {
-	        this.encoding = encoding ?? Encoding.UTF8;
 	        Attributes = new Dictionary<String, String>();
             Childs = new List<Node>();
             Value = String.Empty;
         }
 
 	    ///<summary>
-	    ///Xml node structure
+	    ///	Xml node structure
 	    ///</summary>
 	    ///<param name="name">Name for the new Node</param>
 	    ///<param name="value">Text Content for the new Node</param>
-	    ///<param name="encoding">Encoding for the file</param>
-	    public Node(String name, String value, Encoding encoding = null) : this(encoding)
+	    public Node(String name, String value) : this()
         {
             Name = name;
             Value = value;
         }
 
-		/// <summary>
+		///<summary>
 		/// Xml node structure
-		/// </summary>
+		///</summary>
 		///<param name="xmlNode">Initial XMLNode</param>
 		///<param name="readChilds">Whether is to read all the childs (recursive read)</param>
-		///<param name="encoding">Encoding for the file</param>
-		private Node(XmlNode xmlNode, Boolean readChilds = true, Encoding encoding = null)
-            : this(encoding)
+		private Node(XmlNode xmlNode, Boolean readChilds = true)
+            : this()
         {
             if (xmlNode == null)
                 throw new DKException("XmlNode needed. Use another initialization if won't have it.");
@@ -91,8 +85,7 @@ namespace DK.XML
 		/// </summary>
 		///<param name="path">Path of the XML file</param>
 		///<param name="readChilds">Whether is to read all the childs (recursive read)</param>
-		///<param name="encoding">Encoding for the file</param>
-        public Node(String path, Boolean readChilds = true, Encoding encoding = null) : this(createNodesFromFile(path), readChilds, encoding) { }
+        public Node(String path, Boolean readChilds = true) : this(createNodesFromFile(path), readChilds) { }
 
         private static XmlNode createNodesFromFile(String path)
         {
@@ -231,7 +224,9 @@ namespace DK.XML
 
         private void save()
         {
-            var textWriter = new XmlTextWriter(file, encoding) 
+	        var utf8WithoutBom = new UTF8Encoding(false);
+
+            var textWriter = new XmlTextWriter(file, utf8WithoutBom)
                 { Formatting = Formatting.Indented, IndentChar = '\t', Indentation = 1 };
 
             textWriter.WriteStartDocument();
@@ -274,8 +269,10 @@ namespace DK.XML
 
             if (fileFullName == null)
             {
-                var path = file.Substring(0, file.LastIndexOf(@"\") + 1) + "BackUp";
-                var name = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + file.Substring(file.LastIndexOf(@"\") + 1);
+	            var barIndex = file.LastIndexOf(@"\", StringComparison.Ordinal);
+
+				var path = file.Substring(0, barIndex + 1) + "BackUp";
+                var name = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + file.Substring(barIndex + 1);
 
                 copy = Path.Combine(path, name);
 
