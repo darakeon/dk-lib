@@ -57,6 +57,7 @@
     <Compile Include="Base\BaseService.cs" />
     <Compile Include="Base\SearchItem.cs" />
     <Compile Include="Base\TransactionController.cs" />
+    <Compile Include="Conventions\BooleanConvention.cs" />
     <Compile Include="Conventions\CascadeConvention.cs" />
     <Compile Include="Conventions\EnumConvention.cs" />
     <Compile Include="Conventions\NameConvention.cs" />

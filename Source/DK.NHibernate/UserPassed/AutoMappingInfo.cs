@@ -45,6 +45,7 @@ namespace DK.NHibernate.UserPassed
                     new NullableConvention.Property(),
                     new NullableConvention.Reference(),
                     new EnumConvention(),
+                    new BooleanConvention(),
 					new CascadeConvention.OneToMany(),
 					new CascadeConvention.ManyToOne(),
                     new NameConvention.ManyToMany(),
