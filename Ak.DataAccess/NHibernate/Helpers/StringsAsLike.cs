@@ -18,19 +18,19 @@ namespace Ak.DataAccess.NHibernate.Helpers
 
             var disjunction = new Disjunction();
 
-            foreach (string mappedPropertyName in meta.PropertyNames)
+            foreach (var mappedPropertyName in meta.PropertyNames)
             {
                 var propertyType = meta.GetPropertyType(mappedPropertyName);
 
-                if (propertyType == NHibernateUtil.String)
+                if (propertyType != NHibernateUtil.String) 
+                    continue;
+
+                foreach (var word in words)
                 {
-                    foreach (string word in words)
-                    {
-                        disjunction.Add(
-                            Restrictions.InsensitiveLike(
-                                mappedPropertyName,
-                                "%" + word + "%"));
-                    }
+                    disjunction.Add(
+                        Restrictions.InsensitiveLike(
+                            mappedPropertyName,
+                            "%" + word + "%"));
                 }
             }
 
