@@ -33,34 +33,37 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">
-      <HintPath>..\..\FluentNHibernate\Antlr3.Runtime.dll</HintPath>
+      <HintPath>..\Library\FluentNHibernate\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
-      <HintPath>..\..\FluentNHibernate\Castle.Core.dll</HintPath>
+      <HintPath>..\Library\FluentNHibernate\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Facebook">
-      <HintPath>..\..\Facebook\Facebook.5.0.9.0\Facebook.dll</HintPath>
+      <HintPath>..\Library\Facebook\Facebook.5.0.9.0\Facebook.dll</HintPath>
     </Reference>
     <Reference Include="Facebook.Web">
-      <HintPath>..\..\Facebook\FacebookWeb.5.0.9.0\Facebook.Web.dll</HintPath>
+      <HintPath>..\Library\Facebook\FacebookWeb.5.0.9.0\Facebook.Web.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate">
-      <HintPath>..\..\FluentNHibernate\FluentNHibernate.dll</HintPath>
+      <HintPath>..\Library\FluentNHibernate\FluentNHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
-      <HintPath>..\..\FluentNHibernate\Iesi.Collections.dll</HintPath>
+      <HintPath>..\Library\FluentNHibernate\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Library\FluentNHibernate\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\Json\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Library\Json\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
-      <HintPath>..\..\FluentNHibernate\NHibernate.dll</HintPath>
+      <HintPath>..\Library\FluentNHibernate\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate.ByteCode.Castle">
-      <HintPath>..\..\FluentNHibernate\NHibernate.ByteCode.Castle.dll</HintPath>
+      <HintPath>..\Library\FluentNHibernate\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
     <Reference Include="Remotion.Data.Linq">
-      <HintPath>..\..\FluentNHibernate\Remotion.Data.Linq.dll</HintPath>
+      <HintPath>..\Library\FluentNHibernate\Remotion.Data.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

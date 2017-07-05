@@ -28,24 +28,18 @@ namespace Ak.DataAccess.NHibernate
             get { return Session != null && Session.IsOpen; }
         }
 
-        private static ITransaction transaction
-        {
-            get { return Session.Transaction; }
-        }
-
-
-        ///<summary>
-        /// Tells whether is an asset (js, css or image) calling the request
-        ///</summary>
-        public static Boolean IsAssetCalling
+        private static Boolean hasTransaction
         {
             get
             {
-                var contentType = HttpContext.Current.Response.ContentType;
-
-                return contentType != "text/html"
-                    && contentType != "application / json";
+                return hasSession && transaction.IsActive
+                    && !transaction.WasRolledBack;
             }
+        }
+
+        private static ITransaction transaction
+        {
+            get { return Session.Transaction; }
         }
 
 
@@ -100,8 +94,6 @@ namespace Ak.DataAccess.NHibernate
         /// </summary>
         public static void Open()
         {
-            if (IsAssetCalling) return;
-
             Session = SessionFactoryBuilder.OpenSession();
             Session.BeginTransaction();
         }
@@ -114,13 +106,11 @@ namespace Ak.DataAccess.NHibernate
         ///</summary>
         public static void Close()
         {
-            if (IsAssetCalling) return;
+            if (!hasTransaction) 
+                return;
 
-            if (hasSession && transaction.IsActive && !transaction.WasRolledBack)
-            {
-                transaction.Commit();
-                Session.Flush();
-            }
+            transaction.Commit();
+            Session.Flush();
         }
 
         ///<summary>
@@ -143,9 +133,7 @@ namespace Ak.DataAccess.NHibernate
         ///</summary>
         public static void Error()
         {
-            if (IsAssetCalling) return;
-
-            if (transaction.IsActive && !transaction.WasRolledBack)
+            if (hasTransaction)
                 transaction.Rollback();
         }
 
