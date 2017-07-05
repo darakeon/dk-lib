@@ -50,7 +50,7 @@ namespace DK.XML
             : this(encoding)
         {
             if (xmlNode == null)
-                throw new AkException("XmlNode needed. Use another initialization if won't have it.");
+                throw new DKException("XmlNode needed. Use another initialization if won't have it.");
 
 
             Name = xmlNode.Name;

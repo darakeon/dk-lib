@@ -213,7 +213,7 @@ namespace DK.NHibernate.UserPassed
                     return configurerSQLite;
 
                 default:
-                    throw new AkException("Not Suported!");
+                    throw new DKException("Not Suported!");
             }
         }
 

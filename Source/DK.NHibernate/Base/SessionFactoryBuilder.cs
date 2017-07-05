@@ -59,7 +59,7 @@ namespace DK.NHibernate.Base
         internal static ISession OpenSession()
         {
             if (sessionFactory == null)
-                throw new AkException("Restart the Application.");
+                throw new DKException("Restart the Application.");
 
             var session = sessionFactory.OpenSession();
 

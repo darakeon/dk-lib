@@ -48,7 +48,7 @@ namespace DK.NHibernate.Helpers
             schema.Exceptions.ForEach(
                 e => message.AppendLine(e.Message));
 
-            throw new AkException(message.ToString());
+            throw new DKException(message.ToString());
         }
 
         internal void Validate(Configuration config)

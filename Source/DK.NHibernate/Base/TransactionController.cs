@@ -15,13 +15,13 @@ namespace DK.NHibernate.Base
         {
             if (Session.Transaction != null
                     && Session.Transaction.IsActive)
-                throw new AkException("There's a Transaction opened already, cannot begin a new one.");
+                throw new DKException("There's a Transaction opened already, cannot begin a new one.");
 
             Session.BeginTransaction();
 
             if (Session.Transaction == null
                     || !Session.Transaction.IsActive)
-                throw new AkException("Transaction not opened.");
+                throw new DKException("Transaction not opened.");
 
         }
 
@@ -48,7 +48,7 @@ namespace DK.NHibernate.Base
         private static void testTransaction(String action)
         {
             if (Session.Transaction.WasCommitted || Session.Transaction.WasRolledBack)
-                throw new AkException("There's a Transaction opened already, cannot " + action + ".");
+                throw new DKException("There's a Transaction opened already, cannot " + action + ".");
         }
 
 

@@ -84,7 +84,7 @@ namespace DK.NHibernate.Base
 			}
 			catch (Exception e)
 			{
-				AkException.TestOtherIfTooLarge(e);
+				DKException.TestOtherIfTooLarge(e);
 			}
 		}
 

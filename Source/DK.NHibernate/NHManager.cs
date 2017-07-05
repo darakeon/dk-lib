@@ -159,7 +159,7 @@ namespace DK.NHibernate
             {
                 return getSession(sessionKey).NHSession.IsOpen;
             }
-            catch (AkException)
+            catch (DKException)
             {
                 return false;
             }
