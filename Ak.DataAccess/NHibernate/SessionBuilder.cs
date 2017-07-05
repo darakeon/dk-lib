@@ -80,7 +80,11 @@ namespace Ak.DataAccess.NHibernate
         /// </summary>
         public static ISession Open()
         {
-            return SessionFactoryBuilder.OpenSession();
+            var session = SessionFactoryBuilder.OpenSession();
+
+            session.FlushMode = FlushMode.Never;
+
+            return session;
         }
 
         
