@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Web;
 using System.Web.Mvc;
-using Ak.Generic.Exceptions;
 
 namespace Ak.MVC.Authentication
 {
@@ -11,24 +9,19 @@ namespace Ak.MVC.Authentication
     public class AjaxAuthorizeAttribute : AuthorizeAttribute
     {
         ///<summary>
-        /// The message to return as exception
+        /// Message of expiration of session
         ///</summary>
-        public String Message { get; set; }
+        public const String Message = "Session expired.";
 
-        /// <summary>
-        /// When overridden, provides an entry point for custom authorization checks.
-        /// </summary>
-        /// <param name="httpContext">The HTTP context, which encapsulates all HTTP-specific information about an individual HTTP request.</param><exception cref="T:System.ArgumentNullException">The <paramref name="httpContext"/> parameter is null.</exception>
-        /// <returns>Whether the user is authorized</returns>
-        protected override Boolean AuthorizeCore(HttpContextBase httpContext)
+        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            if (base.AuthorizeCore(httpContext))
-                return true;
-
-            if (String.IsNullOrEmpty(Message))
-                Message = "Session expired.";
-
-            throw new AkException(Message);
+            filterContext.Result =
+                new JsonResult
+                {
+                    Data = Message,
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
         }
+
     }
 }

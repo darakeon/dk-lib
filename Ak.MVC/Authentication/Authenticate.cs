@@ -13,6 +13,12 @@ namespace Ak.MVC.Authentication
     ///</summary>
     public static class Authenticate
     {
+        private static IPrincipal user
+        {
+            get { return HttpContext.Current.User; }
+        }
+
+        
         ///<summary>
         /// Authenticate the User
         ///</summary>
@@ -54,12 +60,7 @@ namespace Ak.MVC.Authentication
                     .Select(r => r.Name)
                     .ToArray();
 
-            var identity = new GenericIdentity(username);
-            var principal = new GenericPrincipal(identity, arrRoles);
-
-            HttpContext.Current.User = principal;
-
-            var ticket = new FormsAuthenticationTicket(1, username, DateTime.Now, DateTime.Now.AddHours(2), isPersistent, String.Join(",", arrRoles));
+            var ticket = new FormsAuthenticationTicket(1, username, DateTime.Now, DateTime.Now.AddDays(1), isPersistent, String.Join(",", arrRoles));
             var encryptedTicket = FormsAuthentication.Encrypt(ticket);
 
             var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
@@ -73,12 +74,15 @@ namespace Ak.MVC.Authentication
         ///<param name="request">Current Request of the Controller</param>
         public static void Clean(HttpRequestBase request)
         {
-            FormsAuthentication.SignOut();
-
             if (request != null)
             {
-                request.Cookies.Clear();
+                var authCookie =
+                    new HttpCookie(FormsAuthentication.FormsCookieName) { Expires = DateTime.Now.AddMilliseconds(-1) };
+
+                request.Cookies.Add(authCookie);
             }
+
+            FormsAuthentication.SignOut();
         }
 
 
@@ -86,10 +90,12 @@ namespace Ak.MVC.Authentication
         ///<summary>
         /// Whether there is user logged-in at the site
         ///</summary>
-        public static Boolean IsAuthenticated()
+        public static Boolean IsAuthenticated
         {
-            return HttpContext.Current.User != null
-                && HttpContext.Current.User.Identity.IsAuthenticated;
+            get
+            {
+                return user != null && user.Identity.IsAuthenticated;
+            }
         }
 
 
@@ -97,11 +103,30 @@ namespace Ak.MVC.Authentication
         ///<summary>
         /// Return the username that is logged-in
         ///</summary>
-        public static String GetUsername()
+        public static String Username
         {
-            return IsAuthenticated()
-                ? HttpContext.Current.User.Identity.Name
-                : null;
+            get
+            {
+                return IsAuthenticated
+                           ? user.Identity.Name
+                           : null;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Clean the session if the login is out on core, 
+        /// but there is authentication on browser
+        /// </summary>
+        /// <param name="request">Request context</param>
+        /// <returns>If the login was cleaned</returns>
+        public static Boolean CleanIfDead(HttpRequestBase request)
+        {
+            if (!IsAuthenticated)
+                Clean(request);
+
+            return !IsAuthenticated;
         }
 
 
@@ -119,5 +144,7 @@ namespace Ak.MVC.Authentication
                     FormsAuthPasswordFormat.SHA1.ToString()
                 );
         }
+
+
     }
 }

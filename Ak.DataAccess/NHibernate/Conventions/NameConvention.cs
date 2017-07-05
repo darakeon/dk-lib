@@ -11,12 +11,12 @@ namespace Ak.DataAccess.NHibernate.Conventions
         {
             protected override String GetBiDirectionalTableName(IManyToManyCollectionInspector collection, IManyToManyCollectionInspector otherSide)
             {
-                return String.Format("{0}{1}", collection.ChildType.Name, otherSide.ChildType.Name);
+                return String.Format("{0}{1}", collection.EntityType.Name, otherSide.EntityType.Name);
             }
 
             protected override String GetUniDirectionalTableName(IManyToManyCollectionInspector collection)
             {
-                return GetBiDirectionalTableName(collection, collection.OtherSide);
+                return String.Format("{0}{1}", collection.EntityType.Name, collection.ChildType.Name);
             }
         }
 
