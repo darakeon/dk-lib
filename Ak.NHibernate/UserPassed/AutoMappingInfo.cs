@@ -46,7 +46,7 @@ namespace Ak.NHibernate.UserPassed
                     new NullableConvention.Reference(),
                     new EnumConvention(),
                     new CascadeConvention(),
-                    new NameConvention.N2N(),
+                    new NameConvention.ManyToMany(),
                     new NameConvention.HasMany(),
                     new NameConvention.Reference()
                 );

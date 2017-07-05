@@ -28,12 +28,6 @@ namespace Ak.NHibernate.Base
 
 
 
-        private static ICriteria createSimpleCriteria(Expression<Func<T, Boolean>> expression = null)
-        {
-            return session.CreateCriteria<T>().Add(Restrictions.Where(expression));
-        }
-
-
         internal T SaveOrUpdate(T entity, params BaseRepository<T>.DelegateAction[] actions)
         {
             foreach (var delegateAction in actions)
@@ -66,29 +60,7 @@ namespace Ak.NHibernate.Base
             return entity;
         }
 
-
-
-        internal Boolean Exists(Expression<Func<T, Boolean>> func)
-        {
-            var criteria = createSimpleCriteria(func);
-
-            return criteria.Future<T>().Any();
-
-        }
-
-        internal T SingleOrDefault(Expression<Func<T, Boolean>> func)
-        {
-            var criteria = createSimpleCriteria(func);
-
-            return criteria.UniqueResult<T>();
-        }
-
-        internal IList<T> GetWhere(Expression<Func<T, Boolean>> func)
-        {
-            var criteria = createSimpleCriteria(func);
-
-            return criteria.List<T>();
-        }
+		
 
         internal T GetOldById(Int32 id)
         {
@@ -111,10 +83,10 @@ namespace Ak.NHibernate.Base
 
 
 
-        internal IList<T> GetAll()
-        {
-            return createSimpleCriteria().List<T>();
-        }
+		public Query<T> NewQuery()
+		{
+			return new Query<T>(session);
+		}
 
 
     }

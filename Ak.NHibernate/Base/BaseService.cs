@@ -8,53 +8,85 @@ namespace Ak.NHibernate.Base
     /// </summary>
     public class BaseService
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary></summary>
         public BaseService()
         {
-            TransactionController = new TransactionController();
+            transactionController = new TransactionController();
         }
 
-        /// <summary>
-        /// To control DB Transaction
-        /// </summary>
-        internal TransactionController TransactionController { get; private set; }
+        private TransactionController transactionController { get; set; }
 
+		/// <summary>
+		/// Execute commands inside a transaction.
+		/// Anything executed without it will not work
+		/// </summary>
+		/// <param name="action">() => { return [your-code-here] }</param>
+		/// <param name="onError">() => { [your-ON-ERROR-code-here] }</param>
+		protected T InTransaction<T>(Func<T> action, Action onError = null)
+		{
+			transactionController.Begin();
 
+			try
+			{
+				var result = action();
 
-        /// <summary>
-        /// Starts Transaction
-        /// </summary>
-        /// <exception cref="AkException">Transaction already opened</exception>
-        protected void BeginTransaction()
-        {
-            TransactionController.Begin();
-        }
+				commitTransaction();
 
-        /// <summary>
-        /// Execute everything at DB
-        /// </summary>
-        protected void CommitTransaction()
-        {
-            try
-            {
-                TransactionController.Commit();
-            }
-            catch (Exception e)
-            {
-                AkException.TestOtherIfTooLarge(e);
-            }
-        }
+				return result;
+			}
+			catch (Exception)
+			{
+				transactionController.Rollback();
 
-        /// <summary>
-        /// Undo all changes
-        /// </summary>
-        protected void RollbackTransaction()
-        {
-            TransactionController.Rollback();
-        }
+				if (onError != null)
+				{
+					onError();
+				}
 
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// Execute commands inside a transaction.
+		/// Anything executed without it will not work
+		/// </summary>
+		/// <param name="action">() => { [your-code-here] }</param>
+		/// <param name="onError">() => { [your-ON-ERROR-code-here] }</param>
+		protected void InTransaction(Action action, Action onError = null)
+		{
+			transactionController.Begin();
+
+			try
+			{
+				action();
+
+				commitTransaction();
+			}
+			catch (Exception)
+			{
+				transactionController.Rollback();
+
+				if (onError != null)
+				{
+					onError();
+				}
+
+				throw;
+			}
+		}
+
+		private void commitTransaction()
+		{
+			try
+			{
+				transactionController.Commit();
+			}
+			catch (Exception e)
+			{
+				AkException.TestOtherIfTooLarge(e);
+			}
+		}
 
 
 

@@ -42,10 +42,19 @@ namespace Ak.NHibernate.Base
         /// <summary>
         /// Get entity by its ID
         /// </summary>
-        public T GetById(Int32 id)
+        public T Get(Int32 id)
         {
             return data.GetById(id);
         }
+		
+		/// <summary>
+		/// Get old data of the entity
+		/// </summary>
+		public T GetOldById(Int32 id)
+		{
+			return data.GetOldById(id);
+		}
+
 
 
         /// <summary>
@@ -53,10 +62,10 @@ namespace Ak.NHibernate.Base
         /// </summary>
         /// <param name="func"></param>
         /// <returns></returns>
-        public Boolean Exists(Expression<Func<T, Boolean>> func)
+        public Boolean Any(Expression<Func<T, Boolean>> func)
         {
-            return data.Exists(func);
-        }
+			return data.NewQuery().Filter(func).Count > 0;
+		}
 
 
         /// <summary>
@@ -65,43 +74,74 @@ namespace Ak.NHibernate.Base
         /// <exception cref="Exception">Not unique object</exception>
         public T SingleOrDefault(Expression<Func<T, Boolean>> func)
         {
-            return data.SingleOrDefault(func);
-        }
+			return data.NewQuery().Filter(func).UniqueResult;
+		}
 
 
-        /// <summary>
-        /// Return as list of entities for expression
-        /// </summary>
-        public IList<T> List(Expression<Func<T, Boolean>> func)
-        {
-            return data.GetWhere(func);
-        }
+		/// <summary>
+		/// Delete permanently the entity of DB
+		/// </summary>
+		public void Delete(T entity)
+		{
+			data.Delete(entity);
+		}
+
+		/// <summary>
+		/// Delete permanently the entity of DB
+		/// </summary>
+		public void Delete(Int32 id)
+		{
+			Delete(Get(id));
+		}
 
 
-        /// <summary>
-        /// Delete permanently the entity of DB
-        /// </summary>
-        public void Delete(T entity)
-        {
-            data.Delete(entity);
-        }
-
-        /// <summary>
-        /// Delete permanently the entity of DB
-        /// </summary>
-        public void Delete(Int32 id)
-        {
-            Delete(GetById(id));
-        }
+		/// <summary>
+		/// Return an object to take data
+		/// </summary>
+		public Query<T> NewQuery()
+		{
+			return data.NewQuery();
+		}
 
 
-        /// <summary>
-        /// Get old data of the entity
-        /// </summary>
-        public T GetOldById(Int32 id)
-        {
-            return data.GetOldById(id);
-        }
+		/// <summary>
+		/// Get all elements of the type from database
+		/// </summary>
+		public IList<T> GetAll()
+		{
+			return data.NewQuery().Result;
+		}
+
+		/// <summary>
+		/// Use this instead NewQuery from simple conditions
+		/// </summary>
+		/// <param name="condition">Lambda expression condition</param>
+		public IList<T> SimpleFilter(Expression<Func<T, bool>> condition)
+		{
+			return data.NewQuery().Filter(condition).Result;
+		}
+
+		/// <summary>
+		/// Count all elements of the type from database
+		/// </summary>
+		public Int32 Count()
+		{
+			return data.NewQuery().Count;
+		}
+
+		/// <summary>
+		/// Use this instead NewQuery from simple conditions count
+		/// </summary>
+		/// <param name="condition">Lambda expression condition</param>
+		public Int32 Count(Expression<Func<T, Boolean>> condition)
+		{
+			return data.NewQuery().Filter(condition).Count;
+		}
+
+        
+
+
+        
 
 
     }

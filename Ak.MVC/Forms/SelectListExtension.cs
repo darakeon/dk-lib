@@ -19,8 +19,8 @@ namespace Ak.MVC.Forms
         ///<param name="text">The property the will fill the text that appears in options</param>
         public static SelectList CreateSelect<TOrigin, TValue, TText>(IList<TOrigin> list, Expression<Func<TOrigin, TValue>> value, Expression<Func<TOrigin, TText>> text)
         {
-            var propValueName = Property.Name(value);
-            var propTextName = Property.Name(text);
+            var propValueName = value.GetName();
+            var propTextName = text.GetName();
 
             return new SelectList(list, propValueName, propTextName);
         }
