@@ -7,13 +7,13 @@ using Ak.Generic.Exceptions;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace Ak.NHibernate
+namespace Ak.NHibernate.Base
 {
     /// <summary>
     /// Base communication with DB
     /// </summary>
     /// <typeparam name="T">Entity type</typeparam>
-    public class BaseData<T>
+    internal class BaseData<T>
         where T : class, IEntity
     {
         private static ISession session

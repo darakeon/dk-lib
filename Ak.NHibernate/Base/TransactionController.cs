@@ -2,7 +2,7 @@
 using Ak.Generic.Exceptions;
 using NHibernate;
 
-namespace Ak.NHibernate
+namespace Ak.NHibernate.Base
 {
     internal class TransactionController
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Ak.Generic.Exceptions;
 using Ak.MVC.Cookies;
+using Ak.NHibernate.Base;
 using Ak.NHibernate.UserPassed;
 using FluentNHibernate.Automapping.Alterations;
 using NHibernate;

@@ -1,4 +1,5 @@
 ﻿using System;
+using Ak.NHibernate.Base;
 using NHibernate;
 using NHibernate.Criterion;
 

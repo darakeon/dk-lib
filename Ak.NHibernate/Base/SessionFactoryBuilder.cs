@@ -7,9 +7,9 @@ using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Metadata;
 
-namespace Ak.NHibernate
+namespace Ak.NHibernate.Base
 {
-    class SessionFactoryBuilder
+    internal class SessionFactoryBuilder
     {
         private static ISessionFactory sessionFactory;
 

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Ak.Generic.DB;
 
-namespace Ak.NHibernate
+namespace Ak.NHibernate.Base
 {
     /// <summary>
     /// Higher level queries
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     public class BaseRepository<T> where T : class, IEntity
     {
         private readonly BaseData<T> data;

@@ -7,12 +7,12 @@ using Ak.NHibernate.UserPassed;
 using FluentNHibernate.Automapping.Alterations;
 using NHibernate;
 
-namespace Ak.NHibernate
+namespace Ak.NHibernate.Base
 {
     /// <summary>
     /// To create NHibernate Session and communicate with DB
     /// </summary>
-    public class SessionBuilder
+    internal class SessionBuilder
     {
         ///<summary>
         /// Create Session Factory.
