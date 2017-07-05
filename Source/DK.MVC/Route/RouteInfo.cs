@@ -5,41 +5,41 @@ using System.Web.Routing;
 namespace DK.MVC.Route
 {
 	///<summary>
-    /// Retrieves the routedata as the property of the controllers
-    ///</summary>
-    public class RouteInfo
-    {
-        ///<summary>
-        /// RouteData of the current Url
-        ///</summary>
-        public RouteInfo() : this(HttpContext.Current.Request.Url) { }
+	/// Retrieves the routedata as the property of the controllers
+	///</summary>
+	public class RouteInfo
+	{
+		///<summary>
+		/// RouteData of the current Url
+		///</summary>
+		public RouteInfo() : this(HttpContext.Current.Request.Url) { }
 
 
-        ///<summary>
-        /// RouteData of a specific Url
-        ///</summary>
-        public RouteInfo(Uri uri) : this(uri, null) { }
+		///<summary>
+		/// RouteData of a specific Url
+		///</summary>
+		public RouteInfo(Uri uri) : this(uri, null) { }
 
 
-        ///<summary>
-        /// RouteData of a specific Url, cutting the subfolder
-        ///</summary>
-        public RouteInfo(Uri uri, String applicationPath)
-        {
-            RouteData = RouteTable.Routes.GetRouteData(new InternalHttpContext(uri, applicationPath));
-        }
+		///<summary>
+		/// RouteData of a specific Url, cutting the subfolder
+		///</summary>
+		public RouteInfo(Uri uri, String applicationPath)
+		{
+			RouteData = RouteTable.Routes.GetRouteData(new InternalHttpContext(uri, applicationPath));
+		}
 
 
-        ///<summary>
-        /// Encapsulates information about the Url
-        ///</summary>
-        public RouteData RouteData { get; private set; }
+		///<summary>
+		/// Encapsulates information about the Url
+		///</summary>
+		public RouteData RouteData { get; private set; }
 
 
-        ///<summary>
-        /// RouteData of the current Url
-        ///</summary>
-        public static RouteInfo Current => new RouteInfo();
+		///<summary>
+		/// RouteData of the current Url
+		///</summary>
+		public static RouteInfo Current => new RouteInfo();
 
 
 		/// <summary>
@@ -49,37 +49,37 @@ namespace DK.MVC.Route
 
 
 		private class InternalHttpContext : HttpContextBase
-        {
+		{
 			public InternalHttpContext(Uri uri, String applicationPath)
-            {
-                Request = new InternalRequestContext(uri, applicationPath);
-            }
+			{
+				Request = new InternalRequestContext(uri, applicationPath);
+			}
 
-            public override HttpRequestBase Request { get; }
-        }
+			public override HttpRequestBase Request { get; }
+		}
 
-        private class InternalRequestContext : HttpRequestBase
-        {
-            private readonly String appRelativePath;
+		private class InternalRequestContext : HttpRequestBase
+		{
+			private readonly String appRelativePath;
 
-	        public InternalRequestContext(Uri uri, String applicationPath)
-            {
-                PathInfo = uri.Query;
-
-                
-                var noApplicationPath = String.IsNullOrEmpty(applicationPath);
-                
-                var wrongApplicationPath =
-                    !uri.AbsolutePath.StartsWith(applicationPath ?? String.Empty, StringComparison.OrdinalIgnoreCase);
+			public InternalRequestContext(Uri uri, String applicationPath)
+			{
+				PathInfo = uri.Query;
 
 
-                appRelativePath = noApplicationPath || wrongApplicationPath
-                    ? uri.AbsolutePath
-                    : uri.AbsolutePath.Substring(applicationPath.Length);
-            }
+				var noApplicationPath = String.IsNullOrEmpty(applicationPath);
 
-            public override String AppRelativeCurrentExecutionFilePath => String.Concat("~", appRelativePath);
-	        public override String PathInfo { get; }
-        }
-    }
+				var wrongApplicationPath =
+					!uri.AbsolutePath.StartsWith(applicationPath ?? String.Empty, StringComparison.OrdinalIgnoreCase);
+
+
+				appRelativePath = noApplicationPath || wrongApplicationPath
+					? uri.AbsolutePath
+					: uri.AbsolutePath.Substring(applicationPath.Length);
+			}
+
+			public override String AppRelativeCurrentExecutionFilePath => String.Concat("~", appRelativePath);
+			public override String PathInfo { get; }
+		}
+	}
 }
