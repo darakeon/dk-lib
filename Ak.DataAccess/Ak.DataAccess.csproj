@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Excel\Reader.cs" />
     <Compile Include="Facebook\Communication.cs" />
     <Compile Include="NHibernate\Helpers\StringsAsLike.cs" />
     <Compile Include="NHibernate\UserPassed\ConnectionInfo.cs" />
