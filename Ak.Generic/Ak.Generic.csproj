@@ -45,7 +45,7 @@
     <Compile Include="Collection\IsInExtension.cs" />
     <Compile Include="Enums\String2Enum.cs" />
     <Compile Include="Exceptions\AkException.cs" />
-    <Compile Include="Exceptions\ErrorComposedReturn.cs" />
+    <Compile Include="Exceptions\ComposedResult.cs" />
     <Compile Include="Collection\GroupedCollection.cs" />
     <Compile Include="Collection\ItemGroup.cs" />
     <Compile Include="Exceptions\ExceptionExtension.cs" />

@@ -5,29 +5,29 @@ namespace Ak.Generic.Exceptions
     /// </summary>
     /// <typeparam name="TS">Success return Type</typeparam>
     /// <typeparam name="TE">Error return Type</typeparam>
-    public class ErrorComposedReturn<TS, TE>
+    public class ComposedResult<TS, TE>
         where TS : new()
         where TE : new()
     {
         /// <summary>
         /// Class to return an object composed by the return error and the success return
         /// </summary>
-        public ErrorComposedReturn() : this(new TS(), new TE()) { }
+        public ComposedResult() : this(new TS(), new TE()) { }
 
         /// <summary>
         /// Class to return an object composed by the return error and the success return
         /// </summary>
-        public ErrorComposedReturn(TS success) : this(success, new TE()) { }
+        public ComposedResult(TS success) : this(success, new TE()) { }
 
         /// <summary>
         /// Class to return an object composed by the return error and the success return
         /// </summary>
-        public ErrorComposedReturn(TE error) : this(new TS(), error) { }
+        public ComposedResult(TE error) : this(new TS(), error) { }
 
         /// <summary>
         /// Class to return an object composed by the return error and the success return
         /// </summary>
-        public ErrorComposedReturn(TS success, TE error)
+        public ComposedResult(TS success, TE error)
         {
             Success = success;
             Error = error;
