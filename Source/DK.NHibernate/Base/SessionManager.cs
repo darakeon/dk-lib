@@ -22,7 +22,6 @@ namespace DK.NHibernate.Base
 		/// </summary>
 		public delegate String GetKey();
 		private static event GetKey getKey;
-		private static String key => getKey?.Invoke();
 
 
 
@@ -36,6 +35,9 @@ namespace DK.NHibernate.Base
 
 
 
+		/// <summary>
+		/// Tells if the Session Transaction have Failed
+		/// </summary>
 		public static Boolean Failed { private get; set; }
 
 		/// <summary>
@@ -92,21 +94,21 @@ namespace DK.NHibernate.Base
 		{
 			get
 			{
-				if (!sessionList.ContainsKey(key))
+				var key = getKey?.Invoke();
+
+				if (key == null || !sessionList.ContainsKey(key))
 					return null;
 
 				return sessionList[key];
 			}
 			set
 			{
+				var key = getKey?.Invoke();
+
 				if (sessionList.ContainsKey(key))
-				{
 					sessionList[key] = value;
-				}
 				else
-				{
 					sessionList.Add(key, value);
-				}
 			}
 		}
 
