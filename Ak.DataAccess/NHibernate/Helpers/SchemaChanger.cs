@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Ak.Generic.Exceptions;
 using NHibernate.Cfg;
 using NHibernate.Linq;
@@ -9,13 +10,17 @@ using NHibernate.Tool.hbm2ddl;
 
 namespace Ak.DataAccess.NHibernate.Helpers
 {
-    internal class SchemaChanger
+    public class SchemaChanger
     {
         private readonly String scriptFileName;
 
         public SchemaChanger(String scriptFileName)
         {
-            this.scriptFileName = scriptFileName;
+            var addressPattern = new Regex(@"^(\\|[A-Z]\:).*");
+
+            this.scriptFileName = addressPattern.IsMatch(scriptFileName)
+                ? scriptFileName
+                : Path.Combine(Directory.GetCurrentDirectory(), scriptFileName);
         }
 
         internal void Build(Configuration config)

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
+using Ak.DataAccess.NHibernate.Helpers;
 
 namespace Ak.All
 {
