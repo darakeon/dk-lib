@@ -49,7 +49,7 @@ namespace Ak.All
 
             projects = new Dictionary<String, String>
                            {
-                               {"DFM", mainDir + @"03 - DFM\Source\Library"},
+                               {"DFM", mainDir + @"03 - DFM\Projeto\source\Library"},
                                {"Responde", mainDir + @"02 - Responde\Source\Library"},
                                {"Stories", mainDir + @"06 - Stories\Source\Library"}
                            };
