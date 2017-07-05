@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using Ak.Generic.Reflection;
@@ -25,6 +26,7 @@ namespace Ak.MVC.Forms
         }
 
 
+
         ///<summary>
         /// Create a SelectList from a Enum, using the text.
         /// Can't use the number value, MVC don't recognize to assign selected.
@@ -35,25 +37,26 @@ namespace Ak.MVC.Forms
         /// </param>
         public static SelectList CreateSelect<TEnum>(IDictionary<TEnum, String> texts = null)
         {
-            var enumList = Enum.GetValues(typeof(TEnum));
-            var selectList = new List<SelectListItem>();
-
-            foreach (var item in enumList)
-            {
-                var value = item.ToString();
-
-                var text = texts != null
-                        && texts.Keys.Contains((TEnum)item)
-                    ? texts[(TEnum)item] : value;
-
-                selectList.Add(new SelectListItem
-                {
-                    Value = value,
-                    Text = text,
-                });
-            }
+            var selectList = texts == null
+                ? createSelectFromEnumValues<TEnum>()
+                : createSelectFromDictionary(texts);
 
             return new SelectList(selectList, "Value", "Text", 0);
         }
+
+        private static IEnumerable<SelectListItem> createSelectFromEnumValues<TEnum>()
+        {
+            return Enum.GetValues(typeof (TEnum))
+                .Cast<TEnum>()
+                .Select(t => t.ToString())
+                .Select(t => new SelectListItem { Value = t, Text = t, });
+        }
+
+        private static IEnumerable<SelectListItem> createSelectFromDictionary<TEnum>(IEnumerable<KeyValuePair<TEnum, string>> texts)
+        {
+            return texts.Select(t => 
+                new SelectListItem { Value = t.Key.ToString(), Text = t.Value, });
+        }
+
     }
 }
