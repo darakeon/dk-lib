@@ -75,9 +75,10 @@ namespace Ak.DataAccess.NHibernate
                     Login = CM.AppSettings["Login"],
                     Password = CM.AppSettings["Password"],
                     DBMS = Str2Enum.Cast<DBMS>(CM.AppSettings["DBMS"]),
-                    DBAction = Str2Enum.Cast<DBAction>(CM.AppSettings["DBAction"]),
+                    DBAction = Str2Enum.Cast<DBAction>(CM.AppSettings["DBAction"] ?? "None"),
                     ScriptFileFullName = scriptFileFullName,
-                    ShowSQL = CM.AppSettings["ShowSQL"].ToLower() == "true",
+                    ShowSQL = (CM.AppSettings["ShowSQL"] ?? "false").ToLower() == "true",
+                    ConnectionString = CM.AppSettings["ConnectionString"]
                 };
             }
 

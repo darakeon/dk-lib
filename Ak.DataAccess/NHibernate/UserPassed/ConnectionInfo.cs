@@ -71,12 +71,16 @@ namespace Ak.DataAccess.NHibernate.UserPassed
             switch (DBMS)
             {
                 case DBMS.MySQL:
-                    var configurerMySQL = MySQLConfiguration.Standard
-                        .ConnectionString(c => c
-                            .Server(Server)
-                            .Database(DataBase)
-                            .Username(Login)
-                            .Password(Password));
+                    var configurerMySQL =
+                        ConnectionString == null
+                        ? MySQLConfiguration.Standard
+                            .ConnectionString(c => c
+                                .Server(Server)
+                                .Database(DataBase)
+                                .Username(Login)
+                                .Password(Password))
+                        : MySQLConfiguration.Standard
+                            .ConnectionString(ConnectionString);
 
                     if (ShowSQL)
                         configurerMySQL = configurerMySQL.ShowSql();
@@ -84,12 +88,16 @@ namespace Ak.DataAccess.NHibernate.UserPassed
                     return configurerMySQL;
 
                 case DBMS.MsSql7:
-                    var configurerMsSql7 = MsSqlConfiguration.MsSql7
-                        .ConnectionString(c => c
-                            .Server(Server)
-                            .Database(DataBase)
-                            .Username(Login)
-                            .Password(Password));
+                    var configurerMsSql7 =
+                        ConnectionString == null
+                        ? MsSqlConfiguration.MsSql7
+                            .ConnectionString(c => c
+                                .Server(Server)
+                                .Database(DataBase)
+                                .Username(Login)
+                                .Password(Password))
+                        : MsSqlConfiguration.MsSql7
+                            .ConnectionString(ConnectionString);
 
                     if (ShowSQL)
                         configurerMsSql7 = configurerMsSql7.ShowSql();
@@ -97,12 +105,16 @@ namespace Ak.DataAccess.NHibernate.UserPassed
                     return configurerMsSql7;
 
                 case DBMS.MsSql2008:
-                    var configurerMsSql2008 = MsSqlConfiguration.MsSql2008
-                        .ConnectionString(c => c
-                            .Server(Server)
-                            .Database(DataBase)
-                            .Username(Login)
-                            .Password(Password));
+                    var configurerMsSql2008 =
+                        ConnectionString == null
+                        ? MsSqlConfiguration.MsSql2008
+                            .ConnectionString(c => c
+                                .Server(Server)
+                                .Database(DataBase)
+                                .Username(Login)
+                                .Password(Password))
+                        : MsSqlConfiguration.MsSql2008
+                            .ConnectionString(ConnectionString);
 
                     if (ShowSQL)
                         configurerMsSql2008 = configurerMsSql2008.ShowSql();
@@ -110,12 +122,16 @@ namespace Ak.DataAccess.NHibernate.UserPassed
                     return configurerMsSql2008;
 
                 case DBMS.MsSql2005:
-                    var configurerMsSql2005 = MsSqlConfiguration.MsSql2005
-                        .ConnectionString(c => c
-                            .Server(Server)
-                            .Database(DataBase)
-                            .Username(Login)
-                            .Password(Password));
+                    var configurerMsSql2005 =
+                        ConnectionString == null
+                        ? MsSqlConfiguration.MsSql2005
+                            .ConnectionString(c => c
+                                .Server(Server)
+                                .Database(DataBase)
+                                .Username(Login)
+                                .Password(Password))
+                        : MsSqlConfiguration.MsSql2005
+                            .ConnectionString(ConnectionString);
 
                     if (ShowSQL)
                         configurerMsSql2005 = configurerMsSql2005.ShowSql();
@@ -123,12 +139,16 @@ namespace Ak.DataAccess.NHibernate.UserPassed
                     return configurerMsSql2005;
 
                 case DBMS.MsSql2000:
-                    var configurerMsSql2000 = MsSqlConfiguration.MsSql2000
-                        .ConnectionString(c => c
-                            .Server(Server)
-                            .Database(DataBase)
-                            .Username(Login)
-                            .Password(Password));
+                    var configurerMsSql2000 =
+                        ConnectionString == null
+                        ? MsSqlConfiguration.MsSql2000
+                            .ConnectionString(c => c
+                                .Server(Server)
+                                .Database(DataBase)
+                                .Username(Login)
+                                .Password(Password))
+                        : MsSqlConfiguration.MsSql2000
+                            .ConnectionString(ConnectionString);
 
                     if (ShowSQL)
                         configurerMsSql2000 = configurerMsSql2000.ShowSql();
@@ -136,11 +156,15 @@ namespace Ak.DataAccess.NHibernate.UserPassed
                     return configurerMsSql2000;
 
                 case DBMS.Postgre:
-                    var configurerPostgre = PostgreSQLConfiguration.Standard
-                        .ConnectionString(c => c
-                            .Database(DataBase)
-                            .Username(Login)
-                            .Password(Password));
+                    var configurerPostgre =
+                        ConnectionString == null
+                        ? PostgreSQLConfiguration.Standard
+                            .ConnectionString(c => c
+                                .Database(DataBase)
+                                .Username(Login)
+                                .Password(Password))
+                        : PostgreSQLConfiguration.Standard
+                            .ConnectionString(ConnectionString);
 
                     if (ShowSQL)
                         configurerPostgre = configurerPostgre.ShowSql();
@@ -148,11 +172,15 @@ namespace Ak.DataAccess.NHibernate.UserPassed
                     return configurerPostgre;
 
                 case DBMS.Oracle9:
-                    var configurerOracle9 = OracleClientConfiguration.Oracle9
-                        .ConnectionString(c => c
-                            .Server(Server)
-                            .Username(Login)
-                            .Password(Password));
+                    var configurerOracle9 =
+                        ConnectionString == null
+                        ? OracleClientConfiguration.Oracle9
+                            .ConnectionString(c => c
+                                .Server(Server)
+                                .Username(Login)
+                                .Password(Password))
+                        : OracleClientConfiguration.Oracle9
+                            .ConnectionString(ConnectionString);
 
                     if (ShowSQL)
                         configurerOracle9 = configurerOracle9.ShowSql();
@@ -160,11 +188,15 @@ namespace Ak.DataAccess.NHibernate.UserPassed
                     return configurerOracle9;
 
                 case DBMS.Oracle10:
-                    var configurerOracle10 = OracleClientConfiguration.Oracle10
-                        .ConnectionString(c => c
-                            .Server(Server)
-                            .Username(Login)
-                            .Password(Password));
+                    var configurerOracle10 =
+                        ConnectionString == null
+                        ? OracleClientConfiguration.Oracle10
+                            .ConnectionString(c => c
+                                .Server(Server)
+                                .Username(Login)
+                                .Password(Password))
+                        : OracleClientConfiguration.Oracle10
+                            .ConnectionString(ConnectionString);
 
                     if (ShowSQL)
                         configurerOracle10 = configurerOracle10.ShowSql();
@@ -173,8 +205,7 @@ namespace Ak.DataAccess.NHibernate.UserPassed
 
                 case DBMS.SQLite:
                     var configurerSQLite = SQLiteConfiguration.Standard
-                        .ConnectionString(c => c
-                            .FromConnectionStringWithKey(ConnectionString));
+                        .ConnectionString(ConnectionString);
 
                     if (ShowSQL)
                         configurerSQLite = configurerSQLite.ShowSql();
@@ -185,5 +216,9 @@ namespace Ak.DataAccess.NHibernate.UserPassed
                     throw new AkException("Not Suported!");
             }
         }
+
+
+
     }
+
 }
