@@ -17,7 +17,7 @@ namespace Ak.DataAccess.NHibernate.Helpers
 
         public override Boolean ShouldMap(Type type)
         {
-            return type.Namespace == entitiesNamespace;
+            return !type.IsNested && type.Namespace == entitiesNamespace;
         }
 
         public override Boolean IsDiscriminated(Type type)
