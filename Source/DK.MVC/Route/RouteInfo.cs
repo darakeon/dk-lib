@@ -45,7 +45,7 @@ namespace DK.MVC.Route
 		/// <summary>
 		/// Values dictionary
 		/// </summary>
-		public String this[String key] => RouteData.Values[key]?.ToString();
+		public String this[String key] => RouteData?.Values?[key]?.ToString();
 
 
 		private class InternalHttpContext : HttpContextBase
