@@ -46,10 +46,10 @@ namespace Ak.All
             var mainDir = projectDir.Substring(0, localDir);
 
             projects = new Dictionary<String, String>
-                           {
-                               {"DFM", mainDir + @"03 - DFM\Projeto\site\Library"},
-                               {"Stories", mainDir + @"06 - Stories\Source\Library"}
-                           };
+            {
+                {"DFM", mainDir + @"03 - DFM\Projeto\site\Library"},
+                {"Stories", mainDir + @"06 - Stories\Site\Site\Library"}
+            };
         }
 
 
