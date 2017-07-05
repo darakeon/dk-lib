@@ -5,48 +5,48 @@ using Ak.Generic.DB;
 
 namespace Ak.NHibernate.Base
 {
-    /// <summary>
-    /// Higher level queries
-    /// </summary>
-    public class BaseRepository<T> where T : class, IEntity
-    {
-        private readonly BaseData<T> data;
+	/// <summary>
+	/// Higher level queries
+	/// </summary>
+	public class BaseRepository<T> where T : class, IEntity
+	{
+		private readonly BaseData<T> data;
 
-        /// <summary>
-        /// Initializes DB reader/writer
-        /// </summary>
-        protected BaseRepository()
-        {
-            data = new BaseData<T>();
-        }
-
-
-
-        /// <summary>
-        /// Signature of methods to execute on Save or Update
-        /// </summary>
-        /// <param name="entity"></param>
-        public delegate void DelegateAction(T entity);
+		/// <summary>
+		/// Initializes DB reader/writer
+		/// </summary>
+		protected BaseRepository()
+		{
+			data = new BaseData<T>();
+		}
 
 
 
-        /// <summary>
-        /// Records that at DB
-        /// </summary>
-        public T SaveOrUpdate(T entity, params DelegateAction[] actions)
-        {
-            return data.SaveOrUpdate(entity, actions);
-        }
+		/// <summary>
+		/// Signature of methods to execute on Save or Update
+		/// </summary>
+		/// <param name="entity"></param>
+		public delegate void DelegateAction(T entity);
 
 
-        /// <summary>
-        /// Get entity by its ID
-        /// </summary>
-        public T Get(Int32 id)
-        {
-            return data.GetById(id);
-        }
-		
+
+		/// <summary>
+		/// Records that at DB
+		/// </summary>
+		public T SaveOrUpdate(T entity, params DelegateAction[] actions)
+		{
+			return data.SaveOrUpdate(entity, actions);
+		}
+
+
+		/// <summary>
+		/// Get entity by its ID
+		/// </summary>
+		public T Get(Int32 id)
+		{
+			return data.GetById(id);
+		}
+
 		/// <summary>
 		/// Get old data of the entity
 		/// </summary>
@@ -57,23 +57,23 @@ namespace Ak.NHibernate.Base
 
 
 
-        /// <summary>
-        /// Verify if there is any entity that correspond to the expression
-        /// </summary>
-        /// <param name="func"></param>
-        /// <returns></returns>
-        public Boolean Any(Expression<Func<T, Boolean>> func)
-        {
+		/// <summary>
+		/// Verify if there is any entity that correspond to the expression
+		/// </summary>
+		/// <param name="func"></param>
+		/// <returns></returns>
+		public Boolean Any(Expression<Func<T, Boolean>> func)
+		{
 			return data.NewQuery().Filter(func).Count > 0;
 		}
 
 
-        /// <summary>
-        /// Return unique entity for expression
-        /// </summary>
-        /// <exception cref="Exception">Not unique object</exception>
-        public T SingleOrDefault(Expression<Func<T, Boolean>> func)
-        {
+		/// <summary>
+		/// Return unique entity for expression
+		/// </summary>
+		/// <exception cref="Exception">Not unique object</exception>
+		public T SingleOrDefault(Expression<Func<T, Boolean>> func)
+		{
 			return data.NewQuery().Filter(func).UniqueResult;
 		}
 
@@ -138,11 +138,11 @@ namespace Ak.NHibernate.Base
 			return data.NewQuery().Filter(condition).Count;
 		}
 
-        
 
 
-        
 
 
-    }
+
+
+	}
 }
