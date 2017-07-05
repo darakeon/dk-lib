@@ -26,6 +26,16 @@ namespace Ak.MVC.Forms
         }
 
 
+        ///<summary>
+        /// Create a SelectList from List of objects (must be IListable)
+        ///</summary>
+        ///<param name="list">The list that will fill the SelectList</param>
+        public static SelectList CreateSelect<T>(IList<T> list)
+            where T : IListable
+        {
+            return new SelectList(list, "ID", "NAME");
+        }
+
 
         ///<summary>
         /// Create a SelectList from a Enum, using the text.
