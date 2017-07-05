@@ -75,13 +75,13 @@
     <Compile Include="UserPassed\DataInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ak.Generic\Ak.Generic.csproj">
+    <ProjectReference Include="..\Ak.Generic\DK.Generic.csproj">
       <Project>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</Project>
-      <Name>Ak.Generic</Name>
+      <Name>DK.Generic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ak.MVC\Ak.MVC.csproj">
+    <ProjectReference Include="..\Ak.MVC\DK.MVC.csproj">
       <Project>{ED39BCED-DE3F-45DB-BB83-39EC967C92E8}</Project>
-      <Name>Ak.MVC</Name>
+      <Name>DK.MVC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
