@@ -7,6 +7,7 @@ using DK.Generic.Exceptions;
 using NHibernate.Cfg;
 using NHibernate.Linq;
 using NHibernate.Tool.hbm2ddl;
+using NHibernate.Util;
 
 namespace DK.NHibernate.Helpers
 {
