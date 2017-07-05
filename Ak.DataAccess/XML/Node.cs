@@ -224,7 +224,8 @@ namespace Ak.DataAccess.XML
 
         private void save()
         {
-            var textWriter = new XmlTextWriter(file, Encoding.UTF8) ;
+            var textWriter = new XmlTextWriter(file, Encoding.UTF8) 
+                                { Formatting = Formatting.Indented, IndentChar = '\t', Indentation = 1 };
 
             textWriter.WriteStartDocument();
 
@@ -233,7 +234,8 @@ namespace Ak.DataAccess.XML
             writeNodeAtFile(node, textWriter);
 
             textWriter.WriteEndDocument();
-            textWriter.Close();  
+
+            textWriter.Close();
         }
 
         private static void writeNodeAtFile(Node node, XmlWriter textWriter)
