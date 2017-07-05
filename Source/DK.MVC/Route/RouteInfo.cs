@@ -4,7 +4,7 @@ using System.Web.Routing;
 
 namespace DK.MVC.Route
 {
-    ///<summary>
+	///<summary>
     /// Retrieves the routedata as the property of the controllers
     ///</summary>
     public class RouteInfo
@@ -39,35 +39,32 @@ namespace DK.MVC.Route
         ///<summary>
         /// RouteData of the current Url
         ///</summary>
-        public static RouteInfo Current
+        public static RouteInfo Current => new RouteInfo();
+
+
+		/// <summary>
+		/// Values dictionary
+		/// </summary>
+		public String this[String key] => RouteData.Values[key]?.ToString();
+
+
+		private class InternalHttpContext : HttpContextBase
         {
-            get
+			public InternalHttpContext(Uri uri, String applicationPath)
             {
-                return new RouteInfo();
-            }
-        }
-
-
-        private class InternalHttpContext : HttpContextBase
-        {
-            private readonly HttpRequestBase request;
-
-            public InternalHttpContext(Uri uri, String applicationPath)
-            {
-                request = new InternalRequestContext(uri, applicationPath);
+                Request = new InternalRequestContext(uri, applicationPath);
             }
 
-            public override HttpRequestBase Request { get { return request; } }
+            public override HttpRequestBase Request { get; }
         }
 
         private class InternalRequestContext : HttpRequestBase
         {
             private readonly String appRelativePath;
-            private readonly String pathInfo;
 
-            public InternalRequestContext(Uri uri, String applicationPath)
+	        public InternalRequestContext(Uri uri, String applicationPath)
             {
-                pathInfo = uri.Query;
+                PathInfo = uri.Query;
 
                 
                 var noApplicationPath = String.IsNullOrEmpty(applicationPath);
@@ -81,8 +78,8 @@ namespace DK.MVC.Route
                     : uri.AbsolutePath.Substring(applicationPath.Length);
             }
 
-            public override String AppRelativeCurrentExecutionFilePath { get { return String.Concat("~", appRelativePath); } }
-            public override String PathInfo { get { return pathInfo; } }
+            public override String AppRelativeCurrentExecutionFilePath => String.Concat("~", appRelativePath);
+	        public override String PathInfo { get; }
         }
     }
 }
