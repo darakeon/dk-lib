@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Ak.DataAccess.NHibernate.Helpers;
 using Ak.DataAccess.NHibernate.UserPassed;
 using Ak.Generic.Exceptions;
@@ -34,7 +33,6 @@ namespace Ak.DataAccess.NHibernate
             var config = Fluently.Configure()
                 .Database(connectionInfo.ConfigureDataBase())
                 .Mappings(m => m.AutoMappings.Add(automapping));
-
 
             switch (connectionInfo.DBAction)
             {
