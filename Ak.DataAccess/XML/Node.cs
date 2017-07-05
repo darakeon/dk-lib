@@ -244,12 +244,12 @@ namespace Ak.DataAccess.XML
 
             textWriter.WriteStartElement(node.Name);
 
-            textWriter.WriteString(node.Value);
-
             foreach (var attr in node.Attributes)
             {
                 textWriter.WriteAttributeString(attr.Key, attr.Value);
             }
+
+            textWriter.WriteString(node.Value);
 
             foreach (var child in node.Childs)
             {
