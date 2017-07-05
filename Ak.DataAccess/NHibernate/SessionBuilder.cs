@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Web;
 using Ak.DataAccess.NHibernate.Helpers;
 using Ak.DataAccess.NHibernate.UserPassed;
@@ -55,6 +56,17 @@ namespace Ak.DataAccess.NHibernate
             where TM : IAutoMappingOverride<TE>
         {
             if (connectionInfo == null)
+            {
+                var scriptFileFullName = CM.AppSettings["ScriptFileFullName"];
+
+                if (scriptFileFullName.ToLower() == "current")
+                {
+                    scriptFileFullName = Directory.GetCurrentDirectory();
+                    var filename = DateTime.Now.ToString(@"Ba\seyyyyMMddhhmmss");
+
+                    scriptFileFullName = Path.Combine(scriptFileFullName, filename);
+                }
+
                 connectionInfo = new ConnectionInfo
                 {
                     Server = CM.AppSettings["Server"],
@@ -63,9 +75,10 @@ namespace Ak.DataAccess.NHibernate
                     Password = CM.AppSettings["Password"],
                     DBMS = Str2Enum.Cast<DBMS>(CM.AppSettings["DBMS"]),
                     DBAction = Str2Enum.Cast<DBAction>(CM.AppSettings["DBAction"]),
-                    ScriptFileFullName = CM.AppSettings["ScriptFileFullName"],
+                    ScriptFileFullName = scriptFileFullName,
                     ShowSQL = CM.AppSettings["ShowSQL"].ToLower() == "true",
                 };
+            }
 
             SessionFactoryBuilder.CreateSessionFactory(connectionInfo, autoMappingInfo);
         }
