@@ -61,6 +61,7 @@
     <Compile Include="Authentication\AjaxAuthorize.cs" />
     <Compile Include="Authentication\Authenticate.cs" />
     <Compile Include="Authentication\IRole.cs" />
+    <Compile Include="Forms\HtmlHelperExtension.cs" />
     <Compile Include="Forms\SelectListExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Route\RouteInfo.cs" />
