@@ -38,7 +38,7 @@
     <Compile Include="Authentication\AjaxAuthorize.cs" />
     <Compile Include="Authentication\Authenticate.cs" />
     <Compile Include="Authentication\IRole.cs" />
-    <Compile Include="Cookies\MyCookie.cs" />
+    <Compile Include="Cookies\BrowserId.cs" />
     <Compile Include="Forms\CheckBoxList.cs" />
     <Compile Include="Forms\Captcha.cs" />
     <Compile Include="Forms\HtmlHelperExtension.cs" />
