@@ -5,18 +5,22 @@ using System.Text;
 using System.Text.RegularExpressions;
 using DK.Generic.Exceptions;
 using NHibernate.Cfg;
-using NHibernate.Linq;
 using NHibernate.Tool.hbm2ddl;
 using NHibernate.Util;
 
 namespace DK.NHibernate.Helpers
 {
+    /// <summary>
+    /// Make changes to database tables
+    /// </summary>
     public class SchemaChanger
     {
         private readonly String scriptFileName;
-		private readonly String scriptFilePath;
 
-		public SchemaChanger(String scriptFileName)
+	    /// <summary>
+	    /// Construct class with the name of the script
+	    /// </summary>
+	    public SchemaChanger(String scriptFileName)
         {
             var addressPattern = new Regex(@"^(\\|[A-Z]\:).*");
 
@@ -87,9 +91,10 @@ namespace DK.NHibernate.Helpers
                             DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss ===========================")
                         );
 
-                    Action<String> updateExport = x => sw.WriteLine(x);
+	                // ReSharper disable once AccessToDisposedClosure
+	                void updateExport(string x) => sw.WriteLine(x);
 
-                    method(updateExport, execute);
+	                method(updateExport, execute);
 
                     sw.Close();
                 }

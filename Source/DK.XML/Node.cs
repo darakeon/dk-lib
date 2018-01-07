@@ -24,22 +24,24 @@ namespace DK.XML
             Value = String.Empty;
         }
 
-	    ///<summary>
-	    ///	Xml node structure
-	    ///</summary>
-	    ///<param name="name">Name for the new Node</param>
-	    ///<param name="value">Text Content for the new Node</param>
+	    /// <inheritdoc />
+	    /// <summary>
+	    /// 	Xml node structure
+	    /// </summary>
+	    /// <param name="name">Name for the new Node</param>
+	    /// <param name="value">Text Content for the new Node</param>
 	    public Node(String name, String value) : this()
         {
             Name = name;
             Value = value;
         }
 
-		///<summary>
-		/// Xml node structure
-		///</summary>
-		///<param name="xmlNode">Initial XMLNode</param>
-		///<param name="readChilds">Whether is to read all the childs (recursive read)</param>
+		/// <inheritdoc />
+		/// <summary>
+		///  Xml node structure
+		/// </summary>
+		/// <param name="xmlNode">Initial XMLNode</param>
+		/// <param name="readChilds">Whether is to read all the childs (recursive read)</param>
 		private Node(XmlNode xmlNode, Boolean readChilds = true)
             : this()
         {
@@ -68,6 +70,7 @@ namespace DK.XML
             {
                 var node = xmlNode.ChildNodes[n];
 
+	            // ReSharper disable once SwitchStatementMissingSomeCases
                 switch (node.NodeType)
                 {
                     case XmlNodeType.Element:
@@ -80,11 +83,12 @@ namespace DK.XML
             }
         }
 
-		/// <summary>
-		/// Xml node structure
-		/// </summary>
-		///<param name="path">Path of the XML file</param>
-		///<param name="readChilds">Whether is to read all the childs (recursive read)</param>
+		/// <inheritdoc />
+		///  <summary>
+		///  Xml node structure
+		///  </summary>
+		/// <param name="path">Path of the XML file</param>
+		/// <param name="readChilds">Whether is to read all the childs (recursive read)</param>
         public Node(String path, Boolean readChilds = true) : this(createNodesFromFile(path), readChilds) { }
 
         private static XmlNode createNodesFromFile(String path)
@@ -131,15 +135,8 @@ namespace DK.XML
         /// <returns>If found, the value of the attribute; Else, null</returns>
         public String this[String attribute]
         {
-            get
-            {
-                return Attributes.Keys.Contains(attribute)
-                    ? Attributes[attribute] : null;
-            }
-            set
-            {
-                Add(attribute, value);
-            }
+            get => Attributes.Keys.Contains(attribute) ? Attributes[attribute] : null;
+	        set => Add(attribute, value);
         }
 
 
@@ -150,15 +147,8 @@ namespace DK.XML
         /// <returns>If found, the child node; Else, null</returns>
         public Node this[Int32 node]
         {
-            get
-            {
-                return node < Childs.Count
-                    ? Childs[node] : null;
-            }
-            set
-            {
-                Childs[node] = value;
-            }
+            get => node < Childs.Count ? Childs[node] : null;
+	        set => Childs[node] = value;
         }
         #endregion
 
@@ -243,7 +233,7 @@ namespace DK.XML
         private static void writeNodeAtFile(Node node, XmlWriter textWriter)
         {
             if (textWriter == null)
-                throw new ArgumentNullException("textWriter");
+                throw new ArgumentNullException(nameof(textWriter));
 
 
             textWriter.WriteStartElement(node.Name);

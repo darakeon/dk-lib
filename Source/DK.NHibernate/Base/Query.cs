@@ -152,18 +152,17 @@ namespace DK.NHibernate.Base
 
 			foreach (var searchTerm in searchTerms)
 			{
-				if (searchTerm.ParentType() != typeof(T))
-				{
-					var type = searchTerm.ParentType();
+				if (searchTerm.ParentType() == typeof(T))
+					continue;
 
-					addParent(type);
-				}
+				var type = searchTerm.ParentType();
+				addParent(type);
 			}
 
 			return this;
 		}
 
-		private AbstractCriterion accumulateLikeOr<TSearch>(IList<SearchItem<TSearch>> searchTerms, LikeType likeType = LikeType.Both)
+		private static AbstractCriterion accumulateLikeOr<TSearch>(ICollection<SearchItem<TSearch>> searchTerms, LikeType likeType = LikeType.Both)
 		{
 			if (!searchTerms.Any())
 				return null;
@@ -199,11 +198,11 @@ namespace DK.NHibernate.Base
 
 		private void addParent(Type type)
 		{
-			if (!aliases.Contains(type.Name))
-			{
-				aliases.Add(type.Name);
-				criteria.CreateAlias(type.Name, type.Name, JoinType.LeftOuterJoin);
-			}
+			if (aliases.Contains(type.Name))
+				return;
+
+			aliases.Add(type.Name);
+			criteria.CreateAlias(type.Name, type.Name, JoinType.LeftOuterJoin);
 		}
 
 
@@ -253,7 +252,7 @@ namespace DK.NHibernate.Base
 		{
 			var columnName = func.GetName();
 			var integerValue = value.ToInt32(new NumberFormatInfo());
-			var query = String.Format("({{alias}}.{0} & {1}) as FlagCheck", columnName, integerValue);
+			var query = $"({{alias}}.{columnName} & {integerValue}) as FlagCheck";
 
 			var sqlProjection = Projections.SqlProjection(query, null, null);
 			var equal = Restrictions.Eq(sqlProjection, integerValue);
@@ -342,6 +341,7 @@ namespace DK.NHibernate.Base
 
 		private Query<T> page(Int32? itemsPerPage, Int32? page = 1)
 		{
+			// ReSharper disable once InvertIf
 			if (itemsPerPage.HasValue && page != 0)
 			{
 				var skip = ((page ?? 1) - 1) * itemsPerPage.Value;
@@ -427,7 +427,7 @@ namespace DK.NHibernate.Base
 			criteria.SetProjection(projections);
 		}
 
-		private void setGroupProjections<TDestiny, TGroupBy>(ProjectionList list, IEnumerable<TGroupBy> group)
+		private static void setGroupProjections<TDestiny, TGroupBy>(ProjectionList list, IEnumerable<TGroupBy> group)
 			where TGroupBy : GroupBy<TDestiny>
 			where TDestiny : new()
 		{

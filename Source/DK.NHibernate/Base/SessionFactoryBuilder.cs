@@ -24,6 +24,7 @@ namespace DK.NHibernate.Base
 		private static ISessionFactory start<TM, TE>(ConnectionInfo connectionInfo, AutoMappingInfo<TM, TE> autoMappingInfo, DBAction dbAction)
 			where TM : IAutoMappingOverride<TE>
 		{
+			// ReSharper disable once InvertIf
 			if (connectionInfo == null)
 			{
 				var scriptFileFullName = ConfigurationManager.AppSettings["ScriptFileFullName"];
@@ -105,6 +106,10 @@ namespace DK.NHibernate.Base
                 case DBAction.Validate:
                     config = config.ExposeConfiguration(schemaChanger.Validate);
                     break;
+	            case DBAction.None:
+		            break;
+	            default:
+		            throw new ArgumentOutOfRangeException(nameof(dbAction), dbAction, null);
             }
 
             return config.BuildSessionFactory();

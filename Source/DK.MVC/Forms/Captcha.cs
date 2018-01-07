@@ -9,8 +9,12 @@ using System.Web.SessionState;
 
 namespace DK.MVC.Forms
 {
+    /// <summary>
+    /// Generate captach for form validations
+    /// </summary>
     public class Captcha
     {
+        /// <param name="newText">Which the text shoud be renegerated</param>
         public Captcha(Boolean newText)
         {
             if (newText || String.IsNullOrEmpty(text))
@@ -21,14 +25,16 @@ namespace DK.MVC.Forms
 
 
 
-        public String Image
-        {
-            get { return generateImage(text); }
-        }
+        /// <summary>
+        /// Captcha image generated
+        /// </summary>
+        public String Image => generateImage(text);
 
 
-
-        public bool ValidateAndRenew(String typed)
+	    /// <summary>
+	    /// Validate and change captach
+	    /// </summary>
+	    public bool ValidateAndRenew(String typed)
         {
             var valid = typed == text;
 
@@ -39,19 +45,11 @@ namespace DK.MVC.Forms
 
 
 
-        private static HttpSessionState session
-        {
-            get { return HttpContext.Current.Session; }
-        }
-
-        private static string text
-        {
-            get { return session["Captcha"] != null ? session["Captcha"].ToString() : null; }
-        }
+        private static HttpSessionState session => HttpContext.Current.Session;
+		private static string text => session["Captcha"]?.ToString();
 
 
-
-        private void generateString()
+	    private void generateString()
         {
             var random = new Random();
             var captcha = String.Empty;
@@ -70,7 +68,7 @@ namespace DK.MVC.Forms
 
         private String generateImage(String captcha)
         {
-            using (var bitmap = new Bitmap(imageWidth, imageHeight))
+            using (var bitmap = new Bitmap(image_width, image_height))
             {
                 drawCaptcha(captcha, bitmap);
 
@@ -94,9 +92,9 @@ namespace DK.MVC.Forms
                 graphics.Clear(imageColor);
                 graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-                using (var font = new Font(fontType, fontSize, FontStyle.Bold))
+                using (var font = new Font(font_type, font_size, FontStyle.Bold))
                 {
-                    graphics.DrawString(captcha, font, Brushes.White, textTop, textLeft);
+                    graphics.DrawString(captcha, font, Brushes.White, text_top, text_left);
                 }
             }
         }
@@ -132,15 +130,15 @@ namespace DK.MVC.Forms
             "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
         };
 
-        private const String fontType = "Times New Roman";
-        private const Int32 fontSize = 17;
+        private const String font_type = "Times New Roman";
+        private const Int32 font_size = 17;
 
         private readonly Color imageColor = Color.FromArgb(33, 140, 0);
-        private const Int32 imageWidth = 100;
-        private const Int32 imageHeight = 30;
+        private const Int32 image_width = 100;
+        private const Int32 image_height = 30;
 
-        private const Int32 textTop = 3;
-        private const Int32 textLeft = 3;
+        private const Int32 text_top = 3;
+        private const Int32 text_left = 3;
 
         #endregion
 

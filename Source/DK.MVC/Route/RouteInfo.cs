@@ -9,15 +9,17 @@ namespace DK.MVC.Route
 	///</summary>
 	public class RouteInfo
 	{
-		///<summary>
-		/// RouteData of the current Url
-		///</summary>
+		/// <inheritdoc />
+		/// <summary>
+		///  RouteData of the current Url
+		/// </summary>
 		public RouteInfo() : this(HttpContext.Current.Request.Url) { }
 
 
-		///<summary>
-		/// RouteData of a specific Url
-		///</summary>
+		/// <inheritdoc />
+		/// <summary>
+		///  RouteData of a specific Url
+		/// </summary>
 		public RouteInfo(Uri uri) : this(uri, null) { }
 
 
@@ -26,14 +28,14 @@ namespace DK.MVC.Route
 		///</summary>
 		public RouteInfo(Uri uri, String applicationPath)
 		{
-			RouteData = RouteTable.Routes.GetRouteData(new InternalHttpContext(uri, applicationPath));
+			RouteData = RouteTable.Routes.GetRouteData(new internalHttpContext(uri, applicationPath));
 		}
 
 
 		///<summary>
 		/// Encapsulates information about the Url
 		///</summary>
-		public RouteData RouteData { get; private set; }
+		public RouteData RouteData { get; }
 
 
 		///<summary>
@@ -48,21 +50,21 @@ namespace DK.MVC.Route
 		public String this[String key] => RouteData?.Values?[key]?.ToString();
 
 
-		private class InternalHttpContext : HttpContextBase
+		private sealed class internalHttpContext : HttpContextBase
 		{
-			public InternalHttpContext(Uri uri, String applicationPath)
+			public internalHttpContext(Uri uri, String applicationPath)
 			{
-				Request = new InternalRequestContext(uri, applicationPath);
+				Request = new internalRequestContext(uri, applicationPath);
 			}
 
 			public override HttpRequestBase Request { get; }
 		}
 
-		private class InternalRequestContext : HttpRequestBase
+		private sealed class internalRequestContext : HttpRequestBase
 		{
 			private readonly String appRelativePath;
 
-			public InternalRequestContext(Uri uri, String applicationPath)
+			public internalRequestContext(Uri uri, String applicationPath)
 			{
 				PathInfo = uri.Query;
 

@@ -58,32 +58,20 @@ namespace DK.Excel
 
 
 
-        public String this[Int32 rowIndex, String columnName]
-        {
-            get
-            {
-                return data.Count > rowIndex
-                        && data[rowIndex].Keys.Contains(columnName)
-                    ? data[rowIndex][columnName]
-                    : null;
-            }
-        }
+        public String this[Int32 rowIndex, String columnName] =>
+	        data.Count > rowIndex && data[rowIndex].Keys.Contains(columnName)
+				? data[rowIndex][columnName]
+				: null;
 
-        public Boolean IsFilled(Int32 rowIndex, String columnName)
+	    public Boolean IsFilled(Int32 rowIndex, String columnName)
         {
             return this[rowIndex, columnName] != null;
         }
 
-        public Int32 RowCount
-        {
-            get { return data.Count; }
-        }
+        public Int32 RowCount => data.Count;
 
 
-
-
-
-        private static DbCommand connect(DbConnection excelConnection, string fileFullPath)
+	    private static DbCommand connect(DbConnection excelConnection, string fileFullPath)
         {
             if (excelConnection == null)
                 throw new Exception("File not found");

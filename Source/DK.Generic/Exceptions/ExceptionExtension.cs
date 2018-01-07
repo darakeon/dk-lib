@@ -12,10 +12,9 @@ namespace DK.Generic.Exceptions
         ///</summary>
         public static Exception MostInner(this Exception exception)
         {
-            if (exception.InnerException == null)
-                return exception;
-
-            return exception.InnerException.MostInner();
+	        return exception.InnerException == null 
+		        ? exception 
+		        : exception.InnerException.MostInner();
         }
     }
 }

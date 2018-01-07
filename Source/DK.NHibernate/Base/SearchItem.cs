@@ -18,8 +18,8 @@ namespace DK.NHibernate.Base
 			Term = term;
 		}
 
-		internal Expression<Func<T, object>> Property { get; private set; }
-		internal String Term { get; private set; }
+		internal Expression<Func<T, object>> Property { get; }
+		internal String Term { get; }
 
 		internal Type ParentType()
 		{

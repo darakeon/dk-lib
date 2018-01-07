@@ -11,14 +11,15 @@ namespace DK.MVC.Authentication
         ///<summary>
         /// Message of expiration of session
         ///</summary>
-        public const String Message = "Session expired.";
+        private const String message = "Session expired.";
 
-        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
+	    /// <inheritdoc />
+	    protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             filterContext.Result =
                 new JsonResult
                 {
-                    Data = Message,
+                    Data = message,
                     JsonRequestBehavior = JsonRequestBehavior.AllowGet
                 };
         }

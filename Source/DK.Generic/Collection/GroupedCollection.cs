@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace DK.Generic.Collection
 {
+    /// <inheritdoc />
     /// <summary>
     /// Collection Grouped by one of the properties of the original IList
     /// </summary>
@@ -18,11 +19,11 @@ namespace DK.Generic.Collection
         /// </summary>
         public GroupedCollection()
         {
-            GroupList = new List<ItemGroup<TI, TG>>();
+            groupList = new List<ItemGroup<TI, TG>>();
         }
 
 
-        private IList<ItemGroup<TI, TG>> GroupList { get; set; }
+        private IList<ItemGroup<TI, TG>> groupList { get; }
 
         ///<summary>
         /// Add an Item to the list, evaluation the Group whether it belongs
@@ -31,13 +32,13 @@ namespace DK.Generic.Collection
         {
             var group = item.GetGroup();
 
-            if (!GroupList.Any(mg => mg.Group.Equals(group)))
-                GroupList.Add(new ItemGroup<TI, TG>(group));
+            if (!groupList.Any(mg => mg.Group.Equals(group)))
+                groupList.Add(new ItemGroup<TI, TG>(group));
 
 
-            GroupList
+            groupList
                 .SingleOrDefault(gp => gp.Group.Equals(group))
-                .Add(item);
+                ?.Add(item);
         }
 
         ///<summary>
@@ -57,22 +58,22 @@ namespace DK.Generic.Collection
         ///</summary>
         public ItemGroup<TI, TG> this[Int32 group]
         {
-            get { return GroupList[group]; }
-            set { GroupList[group] = value; }
+            get => groupList[group];
+	        set => groupList[group] = value;
         }
 
         ///<summary>
         /// Return the list of Groups and itens
         /// Recommended when is needed to use Linq
         ///</summary>
-        public IList<ItemGroup<TI, TG>> List { get { return GroupList; } }
+        public IList<ItemGroup<TI, TG>> List => groupList;
 
 
-        /// <summary> Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>. </summary>
+	    /// <summary> Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>. </summary>
         /// <returns> A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>. </returns>
         public override String ToString()
         {
-            return String.Format("Count = {0}", List.Count);
+            return $"Count = {List.Count}";
         }
 
 
@@ -84,12 +85,12 @@ namespace DK.Generic.Collection
         ///</summary>
         public IEnumerator<ItemGroup<TI, TG>> GetEnumerator()
         {
-            return GroupList.GetEnumerator();
+            return groupList.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GroupList.GetEnumerator();
+            return groupList.GetEnumerator();
         }
 
         #endregion

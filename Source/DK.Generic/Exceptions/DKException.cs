@@ -2,14 +2,16 @@
 
 namespace DK.Generic.Exceptions
 {
-    ///<summary>
-    /// Any exception thrown by DK library
-    ///</summary>
+    /// <inheritdoc />
+    /// <summary>
+    ///  Any exception thrown by DK library
+    /// </summary>
     public class DKException : Exception
     {
-        ///<summary>
-        /// Any exception thrown by DK library
-        ///</summary>
+        /// <inheritdoc />
+        /// <summary>
+        ///  Any exception thrown by DK library
+        /// </summary>
         public DKException(String message) : base(message) { }
 
         /// <summary>

@@ -13,6 +13,9 @@ namespace DK.NHibernate.UserPassed
 		/// </summary>
 		void PopulateDB();
 
+		/// <summary>
+		/// Which action to take when start NHibernate
+		/// </summary>
 		DBAction DBAction { get; }
 	}
 }

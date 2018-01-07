@@ -4,11 +4,13 @@ using FluentNHibernate.Conventions.Instances;
 
 namespace DK.NHibernate.Conventions
 {
+    /// <inheritdoc />
     /// <summary>
     /// Convention for String Types
     /// </summary>
     public class StringTypeConvention : IPropertyConvention
     {
+	    /// <inheritdoc />
 	    /// <summary>
 	    /// Apply changes to the target
 	    /// </summary>

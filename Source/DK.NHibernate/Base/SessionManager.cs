@@ -45,18 +45,18 @@ namespace DK.NHibernate.Base
 		/// </summary>
 		public static void Close()
 		{
-			if (session != null)
-			{
-				if (session.IsOpen)
-				{
-					if (Failed)
-						session.Clear();
-					else
-						session.Flush();
-				}
+			if (session == null)
+				return;
 
-				session = null;
+			if (session.IsOpen)
+			{
+				if (Failed)
+					session.Clear();
+				else
+					session.Flush();
 			}
+
+			session = null;
 		}
 
 
@@ -104,6 +104,9 @@ namespace DK.NHibernate.Base
 			set
 			{
 				var key = getKey?.Invoke();
+
+				if (key == null)
+					return;
 
 				if (sessionList.ContainsKey(key))
 					sessionList[key] = value;

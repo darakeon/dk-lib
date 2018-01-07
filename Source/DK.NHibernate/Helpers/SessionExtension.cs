@@ -4,7 +4,7 @@ using NHibernate.Engine;
 
 namespace DK.NHibernate.Helpers
 {
-	static class SessionExtension
+	internal static class SessionExtension
 	{
         //TODO: REFACTORING: change 'refresh' to 'evict'
 		public static void Refresh(this ISession session)

@@ -23,6 +23,7 @@ namespace DK.MVC.Forms
             Items = new List<CheckBoxItem>();
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Constructor to use in your code
         /// </summary>
