@@ -14,7 +14,7 @@ namespace DK.NHibernate.Base
             transactionController = new TransactionController();
         }
 
-        private TransactionController transactionController { get; set; }
+        private TransactionController transactionController { get; }
 
 		/// <summary>
 		/// Execute commands inside a transaction.
@@ -38,10 +38,7 @@ namespace DK.NHibernate.Base
 			{
 				transactionController.Rollback();
 
-				if (onError != null)
-				{
-					onError();
-				}
+				onError?.Invoke();
 
 				throw;
 			}
@@ -67,10 +64,7 @@ namespace DK.NHibernate.Base
 			{
 				transactionController.Rollback();
 
-				if (onError != null)
-				{
-					onError();
-				}
+				onError?.Invoke();
 
 				throw;
 			}

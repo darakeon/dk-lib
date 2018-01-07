@@ -9,16 +9,19 @@ namespace DK.Generic.Exceptions
         where TS : new()
         where TE : new()
     {
+        /// <inheritdoc />
         /// <summary>
         /// Class to return an object composed by the return error and the success return
         /// </summary>
         public ComposedResult() : this(new TS(), new TE()) { }
 
+        /// <inheritdoc />
         /// <summary>
         /// Class to return an object composed by the return error and the success return
         /// </summary>
         public ComposedResult(TS success) : this(success, new TE()) { }
 
+        /// <inheritdoc />
         /// <summary>
         /// Class to return an object composed by the return error and the success return
         /// </summary>

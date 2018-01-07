@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DK.NHibernate.Conventions;
 using DK.NHibernate.Helpers;
 using FluentNHibernate.Automapping;
@@ -54,10 +55,11 @@ namespace DK.NHibernate.UserPassed
 
 			if (BaseEntities != null)
 			{
-				foreach (var baseEntity in BaseEntities)
-				{
-					autoMap = autoMap.IgnoreBase(baseEntity);
-				}
+				autoMap = BaseEntities
+					.Aggregate(
+						autoMap,
+						(current, baseEntity) => current.IgnoreBase(baseEntity)
+					);
 			}
 
 			if (Conventions != null)

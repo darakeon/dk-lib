@@ -76,8 +76,8 @@ namespace DK.All
         private static bool wrongChoice()
         {
             return chosenProject == null || 
-                   (!projects.Keys.Contains(chosenProject)
-                        && chosenProject != "All");
+                   !projects.Keys.Contains(chosenProject)
+                   && chosenProject != "All";
         }
 
         private static void showProjectOptions()
@@ -133,7 +133,7 @@ namespace DK.All
 
         private static void copyLibs(String name, String path)
         {
-            Console.WriteLine("Copying to {0}", name);
+            Console.WriteLine($"Copying to ${name}");
 
             foreach (var lib in currentLibs)
             {
@@ -143,7 +143,7 @@ namespace DK.All
                 var libCopy = Path.Combine(path, "DK", fileName);
 
                 File.Copy(original, libCopy, true);
-                Console.WriteLine("Copied: {0}", libCopy);
+                Console.WriteLine($"Copied: {libCopy}");
             }
 
             Console.WriteLine();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace DK.Generic.Collection
 {
+    /// <inheritdoc />
     /// <summary>
     /// Item of a Grouped Collection
     /// </summary>
@@ -17,9 +18,10 @@ namespace DK.Generic.Collection
         /// </summary>
         public ItemGroup()
         {
-            ItemList = new List<TI>();
+            itemList = new List<TI>();
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Item of a Grouped Collection
         /// </summary>
@@ -35,7 +37,7 @@ namespace DK.Generic.Collection
         public TG Group { get; set; }
 
 
-        private IList<TI> ItemList { get; set; }
+        private IList<TI> itemList { get; }
 
 
         ///<summary>
@@ -43,7 +45,7 @@ namespace DK.Generic.Collection
         ///</summary>
         public void Add(TI item)
         {
-            ItemList.Add(item);
+            itemList.Add(item);
         }
 
 
@@ -52,31 +54,29 @@ namespace DK.Generic.Collection
         ///</summary>
         public TI this[Int32 item]
         {
-            get { return ItemList[item]; }
-            set { ItemList[item] = value; }
+            get => itemList[item];
+	        set => itemList[item] = value;
         }
 
         ///<summary>
         /// Return the list of objects of this group
         ///</summary>
-        public IList<TI> List { get { return ItemList; } }
+        public IList<TI> List => itemList;
 
 
-
-
-        #region IEnumerable Members
+	    #region IEnumerable Members
 
         ///<summary>
         /// To make ForEach
         ///</summary>
         public IEnumerator<TI> GetEnumerator()
         {
-            return ItemList.GetEnumerator();
+            return itemList.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ItemList.GetEnumerator();
+            return itemList.GetEnumerator();
         }
 
         #endregion

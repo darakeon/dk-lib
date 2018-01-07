@@ -27,21 +27,21 @@ namespace DK.NHibernate.Base
 		public static void Initialize<TMap, TEntity>(IDataInitializer dbInitializer = null) 
 			where TMap : IAutoMappingOverride<TEntity>
 		{
-			if (Instance == null)
-			{
-				var mapInfo =
-					new AutoMappingInfo<TMap, TEntity>
-					{
-						BaseEntities = new [] { typeof (IEntity) }
-					};
+			if (Instance != null)
+				return;
 
-				var dbAction = getDBAction(dbInitializer);
+			var mapInfo =
+				new AutoMappingInfo<TMap, TEntity>
+				{
+					BaseEntities = new [] { typeof (IEntity) }
+				};
 
-				Instance = SessionFactoryBuilder.Start(mapInfo, dbAction);
+			var dbAction = getDBAction(dbInitializer);
 
-				if (dbInitializer != null && dbAction == DBAction.Recreate)
-					dbInitializer.PopulateDB();
-			}
+			Instance = SessionFactoryBuilder.Start(mapInfo, dbAction);
+
+			if (dbInitializer != null && dbAction == DBAction.Recreate)
+				dbInitializer.PopulateDB();
 		}
 
 		private static DBAction getDBAction(IDataInitializer dbInitializer)
@@ -53,9 +53,7 @@ namespace DK.NHibernate.Base
 			}
 			catch (Exception)
 			{
-				return dbInitializer != null 
-					? dbInitializer.DBAction 
-					: DBAction.Validate;
+				return dbInitializer?.DBAction ?? DBAction.Validate;
 			}
 		}
 

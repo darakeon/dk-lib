@@ -12,12 +12,12 @@ namespace DK.NHibernate.Conventions
         {
             protected override String GetBiDirectionalTableName(IManyToManyCollectionInspector collection, IManyToManyCollectionInspector otherSide)
             {
-				return String.Format("{0}_{1}", collection.EntityType.Name.ToLower(), otherSide.EntityType.Name.ToLower());
+				return $"{collection.EntityType.Name.ToLower()}_{otherSide.EntityType.Name.ToLower()}";
 			}
 
 			protected override String GetUniDirectionalTableName(IManyToManyCollectionInspector collection)
             {
-				return String.Format("{0}_{1}", collection.EntityType.Name.ToLower(), collection.ChildType.Name.ToLower());
+				return $"{collection.EntityType.Name.ToLower()}_{collection.ChildType.Name.ToLower()}";
 			}
 		}
 
@@ -29,9 +29,7 @@ namespace DK.NHibernate.Conventions
 
                 instance.Column(propertyName);
 
-                instance.ForeignKey(String.Format("FK_{0}_{1}"
-                    , instance.EntityType.Name
-                    , instance.Name));
+                instance.ForeignKey($"FK_{instance.EntityType.Name}_{instance.Name}");
             }
         }
 
@@ -67,7 +65,7 @@ namespace DK.NHibernate.Conventions
 							? instance.EntityType.Name
 							: referenceName;
 
-					var constraintName = String.Format("FK_{0}_{1}", memberTypeName, referenceName);
+					var constraintName = $"FK_{memberTypeName}_{referenceName}";
 					instance.Key.ForeignKey(constraintName);
 
 					referenceName = putID(referenceName);
@@ -77,7 +75,7 @@ namespace DK.NHibernate.Conventions
 				{
 					var typeName = instance.EntityType.Name;
 
-					var constraintName = String.Format("FK_{0}_{1}", typeName, referenceName);
+					var constraintName = $"FK_{typeName}_{referenceName}";
 					instance.Key.ForeignKey(constraintName);
 
 					var originTableName = GetTableNameWithNamespace(instance.EntityType);
@@ -92,7 +90,7 @@ namespace DK.NHibernate.Conventions
 
         private static String putID(String name)
         {
-            return String.Format("{0}_ID", name);
+            return $"{name}_ID";
         }
 
 		private const int first_letters = 2;
@@ -119,14 +117,14 @@ namespace DK.NHibernate.Conventions
 				var piece = namespacePieces[p];
 				var count = piece.Length;
 
-				if (count > total_letters)
-				{
-					var firstPart = piece.Substring(0, first_letters);
-					var shortenLetters = count - total_letters;
-					var lastPart = piece.Substring(count - last_letters, last_letters);
+				if (count <= total_letters)
+					continue;
 
-					namespacePieces[p] = String.Concat(firstPart, shortenLetters, lastPart);
-				}
+				var firstPart = piece.Substring(0, first_letters);
+				var shortenLetters = count - total_letters;
+				var lastPart = piece.Substring(count - last_letters, last_letters);
+
+				namespacePieces[p] = String.Concat(firstPart, shortenLetters, lastPart);
 			}
 
 			var namespaceForDB = String.Join("_", namespacePieces);

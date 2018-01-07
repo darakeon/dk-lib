@@ -15,8 +15,8 @@ namespace DK.MVC.Authentication
     {
         private static IPrincipal user
         {
-            get { return HttpContext.Current.User; }
-            set { HttpContext.Current.User = value; }
+            get => HttpContext.Current.User;
+	        set => HttpContext.Current.User = value;
         }
 
         
@@ -96,32 +96,16 @@ namespace DK.MVC.Authentication
         ///<summary>
         /// Whether there is user logged-in at the site
         ///</summary>
-        public static Boolean IsAuthenticated
-        {
-            get
-            {
-                return user != null && user.Identity.IsAuthenticated;
-            }
-        }
+        public static Boolean IsAuthenticated => user != null && user.Identity.IsAuthenticated;
 
 
-
-        ///<summary>
+	    ///<summary>
         /// Return the username that is logged-in
         ///</summary>
-        public static String Username
-        {
-            get
-            {
-                return IsAuthenticated
-                           ? user.Identity.Name
-                           : null;
-            }
-        }
+        public static String Username => IsAuthenticated ? user.Identity.Name : null;
 
 
-
-        /// <summary>
+	    /// <summary>
         /// Clean the session if the login is out on core, 
         /// but there is authentication on browser
         /// </summary>
@@ -144,13 +128,15 @@ namespace DK.MVC.Authentication
         ///<returns></returns>
         public static String EncryptPassword(this String password)
         {
+			#pragma warning disable 618
             return FormsAuthentication
                 .HashPasswordForStoringInConfigFile(
                     password,
                     FormsAuthPasswordFormat.SHA1.ToString()
                 );
+			#pragma warning restore 618
         }
 
 
-    }
+	}
 }
