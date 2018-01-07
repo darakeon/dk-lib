@@ -42,13 +42,21 @@ namespace DK.All
         private static void setProjectOptions()
         {
             var projectDir = Directory.GetCurrentDirectory();
-            var localDir = projectDir.IndexOf("Keon") + 5;
-            var mainDir = projectDir.Substring(0, localDir);
+            var mainDir = new DirectoryInfo(projectDir)
+				.Parent? // bin
+	            .Parent? // DK.All
+	            .Parent? // Source
+	            .Parent? // DK
+	            .Parent? // mother of all
+	            .FullName;
+
+	        if (mainDir == null)
+		        throw new Exception("Path not found!!!");
 
             projects = new Dictionary<String, String>
             {
-                {"DFM", mainDir + @"03 - DFM\Projeto\site\Library"},
-                {"Stories", mainDir + @"06 - Stories\Site\Site\Library"}
+                {"DFM", Path.Combine(mainDir, "DfM", "site", "Library") },
+                {"Stories", Path.Combine(mainDir, "MEAK", "Site", "Site", "Library") }
             };
         }
 
