@@ -13,7 +13,6 @@ namespace DK.NHibernate.Helpers
 
 			var sessionImplementation = session.GetSessionImplementation();
 			var persistenceContext = sessionImplementation.PersistenceContext;
-			var entityMode = sessionImplementation.EntityMode;
 			var entityEntryList = persistenceContext.EntityEntries.Values;
 
 			foreach (EntityEntry entityEntry in entityEntryList)
@@ -25,7 +24,7 @@ namespace DK.NHibernate.Helpers
 
 				var entity = persistenceContext.GetEntity(entityEntry.EntityKey);
 				var persister = entityEntry.Persister;
-				var currentState = persister.GetPropertyValues(entity, entityMode);
+				var currentState = persister.GetPropertyValues(entity);
 				var loadedState = entityEntry.LoadedState;
 
 				if (loadedState == null)
