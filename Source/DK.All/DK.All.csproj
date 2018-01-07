@@ -57,10 +57,6 @@
       <Project>{F2EDE40B-6855-4801-AA0F-74E5412C1B0A}</Project>
       <Name>DK.Excel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DK.Facebook\DK.Facebook.csproj">
-      <Project>{BD75CF69-95B8-4BCB-B1E6-DF449417439F}</Project>
-      <Name>DK.Facebook</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DK.Generic\DK.Generic.csproj">
       <Project>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</Project>
       <Name>DK.Generic</Name>
