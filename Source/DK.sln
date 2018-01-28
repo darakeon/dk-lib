@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.XML", "DK.XML\DK.XML.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.MVC", "DK.MVC\DK.MVC.csproj", "{ED39BCED-DE3F-45DB-BB83-39EC967C92E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.TwoFactorAuth", "DK.TwoFactorAuth\DK.TwoFactorAuth.csproj", "{FC3C099E-3909-468E-A1F8-EE2D74FCA970}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,18 @@ Global
 		{ED39BCED-DE3F-45DB-BB83-39EC967C92E8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{ED39BCED-DE3F-45DB-BB83-39EC967C92E8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{ED39BCED-DE3F-45DB-BB83-39EC967C92E8}.Release|x86.ActiveCfg = Release|Any CPU
+		{FC3C099E-3909-468E-A1F8-EE2D74FCA970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC3C099E-3909-468E-A1F8-EE2D74FCA970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC3C099E-3909-468E-A1F8-EE2D74FCA970}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FC3C099E-3909-468E-A1F8-EE2D74FCA970}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FC3C099E-3909-468E-A1F8-EE2D74FCA970}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FC3C099E-3909-468E-A1F8-EE2D74FCA970}.Debug|x86.Build.0 = Debug|Any CPU
+		{FC3C099E-3909-468E-A1F8-EE2D74FCA970}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC3C099E-3909-468E-A1F8-EE2D74FCA970}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC3C099E-3909-468E-A1F8-EE2D74FCA970}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FC3C099E-3909-468E-A1F8-EE2D74FCA970}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FC3C099E-3909-468E-A1F8-EE2D74FCA970}.Release|x86.ActiveCfg = Release|Any CPU
+		{FC3C099E-3909-468E-A1F8-EE2D74FCA970}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
