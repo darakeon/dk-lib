@@ -69,6 +69,10 @@
       <Project>{5CCE8FD9-BF36-4C3B-8651-D2FB97295D74}</Project>
       <Name>DK.NHibernate</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DK.TwoFactorAuth\DK.TwoFactorAuth.csproj">
+      <Project>{fc3c099e-3909-468e-a1f8-ee2d74fca970}</Project>
+      <Name>DK.TwoFactorAuth</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DK.XML\DK.XML.csproj">
       <Project>{BE5C6AFD-8D76-4A62-B77A-C5503FCDBE57}</Project>
       <Name>DK.XML</Name>
