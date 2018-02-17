@@ -5,6 +5,6 @@ bin
 *dotCover
 _ReSharper*
 *.suo
-Source/packages/*
+packages/*
 .hg*
 .vs
