@@ -28,7 +28,8 @@ namespace DK.MVC.Route
 		///</summary>
 		public RouteInfo(Uri uri, String applicationPath)
 		{
-			RouteData = RouteTable.Routes.GetRouteData(new internalHttpContext(uri, applicationPath));
+			var context = new internalHttpContext(uri, applicationPath);
+			RouteData = RouteTable.Routes.GetRouteData(context);
 		}
 
 
