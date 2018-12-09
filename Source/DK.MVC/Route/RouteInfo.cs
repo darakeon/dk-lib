@@ -67,8 +67,7 @@ namespace DK.MVC.Route
 
 			public internalRequestContext(Uri uri, String applicationPath)
 			{
-				PathInfo = uri.Query;
-
+				PathInfo = HttpUtility.UrlEncode(uri.Query);
 
 				var noApplicationPath = String.IsNullOrEmpty(applicationPath);
 
