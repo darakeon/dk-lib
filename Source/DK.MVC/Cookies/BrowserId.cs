@@ -55,13 +55,13 @@ namespace DK.MVC.Cookies
 
 		private static String get()
 		{
-			if (session == null)
-				return null;
+			if (session != null)
+			{
+				var value = session[name];
 
-			var value = session[name];
-
-			if (value != null)
-				return value.ToString();
+				if (value != null)
+					return value.ToString();
+			}
 
 			var cookie = getCookies[name] ?? setCookies[name];
 			var cookieText = cookie?.Value ?? String.Empty;
@@ -76,11 +76,11 @@ namespace DK.MVC.Cookies
 
 		private static void add(String value, Boolean? remember)
 		{
-			if (session == null)
-				return;
-
-			session.Timeout = month;
-			session.Add(name, value);
+			if (session != null)
+			{
+				session.Timeout = month;
+				session.Add(name, value);
+			}
 
 			if (remember.HasValue)
 			{
@@ -95,6 +95,5 @@ namespace DK.MVC.Cookies
 			getCookies.Add(cookie);
 			setCookies.Add(cookie);
 		}
-
 	}
 }
