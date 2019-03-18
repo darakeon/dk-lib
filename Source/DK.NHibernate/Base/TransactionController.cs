@@ -12,6 +12,8 @@ namespace DK.NHibernate.Base
 
 	    internal void Begin()
 	    {
+		    if (Session == null) return;
+
 			if (Session.Transaction != null
                     && Session.Transaction.IsActive)
                 throw new DKException("There's a Transaction opened already, cannot begin a new one.");
@@ -26,6 +28,8 @@ namespace DK.NHibernate.Base
 
         internal void Commit()
         {
+	        if (Session == null) return;
+
             testTransaction("commit");
 
             Session.Transaction.Commit();
@@ -35,6 +39,8 @@ namespace DK.NHibernate.Base
 
         internal void Rollback()
         {
+	        if (Session == null) return;
+
 			if (Session.Connection.State == ConnectionState.Closed)
 			{
 				Session.Connection.Open();
@@ -56,10 +62,10 @@ namespace DK.NHibernate.Base
 
 		private static void testTransaction(String action)
         {
+			if (Session == null) return;
+
             if (Session.Transaction.WasCommitted || Session.Transaction.WasRolledBack)
                 throw new DKException("There's a Transaction opened already, cannot " + action + ".");
         }
-
-
     }
 }

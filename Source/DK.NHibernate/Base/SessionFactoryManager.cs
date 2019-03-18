@@ -21,6 +21,11 @@ namespace DK.NHibernate.Base
 		public static ISessionFactory Instance { get; private set; }
 
 		/// <summary>
+		/// Use in-memory data with lists, for tests
+		/// </summary>
+		public static Boolean FakeDB { get; set; }
+
+		/// <summary>
 		/// Initialize function, need to be called before use instance
 		/// </summary>
 		/// <param name="dbInitializer">Object to pre-populate DB</param>
@@ -29,6 +34,12 @@ namespace DK.NHibernate.Base
 		{
 			if (Instance != null)
 				return;
+
+			FakeDB = (
+				ConfigurationManager.AppSettings["FakeDB"] ?? "false"
+			).ToLower() == "true";
+
+			if (FakeDB) return;
 
 			var mapInfo =
 				new AutoMappingInfo<TMap, TEntity>
@@ -62,12 +73,13 @@ namespace DK.NHibernate.Base
 
 		internal static ISession OpenSession()
 		{
+			if (FakeDB) return null;
+
 			if (Instance == null)
 				throw new DKException("Restart the Application.");
 
 			return Instance.OpenSession();
 		}
-
 
 		/// <summary>
 		/// Finishes SessionFactory
@@ -76,10 +88,5 @@ namespace DK.NHibernate.Base
 		{
 			Instance?.Close();
 		}
-
-
 	}
-
-
-
 }

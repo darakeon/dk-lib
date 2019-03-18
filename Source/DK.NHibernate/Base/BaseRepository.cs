@@ -21,9 +21,16 @@ namespace DK.NHibernate.Base
 		/// </summary>
 		protected BaseRepository()
 		{
-			data = new BaseData<T>();
+			data = getBaseData();
 		}
 
+		private IData<T> getBaseData()
+		{
+			if (SessionFactoryManager.FakeDB)
+				return new FakeData<T>();
+
+			return new BaseData<T>();
+		}
 
 
 		/// <summary>
