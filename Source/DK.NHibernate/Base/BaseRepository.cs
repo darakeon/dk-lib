@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq.Expressions;
 using DK.Generic.DB;
 using DK.Generic.Extensions;
+using DK.NHibernate.Queries;
 
 namespace DK.NHibernate.Base
 {
@@ -13,7 +14,7 @@ namespace DK.NHibernate.Base
 	public class BaseRepository<T> 
 		where T : class, IEntity, new()
 	{
-		private readonly BaseData<T> data;
+		private readonly IData<T> data;
 
 		/// <summary>
 		/// Initializes DB reader/writer
@@ -61,7 +62,7 @@ namespace DK.NHibernate.Base
 		/// <summary>
 		/// Get old data of query
 		/// </summary>
-		protected TResult NewNonCachedQuery<TResult>(Func<Query<T>, TResult> action)
+		protected TResult NewNonCachedQuery<TResult>(Func<IQuery<T>, TResult> action)
 		{
 			return data.NewNonCachedQuery(action);
 		}
@@ -108,7 +109,7 @@ namespace DK.NHibernate.Base
 		/// <summary>
 		/// Return an object to take data
 		/// </summary>
-		public Query<T> NewQuery()
+		public IQuery<T> NewQuery()
 		{
 			return data.NewQuery();
 		}

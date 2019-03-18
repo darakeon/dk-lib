@@ -5,26 +5,28 @@ using System.Linq;
 using System.Linq.Expressions;
 using DK.Generic.DB;
 using DK.Generic.Reflection;
+using DK.NHibernate.Base;
 using DK.NHibernate.Helpers;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
 using NHibernate.Transform;
 
-namespace DK.NHibernate.Base
+namespace DK.NHibernate.Queries
 {
-    /// <summary>
-    /// Object to handle database fluently
-    /// </summary>
-    /// <typeparam name="T">Entity Type</typeparam>
-    public class Query<T> where T : class, IEntity, new()
+	/// <summary>
+	/// Object to handle database fluently
+	/// </summary>
+	/// <typeparam name="T">Entity Type</typeparam>
+	public class Query<T> : IQuery<T>
+		where T : class, IEntity, new()
 	{
 		private ICriteria criteria { get; set; }
 		private Boolean distinctMainEntity { get; set; }
 
 		/// <summary></summary>
 		/// <param name="session">NH Session</param>
-		public Query(ISession session)
+		internal Query(ISession session)
         {
 			criteria = session.CreateCriteria<T>();
 		}
@@ -34,7 +36,7 @@ namespace DK.NHibernate.Base
 		/// Make a filter with lambda expression
 		/// </summary>
 		/// <param name="where">Lambda expression</param>
-		public Query<T> SimpleFilter(Expression<Func<T, Boolean>> where)
+		public IQuery<T> SimpleFilter(Expression<Func<T, Boolean>> where)
         {
             criteria = criteria.Add(Restrictions.Where(where));
             return this;
@@ -46,7 +48,7 @@ namespace DK.NHibernate.Base
 		/// </summary>
 		/// <param name="entityRelation">Lambda expression for parent entity</param>
 		/// <param name="where">Lambda expression of condition</param>
-		public Query<T> SimpleFilter<TEntity>(Expression<Func<T, TEntity>> entityRelation, Expression<Func<TEntity, Boolean>> where)
+		public IQuery<T> SimpleFilter<TEntity>(Expression<Func<T, TEntity>> entityRelation, Expression<Func<TEntity, Boolean>> where)
 		{
 			var newCriteria = criteria.GetOrCreateRelationCriteria(entityRelation);
 			newCriteria.Add(Restrictions.Where(where));
@@ -58,7 +60,7 @@ namespace DK.NHibernate.Base
 		/// </summary>
 		/// <param name="entityRelation">Lambda expression for child entity</param>
 		/// <param name="where">Lambda expression of condition</param>
-		public Query<T> SimpleFilter<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation, Expression<Func<TEntity, Boolean>> where)
+		public IQuery<T> SimpleFilter<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation, Expression<Func<TEntity, Boolean>> where)
 		{
 			var newCriteria = criteria.GetOrCreateRelationCriteria(entityRelation);
 			newCriteria.Add(Restrictions.Where(where));
@@ -72,7 +74,7 @@ namespace DK.NHibernate.Base
 		/// </summary>
 		/// <param name="property">Lambda of property to test</param>
 		/// <param name="contains">List to be verified</param>
-		public Query<T> InCondition<TEntity>(Expression<Func<T, TEntity>> property, IList<TEntity> contains)
+		public IQuery<T> InCondition<TEntity>(Expression<Func<T, TEntity>> property, IList<TEntity> contains)
 		{
 			var propertyName = property.GetName();
 			var newCriteria = criteria.GetOrCreatePropertyCriteria(property);
@@ -86,7 +88,7 @@ namespace DK.NHibernate.Base
 		/// <summary>
 		/// Test whether a list is not empty
 		/// </summary>
-		public Query<T> IsNotEmpty<TL>(Expression<Func<T, IList<TL>>> listProperty)
+		public IQuery<T> IsNotEmpty<TL>(Expression<Func<T, IList<TL>>> listProperty)
 		{
 			var newCriteria = criteria.GetOrCreateRelationCriteria(listProperty, JoinType.LeftOuterJoin);
 			newCriteria.Add(Restrictions.IsNotNull(Projections.Id()));
@@ -96,7 +98,7 @@ namespace DK.NHibernate.Base
 		/// <summary>
 		/// Test whether a list is empty
 		/// </summary>
-		public Query<T> IsEmpty<TL>(Expression<Func<T, IList<TL>>> listProperty)
+		public IQuery<T> IsEmpty<TL>(Expression<Func<T, IList<TL>>> listProperty)
 		{
 			var newCriteria = criteria.GetOrCreateRelationCriteria(listProperty, JoinType.LeftOuterJoin);
 			newCriteria.Add(Restrictions.IsNull(Projections.Id()));
@@ -110,7 +112,11 @@ namespace DK.NHibernate.Base
 	    /// <param name="property">Lambda of property</param>
 	    /// <param name="term">Text to search</param>
 	    /// <param name="likeType">Start, End, Both</param>
-	    public Query<T> LikeCondition(Expression<Func<T, object>> property, String term, LikeType likeType = LikeType.Both)
+	    public IQuery<T> LikeCondition(
+		    Expression<Func<T, object>> property,
+		    String term,
+		    LikeType likeType = LikeType.Both
+		)
 		{
 			var searchTerms = new List<SearchItem<T>>
 			{
@@ -128,7 +134,11 @@ namespace DK.NHibernate.Base
 		/// <param name="ascendingRelation">Relation to parent entity</param>
 		/// <param name="property">Property of parent</param>
 		/// <param name="term">Terms of search</param>
-		public Query<T> LikeCondition<TAscending>(Expression<Func<T, TAscending>> ascendingRelation, Expression<Func<TAscending, object>> property, String term)
+		public IQuery<T> LikeCondition<TAscending>(
+			Expression<Func<T, TAscending>> ascendingRelation,
+			Expression<Func<TAscending, object>> property,
+			String term
+		)
 		{
 			var newCriteria = criteria.GetOrCreateRelationCriteria(ascendingRelation);
 
@@ -146,7 +156,7 @@ namespace DK.NHibernate.Base
 		/// Search for text inside entity property values
 		/// </summary>
 		/// <param name="searchTerms">Fields and texts to search</param>
-		public Query<T> LikeCondition(IList<SearchItem<T>> searchTerms)
+		public IQuery<T> LikeCondition(IList<SearchItem<T>> searchTerms)
 		{
 			criteria = criteria.Add(accumulateLikeOr(searchTerms));
 
@@ -181,7 +191,9 @@ namespace DK.NHibernate.Base
 				likeTerm = "%" + likeTerm;
 			}
 
-			var restriction = Restrictions.On(searchTerm.Property).IsInsensitiveLike(likeTerm);
+			var restriction = Restrictions.On(
+				searchTerm.Property
+			).IsInsensitiveLike(likeTerm);
 
 			if (searchTerms.Count == 1)
 			{
@@ -211,7 +223,7 @@ namespace DK.NHibernate.Base
 		/// Show primary entity even if the other entity doesn't exists
 		/// </summary>
 		/// <param name="entityRelation">Parent entity</param>
-		public Query<T> LeftJoin<TEntity>(Expression<Func<T, TEntity>> entityRelation)
+		public IQuery<T> LeftJoin<TEntity>(Expression<Func<T, TEntity>> entityRelation)
 		{
 			criteria.GetOrCreateRelationCriteria(entityRelation, JoinType.LeftOuterJoin);
 
@@ -222,7 +234,7 @@ namespace DK.NHibernate.Base
 		/// Show primary entity even if the other entity doesn't exists
 		/// </summary>
 		/// <param name="entityRelation">Child entity</param>
-		public Query<T> LeftJoin<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation)
+		public IQuery<T> LeftJoin<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation)
 		{
 			criteria.GetOrCreateRelationCriteria(entityRelation, JoinType.LeftOuterJoin);
 
@@ -232,7 +244,7 @@ namespace DK.NHibernate.Base
 		/// <summary>
 		/// Fetch eagerly, using a separate select.
 		/// </summary>
-		public Query<T> FetchModeEager<TEntity>(Expression<Func<T, IList<TEntity>>> listProperty)
+		public IQuery<T> FetchModeEager<TEntity>(Expression<Func<T, IList<TEntity>>> listProperty)
 		{
 			var name = listProperty.GetName();
 			criteria.SetFetchMode(name, FetchMode.Eager);
@@ -247,7 +259,7 @@ namespace DK.NHibernate.Base
 		/// </summary>
 		/// <param name="func">Property to be checked</param>
 		/// <param name="value">Value to find</param>
-		public Query<T> HasFlag<TEnum>(Expression<Func<T, TEnum>> func, TEnum value)
+		public IQuery<T> HasFlag<TEnum>(Expression<Func<T, TEnum>> func, TEnum value)
 			where TEnum : struct, IConvertible
 		{
 			var columnName = func.GetName();
@@ -269,7 +281,7 @@ namespace DK.NHibernate.Base
 		/// </summary>
 		/// <param name="order">Property to order</param>
 		/// <param name="ascending">Whether the order is ascending (true) or descending (false)</param>
-		public Query<T> OrderBy<TPropOrder>(Expression<Func<T, TPropOrder>> order, Boolean? ascending = true)
+		public IQuery<T> OrderBy<TPropOrder>(Expression<Func<T, TPropOrder>> order, Boolean? ascending = true)
         {
             var propName = order.GetName();
 
@@ -285,7 +297,7 @@ namespace DK.NHibernate.Base
 		/// <summary>
 		/// Ordering using parent entity
 		/// </summary>
-		public Query<T> OrderByParent<TPropOrder>(Expression<Func<T, TPropOrder>> order, Boolean? ascending = true)
+		public IQuery<T> OrderByParent<TPropOrder>(Expression<Func<T, TPropOrder>> order, Boolean? ascending = true)
 		{
 			criteria.GetOrCreatePropertyCriteria(order, JoinType.LeftOuterJoin);
 
@@ -311,7 +323,7 @@ namespace DK.NHibernate.Base
 		/// Take just the first items
 		/// </summary>
 		/// <param name="topItems">Number of items to take</param>
-		public Query<T> Take(Int32 topItems)
+		public IQuery<T> Take(Int32 topItems)
 		{
 			if (topItems != 0)
 			{
@@ -334,12 +346,12 @@ namespace DK.NHibernate.Base
 	    /// To get a page of the results
 	    /// </summary>
 	    /// <param name="search">Parameters of paging</param>
-	    public Query<T> Page(ISearch search)
+	    public IQuery<T> Page(ISearch search)
 		{
 			return page(search.ItemsPerPage, search.Page);
 		}
 
-		private Query<T> page(Int32? itemsPerPage, Int32? page = 1)
+		private IQuery<T> page(Int32? itemsPerPage, Int32? page = 1)
 		{
 			// ReSharper disable once InvertIf
 			if (itemsPerPage.HasValue && page != 0)
@@ -359,7 +371,7 @@ namespace DK.NHibernate.Base
 		/// <summary>
 		/// To do not duplicate main entity
 		/// </summary>
-		public Query<T> DistinctMainEntity()
+		public IQuery<T> DistinctMainEntity()
 		{
 			criteria.SetResultTransformer(Transformers.DistinctRootEntity);
 
@@ -375,28 +387,36 @@ namespace DK.NHibernate.Base
 		/// <param name="groupProperties">Group by</param>
 		/// <param name="summarizeProperties">Summarize properties (Count, Max, Sum)</param>
 		/// <typeparam name="TDestiny">Type of class to be returned (summarized)</typeparam>
+		/// <typeparam name="TProp">Type of the property in both entities</typeparam>
 		/// <typeparam name="TGroupBy">Need to construct from Query.GroupBy</typeparam>
 		/// <typeparam name="TSummarize">Need to construct from Query.Summarize</typeparam>
-		public Query<T> TransformResult<TDestiny, TGroupBy, TSummarize>(IList<TGroupBy> groupProperties, IList<TSummarize> summarizeProperties)
-			where TGroupBy : GroupBy<TDestiny>
-			where TSummarize : Summarize<TDestiny>
+		public IQuery<T> TransformResult<TDestiny, TProp, TGroupBy, TSummarize>(
+			IList<TGroupBy> groupProperties,
+			IList<TSummarize> summarizeProperties
+		)
+			where TGroupBy : GroupBy<T, TDestiny, TProp>
+			where TSummarize : Summarize<T, TDestiny, TProp>
 			where TDestiny : new()
 		{
-			setProjections<TDestiny, TGroupBy, TSummarize>(groupProperties, summarizeProperties);
+			setProjections<TDestiny, TProp, TGroupBy, TSummarize>(groupProperties, summarizeProperties);
 			criteria.SetResultTransformer(Transformers.AliasToBean(typeof(TDestiny)));
 
 			return this;
 		}
 
-		private void setProjections<TDestiny, TGroupBy, TSummarize>(IEnumerable<TGroupBy> groupProperties, IEnumerable<TSummarize> summarizeProperties)
-			where TGroupBy : GroupBy<TDestiny>
-			where TSummarize : Summarize<TDestiny>
+		private void setProjections<TDestiny, TProp, TGroupBy, TSummarize>
+		(
+			IEnumerable<TGroupBy> groupProperties,
+			IEnumerable<TSummarize> summarizeProperties
+		)
+			where TGroupBy : GroupBy<T, TDestiny, TProp>
+			where TSummarize : Summarize<T, TDestiny, TProp>
 			where TDestiny : new()
 		{
 			var projections = Projections.ProjectionList();
 
-			setGroupProjections<TDestiny, TGroupBy>(projections, groupProperties);
-			setSummarizeProjections<TDestiny, TSummarize>(projections, summarizeProperties);
+			setGroupProjections<TDestiny, TProp, TGroupBy>(projections, groupProperties);
+			setSummarizeProjections<TDestiny, TProp, TSummarize>(projections, summarizeProperties);
 
 			criteria.SetProjection(projections);
 		}
@@ -406,29 +426,32 @@ namespace DK.NHibernate.Base
 		/// </summary>
 		/// <param name="groupProperties">Group by</param>
 		/// <typeparam name="TDestiny">Type of class to be returned (summarized)</typeparam>
+		/// <typeparam name="TProp">Type of the property in both entities</typeparam>
 		/// <typeparam name="TGroupBy">Need to construct from Query.GroupBy</typeparam>
-		public Query<T> TransformResult<TDestiny, TGroupBy>(IList<TGroupBy> groupProperties)
-			where TGroupBy : GroupBy<TDestiny> where TDestiny : new()
+		public IQuery<T> TransformResult<TDestiny, TProp, TGroupBy>(IList<TGroupBy> groupProperties)
+			where TGroupBy : GroupBy<T, TDestiny, TProp> where TDestiny : new()
 		{
-			setProjections<TDestiny, TGroupBy>(groupProperties);
+			setProjections<TDestiny, TProp, TGroupBy>(groupProperties);
 			criteria.SetResultTransformer(Transformers.AliasToBean(typeof(TDestiny)));
 
 			return this;
 		}
 
-		private void setProjections<TDestiny, TGroupBy>(IEnumerable<TGroupBy> groupProperties)
-			where TGroupBy : GroupBy<TDestiny>
+		private void setProjections<TDestiny, TProp, TGroupBy>(IEnumerable<TGroupBy> groupProperties)
+			where TGroupBy : GroupBy<T, TDestiny, TProp>
 			where TDestiny : new()
 		{
 			var projections = Projections.ProjectionList();
 
-			setGroupProjections<TDestiny, TGroupBy>(projections, groupProperties);
+			setGroupProjections<TDestiny, TProp, TGroupBy>(projections, groupProperties);
 
 			criteria.SetProjection(projections);
 		}
 
-		private static void setGroupProjections<TDestiny, TGroupBy>(ProjectionList list, IEnumerable<TGroupBy> group)
-			where TGroupBy : GroupBy<TDestiny>
+		private static void setGroupProjections<TDestiny, TProp, TGroupBy>(
+			ProjectionList list, IEnumerable<TGroupBy> group
+		)
+			where TGroupBy : GroupBy<T, TDestiny, TProp>
 			where TDestiny : new()
 		{
 			foreach (var expression in group)
@@ -437,8 +460,11 @@ namespace DK.NHibernate.Base
 			}
 		}
 
-		private static void setSummarizeProjections<TDestiny, TSummarize>(ProjectionList projections, IEnumerable<TSummarize> summarizeProperties)
-			where TSummarize : Summarize<TDestiny> where TDestiny : new()
+		private static void setSummarizeProjections
+			<TDestiny, TProp, TSummarize>
+		(ProjectionList projections, IEnumerable<TSummarize> summarizeProperties)
+			where TSummarize : Summarize<T, TDestiny, TProp>
+			where TDestiny : new()
 		{
 			foreach (var associationProperty in summarizeProperties)
 			{
@@ -541,112 +567,5 @@ namespace DK.NHibernate.Base
 				.SetProjection(Projections.Sum(property))
 				.UniqueResult() ?? 0;
 		}
-
-
-
-
-
-
-		/// <summary>
-		/// Class to construct Summarize parameters
-		/// </summary>
-		/// <typeparam name="TDestiny">Result class of summarize</typeparam>
-		public class Summarize<TDestiny>
-			where TDestiny : new()
-		{
-			private Summarize() { }
-
-			/// <summary>
-			/// To construct each parameter of summarize
-			/// </summary>
-			/// <param name="origin">Property on original entity</param>
-			/// <param name="destiny">Corresponding property on result class</param>
-			/// <param name="type">(Count, Max, Sum)</param>
-			public static Summarize<TDestiny> GetSummarize<TProp>(Expression<Func<T, TProp>> origin, Expression<Func<TDestiny, TProp>> destiny, SummarizeType type)
-			{
-				return new Summarize<TDestiny>
-				{
-					Origin = origin.GetName(),
-					Destiny = destiny.GetName(),
-					Type = type
-				};
-			}
-
-			internal String Origin;
-			internal String Destiny;
-			internal SummarizeType Type;
-		}
-
-		/// <summary>
-		/// Class to construct Summarize parameters
-		/// </summary>
-		/// <typeparam name="TDestiny">Result class of grouping</typeparam>
-		public class GroupBy<TDestiny>
-			where TDestiny : new()
-		{
-			private GroupBy() { }
-
-			/// <summary>
-			/// To construct each parameter of grouping
-			/// </summary>
-			/// <param name="origin">Property on original entity</param>
-			/// <param name="destiny">Corresponding property on result class</param>
-			public static GroupBy<TDestiny> GetGroupBy<TProp>(Expression<Func<T, TProp>> origin, Expression<Func<TDestiny, TProp>> destiny)
-			{
-				return new GroupBy<TDestiny>
-				{
-					Origin = origin.GetName(),
-					Destiny = destiny.GetName(),
-				};
-			}
-
-			internal String Origin;
-			internal String Destiny;
-		}
-
-		/// <summary>
-		/// Type of summarize
-		/// </summary>
-		public enum SummarizeType
-		{
-			/// <summary>
-			/// Count items
-			/// </summary>
-			Count = 1,
-
-			/// <summary>
-			/// Get biggest item
-			/// </summary>
-			Max = 2,
-
-			/// <summary>
-			/// Sum all items
-			/// </summary>
-			Sum = 3,
-		}
-
-		/// <summary>
-		/// Type of like comparison
-		/// </summary>
-		public enum LikeType
-		{
-			/// <summary>
-			/// Look start and end of string
-			/// </summary>
-			Both = 1,
-			
-			/// <summary>
-			/// Look just at start of string
-			/// </summary>
-			JustStart = 2,
-
-			/// <summary>
-			/// Look just at end of string
-			/// </summary>
-			JustEnd = 3,
-		}
-
-
-
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using DK.Generic.DB;
 using DK.Generic.Exceptions;
+using DK.NHibernate.Queries;
 
 namespace DK.NHibernate.Base
 {
@@ -8,10 +9,10 @@ namespace DK.NHibernate.Base
     /// Base communication with DB
     /// </summary>
     /// <typeparam name="T">Entity type</typeparam>
-    internal class BaseData<T>
+    internal class BaseData<T> : IData<T>
         where T : class, IEntity, new()
     {
-        internal T SaveOrUpdate(T entity, params BaseRepository<T>.DelegateAction[] actions)
+        public T SaveOrUpdate(T entity, params BaseRepository<T>.DelegateAction[] actions)
         {
             foreach (var delegateAction in actions)
             {
@@ -49,7 +50,7 @@ namespace DK.NHibernate.Base
 
 
 
-        internal void Delete(T obj)
+        public void Delete(T obj)
         {
 			var session = SessionManager.GetCurrent();
 
@@ -58,7 +59,7 @@ namespace DK.NHibernate.Base
         }
 
 
-        internal T GetById(Int32 id)
+        public T GetById(Int32 id)
         {
 			var session = SessionManager.GetCurrent();
 			return session.Get<T>(id);
@@ -66,13 +67,13 @@ namespace DK.NHibernate.Base
 
 
 
-		public Query<T> NewQuery()
+		public IQuery<T> NewQuery()
 		{
 			var session = SessionManager.GetCurrent();
 			return new Query<T>(session);
 		}
 
-		public TResult NewNonCachedQuery<TResult>(Func<Query<T>, TResult> action)
+		public TResult NewNonCachedQuery<TResult>(Func<IQuery<T>, TResult> action)
 		{
 			TResult result;
 			using (var otherSession = SessionManager.GetNonCached())
