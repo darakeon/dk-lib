@@ -35,7 +35,7 @@ namespace DK.NHibernate.Base
 
 		public T GetNonCached(Int32 id)
 		{
-			return db[id];
+			return GetById(id);
 		}
 
 		public void Delete(T obj)
