@@ -444,7 +444,7 @@ namespace DK.NHibernate.Queries
 			{
 				failIfSummarized();
 
-				return localList.SingleOrDefault();
+				return localList.FirstOrDefault();
 			}
 		}
 
