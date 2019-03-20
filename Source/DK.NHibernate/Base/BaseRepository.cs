@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq.Expressions;
 using DK.Generic.DB;
 using DK.Generic.Extensions;
+using DK.NHibernate.Helpers;
 using DK.NHibernate.Queries;
 
 namespace DK.NHibernate.Base
@@ -26,7 +27,7 @@ namespace DK.NHibernate.Base
 
 		private IData<T> getBaseData()
 		{
-			if (SessionFactoryManager.FakeDB)
+			if (FakeHelper.IsFake)
 				return new FakeData<T>();
 
 			return new BaseData<T>();

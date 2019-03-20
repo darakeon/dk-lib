@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DK.Generic.DB;
+using DK.NHibernate.Helpers;
 using DK.NHibernate.Queries;
 
 namespace DK.NHibernate.Base
@@ -15,6 +16,8 @@ namespace DK.NHibernate.Base
 		{
 			actions.ToList()
 				.ForEach(a => a(entity));
+
+			FakeHelper.TestSizes(entity);
 
 			if (entity.ID == 0)
 			{

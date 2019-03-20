@@ -82,6 +82,7 @@
     <Compile Include="Conventions\NameConvention.cs" />
     <Compile Include="Conventions\NullableConvention.cs" />
     <Compile Include="Helpers\Enums.cs" />
+    <Compile Include="Helpers\FakeHelper.cs" />
     <Compile Include="Helpers\SchemaChanger.cs" />
     <Compile Include="Helpers\StoreConfiguration.cs" />
     <Compile Include="Helpers\StringsAsLike.cs" />
