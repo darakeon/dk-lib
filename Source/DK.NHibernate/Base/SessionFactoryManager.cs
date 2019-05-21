@@ -4,6 +4,7 @@ using System.Configuration;
 using DK.Generic.DB;
 using DK.Generic.Exceptions;
 using DK.Generic.Extensions;
+using DK.NHibernate.Fakes;
 using DK.NHibernate.Helpers;
 using DK.NHibernate.UserPassed;
 using FluentNHibernate.Automapping.Alterations;

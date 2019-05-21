@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq.Expressions;
 using DK.Generic.DB;
 using DK.Generic.Extensions;
+using DK.NHibernate.Fakes;
 using DK.NHibernate.Helpers;
 using DK.NHibernate.Queries;
 

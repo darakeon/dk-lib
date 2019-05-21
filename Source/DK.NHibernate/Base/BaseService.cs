@@ -1,5 +1,6 @@
 ﻿using System;
 using DK.Generic.Exceptions;
+using DK.NHibernate.Fakes;
 
 namespace DK.NHibernate.Base
 {
@@ -11,10 +12,18 @@ namespace DK.NHibernate.Base
         /// <summary></summary>
         public BaseService()
         {
-            transactionController = new TransactionController();
+            transactionController = getTransactionController();
         }
 
-        private TransactionController transactionController { get; }
+	    private ITransactionController getTransactionController()
+	    {
+		    if (FakeHelper.IsFake)
+			    return new FakeTransaction();
+
+		    return new TransactionController();
+	    }
+
+		private ITransactionController transactionController { get; }
 
 		/// <summary>
 		/// Execute commands inside a transaction.

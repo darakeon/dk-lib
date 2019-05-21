@@ -6,65 +6,65 @@ using NHibernate;
 
 namespace DK.NHibernate.Base
 {
-    internal class TransactionController
-    {
-		protected static ISession Session => SessionManager.GetCurrent();
+    internal class TransactionController : ITransactionController
+	{
+		private static ISession session => SessionManager.GetCurrent();
 
-	    internal void Begin()
+		public void Begin()
 	    {
-		    if (Session == null) return;
+		    if (session == null) return;
 
-			if (Session.Transaction != null
-                    && Session.Transaction.IsActive)
+			if (session.Transaction != null
+                    && session.Transaction.IsActive)
                 throw new DKException("There's a Transaction opened already, cannot begin a new one.");
 
-            Session.BeginTransaction();
+            session.BeginTransaction();
 
-            if (Session.Transaction == null
-                    || !Session.Transaction.IsActive)
+            if (session.Transaction == null
+                    || !session.Transaction.IsActive)
                 throw new DKException("Transaction not opened.");
 
         }
 
-        internal void Commit()
+		public void Commit()
         {
-	        if (Session == null) return;
+	        if (session == null) return;
 
             testTransaction("commit");
 
-            Session.Transaction.Commit();
+            session.Transaction.Commit();
 
-            Session.Flush();
+            session.Flush();
         }
 
-        internal void Rollback()
+		public void Rollback()
         {
-	        if (Session == null) return;
+	        if (session == null) return;
 
-			if (Session.Connection.State == ConnectionState.Closed)
+			if (session.Connection.State == ConnectionState.Closed)
 			{
-				Session.Connection.Open();
+				session.Connection.Open();
 			}
 
-			if (Session.Connection.State != ConnectionState.Closed)
+			if (session.Connection.State != ConnectionState.Closed)
 			{
-				if (Session.Transaction.IsActive)
+				if (session.Transaction.IsActive)
 				{
 					testTransaction("rollback");
-					Session.Transaction.Rollback();
+					session.Transaction.Rollback();
 				}
 			}
 
-			Session.Refresh();
+			session.Refresh();
 
 			SessionManager.Failed = true;
         }
 
 		private static void testTransaction(String action)
         {
-			if (Session == null) return;
+			if (session == null) return;
 
-            if (Session.Transaction.WasCommitted || Session.Transaction.WasRolledBack)
+            if (session.Transaction.WasCommitted || session.Transaction.WasRolledBack)
                 throw new DKException("There's a Transaction opened already, cannot " + action + ".");
         }
     }

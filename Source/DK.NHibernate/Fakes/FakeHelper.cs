@@ -4,7 +4,7 @@ using System.Linq;
 using DK.Generic.DB;
 using DK.Generic.Exceptions;
 
-namespace DK.NHibernate.Helpers
+namespace DK.NHibernate.Fakes
 {
 	/// <summary>
 	/// Helper for Fake DB
@@ -21,7 +21,7 @@ namespace DK.NHibernate.Helpers
 		/// </summary>
 		internal static IDictionary<String, IDictionary<String, Int16>> FakeFieldSizes { get; set; }
 
-		public static void TestSizes<T>(T entity)
+		internal static void TestSizes<T>(T entity)
 			where T : class, IEntity, new()
 		{
 			var entityName = typeof(T).Name;
