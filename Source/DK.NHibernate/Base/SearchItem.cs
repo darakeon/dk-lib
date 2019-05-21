@@ -1,6 +1,6 @@
 using System;
 using System.Linq.Expressions;
-using DK.Generic.Reflection;
+using DK.Util.Reflection;
 
 namespace DK.NHibernate.Base
 {

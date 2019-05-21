@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.Generic", "DK.Generic\DK.Generic.csproj", "{CF70FB71-50D7-4014-92CF-9ABF51579EC6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.Util", "DK.Generic\DK.Util.csproj", "{CF70FB71-50D7-4014-92CF-9ABF51579EC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.All", "DK.All\DK.All.csproj", "{83ED2E58-E590-4E6A-B976-6595049551E7}"
 EndProject
@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.XML", "DK.XML\DK.XML.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.MVC", "DK.MVC\DK.MVC.csproj", "{ED39BCED-DE3F-45DB-BB83-39EC967C92E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.TwoFactorAuth", "DK.TwoFactorAuth\DK.TwoFactorAuth.csproj", "{FC3C099E-3909-468E-A1F8-EE2D74FCA970}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DK.TwoFactorAuth", "DK.TwoFactorAuth\DK.TwoFactorAuth.csproj", "{FC3C099E-3909-468E-A1F8-EE2D74FCA970}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

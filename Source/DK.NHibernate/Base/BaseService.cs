@@ -1,6 +1,6 @@
 ﻿using System;
-using DK.Generic.Exceptions;
 using DK.NHibernate.Fakes;
+using DK.Util.Exceptions;
 
 namespace DK.NHibernate.Base
 {

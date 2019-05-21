@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
-using DK.Generic.Extensions;
 using DK.NHibernate.Helpers;
 using DK.NHibernate.UserPassed;
+using DK.Util.Extensions;
 using FluentNHibernate.Automapping.Alterations;
 using FluentNHibernate.Cfg;
 using NHibernate;

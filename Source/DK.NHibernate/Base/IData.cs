@@ -1,6 +1,6 @@
 ﻿using System;
-using DK.Generic.DB;
 using DK.NHibernate.Queries;
+using DK.Util.DB;
 
 namespace DK.NHibernate.Base
 {

@@ -1,6 +1,6 @@
 ﻿using System;
-using DK.Generic.Exceptions;
 using DK.NHibernate.Helpers;
+using DK.Util.Exceptions;
 using FluentNHibernate.Cfg.Db;
 
 namespace DK.NHibernate.UserPassed

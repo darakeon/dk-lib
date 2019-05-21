@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using DK.Generic.Reflection;
+using DK.Util.Reflection;
 using NHibernate;
 using NHibernate.SqlCommand;
 

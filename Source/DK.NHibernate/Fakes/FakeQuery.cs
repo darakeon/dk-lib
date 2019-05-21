@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.ServiceModel;
-using DK.Generic.DB;
 using DK.NHibernate.Base;
 using DK.NHibernate.Queries;
+using DK.Util.DB;
 using Decimal = System.Decimal;
 
 namespace DK.NHibernate.Fakes

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DK.Generic.Exceptions
+namespace DK.Util.Exceptions
 {
     ///<summary>
     /// Extension for Exception Base Class

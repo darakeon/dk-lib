@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DK.Generic.DB;
 using DK.NHibernate.Base;
+using DK.Util.DB;
 
 namespace DK.NHibernate.Fakes
 {

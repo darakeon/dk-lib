@@ -1,7 +1,7 @@
 ﻿using System;
-using DK.Generic.DB;
-using DK.Generic.Exceptions;
 using DK.NHibernate.Queries;
+using DK.Util.DB;
+using DK.Util.Exceptions;
 
 namespace DK.NHibernate.Base
 {

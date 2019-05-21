@@ -1,6 +1,6 @@
 ﻿using System;
-using DK.Generic.Collection;
-using DK.Generic.DB;
+using DK.Util.Collection;
+using DK.Util.DB;
 using FluentNHibernate.Automapping;
 
 namespace DK.NHibernate.Helpers

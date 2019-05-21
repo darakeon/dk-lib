@@ -1,8 +1,8 @@
 using System;
 using System.Web;
 using System.Web.SessionState;
-using DK.Generic.Exceptions;
-using DK.Generic.Extensions;
+using DK.Util.Exceptions;
+using DK.Util.Extensions;
 
 namespace DK.MVC.Cookies
 {

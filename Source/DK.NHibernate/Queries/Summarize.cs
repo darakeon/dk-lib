@@ -1,7 +1,7 @@
 using System;
 using System.Linq.Expressions;
-using DK.Generic.DB;
-using DK.Generic.Reflection;
+using DK.Util.DB;
+using DK.Util.Reflection;
 
 namespace DK.NHibernate.Queries
 {

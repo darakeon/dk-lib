@@ -8,8 +8,8 @@
     <ProjectGuid>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DK.Generic</RootNamespace>
-    <AssemblyName>DK.Generic</AssemblyName>
+    <RootNamespace>DK.Util</RootNamespace>
+    <AssemblyName>DK.Util</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\DK.Generic.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\DK.Util.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

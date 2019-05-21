@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace DK.Generic.Collection
+namespace DK.Util.Collection
 {
     /// <inheritdoc />
     /// <summary>

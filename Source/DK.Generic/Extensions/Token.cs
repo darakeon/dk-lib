@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DK.Generic.Extensions
+namespace DK.Util.Extensions
 {
     /// <summary>
     /// String Guid

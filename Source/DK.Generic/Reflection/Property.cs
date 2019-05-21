@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace DK.Generic.Reflection
+namespace DK.Util.Reflection
 {
     ///<summary>
     /// Helper of PropertyInfo

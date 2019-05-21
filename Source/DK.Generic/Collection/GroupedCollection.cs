@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DK.Generic.Collection
+namespace DK.Util.Collection
 {
     /// <inheritdoc />
     /// <summary>
     /// Collection Grouped by one of the properties of the original IList
     /// </summary>
     /// <typeparam name="TI">Type of the Items of the Group</typeparam>
-    /// <typeparam name="TG">Type of the property responsable for Grouping</typeparam>
+    /// <typeparam name="TG">Type of the property responsible for Grouping</typeparam>
     public class GroupedCollection<TI, TG> : IEnumerable
         where TI : IGroupable<TG>
     {

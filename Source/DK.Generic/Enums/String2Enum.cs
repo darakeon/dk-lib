@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DK.Generic.Enums
+namespace DK.Util.Enums
 {
     ///<summary>
     /// Convert String to Enum
