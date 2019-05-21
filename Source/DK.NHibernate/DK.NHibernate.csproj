@@ -114,7 +114,7 @@
     <Compile Include="Base\SessionManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DK.Generic\DK.Util.csproj">
+    <ProjectReference Include="..\DK.Util\DK.Util.csproj">
       <Project>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</Project>
       <Name>DK.Util</Name>
     </ProjectReference>

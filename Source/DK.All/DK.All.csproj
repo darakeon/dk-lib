@@ -57,7 +57,7 @@
       <Project>{F2EDE40B-6855-4801-AA0F-74E5412C1B0A}</Project>
       <Name>DK.Excel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DK.Generic\DK.Util.csproj">
+    <ProjectReference Include="..\DK.Util\DK.Util.csproj">
       <Project>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</Project>
       <Name>DK.Util</Name>
     </ProjectReference>
