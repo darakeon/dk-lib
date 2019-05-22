@@ -4,10 +4,10 @@ using System.Configuration;
 using DK.NHibernate.Fakes;
 using DK.NHibernate.Helpers;
 using DK.NHibernate.UserPassed;
-using DK.Util.DB;
-using DK.Util.Exceptions;
-using DK.Util.Extensions;
 using FluentNHibernate.Automapping.Alterations;
+using Keon.Util.DB;
+using Keon.Util.Exceptions;
+using Keon.Util.Extensions;
 using NHibernate;
 
 namespace DK.NHibernate.Base

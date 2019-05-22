@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace DK.Util.Collection
+namespace Keon.Util.Collection
 {
     ///<summary>
     ///</summary>

@@ -1,6 +1,6 @@
 ﻿using System;
 using DK.NHibernate.Queries;
-using DK.Util.DB;
+using Keon.Util.DB;
 
 namespace DK.NHibernate.Base
 {

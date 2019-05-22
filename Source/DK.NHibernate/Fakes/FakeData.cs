@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DK.NHibernate.Base;
 using DK.NHibernate.Queries;
-using DK.Util.DB;
+using Keon.Util.DB;
 
 namespace DK.NHibernate.Fakes
 {

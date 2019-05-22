@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DK.Util.DB;
-using DK.Util.Exceptions;
+using Keon.Util.DB;
+using Keon.Util.Exceptions;
 
 namespace DK.NHibernate.Fakes
 {

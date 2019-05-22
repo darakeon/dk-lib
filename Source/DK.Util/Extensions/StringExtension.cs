@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DK.Util.Extensions
+namespace Keon.Util.Extensions
 {
     ///<summary>
     ///</summary>

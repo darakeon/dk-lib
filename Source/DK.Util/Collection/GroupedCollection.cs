@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DK.Util.Collection
+namespace Keon.Util.Collection
 {
     /// <inheritdoc />
     /// <summary>

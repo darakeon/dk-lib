@@ -5,8 +5,8 @@ using System.Linq.Expressions;
 using DK.NHibernate.Fakes;
 using DK.NHibernate.Helpers;
 using DK.NHibernate.Queries;
-using DK.Util.DB;
-using DK.Util.Extensions;
+using Keon.Util.DB;
+using Keon.Util.Extensions;
 
 namespace DK.NHibernate.Base
 {

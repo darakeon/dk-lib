@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DK.Util.DB
+namespace Keon.Util.DB
 {
     /// <summary>
     /// Minimum entity for DB

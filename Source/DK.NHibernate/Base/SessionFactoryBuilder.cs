@@ -3,9 +3,9 @@ using System.Configuration;
 using System.IO;
 using DK.NHibernate.Helpers;
 using DK.NHibernate.UserPassed;
-using DK.Util.Extensions;
 using FluentNHibernate.Automapping.Alterations;
 using FluentNHibernate.Cfg;
+using Keon.Util.Extensions;
 using NHibernate;
 
 namespace DK.NHibernate.Base

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DK.Util.Exceptions
+namespace Keon.Util.Exceptions
 {
     /// <inheritdoc />
     /// <summary>

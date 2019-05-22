@@ -1,7 +1,7 @@
 ﻿using System;
 using DK.NHibernate.Helpers;
-using DK.Util.Exceptions;
 using FluentNHibernate.Cfg.Db;
+using Keon.Util.Exceptions;
 
 namespace DK.NHibernate.UserPassed
 {

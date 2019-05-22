@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DK.Util.Enums
+namespace Keon.Util.Enums
 {
     ///<summary>
     /// Convert String to Enum

@@ -1,7 +1,7 @@
 ﻿using System;
-using DK.Util.Collection;
-using DK.Util.DB;
 using FluentNHibernate.Automapping;
+using Keon.Util.Collection;
+using Keon.Util.DB;
 
 namespace DK.NHibernate.Helpers
 {

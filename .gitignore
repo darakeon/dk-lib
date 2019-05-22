@@ -8,3 +8,5 @@ _ReSharper*
 Source/packages/*
 .hg*
 .vs
+
+*.nupkg

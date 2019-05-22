@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.ServiceModel;
 using DK.NHibernate.Base;
 using DK.NHibernate.Queries;
-using DK.Util.DB;
+using Keon.Util.DB;
 using Decimal = System.Decimal;
 
 namespace DK.NHibernate.Fakes

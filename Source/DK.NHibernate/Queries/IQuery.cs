@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using DK.NHibernate.Base;
-using DK.Util.DB;
+using Keon.Util.DB;
 using NHibernate;
 
 namespace DK.NHibernate.Queries

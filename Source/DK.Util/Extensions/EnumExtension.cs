@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DK.Util.Extensions
+namespace Keon.Util.Extensions
 {
     ///<summary>
     /// Enum extensions to String

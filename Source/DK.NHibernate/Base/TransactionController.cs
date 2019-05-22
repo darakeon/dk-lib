@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using DK.NHibernate.Helpers;
-using DK.Util.Exceptions;
+using Keon.Util.Exceptions;
 using NHibernate;
 
 namespace DK.NHibernate.Base

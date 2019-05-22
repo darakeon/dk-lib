@@ -1,4 +1,4 @@
-namespace DK.Util.Exceptions
+namespace Keon.Util.Exceptions
 {
     /// <summary>
     /// Class to return an object composed by the return error and the success return

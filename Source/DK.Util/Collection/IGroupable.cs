@@ -1,4 +1,4 @@
-﻿namespace DK.Util.Collection
+﻿namespace Keon.Util.Collection
 {
     ///<summary>
     /// Interface to use GroupedCollection

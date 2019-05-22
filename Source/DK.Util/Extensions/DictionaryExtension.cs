@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DK.Util.Extensions
+namespace Keon.Util.Extensions
 {
     ///<summary>
     ///</summary>
