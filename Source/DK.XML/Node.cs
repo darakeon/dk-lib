@@ -6,7 +6,7 @@ using System.Text;
 using System.Xml;
 using Keon.Util.Exceptions;
 
-namespace DK.XML
+namespace Keon.XML
 {
     /// <summary>
     /// Xml node structure
