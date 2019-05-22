@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DK.MVC.Authentication
+namespace Keon.MVC.Authentication
 {
     ///<summary>
     /// The Interface to paas Roles (permissions) to Authenticate

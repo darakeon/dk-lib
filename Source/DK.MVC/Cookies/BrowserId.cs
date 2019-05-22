@@ -4,7 +4,7 @@ using System.Web.SessionState;
 using Keon.Util.Exceptions;
 using Keon.Util.Extensions;
 
-namespace DK.MVC.Cookies
+namespace Keon.MVC.Cookies
 {
 	/// <summary>
 	/// Identification for Browser

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace DK.MVC.Authentication
+namespace Keon.MVC.Authentication
 {
     ///<summary>
     /// To Force error when the user is not logged-in

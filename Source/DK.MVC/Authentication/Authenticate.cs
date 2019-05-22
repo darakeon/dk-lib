@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Security;
 
-namespace DK.MVC.Authentication
+namespace Keon.MVC.Authentication
 {
     ///<summary>
     /// To make authentication in MVC easier
