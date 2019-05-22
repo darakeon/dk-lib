@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using Keon.Util.Exceptions;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
-using NHibernate.Util;
 
 namespace DK.NHibernate.Helpers
 {
@@ -58,8 +57,11 @@ namespace DK.NHibernate.Helpers
             
             var message = new StringBuilder();
 
-            schema.Exceptions.ForEach(
-                e => message.AppendLine(e.Message));
+            schema.Exceptions
+	            .ToList()
+	            .ForEach(
+					e => message.AppendLine(e.Message)
+				);
 
             throw new DKException(message.ToString());
         }

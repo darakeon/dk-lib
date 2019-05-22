@@ -247,7 +247,7 @@ namespace DK.NHibernate.Queries
 		public IQuery<T> FetchModeEager<TEntity>(Expression<Func<T, IList<TEntity>>> listProperty)
 		{
 			var name = listProperty.GetName();
-			criteria.SetFetchMode(name, FetchMode.Eager);
+			criteria.Fetch(SelectMode.Fetch, name);
 
 			return this;
 		}
