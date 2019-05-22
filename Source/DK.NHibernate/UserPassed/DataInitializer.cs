@@ -1,6 +1,6 @@
-﻿using DK.NHibernate.Helpers;
+﻿using Keon.NHibernate.Helpers;
 
-namespace DK.NHibernate.UserPassed
+namespace Keon.NHibernate.UserPassed
 {
     /// <summary>
     /// Inherit this class and pass yours to ConnectionInfo class to fill the DB after create.

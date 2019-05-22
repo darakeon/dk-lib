@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.ServiceModel;
-using DK.NHibernate.Base;
-using DK.NHibernate.Queries;
+using Keon.NHibernate.Base;
+using Keon.NHibernate.Queries;
 using Keon.Util.DB;
 using Decimal = System.Decimal;
 
-namespace DK.NHibernate.Fakes
+namespace Keon.NHibernate.Fakes
 {
 	internal class FakeQuery<T> : IQuery<T>
 		where T : class, IEntity, new()

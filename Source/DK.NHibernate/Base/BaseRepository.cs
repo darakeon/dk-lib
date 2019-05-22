@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
-using DK.NHibernate.Fakes;
-using DK.NHibernate.Helpers;
-using DK.NHibernate.Queries;
+using Keon.NHibernate.Fakes;
+using Keon.NHibernate.Queries;
 using Keon.Util.DB;
 using Keon.Util.Extensions;
 
-namespace DK.NHibernate.Base
+namespace Keon.NHibernate.Base
 {
 	/// <summary>
 	/// Higher level queries

@@ -1,8 +1,8 @@
 ﻿using System;
-using DK.NHibernate.Queries;
+using Keon.NHibernate.Queries;
 using Keon.Util.DB;
 
-namespace DK.NHibernate.Base
+namespace Keon.NHibernate.Base
 {
 	internal interface IData<T>
 		where T : class, IEntity, new()

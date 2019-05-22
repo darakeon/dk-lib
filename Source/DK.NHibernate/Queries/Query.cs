@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
-using DK.NHibernate.Base;
-using DK.NHibernate.Helpers;
+using Keon.NHibernate.Base;
+using Keon.NHibernate.Helpers;
 using Keon.Util.DB;
 using Keon.Util.Reflection;
 using NHibernate;
@@ -12,7 +12,7 @@ using NHibernate.Criterion;
 using NHibernate.SqlCommand;
 using NHibernate.Transform;
 
-namespace DK.NHibernate.Queries
+namespace Keon.NHibernate.Queries
 {
 	/// <summary>
 	/// Object to handle database fluently

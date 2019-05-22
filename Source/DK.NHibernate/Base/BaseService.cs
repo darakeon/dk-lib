@@ -1,8 +1,8 @@
 ﻿using System;
-using DK.NHibernate.Fakes;
+using Keon.NHibernate.Fakes;
 using Keon.Util.Exceptions;
 
-namespace DK.NHibernate.Base
+namespace Keon.NHibernate.Base
 {
     /// <summary>
     /// Base for services, to have transaction

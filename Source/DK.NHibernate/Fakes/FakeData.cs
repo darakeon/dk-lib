@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DK.NHibernate.Base;
-using DK.NHibernate.Queries;
+using Keon.NHibernate.Base;
+using Keon.NHibernate.Queries;
 using Keon.Util.DB;
 
-namespace DK.NHibernate.Fakes
+namespace Keon.NHibernate.Fakes
 {
 	class FakeData<T> : IData<T>, IDbBackup
 		where T : class, IEntity, new()

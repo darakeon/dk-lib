@@ -1,9 +1,9 @@
 ﻿using System;
-using DK.NHibernate.Helpers;
 using FluentNHibernate.Cfg.Db;
+using Keon.NHibernate.Helpers;
 using Keon.Util.Exceptions;
 
-namespace DK.NHibernate.UserPassed
+namespace Keon.NHibernate.UserPassed
 {
     /// <summary>
     /// Information to Connect to the Database.

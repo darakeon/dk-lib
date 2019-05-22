@@ -4,7 +4,7 @@ using System.Linq;
 using Keon.Util.DB;
 using Keon.Util.Exceptions;
 
-namespace DK.NHibernate.Fakes
+namespace Keon.NHibernate.Fakes
 {
 	/// <summary>
 	/// Helper for Fake DB

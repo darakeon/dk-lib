@@ -1,7 +1,7 @@
 using System;
 using FluentNHibernate.Mapping;
 
-namespace DK.NHibernate.Helpers
+namespace Keon.NHibernate.Helpers
 {
     internal static class PropertyPartExtension
 	{

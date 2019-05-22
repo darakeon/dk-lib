@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using DK.NHibernate.Base;
+using Keon.NHibernate.Base;
 using Keon.Util.DB;
 using NHibernate;
 
-namespace DK.NHibernate.Queries
+namespace Keon.NHibernate.Queries
 {
 	/// <summary>
 	/// Object to handle database fluently

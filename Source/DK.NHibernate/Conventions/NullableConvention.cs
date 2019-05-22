@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.Instances;
 
-namespace DK.NHibernate.Conventions
+namespace Keon.NHibernate.Conventions
 {
     internal class NullableConvention
     {

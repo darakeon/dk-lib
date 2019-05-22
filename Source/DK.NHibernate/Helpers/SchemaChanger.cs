@@ -7,7 +7,7 @@ using Keon.Util.Exceptions;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 
-namespace DK.NHibernate.Helpers
+namespace Keon.NHibernate.Helpers
 {
     /// <summary>
     /// Make changes to database tables

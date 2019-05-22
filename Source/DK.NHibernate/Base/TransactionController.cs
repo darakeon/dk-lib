@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data;
-using DK.NHibernate.Helpers;
+using Keon.NHibernate.Helpers;
 using Keon.Util.Exceptions;
 using NHibernate;
 
-namespace DK.NHibernate.Base
+namespace Keon.NHibernate.Base
 {
     internal class TransactionController : ITransactionController
 	{

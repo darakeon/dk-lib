@@ -1,4 +1,4 @@
-﻿namespace DK.NHibernate.Helpers
+﻿namespace Keon.NHibernate.Helpers
 {
     /// <summary>
     /// List of accepted DBMSs

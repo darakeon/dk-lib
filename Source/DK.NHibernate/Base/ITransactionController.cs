@@ -1,4 +1,4 @@
-﻿namespace DK.NHibernate.Base
+﻿namespace Keon.NHibernate.Base
 {
 	internal interface ITransactionController
 	{

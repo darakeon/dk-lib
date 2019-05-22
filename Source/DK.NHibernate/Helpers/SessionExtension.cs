@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using NHibernate;
 using NHibernate.Engine;
 
-namespace DK.NHibernate.Helpers
+namespace Keon.NHibernate.Helpers
 {
 	internal static class SessionExtension
 	{

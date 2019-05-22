@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NHibernate;
 
-namespace DK.NHibernate.Base
+namespace Keon.NHibernate.Base
 {
 	/// <summary>
 	/// Manager for NH Session

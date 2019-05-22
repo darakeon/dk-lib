@@ -4,7 +4,7 @@ using FluentNHibernate.Conventions.AcceptanceCriteria;
 using FluentNHibernate.Conventions.Inspections;
 using FluentNHibernate.Conventions.Instances;
 
-namespace DK.NHibernate.Conventions
+namespace Keon.NHibernate.Conventions
 {
 	internal class BooleanConvention : IUserTypeConvention
 	{

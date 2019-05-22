@@ -3,7 +3,7 @@ using FluentNHibernate.Automapping;
 using Keon.Util.Collection;
 using Keon.Util.DB;
 
-namespace DK.NHibernate.Helpers
+namespace Keon.NHibernate.Helpers
 {
     internal class StoreConfiguration : DefaultAutomappingConfiguration
     {

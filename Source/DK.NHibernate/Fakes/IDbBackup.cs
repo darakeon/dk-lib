@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Keon.Util.DB;
 
-namespace DK.NHibernate.Fakes
+namespace Keon.NHibernate.Fakes
 {
 	interface IDbBackup
 	{

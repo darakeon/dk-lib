@@ -1,10 +1,10 @@
 ﻿using System;
-using DK.NHibernate.Helpers;
 using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.Inspections;
 using FluentNHibernate.Conventions.Instances;
+using Keon.NHibernate.Helpers;
 
-namespace DK.NHibernate.Conventions
+namespace Keon.NHibernate.Conventions
 {
     internal class NameConvention
     {

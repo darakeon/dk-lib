@@ -1,6 +1,6 @@
 using System;
 
-namespace DK.NHibernate.Base
+namespace Keon.NHibernate.Base
 {
 	/// <summary>
 	/// Interface for object which brings the file

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using DK.NHibernate.Fakes;
-using DK.NHibernate.Helpers;
-using DK.NHibernate.UserPassed;
 using FluentNHibernate.Automapping.Alterations;
+using Keon.NHibernate.Fakes;
+using Keon.NHibernate.Helpers;
+using Keon.NHibernate.UserPassed;
 using Keon.Util.DB;
 using Keon.Util.Exceptions;
 using Keon.Util.Extensions;
 using NHibernate;
 
-namespace DK.NHibernate.Base
+namespace Keon.NHibernate.Base
 {
 	/// <summary>
 	/// Manager of Build of Sessions

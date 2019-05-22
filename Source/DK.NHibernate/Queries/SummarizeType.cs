@@ -1,4 +1,4 @@
-namespace DK.NHibernate.Queries
+namespace Keon.NHibernate.Queries
 {
 	/// <summary>
 	/// Type of summarize

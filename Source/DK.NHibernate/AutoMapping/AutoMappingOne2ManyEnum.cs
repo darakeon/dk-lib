@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Mapping;
 
-namespace DK.NHibernate.AutoMapping
+namespace Keon.NHibernate.AutoMapping
 {
 	///<summary>
 	/// Extensions to relation 1:N

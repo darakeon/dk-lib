@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DK.NHibernate.Base;
+using Keon.NHibernate.Base;
 using Keon.Util.DB;
 
-namespace DK.NHibernate.Fakes
+namespace Keon.NHibernate.Fakes
 {
 	class FakeTransaction : ITransactionController
 	{

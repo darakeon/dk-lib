@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using DK.NHibernate.Conventions;
-using DK.NHibernate.Helpers;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Automapping.Alterations;
 using FluentNHibernate.Conventions;
+using Keon.NHibernate.Conventions;
+using Keon.NHibernate.Helpers;
 
-namespace DK.NHibernate.UserPassed
+namespace Keon.NHibernate.UserPassed
 {
     /// <summary>
     /// Information to use Automapping of Fluent

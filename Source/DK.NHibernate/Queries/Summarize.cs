@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using Keon.Util.DB;
 using Keon.Util.Reflection;
 
-namespace DK.NHibernate.Queries
+namespace Keon.NHibernate.Queries
 {
 	/// <summary>
 	/// Class to construct Summarize parameters

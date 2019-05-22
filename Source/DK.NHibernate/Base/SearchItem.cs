@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using Keon.Util.Reflection;
 
-namespace DK.NHibernate.Base
+namespace Keon.NHibernate.Base
 {
 	/// <summary>
 	/// To search for string

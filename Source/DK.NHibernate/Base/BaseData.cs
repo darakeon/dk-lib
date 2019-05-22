@@ -1,9 +1,9 @@
 ﻿using System;
-using DK.NHibernate.Queries;
+using Keon.NHibernate.Queries;
 using Keon.Util.DB;
 using Keon.Util.Exceptions;
 
-namespace DK.NHibernate.Base
+namespace Keon.NHibernate.Base
 {
     /// <summary>
     /// Base communication with DB

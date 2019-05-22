@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
-using DK.NHibernate.Helpers;
-using DK.NHibernate.UserPassed;
 using FluentNHibernate.Automapping.Alterations;
 using FluentNHibernate.Cfg;
+using Keon.NHibernate.Helpers;
+using Keon.NHibernate.UserPassed;
 using Keon.Util.Extensions;
 using NHibernate;
 
-namespace DK.NHibernate.Base
+namespace Keon.NHibernate.Base
 {
     internal class SessionFactoryBuilder
     {

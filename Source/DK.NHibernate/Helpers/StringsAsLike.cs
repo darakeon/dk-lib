@@ -1,9 +1,9 @@
 ﻿using System;
-using DK.NHibernate.Base;
+using Keon.NHibernate.Base;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace DK.NHibernate.Helpers
+namespace Keon.NHibernate.Helpers
 {
     internal class StringsAsLike
     {

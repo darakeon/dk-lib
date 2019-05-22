@@ -6,7 +6,7 @@ using Keon.Util.Reflection;
 using NHibernate;
 using NHibernate.SqlCommand;
 
-namespace DK.NHibernate.Helpers
+namespace Keon.NHibernate.Helpers
 {
 	internal static class CriteriaExtension
 	{

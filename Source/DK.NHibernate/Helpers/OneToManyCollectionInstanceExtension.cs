@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentNHibernate.Conventions.Instances;
 
-namespace DK.NHibernate.Helpers
+namespace Keon.NHibernate.Helpers
 {
 	internal static class OneToManyCollectionInstanceExtension
 	{
