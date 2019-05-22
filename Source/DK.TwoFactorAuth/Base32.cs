@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace DK.TwoFactorAuth
+namespace Keon.TwoFactorAuth
 {
 	/// <summary>
 	/// https://code.tutsplus.com/tutorials/base-what-a-practical-introduction-to-base-encoding--net-27590

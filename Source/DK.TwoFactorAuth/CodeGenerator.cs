@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace DK.TwoFactorAuth
+namespace Keon.TwoFactorAuth
 {
 	/// <summary>
 	/// https://www.codementor.io/slavko/google-two-step-authentication-otp-generation-du1082vho

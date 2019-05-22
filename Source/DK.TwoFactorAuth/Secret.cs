@@ -1,11 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace DK.TwoFactorAuth
+namespace Keon.TwoFactorAuth
 {
+	/// <summary>
+	/// Secret key for generating 6 digits codes
+	/// </summary>
     public class Secret
     {
+		/// <summary>
+		/// Create a new random code
+		/// </summary>
 	    public static String Generate()
 		{
 			var number = getRandomNumber();

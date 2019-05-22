@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 
-namespace DK.TwoFactorAuth
+namespace Keon.TwoFactorAuth
 {
 	internal static class WordHandling
 	{
