@@ -45,6 +45,9 @@
     <Compile Include="Forms\IListable.cs" />
     <Compile Include="Forms\SelectListExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\DK.Util\Properties\MainAssemblyInfo.cs">
+      <Link>Properties\MainAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Route\RouteInfo.cs" />
   </ItemGroup>
   <ItemGroup>

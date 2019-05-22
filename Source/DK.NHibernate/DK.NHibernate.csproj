@@ -91,6 +91,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\SessionFactoryBuilder.cs" />
     <Compile Include="Fakes\FakeQuery.cs" />
+    <Compile Include="..\DK.Util\Properties\MainAssemblyInfo.cs">
+      <Link>Properties\MainAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Queries\GroupBy.cs" />
     <Compile Include="Queries\IQuery.cs" />
     <Compile Include="Queries\LikeType.cs" />

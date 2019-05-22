@@ -46,10 +46,13 @@
   <ItemGroup>
     <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\DK.Util\Properties\MainAssemblyInfo.cs">
+      <Link>Properties\MainAssemblyInfo.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DK.Util\DK.Util.csproj">
-      <Project>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</Project>
+      <Project>{cf70fb71-50d7-4014-92cf-9abf51579ec6}</Project>
       <Name>DK.Util</Name>
     </ProjectReference>
   </ItemGroup>
