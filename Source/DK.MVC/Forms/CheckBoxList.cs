@@ -59,11 +59,20 @@ namespace DK.MVC.Forms
         /// </summary>
         public class CheckBoxItem
         {
-            // ReSharper disable CSharpWarnings::CS1591
+            /// <summary>
+			/// Field ID
+			/// </summary>
             public Int32 ID { get; set; }
+
+			/// <summary>
+			/// Field name
+			/// </summary>
             public String Name { get; set; }
+			
+			/// <summary>
+			/// Check
+			/// </summary>
             public Boolean Chosen { get; set; }
-            // ReSharper restore CSharpWarnings::CS1591
         }
 
 

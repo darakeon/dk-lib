@@ -10,6 +10,7 @@ namespace DK.NHibernate.Queries
 	/// </summary>
 	/// <typeparam name="T">Main entity</typeparam>
 	/// <typeparam name="TDestiny">Result class of summarize</typeparam>
+	/// <typeparam name="TProp">Property to summarize</typeparam>
 	public class Summarize<T, TDestiny, TProp>
 		where T : class, IEntity, new()
 		where TDestiny : new()
