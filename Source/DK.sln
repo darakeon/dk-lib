@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.Util", "DK.Util\DK.Util.csproj", "{CF70FB71-50D7-4014-92CF-9ABF51579EC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.All", "DK.All\DK.All.csproj", "{83ED2E58-E590-4E6A-B976-6595049551E7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.NHibernate", "DK.NHibernate\DK.NHibernate.csproj", "{5CCE8FD9-BF36-4C3B-8651-D2FB97295D74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DK.Excel", "DK.Excel\DK.Excel.csproj", "{F2EDE40B-6855-4801-AA0F-74E5412C1B0A}"
@@ -42,16 +40,6 @@ Global
 		{CF70FB71-50D7-4014-92CF-9ABF51579EC6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CF70FB71-50D7-4014-92CF-9ABF51579EC6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CF70FB71-50D7-4014-92CF-9ABF51579EC6}.Release|x86.ActiveCfg = Release|Any CPU
-		{83ED2E58-E590-4E6A-B976-6595049551E7}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{83ED2E58-E590-4E6A-B976-6595049551E7}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{83ED2E58-E590-4E6A-B976-6595049551E7}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{83ED2E58-E590-4E6A-B976-6595049551E7}.Debug|x86.ActiveCfg = Debug|x86
-		{83ED2E58-E590-4E6A-B976-6595049551E7}.Debug|x86.Build.0 = Debug|x86
-		{83ED2E58-E590-4E6A-B976-6595049551E7}.Release|Any CPU.ActiveCfg = Release|x86
-		{83ED2E58-E590-4E6A-B976-6595049551E7}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{83ED2E58-E590-4E6A-B976-6595049551E7}.Release|Mixed Platforms.Build.0 = Release|x86
-		{83ED2E58-E590-4E6A-B976-6595049551E7}.Release|x86.ActiveCfg = Release|x86
-		{83ED2E58-E590-4E6A-B976-6595049551E7}.Release|x86.Build.0 = Release|x86
 		{5CCE8FD9-BF36-4C3B-8651-D2FB97295D74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5CCE8FD9-BF36-4C3B-8651-D2FB97295D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CCE8FD9-BF36-4C3B-8651-D2FB97295D74}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
