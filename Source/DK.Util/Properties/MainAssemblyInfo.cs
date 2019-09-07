@@ -5,6 +5,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Dara Keon")]
 
 [assembly: ComVisible(false)]
-
-[assembly: AssemblyVersion("1.0.1")]
-[assembly: AssemblyFileVersion("1.0.1")]
