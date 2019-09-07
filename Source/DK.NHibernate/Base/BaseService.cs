@@ -61,22 +61,11 @@ namespace Keon.NHibernate.Base
 		/// <param name="onError">() => { [your-ON-ERROR-code-here] }</param>
 		protected void InTransaction(Action action, Action onError = null)
 		{
-			transactionController.Begin();
-
-			try
+			InTransaction(() =>
 			{
 				action();
-
-				commitTransaction();
-			}
-			catch (Exception)
-			{
-				transactionController.Rollback();
-
-				onError?.Invoke();
-
-				throw;
-			}
+				return 0;
+			}, onError);
 		}
 
 		private void commitTransaction()
