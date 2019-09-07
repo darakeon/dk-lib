@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using FluentNHibernate.Automapping.Alterations;
 using Keon.NHibernate.Fakes;
@@ -28,7 +27,7 @@ namespace Keon.NHibernate.Base
 		public static void Initialize<TMap, TEntity>()
 			where TMap : IAutoMappingOverride<TEntity>
 		{
-			Initialize<TMap, TEntity>(null, null);
+			Initialize<TMap, TEntity>(null);
 		}
 
 		/// <summary>
@@ -40,40 +39,12 @@ namespace Keon.NHibernate.Base
 		)
 			where TMap : IAutoMappingOverride<TEntity>
 		{
-			Initialize<TMap, TEntity>(dbInitializer, null);
-		}
-
-		/// <summary>
-		/// Initialize function, need to be called before use instance
-		/// </summary>
-		/// <param name="sizesForFakeDb">Sizes to initialize with fake DB</param>
-		public static void Initialize<TMap, TEntity>(
-			IDictionary<String, IDictionary<String, Int16>> sizesForFakeDb
-		)
-			where TMap : IAutoMappingOverride<TEntity>
-		{
-			Initialize<TMap, TEntity>(null, sizesForFakeDb);
-		}
-
-		/// <summary>
-		/// Initialize function, need to be called before use instance
-		/// </summary>
-		/// <param name="dbInitializer">Object to pre-populate DB</param>
-		/// <param name="sizesForFakeDb">Sizes to initialize with fake DB</param>
-		public static void Initialize<TMap, TEntity>(
-			IDataInitializer dbInitializer,
-			IDictionary<String, IDictionary<String, Int16>> sizesForFakeDb
-		)
-			where TMap : IAutoMappingOverride<TEntity>
-		{
 			if (Instance != null)
 				return;
 
 			FakeHelper.IsFake = (
 				ConfigurationManager.AppSettings["FakeDB"] ?? "false"
 			).ToLower() == "true";
-
-			FakeHelper.FakeFieldSizes = sizesForFakeDb;
 
 			if (FakeHelper.IsFake) return;
 

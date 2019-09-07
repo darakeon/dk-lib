@@ -39,7 +39,7 @@ namespace Keon.NHibernate.Base
 			{
 				var result = action();
 
-				commitTransaction();
+				transactionController.Commit();
 
 				return result;
 			}
@@ -67,21 +67,5 @@ namespace Keon.NHibernate.Base
 				return 0;
 			}, onError);
 		}
-
-		private void commitTransaction()
-		{
-			try
-			{
-				transactionController.Commit();
-			}
-			catch (Exception e)
-			{
-				DKException.TestOtherIfTooLarge(e);
-			}
-		}
-
-
-
-
     }
 }

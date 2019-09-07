@@ -20,9 +20,7 @@ namespace Keon.NHibernate.Fakes
 		public T SaveOrUpdate(T entity, params BaseRepository<T>.DelegateAction[] actions)
 		{
 			actions.ToList()
-				.ForEach(a => a(entity));
-
-			FakeHelper.TestSizes(entity);
+				.ForEach(action => action(entity));
 
 			if (entity.ID == 0)
 			{

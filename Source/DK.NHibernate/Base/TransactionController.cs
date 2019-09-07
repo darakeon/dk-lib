@@ -65,7 +65,7 @@ namespace Keon.NHibernate.Base
 			if (session == null) return;
 
             if (session.Transaction.WasCommitted || session.Transaction.WasRolledBack)
-                throw new DKException("There's a Transaction opened already, cannot " + action + ".");
+                throw new DKException($"There's a Transaction opened already, cannot {action}.");
         }
     }
 }

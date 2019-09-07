@@ -1,7 +1,6 @@
 ﻿using System;
 using Keon.NHibernate.Queries;
 using Keon.Util.DB;
-using Keon.Util.Exceptions;
 
 namespace Keon.NHibernate.Base
 {
@@ -26,17 +25,10 @@ namespace Keon.NHibernate.Base
         {
 			var session = SessionManager.GetCurrent();
 
-			try
-			{
-                if (entity.ID == 0 || session.Contains(entity))
-                    session.SaveOrUpdate(entity);
-                else
-                    session.Merge(entity);
-            }
-            catch (Exception e)
-            {
-                DKException.TestOtherIfTooLarge(e);
-            }
+            if (entity.ID == 0 || session.Contains(entity))
+                session.SaveOrUpdate(entity);
+            else
+                session.Merge(entity);
 
             return entity;
         }
@@ -85,7 +77,5 @@ namespace Keon.NHibernate.Base
 			}
 			return result;
 		}
-
-
 	}
 }
