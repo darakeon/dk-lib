@@ -9,11 +9,13 @@ namespace Keon.NHibernate.Queries
 	/// Class to construct Summarize parameters
 	/// </summary>
 	/// <typeparam name="T">Main entity</typeparam>
-	/// <typeparam name="TDestiny">Result class of grouping</typeparam>
-	/// <typeparam name="TProp">Type of the property in both entities</typeparam>
-	public class GroupBy<T, TDestiny, TProp>
-		where T : class, IEntity, new()
-		where TDestiny : new()
+	/// <typeparam name="I">Integer ID type</typeparam>
+	/// <typeparam name="D">Result class of grouping</typeparam>
+	/// <typeparam name="P">Type of the property in both entities</typeparam>
+	public class GroupBy<T, I, D, P>
+		where T : class, IEntity<I>, new()
+		where I : struct
+		where D : new()
 	{
 		private GroupBy() { }
 
@@ -22,12 +24,12 @@ namespace Keon.NHibernate.Queries
 		/// </summary>
 		/// <param name="origin">Property on original entity</param>
 		/// <param name="destiny">Corresponding property on result class</param>
-		public static GroupBy<T, TDestiny, TProp> GetGroupBy(
-			Expression<Func<T, TProp>> origin,
-			Expression<Func<TDestiny, TProp>> destiny
+		public static GroupBy<T, I, D, P> GeG(
+			Expression<Func<T, P>> origin,
+			Expression<Func<D, P>> destiny
 		)
 		{
-			return new GroupBy<T, TDestiny, TProp>
+			return new GroupBy<T, I, D, P>
 			{
 				Origin = origin.GetName(),
 				Destiny = destiny.GetName(),
@@ -39,7 +41,7 @@ namespace Keon.NHibernate.Queries
 		internal String Origin;
 		internal String Destiny;
 
-		internal Expression<Func<T, TProp>> OriginFunc;
-		internal Expression<Func<TDestiny, TProp>> DestinyFunc;
+		internal Expression<Func<T, P>> OriginFunc;
+		internal Expression<Func<D, P>> DestinyFunc;
 	}
 }

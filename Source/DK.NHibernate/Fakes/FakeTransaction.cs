@@ -6,7 +6,8 @@ using Keon.Util.DB;
 
 namespace Keon.NHibernate.Fakes
 {
-	class FakeTransaction : ITransactionController
+	class FakeTransaction<I> : ITransactionController
+		where I : struct
 	{
 		public void Begin()
 		{
@@ -46,12 +47,12 @@ namespace Keon.NHibernate.Fakes
 			}
 		}
 
-		private static readonly IDictionary<String, IDbBackup> dbs
-			= new Dictionary<String, IDbBackup>();
+		private static readonly IDictionary<String, IDbBackup<I>> dbs
+			= new Dictionary<String, IDbBackup<I>>();
 
-		private static IDictionary<String, IDictionary<Int32, IEntity>> backups;
+		private static IDictionary<String, IDictionary<I, IEntity<I>>> backups;
 
-		public static void AddDB(String name, IDbBackup db)
+		public static void AddDB(String name, IDbBackup<I> db)
 		{
 			dbs.Add(name, db);
 		}

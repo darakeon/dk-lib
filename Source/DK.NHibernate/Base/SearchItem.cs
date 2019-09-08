@@ -7,7 +7,7 @@ namespace Keon.NHibernate.Base
 	/// <summary>
 	/// To search for string
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="T">Main entity</typeparam>
 	public class SearchItem<T>
 	{
 		/// <param name="property">Lambda of property</param>

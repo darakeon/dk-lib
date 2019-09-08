@@ -64,7 +64,9 @@ namespace Keon.NHibernate.Base
 		/// <summary>
 		/// Get objects from DB without NH cache
 		/// </summary>
-		public static T GetNonCached<T>(int id)
+		/// <typeparam name="T">Main entity</typeparam>
+		/// <typeparam name="I">Integer ID type</typeparam>
+		public static T GetNonCached<T, I>(I id)
 		{
 			T result;
 

@@ -51,7 +51,7 @@ namespace Keon.NHibernate.Base
 			var mapInfo =
 				new AutoMappingInfo<TMap, TEntity>
 				{
-					BaseEntities = new [] { typeof (IEntity) }
+					BaseEntities = new [] { typeof (IEntity<>) }
 				};
 
 			var dbAction = getDBAction(dbInitializer);

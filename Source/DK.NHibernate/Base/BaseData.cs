@@ -1,17 +1,20 @@
 ﻿using System;
 using Keon.NHibernate.Queries;
 using Keon.Util.DB;
+using NHibernate;
 
 namespace Keon.NHibernate.Base
 {
-    /// <summary>
-    /// Base communication with DB
-    /// </summary>
-    /// <typeparam name="T">Entity type</typeparam>
-    internal class BaseData<T> : IData<T>
-        where T : class, IEntity, new()
-    {
-        public T SaveOrUpdate(T entity, params BaseRepository<T>.DelegateAction[] actions)
+	/// <summary>
+	/// Base communication with DB
+	/// </summary>
+	/// <typeparam name="T">Main entity</typeparam>
+	/// <typeparam name="I">Integer ID type</typeparam>
+	internal class BaseData<T, I> : IData<T, I>
+        where T : class, IEntity<I>, new()
+		where I : struct
+	{
+        public T SaveOrUpdate(T entity, params BaseRepository<T, I>.DelegateAction[] actions)
         {
             foreach (var delegateAction in actions)
             {
@@ -25,7 +28,7 @@ namespace Keon.NHibernate.Base
         {
 			var session = SessionManager.GetCurrent();
 
-            if (entity.ID == 0 || session.Contains(entity))
+            if (entity.ID.Equals(default(I)) || session.Contains(entity))
                 session.SaveOrUpdate(entity);
             else
                 session.Merge(entity);
@@ -35,9 +38,9 @@ namespace Keon.NHibernate.Base
 
 
 
-		public T GetNonCached(Int32 id)
+		public T GetNonCached(I id)
 		{
-			return SessionManager.GetNonCached<T>(id);
+			return SessionManager.GetNonCached<T, I>(id);
 		}
 
 
@@ -51,7 +54,7 @@ namespace Keon.NHibernate.Base
         }
 
 
-        public T GetById(Int32 id)
+        public T GetById(I id)
         {
 			var session = SessionManager.GetCurrent();
 			return session.Get<T>(id);
@@ -59,23 +62,28 @@ namespace Keon.NHibernate.Base
 
 
 
-		public IQuery<T> NewQuery()
+		public IQuery<T, I> NewQuery()
 		{
 			var session = SessionManager.GetCurrent();
-			return new Query<T>(session);
+			return getQuery(session);
 		}
 
-		public TResult NewNonCachedQuery<TResult>(Func<IQuery<T>, TResult> action)
+		public TResult NewNonCachedQuery<TResult>(Func<IQuery<T, I>, TResult> action)
 		{
 			TResult result;
 			using (var otherSession = SessionManager.GetNonCached())
 			{
-				var query = new Query<T>(otherSession);
+				var query = getQuery(otherSession);
 				result = action(query);
 				otherSession.Close();
 				otherSession.Dispose();
 			}
 			return result;
+		}
+
+		private IQuery<T, I> getQuery(ISession session)
+		{
+			return new Query<T, I>(session);
 		}
 	}
 }

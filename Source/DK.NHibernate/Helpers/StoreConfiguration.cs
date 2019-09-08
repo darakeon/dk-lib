@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentNHibernate.Automapping;
 using Keon.Util.Collection;
 using Keon.Util.DB;
@@ -17,7 +18,9 @@ namespace Keon.NHibernate.Helpers
         public override Boolean ShouldMap(Type type)
         {
 			return !type.IsNested
-				&& type.GetInterface(typeof(IEntity).Name) == typeof(IEntity);
+				&& type.GetInterfaces().Any(
+					i => i.GUID == typeof(IEntity<>).GUID
+				);
 		}
 
 		public override Boolean IsDiscriminated(Type type)

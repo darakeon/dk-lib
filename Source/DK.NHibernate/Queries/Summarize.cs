@@ -9,11 +9,13 @@ namespace Keon.NHibernate.Queries
 	/// Class to construct Summarize parameters
 	/// </summary>
 	/// <typeparam name="T">Main entity</typeparam>
-	/// <typeparam name="TDestiny">Result class of summarize</typeparam>
-	/// <typeparam name="TProp">Property to summarize</typeparam>
-	public class Summarize<T, TDestiny, TProp>
-		where T : class, IEntity, new()
-		where TDestiny : new()
+	/// <typeparam name="I">Integer ID type</typeparam>
+	/// <typeparam name="D">Result class of summarize</typeparam>
+	/// <typeparam name="P">Property to summarize</typeparam>
+	public class Summarize<T, I, D, P>
+		where T : class, IEntity<I>, new()
+		where I : struct
+		where D : new()
 	{
 		private Summarize() { }
 
@@ -23,13 +25,13 @@ namespace Keon.NHibernate.Queries
 		/// <param name="origin">Property on original entity</param>
 		/// <param name="destiny">Corresponding property on result class</param>
 		/// <param name="type">(Count, Max, Sum)</param>
-		public static Summarize<T, TDestiny, TProp> GetSummarize(
-			Expression<Func<T, TProp>> origin,
-			Expression<Func<TDestiny, TProp>> destiny,
+		public static Summarize<T, I, D, P> GeS(
+			Expression<Func<T, P>> origin,
+			Expression<Func<D, P>> destiny,
 			SummarizeType type
 		)
 		{
-			return new Summarize<T, TDestiny, TProp>
+			return new Summarize<T, I, D, P>
 			{
 				Origin = origin.GetName(),
 				Destiny = destiny.GetName(),
@@ -42,8 +44,8 @@ namespace Keon.NHibernate.Queries
 		internal String Origin;
 		internal String Destiny;
 
-		internal Expression<Func<T, TProp>> OriginFunc;
-		internal Expression<Func<TDestiny, TProp>> DestinyFunc;
+		internal Expression<Func<T, P>> OriginFunc;
+		internal Expression<Func<D, P>> DestinyFunc;
 
 		internal SummarizeType Type;
 	}

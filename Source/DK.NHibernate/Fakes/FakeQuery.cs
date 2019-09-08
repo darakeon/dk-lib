@@ -10,25 +10,26 @@ using Decimal = System.Decimal;
 
 namespace Keon.NHibernate.Fakes
 {
-	internal class FakeQuery<T> : IQuery<T>
-		where T : class, IEntity, new()
+	internal class FakeQuery<T, I> : IQuery<T, I>
+		where T : class, IEntity<I>, new()
+		where I : struct
 	{
 		private IEnumerable<T> localList;
 		private IList<object> summarizedList;
 
-		public FakeQuery(IDictionary<Int32, T> list)
+		public FakeQuery(IDictionary<I, T> list)
 		{
 			localList = list.Values.ToList();
 			summarizedList = new List<object>();
 		}
 
-		public IQuery<T> SimpleFilter(Expression<Func<T, bool>> where)
+		public IQuery<T, I> SimpleFilter(Expression<Func<T, bool>> where)
 		{
 			localList = localList.Where(where.Compile());
 			return this;
 		}
 
-		public IQuery<T> SimpleFilter<TEntity>(Expression<Func<T, TEntity>> entityRelation, Expression<Func<TEntity, bool>> where)
+		public IQuery<T, I> SimpleFilter<TEntity>(Expression<Func<T, TEntity>> entityRelation, Expression<Func<TEntity, bool>> where)
 		{
 			localList = localList
 				.Select(entity =>
@@ -45,7 +46,7 @@ namespace Keon.NHibernate.Fakes
 			return this;
 		}
 
-		public IQuery<T> SimpleFilter<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation, Expression<Func<TEntity, bool>> where)
+		public IQuery<T, I> SimpleFilter<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation, Expression<Func<TEntity, bool>> where)
 		{
 			localList = localList
 				.Select(entity =>
@@ -62,7 +63,7 @@ namespace Keon.NHibernate.Fakes
 			return this;
 		}
 
-		public IQuery<T> InCondition<TEntity>(Expression<Func<T, TEntity>> property, IList<TEntity> contains)
+		public IQuery<T, I> InCondition<TEntity>(Expression<Func<T, TEntity>> property, IList<TEntity> contains)
 		{
 			localList = localList
 				.Select(entity =>
@@ -79,7 +80,7 @@ namespace Keon.NHibernate.Fakes
 			return this;
 		}
 
-		public IQuery<T> IsNotEmpty<TL>(Expression<Func<T, IList<TL>>> listProperty)
+		public IQuery<T, I> IsNotEmpty<L>(Expression<Func<T, IList<L>>> listProperty)
 		{
 			localList = localList
 				.Select(entity =>
@@ -96,7 +97,7 @@ namespace Keon.NHibernate.Fakes
 			return this;
 		}
 
-		public IQuery<T> IsEmpty<TL>(Expression<Func<T, IList<TL>>> listProperty)
+		public IQuery<T, I> IsEmpty<L>(Expression<Func<T, IList<L>>> listProperty)
 		{
 			localList = localList
 				.Select(entity =>
@@ -113,7 +114,7 @@ namespace Keon.NHibernate.Fakes
 			return this;
 		}
 
-		public IQuery<T> LikeCondition(Expression<Func<T, object>> property, String term, LikeType likeType = LikeType.Both)
+		public IQuery<T, I> LikeCondition(Expression<Func<T, object>> property, String term, LikeType likeType = LikeType.Both)
 		{
 			localList = localList
 				.Select(entity =>
@@ -134,7 +135,7 @@ namespace Keon.NHibernate.Fakes
 			return this;
 		}
 
-		public IQuery<T> LikeCondition<TAscending>(
+		public IQuery<T, I> LikeCondition<TAscending>(
 			Expression<Func<T, TAscending>> ascendingRelation,
 			Expression<Func<TAscending, object>> property,
 			String term
@@ -157,7 +158,7 @@ namespace Keon.NHibernate.Fakes
 			return this;
 		}
 
-		public IQuery<T> LikeCondition(IList<SearchItem<T>> searchTerms)
+		public IQuery<T, I> LikeCondition(IList<SearchItem<T>> searchTerms)
 		{
 			foreach (var searchTerm in searchTerms)
 			{
@@ -184,22 +185,22 @@ namespace Keon.NHibernate.Fakes
 			}
 		}
 
-		public IQuery<T> LeftJoin<TEntity>(Expression<Func<T, TEntity>> entityRelation)
+		public IQuery<T, I> LeftJoin<TEntity>(Expression<Func<T, TEntity>> entityRelation)
 		{
 			return this;
 		}
 
-		public IQuery<T> LeftJoin<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation)
+		public IQuery<T, I> LeftJoin<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation)
 		{
 			return this;
 		}
 
-		public IQuery<T> FetchModeEager<TEntity>(Expression<Func<T, IList<TEntity>>> listProperty)
+		public IQuery<T, I> FetchModeEager<TEntity>(Expression<Func<T, IList<TEntity>>> listProperty)
 		{
 			return this;
 		}
 
-		public IQuery<T> HasFlag<TEnum>(Expression<Func<T, TEnum>> func, TEnum value) where TEnum : struct, IConvertible
+		public IQuery<T, I> HasFlag<TEnum>(Expression<Func<T, TEnum>> func, TEnum value) where TEnum : struct, IConvertible
 		{
 			localList = localList
 				.Select(entity =>
@@ -216,7 +217,7 @@ namespace Keon.NHibernate.Fakes
 			return this;
 		}
 
-		public IQuery<T> OrderBy<TPropOrder>(Expression<Func<T, TPropOrder>> order, bool? ascending)
+		public IQuery<T, I> OrderBy<O>(Expression<Func<T, O>> order, bool? ascending)
 		{
 			localList =
 				ascending ?? false
@@ -226,7 +227,7 @@ namespace Keon.NHibernate.Fakes
 			return this;
 		}
 
-		public IQuery<T> OrderByParent<TPropOrder>(Expression<Func<T, TPropOrder>> order, bool? ascending)
+		public IQuery<T, I> OrderByParent<O>(Expression<Func<T, O>> order, bool? ascending)
 		{
 			localList =
 				ascending ?? false
@@ -236,7 +237,7 @@ namespace Keon.NHibernate.Fakes
 			return this;
 		}
 
-		public IQuery<T> Take(Int32 topItems)
+		public IQuery<T, I> Take(Int32 topItems)
 		{
 			localList = localList.Take(topItems);
 
@@ -248,7 +249,7 @@ namespace Keon.NHibernate.Fakes
 			return localList.Any();
 		}
 
-		public IQuery<T> Page(ISearch search)
+		public IQuery<T, I> Page(ISearch search)
 		{
 			var skip = (search.Page - 1) * search.ItemsPerPage;
 
@@ -259,31 +260,31 @@ namespace Keon.NHibernate.Fakes
 			return this;
 		}
 
-		public IQuery<T> DistinctMainEntity()
+		public IQuery<T, I> DistinctMainEntity()
 		{
 			localList = localList.Distinct();
 
 			return this;
 		}
 
-		public IQuery<T> TransformResult<TDestiny, TProp, TGroupBy, TSummarize>(
-			IList<TGroupBy> groupProperties,
-			IList<TSummarize> summarizeProperties
+		public IQuery<T, I> TransformResult<D, P, G, S>(
+			IList<G> groupProperties,
+			IList<S> summarizeProperties
 		)
-			where TDestiny : new() 
-			where TGroupBy : GroupBy<T, TDestiny, TProp> 
-			where TSummarize : Summarize<T, TDestiny, TProp>
+			where D : new() 
+			where G : GroupBy<T, I, D, P> 
+			where S : Summarize<T, I, D, P>
 		{
 			summarizedList = new List<object>();
 
 			var grouped = groupItems
-				<TDestiny, TProp, TGroupBy>
+				<D, P, G>
 				(groupProperties);
 
 			foreach (var item in grouped)
 			{
 				var destiny = castToDestiny
-					<TDestiny, TProp, TSummarize>
+					<D, P, S>
 					(summarizeProperties, item);
 
 				summarizedList.Add(destiny);
@@ -294,19 +295,18 @@ namespace Keon.NHibernate.Fakes
 			return this;
 		}
 
-		private IDictionary<IDictionary<String, TProp>, IEnumerable<T>> groupItems
-			<TDestiny, TProp, TGroupBy>
-			(IList<TGroupBy> groupProperties) where TDestiny : new()
-			where TGroupBy : GroupBy<T, TDestiny, TProp>
+		private IDictionary<IDictionary<String, P>, IEnumerable<T>> groupItems
+			<D, P, G>
+			(IList<G> groupProperties)
+			where D : new()
+			where G : GroupBy<T, I, D, P>
 		{
 			return localList
 				.Select(
 					entity => new
 					{
 						entity,
-						props = getProps
-							<TDestiny, TProp, TGroupBy>
-							(entity, groupProperties)
+						props = getProps<D, P, G>(entity, groupProperties)
 					}
 				)
 				.GroupBy(compose => compose.props)
@@ -317,12 +317,12 @@ namespace Keon.NHibernate.Fakes
 		}
 
 
-		private IDictionary<String, TProp> getProps<TDestiny, TProp, TGroupBy>(
+		private IDictionary<String, P> getProps<D, P, G>(
 			T entity,
-			IList<TGroupBy> groupProperties
+			IList<G> groupProperties
 		)
-			where TDestiny : new()
-			where TGroupBy : GroupBy<T, TDestiny, TProp>
+			where D : new()
+			where G : GroupBy<T, I, D, P>
 		{
 			return groupProperties
 				.ToDictionary(
@@ -331,14 +331,15 @@ namespace Keon.NHibernate.Fakes
 				);
 		}
 
-		private TDestiny castToDestiny<TDestiny, TProp, TSummarize>(
-			IList<TSummarize> summarizeProperties,
-			KeyValuePair<IDictionary<String, TProp>, IEnumerable<T>> item
+		private D castToDestiny<D, P, S>(
+			IList<S> summarizeProperties,
+			KeyValuePair<IDictionary<String, P>, IEnumerable<T>> item
 		)
-			where TDestiny : new() where TSummarize : Summarize<T, TDestiny, TProp>
+			where D : new()
+			where S : Summarize<T, I, D, P>
 		{
-			var destiny = new TDestiny();
-			var type = typeof(TDestiny);
+			var destiny = new D();
+			var type = typeof(D);
 
 			foreach (var prop in item.Key)
 			{
@@ -354,15 +355,15 @@ namespace Keon.NHibernate.Fakes
 			return destiny;
 		}
 
-		private void summarize<TDestiny, TProp, TSummarize>
-			(KeyValuePair<IDictionary<String, TProp>, IEnumerable<T>> item,
-			TSummarize summary,
-			TDestiny destiny
+		private void summarize<D, P, S>
+			(KeyValuePair<IDictionary<String, P>, IEnumerable<T>> item,
+			S summary,
+			D destiny
 		)
-			where TDestiny : new()
-			where TSummarize : Summarize<T, TDestiny, TProp>
+			where D : new()
+			where S : Summarize<T, I, D, P>
 		{
-			var destinyField = typeof(TDestiny)
+			var destinyField = typeof(D)
 				.GetProperty(summary.Destiny);
 
 			var valuesList = item.Value
@@ -389,20 +390,15 @@ namespace Keon.NHibernate.Fakes
 			}
 		}
 
-		public IQuery<T> TransformResult<TDestiny, TProp, TGroupBy>(
-			IList<TGroupBy> groupProperties
+		public IQuery<T, I> TransformResult<D, P, G>(
+			IList<G> groupProperties
 		)
-			where TDestiny : new()
-			where TGroupBy : GroupBy<T, TDestiny, TProp>
+			where D : new()
+			where G : GroupBy<T, I, D, P>
 		{
-			TransformResult<
-				TDestiny,
-				TProp,
-				TGroupBy,
-				Summarize<T, TDestiny, TProp>
-			>(
+			TransformResult<D, P, G, Summarize<T, I, D, P>>(
 				groupProperties,
-				new List<Summarize<T, TDestiny, TProp>>()
+				new List<Summarize<T, I, D, P>>()
 			);
 
 			return this;

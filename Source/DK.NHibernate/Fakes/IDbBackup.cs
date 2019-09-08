@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Keon.Util.DB;
 
 namespace Keon.NHibernate.Fakes
 {
-	interface IDbBackup
+	interface IDbBackup<I>
+		where I : struct
 	{
-		ICollection<Int32> Keys { get; }
-		void Remove(Int32 entityId);
-		void Add(IEntity entity);
-		void Replace(IEntity entity);
-		IDictionary<Int32, IEntity> Clone();
+		ICollection<I> Keys { get; }
+		void Remove(I entityId);
+		void Add(IEntity<I> entity);
+		void Replace(IEntity<I> entity);
+		IDictionary<I, IEntity<I>> Clone();
 	}
 }

@@ -4,14 +4,15 @@ using Keon.Util.DB;
 
 namespace Keon.NHibernate.Base
 {
-	internal interface IData<T>
-		where T : class, IEntity, new()
+	internal interface IData<T, I>
+		where T : class, IEntity<I>, new()
+		where I : struct
 	{
-		T SaveOrUpdate(T entity, params BaseRepository<T>.DelegateAction[] actions);
-		T GetNonCached(Int32 id);
+		T SaveOrUpdate(T entity, params BaseRepository<T, I>.DelegateAction[] actions);
+		T GetNonCached(I id);
 		void Delete(T obj);
-		T GetById(Int32 id);
-		IQuery<T> NewQuery();
-		TResult NewNonCachedQuery<TResult>(Func<IQuery<T>, TResult> action);
+		T GetById(I id);
+		IQuery<T, I> NewQuery();
+		TResult NewNonCachedQuery<TResult>(Func<IQuery<T, I>, TResult> action);
 	}
 }

@@ -7,28 +7,32 @@ using Keon.Util.DB;
 
 namespace Keon.NHibernate.Fakes
 {
-	class FakeData<T> : IData<T>, IDbBackup
-		where T : class, IEntity, new()
+	class FakeData<T, I> : IData<T, I>, IDbBackup<I>
+		where T : class, IEntity<I>, new()
+		where I : struct
 	{
-		public FakeData()
+		private Func<I, I> next { get; }
+
+		public FakeData(Func<I, I> next)
 		{
-			FakeTransaction.AddDB(typeof(T).Name, this);
+			this.next = next;
+			FakeTransaction<I>.AddDB(typeof(T).Name, this);
 		}
 
-		private static readonly IDictionary<Int32, T> db = new Dictionary<Int32, T>();
+		private static readonly IDictionary<I, T> db = new Dictionary<I, T>();
 
-		public T SaveOrUpdate(T entity, params BaseRepository<T>.DelegateAction[] actions)
+		public T SaveOrUpdate(T entity, params BaseRepository<T, I>.DelegateAction[] actions)
 		{
 			actions.ToList()
 				.ForEach(action => action(entity));
 
-			if (entity.ID == 0)
+			if (entity.ID.Equals(default(I)))
 			{
 				var id = db.Keys.Any() 
-					? db.Keys.Max() + 1
-					: 1;
+					? db.Keys.Max()
+					: default;
 
-				entity.ID = id;
+				entity.ID = next(id);
 
 				db.Add(id, entity);
 			}
@@ -40,7 +44,7 @@ namespace Keon.NHibernate.Fakes
 			return entity;
 		}
 
-		public T GetNonCached(Int32 id)
+		public T GetNonCached(I id)
 		{
 			return GetById(id);
 		}
@@ -51,44 +55,44 @@ namespace Keon.NHibernate.Fakes
 				db.Remove(obj.ID);
 		}
 
-		public T GetById(int id)
+		public T GetById(I id)
 		{
 			return db.ContainsKey(id) ? db[id] : null;
 		}
 
-		public IQuery<T> NewQuery()
+		public IQuery<T, I> NewQuery()
 		{
-			return new FakeQuery<T>(db);
+			return new FakeQuery<T, I>(db);
 		}
 
-		public TResult NewNonCachedQuery<TResult>(Func<IQuery<T>, TResult> action)
+		public TResult NewNonCachedQuery<TResult>(Func<IQuery<T, I>, TResult> action)
 		{
 			return action(NewQuery());
 		}
 
 
 
-		public ICollection<Int32> Keys => db.Keys;
+		public ICollection<I> Keys => db.Keys;
 
-		public void Remove(Int32 entityId)
+		public void Remove(I entityId)
 		{
 			db.Remove(entityId);
 		}
 
-		public void Add(IEntity entity)
+		public void Add(IEntity<I> entity)
 		{
 			db.Add(entity.ID, (T)entity);
 		}
 
-		public void Replace(IEntity entity)
+		public void Replace(IEntity<I> entity)
 		{
 			db[entity.ID] = (T)entity;
 		}
 
-		public IDictionary<Int32, IEntity> Clone()
+		public IDictionary<I, IEntity<I>> Clone()
 		{
 			return db.Select(e => e.Value)
-				.Cast<IEntity>()
+				.Cast<IEntity<I>>()
 				.ToDictionary(
 					e => e.ID,
 					e => e

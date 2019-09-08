@@ -1,13 +1,14 @@
 ﻿using System;
 using Keon.NHibernate.Fakes;
-using Keon.Util.Exceptions;
 
 namespace Keon.NHibernate.Base
 {
-    /// <summary>
-    /// Base for services, to have transaction
-    /// </summary>
-    public class BaseService
+	/// <summary>
+	/// Base for services, to have transaction
+	/// </summary>
+	/// <typeparam name="I">Integer ID type</typeparam>
+    public class BaseService<I>
+		where I: struct
     {
         /// <summary></summary>
         public BaseService()
@@ -18,7 +19,7 @@ namespace Keon.NHibernate.Base
 	    private ITransactionController getTransactionController()
 	    {
 		    if (FakeHelper.IsFake)
-			    return new FakeTransaction();
+			    return new FakeTransaction<I>();
 
 		    return new TransactionController();
 	    }
@@ -68,4 +69,13 @@ namespace Keon.NHibernate.Base
 			}, onError);
 		}
     }
+
+	/// <inheritdoc />
+	public class BaseService : BaseService<Int32> { }
+
+	/// <inheritdoc />
+	public class BaseServiceShort : BaseService<Int16> { }
+
+	/// <inheritdoc />
+	public class BaseServiceLong : BaseService<Int64> { }
 }

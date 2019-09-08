@@ -12,25 +12,30 @@ namespace Keon.NHibernate.Base
 	/// <summary>
 	/// Higher level queries
 	/// </summary>
-	public class BaseRepository<T> 
-		where T : class, IEntity, new()
+	/// <typeparam name="T">Main entity</typeparam>
+	/// <typeparam name="I">Integer ID type</typeparam>
+	public class BaseRepository<T, I>
+		where T : class, IEntity<I>, new()
+		where I : struct
 	{
-		private readonly IData<T> data;
+		private readonly IData<T, I> data;
+		private Func<I, I> next { get; }
 
 		/// <summary>
 		/// Initializes DB reader/writer
 		/// </summary>
-		protected BaseRepository()
+		protected BaseRepository(Func<I, I> next)
 		{
+			this.next = next;
 			data = getBaseData();
 		}
 
-		private IData<T> getBaseData()
+		private IData<T, I> getBaseData()
 		{
 			if (FakeHelper.IsFake)
-				return new FakeData<T>();
+				return new FakeData<T, I>(next);
 
-			return new BaseData<T>();
+			return new BaseData<T, I>();
 		}
 
 
@@ -54,7 +59,7 @@ namespace Keon.NHibernate.Base
 		/// <summary>
 		/// Get entity by its ID
 		/// </summary>
-		public T Get(Int32 id)
+		public T Get(I id)
 		{
 			return data.GetById(id);
 		}
@@ -62,7 +67,7 @@ namespace Keon.NHibernate.Base
 		/// <summary>
 		/// Get old data of the entity
 		/// </summary>
-		protected T GetNonCached(Int32 id)
+		protected T GetNonCached(I id)
 		{
 			return data.GetNonCached(id);
 		}
@@ -70,7 +75,7 @@ namespace Keon.NHibernate.Base
 		/// <summary>
 		/// Get old data of query
 		/// </summary>
-		protected TResult NewNonCachedQuery<TResult>(Func<IQuery<T>, TResult> action)
+		protected TResult NewNonCachedQuery<TResult>(Func<IQuery<T, I>, TResult> action)
 		{
 			return data.NewNonCachedQuery(action);
 		}
@@ -108,7 +113,7 @@ namespace Keon.NHibernate.Base
 		/// <summary>
 		/// Delete permanently the entity of DB
 		/// </summary>
-		public void Delete(Int32 id)
+		public void Delete(I id)
 		{
 			Delete(Get(id));
 		}
@@ -117,7 +122,7 @@ namespace Keon.NHibernate.Base
 		/// <summary>
 		/// Return an object to take data
 		/// </summary>
-		public IQuery<T> NewQuery()
+		public IQuery<T, I> NewQuery()
 		{
 			return data.NewQuery();
 		}
@@ -179,8 +184,29 @@ namespace Keon.NHibernate.Base
 
 			entity.SetFileNames(newFileName, upload.OriginalName);
 		}
+	}
 
+	/// <inheritdoc />
+	public class BaseRepository<T> : BaseRepository<T, Int32>
+		where T : class, IEntity, new()
+	{
+		/// <inheritdoc />
+		protected BaseRepository() : base(i => ++i) { }
+	}
 
+	/// <inheritdoc />
+	public class BaseRepositoryShort<T> : BaseRepository<T, Int16>
+		where T : class, IEntityShort, new()
+	{
+		/// <inheritdoc />
+		protected BaseRepositoryShort() : base(i => ++i) { }
+	}
 
+	/// <inheritdoc />
+	public class BaseRepositoryLong<T> : BaseRepository<T, Int64>
+		where T : class, IEntityLong, new()
+	{
+		/// <inheritdoc />
+		protected BaseRepositoryLong() : base(i => ++i) { }
 	}
 }
