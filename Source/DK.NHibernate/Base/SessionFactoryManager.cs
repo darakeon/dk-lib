@@ -86,7 +86,11 @@ namespace Keon.NHibernate.Base
 			if (Instance == null)
 				throw new DKException("Restart the Application.");
 
-			return Instance.OpenSession();
+			var session = Instance.OpenSession();
+
+			session.FlushMode = FlushMode.Manual;
+
+			return session;
 		}
 
 		/// <summary>

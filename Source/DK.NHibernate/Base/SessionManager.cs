@@ -85,7 +85,7 @@ namespace Keon.NHibernate.Base
 		/// </summary>
 		internal static ISession GetNonCached()
 		{
-			return SessionFactoryManager.Instance.OpenSession();
+			return SessionFactoryManager.OpenSession();
 		}
 
 
