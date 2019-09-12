@@ -27,7 +27,7 @@ namespace Keon.MVC.Cookies
 			if (context == null)
 				throw new DKException("No http context");
 
-			if (get() == null)
+			if (String.IsNullOrEmpty(get()))
 			{
 				add(Token.New(), remember);
 			}
