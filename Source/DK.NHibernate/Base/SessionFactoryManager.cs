@@ -88,7 +88,7 @@ namespace Keon.NHibernate.Base
 
 			var session = Instance.OpenSession();
 
-			session.FlushMode = FlushMode.Manual;
+			session.FlushMode = FlushMode.Commit;
 
 			return session;
 		}
