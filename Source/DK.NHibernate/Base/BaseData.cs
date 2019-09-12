@@ -11,30 +11,30 @@ namespace Keon.NHibernate.Base
 	/// <typeparam name="T">Main entity</typeparam>
 	/// <typeparam name="I">Integer ID type</typeparam>
 	internal class BaseData<T, I> : IData<T, I>
-        where T : class, IEntity<I>, new()
+		where T : class, IEntity<I>, new()
 		where I : struct
 	{
-        public T SaveOrUpdate(T entity, params BaseRepository<T, I>.DelegateAction[] actions)
-        {
-            foreach (var delegateAction in actions)
-            {
-                delegateAction(entity);
-            }
+		private ISession session => SessionManager.GetCurrent();
 
-            return saveOrUpdate(entity);
-        }
+		public T SaveOrUpdate(T entity, params BaseRepository<T, I>.DelegateAction[] actions)
+		{
+			foreach (var delegateAction in actions)
+			{
+				delegateAction(entity);
+			}
 
-        private static T saveOrUpdate(T entity)
-        {
-			var session = SessionManager.GetCurrent();
+			return saveOrUpdate(entity);
+		}
 
-            if (entity.ID.Equals(default(I)) || session.Contains(entity))
-                session.SaveOrUpdate(entity);
-            else
-                session.Merge(entity);
+		private T saveOrUpdate(T entity)
+		{
+			if (entity.ID.Equals(default(I)) || session.Contains(entity))
+				session.SaveOrUpdate(entity);
+			else
+				session.Merge(entity);
 
-            return entity;
-        }
+			return entity;
+		}
 
 
 
@@ -45,26 +45,22 @@ namespace Keon.NHibernate.Base
 
 
 
-        public void Delete(T obj)
-        {
-			var session = SessionManager.GetCurrent();
-
+		public void Delete(T obj)
+		{
 			if (obj != null)
-                session.Delete(obj);
-        }
+				session.Delete(obj);
+		}
 
 
-        public T GetById(I id)
-        {
-			var session = SessionManager.GetCurrent();
+		public T GetById(I id)
+		{
 			return session.Get<T>(id);
-        }
+		}
 
 
 
 		public IQuery<T, I> NewQuery()
 		{
-			var session = SessionManager.GetCurrent();
 			return getQuery(session);
 		}
 
@@ -78,6 +74,7 @@ namespace Keon.NHibernate.Base
 				otherSession.Close();
 				otherSession.Dispose();
 			}
+
 			return result;
 		}
 
