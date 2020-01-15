@@ -172,17 +172,13 @@ namespace Keon.NHibernate.Fakes
 		{
 			var text = field.ToString();
 
-			switch (likeType)
+			return likeType switch
 			{
-				case LikeType.Both:
-					return text.Contains(term);
-				case LikeType.JustStart:
-					return text.StartsWith(term);
-				case LikeType.JustEnd:
-					return text.EndsWith(term);
-				default:
-					throw new NotImplementedException();
-			}
+				LikeType.Both => text.Contains(term),
+				LikeType.JustStart => text.StartsWith(term),
+				LikeType.JustEnd => text.EndsWith(term),
+				_ => throw new NotImplementedException()
+			};
 		}
 
 		public IQuery<T, I> LeftJoin<TEntity>(Expression<Func<T, TEntity>> entityRelation)
@@ -377,17 +373,13 @@ namespace Keon.NHibernate.Fakes
 
 		private object summarize(IEnumerable<Decimal> list, SummarizeType summaryType)
 		{
-			switch (summaryType)
+			return summaryType switch
 			{
-				case SummarizeType.Count:
-					return list.Count();
-				case SummarizeType.Max:
-					return list.Max();
-				case SummarizeType.Sum:
-					return list.Sum();
-				default:
-					throw new NotImplementedException();
-			}
+				SummarizeType.Count => list.Count(),
+				SummarizeType.Max => list.Max(),
+				SummarizeType.Sum => list.Sum(),
+				_ => throw new NotImplementedException()
+			};
 		}
 
 		public IQuery<T, I> TransformResult<D, P, G>(
@@ -482,11 +474,7 @@ namespace Keon.NHibernate.Fakes
 		private void failIfSummarized()
 		{
 			if (summarizedList.Any())
-			{
-				throw new ActionNotSupportedException(
-					"Use ResultAs to get summarized list"
-				);
-			}
+				throw new Exception("Use ResultAs to get summarized list");
 		}
 	}
 }

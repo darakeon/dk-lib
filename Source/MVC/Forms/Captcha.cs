@@ -2,37 +2,39 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Drawing.Text;
 using System.IO;
-using System.Web;
-using System.Web.SessionState;
+using System.Drawing.Text;
+using Keon.MVC.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace Keon.MVC.Forms
 {
     /// <summary>
-    /// Generate captach for form validations
+    /// Generate captcha for form validations
     /// </summary>
     public class Captcha
     {
-        /// <param name="newText">Which the text shoud be renegerated</param>
-        public Captcha(Boolean newText)
+	    private readonly HttpContext context;
+
+	    /// <param name="newText">Which the text should be regenerated</param>
+	    /// <param name="getContext">Http context getter</param>
+	    public Captcha(Boolean newText, GetContext getContext)
         {
-            if (newText || String.IsNullOrEmpty(text))
+	        context = getContext();
+            
+	        if (newText || String.IsNullOrEmpty(text))
             {
                 generateString();
             }
         }
-
-
 
         /// <summary>
         /// Captcha image generated
         /// </summary>
         public String Image => generateImage(text);
 
-
-	    /// <summary>
-	    /// Validate and change captach
+        /// <summary>
+	    /// Validate and change captcha
 	    /// </summary>
 	    public bool ValidateAndRenew(String typed)
         {
@@ -43,11 +45,8 @@ namespace Keon.MVC.Forms
             return valid;
         }
 
-
-
-        private static HttpSessionState session => HttpContext.Current.Session;
-		private static string text => session["Captcha"]?.ToString();
-
+        private ISession session => context.Session;
+		private string text => context.Session.GetString("Captcha");
 
 	    private void generateString()
         {
@@ -61,42 +60,38 @@ namespace Keon.MVC.Forms
                 captcha += possibleCharacters[positionNewChar];
             }
 
-            session.Add("Captcha", captcha);
+            session.SetString("Captcha", captcha);
         }
 
 
 
         private String generateImage(String captcha)
         {
-            using (var bitmap = new Bitmap(image_width, image_height))
-            {
-                drawCaptcha(captcha, bitmap);
+	        using var bitmap = new Bitmap(image_width, image_height);
+	        
+	        drawCaptcha(captcha, bitmap);
 
-                var filename = Guid.NewGuid() + ".png";
-                var dir = Path.Combine("Assets", "Images", "Generated", "Captcha");
-                var path = Path.Combine(dir, filename);
+	        var filename = Guid.NewGuid() + ".png";
+	        var dir = Path.Combine("Assets", "Images", "Generated", "Captcha");
+	        var path = Path.Combine(dir, filename);
 
-                bitmap.Save(path, ImageFormat.Png);
+	        bitmap.Save(path, ImageFormat.Png);
 
-                cleanOldFiles(dir);
+	        cleanOldFiles(dir);
 
-                return path;
-            }
+	        return path;
         }
 
-        private void drawCaptcha(String captcha, Image bitmap)
+        private void drawCaptcha(String captcha, Bitmap bitmap)
         {
-            using (var graphics = Graphics.FromImage(bitmap))
-            {
-                graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                graphics.Clear(imageColor);
-                graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+	        using var graphics = Graphics.FromImage(bitmap);
+	        
+	        graphics.SmoothingMode = SmoothingMode.AntiAlias;
+	        graphics.Clear(imageColor);
+	        graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-                using (var font = new Font(font_type, font_size, FontStyle.Bold))
-                {
-                    graphics.DrawString(captcha, font, Brushes.White, text_top, text_left);
-                }
-            }
+	        using var font = new Font(font_type, font_size, FontStyle.Bold);
+	        graphics.DrawString(captcha, font, Brushes.White, text_top, text_left);
         }
 
         private static void cleanOldFiles(String dir)
@@ -141,7 +136,5 @@ namespace Keon.MVC.Forms
         private const Int32 text_left = 3;
 
         #endregion
-
-
     }
 }

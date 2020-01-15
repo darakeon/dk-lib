@@ -20,7 +20,7 @@ namespace Keon.XML
 		public Node()
         {
 	        Attributes = new Dictionary<String, String>();
-            Childs = new List<Node>();
+            Children = new List<Node>();
             Value = String.Empty;
         }
 
@@ -41,8 +41,8 @@ namespace Keon.XML
 		///  Xml node structure
 		/// </summary>
 		/// <param name="xmlNode">Initial XMLNode</param>
-		/// <param name="readChilds">Whether is to read all the childs (recursive read)</param>
-		private Node(XmlNode xmlNode, Boolean readChilds = true)
+		/// <param name="readChildren">Whether is to read all the children (recursive read)</param>
+		private Node(XmlNode xmlNode, Boolean readChildren = true)
             : this()
         {
             if (xmlNode == null)
@@ -63,7 +63,7 @@ namespace Keon.XML
             }
 
 
-            if (!readChilds) return;
+            if (!readChildren) return;
 
 
             for (var n = 0; n < xmlNode.ChildNodes.Count; n++)
@@ -74,7 +74,7 @@ namespace Keon.XML
                 switch (node.NodeType)
                 {
                     case XmlNodeType.Element:
-                        Childs.Add(new Node(node));
+                        Children.Add(new Node(node));
                         break;
                     case XmlNodeType.Text:
                         Value += node.Value;
@@ -88,8 +88,8 @@ namespace Keon.XML
 		///  Xml node structure
 		///  </summary>
 		/// <param name="path">Path of the XML file</param>
-		/// <param name="readChilds">Whether is to read all the childs (recursive read)</param>
-        public Node(String path, Boolean readChilds = true) : this(createNodesFromFile(path), readChilds) { }
+		/// <param name="readChildren">Whether is to read all the childs (recursive read)</param>
+        public Node(String path, Boolean readChildren = true) : this(createNodesFromFile(path), readChildren) { }
 
         private static XmlNode createNodesFromFile(String path)
         {
@@ -125,7 +125,7 @@ namespace Keon.XML
         ///<summary>
         /// The Child Nodes
         ///</summary>
-        public IList<Node> Childs { get; set; }
+        public IList<Node> Children { get; set; }
 
 
         /// <summary>
@@ -147,8 +147,8 @@ namespace Keon.XML
         /// <returns>If found, the child node; Else, null</returns>
         public Node this[Int32 node]
         {
-            get => node < Childs.Count ? Childs[node] : null;
-	        set => Childs[node] = value;
+            get => node < Children.Count ? Children[node] : null;
+	        set => Children[node] = value;
         }
         #endregion
 
@@ -161,7 +161,7 @@ namespace Keon.XML
         /// <param name="node">Child Node</param>
         public void Add(Node node)
         {
-            Childs.Add(node);
+            Children.Add(node);
         }
 
         /// <summary>
@@ -180,9 +180,9 @@ namespace Keon.XML
         ///<summary>
         /// Whether it has child nodes
         ///</summary>
-        public Boolean HasChilds()
+        public Boolean HasChildren()
         {
-            return Childs.Any();
+            return Children.Any();
         }
 
 
@@ -245,7 +245,7 @@ namespace Keon.XML
 
             textWriter.WriteString(node.Value);
 
-            foreach (var child in node.Childs)
+            foreach (var child in node.Children)
             {
                 writeNodeAtFile(child, textWriter);
             }
@@ -312,7 +312,7 @@ namespace Keon.XML
         ///</summary>
         public IEnumerator<Node> GetEnumerator()
         {
-            return Childs.GetEnumerator();
+            return Children.GetEnumerator();
         }
         #endregion
     }

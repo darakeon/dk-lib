@@ -3,7 +3,7 @@
 namespace Keon.MVC.Authentication
 {
     ///<summary>
-    /// The Interface to paas Roles (permissions) to Authenticate
+    /// The Interface to pass Roles (permissions) to Authenticate
     ///</summary>
     public interface IRole
     {

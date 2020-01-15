@@ -11,3 +11,5 @@ Source/packages/*
 
 *.nupkg
 Source/DK.TwoFactorAuth/Keon.TwoFactorAuth.xml
+
+Source/*/Keon.*.xml

@@ -1,68 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CF70FB71-50D7-4014-92CF-9ABF51579EC6}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Keon.Util</RootNamespace>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>Keon.Util</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <RootNamespace>Keon.Util</RootNamespace>
+    <Authors>darakeon</Authors>
+    <Company>Dara Keon</Company>
+    <Product>Keon Util</Product>
+    <Description>Generic helpers for .NET projects</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
+    <PackageIconUrl>https://avatars0.githubusercontent.com/u/16213361?s=64</PackageIconUrl>
+    <RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>utility</PackageTags>
+    <PackageReleaseNotes>Updated to .NET Core</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>2.0.0</Version>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Keon.Util.xml</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Lucas\Git\Me\DK\Source\Util\Keon.Util.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Web" />
+    <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
+    <PackageReference Include="BouncyCastle.NetCore" Version="1.8.5" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Collection\IGroupable.cs" />
-    <Compile Include="Collection\IsInExtension.cs" />
-    <Compile Include="DB\IEntity.cs" />
-    <Compile Include="Enums\String2Enum.cs" />
-    <Compile Include="Exceptions\DKException.cs" />
-    <Compile Include="Exceptions\ComposedResult.cs" />
-    <Compile Include="Collection\GroupedCollection.cs" />
-    <Compile Include="Collection\ItemGroup.cs" />
-    <Compile Include="Exceptions\ExceptionExtension.cs" />
-    <Compile Include="Extensions\DictionaryExtension.cs" />
-    <Compile Include="Extensions\EnumExtension.cs" />
-    <Compile Include="Extensions\StringExtension.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\MainAssemblyInfo.cs" />
-    <Compile Include="Reflection\Property.cs" />
-    <Compile Include="Extensions\Token.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
