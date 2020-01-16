@@ -10,7 +10,7 @@
     <Description>Generic helpers for .NET projects</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
-    <PackageIconUrl>https://avatars0.githubusercontent.com/u/16213361?s=64</PackageIconUrl>
+    <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>utility</PackageTags>
@@ -18,6 +18,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>2.0.0</Version>
+    <PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -27,6 +28,13 @@
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Nuget\image.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

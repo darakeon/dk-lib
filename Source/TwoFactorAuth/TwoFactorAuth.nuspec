@@ -15,7 +15,6 @@
         <projectUrl>https://github.com/darakeon/dk-lib</projectUrl>
 		<repository type="git" url="https://github.com/darakeon/dk-lib" />
         <license type="expression">Apache-2.0</license>
-        <iconUrl>https://avatars0.githubusercontent.com/u/16213361?s=64</iconUrl>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
 
         <releaseNotes>First upload to Nuget</releaseNotes>
