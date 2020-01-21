@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using FluentNHibernate.Automapping.Alterations;
 using Keon.NHibernate.Fakes;
 using Keon.NHibernate.Helpers;
@@ -7,6 +6,7 @@ using Keon.NHibernate.UserPassed;
 using Keon.Util.DB;
 using Keon.Util.Exceptions;
 using Keon.Util.Extensions;
+using Microsoft.Extensions.Configuration;
 using NHibernate;
 
 namespace Keon.NHibernate.Base
@@ -24,17 +24,20 @@ namespace Keon.NHibernate.Base
 		/// <summary>
 		/// Initialize function, need to be called before use instance
 		/// </summary>
-		public static void Initialize<TMap, TEntity>()
+		/// <param name="config">Dictionary of application configuration</param>
+		public static void Initialize<TMap, TEntity>(IConfiguration config)
 			where TMap : IAutoMappingOverride<TEntity>
 		{
-			Initialize<TMap, TEntity>(null);
+			Initialize<TMap, TEntity>(config, null);
 		}
 
 		/// <summary>
 		/// Initialize function, need to be called before use instance
 		/// </summary>
+		/// <param name="config">Dictionary of application configuration</param>
 		/// <param name="dbInitializer">Object to pre-populate DB</param>
 		public static void Initialize<TMap, TEntity>(
+			IConfiguration config,
 			IDataInitializer dbInitializer
 		)
 			where TMap : IAutoMappingOverride<TEntity>
@@ -43,7 +46,7 @@ namespace Keon.NHibernate.Base
 				return;
 
 			FakeHelper.IsFake = (
-				ConfigurationManager.AppSettings["FakeDB"] ?? "false"
+				config["FakeDB"] ?? "false"
 			).ToLower() == "true";
 
 			if (FakeHelper.IsFake) return;
@@ -54,19 +57,19 @@ namespace Keon.NHibernate.Base
 					BaseEntities = new [] { typeof (IEntity<>) }
 				};
 
-			var dbAction = getDBAction(dbInitializer);
+			var dbAction = getDBAction(config, dbInitializer);
 
-			Instance = SessionFactoryBuilder.Start(mapInfo, dbAction);
+			Instance = SessionFactoryBuilder.Start(config, mapInfo, dbAction);
 
 			if (dbInitializer != null && dbAction == DBAction.Recreate)
 				dbInitializer.PopulateDB();
 		}
 
-		private static DBAction getDBAction(IDataInitializer dbInitializer)
+		private static DBAction getDBAction(IConfiguration config, IDataInitializer dbInitializer)
 		{
 			try
 			{
-				var dbActionConfig = ConfigurationManager.AppSettings["DBAction"];
+				var dbActionConfig = config["DBAction"];
 				return dbActionConfig.Cast<DBAction>();
 			}
 			catch (Exception)

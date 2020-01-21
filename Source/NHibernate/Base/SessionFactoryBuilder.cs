@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
 using FluentNHibernate.Automapping.Alterations;
 using FluentNHibernate.Cfg;
 using Keon.NHibernate.Helpers;
 using Keon.NHibernate.UserPassed;
 using Keon.Util.Extensions;
+using Microsoft.Extensions.Configuration;
 using NHibernate;
 
 namespace Keon.NHibernate.Base
@@ -13,21 +13,22 @@ namespace Keon.NHibernate.Base
     internal class SessionFactoryBuilder
     {
 	    /// <summary>
-		///  Create Session Factory.
-		///  To be used at Application_Start.
-		/// </summary>
-		///  <typeparam name="TM">Any mapping class. Passed automatic by passing to AutoMappingInfo.</typeparam>
-		///  <typeparam name="TE">Any entity class. Passed automatic by passing to AutoMappingInfo.</typeparam>
-		/// <param name="connectionInfo">About database connection</param>
-		/// <param name="autoMappingInfo">About mappings on the entities</param>
-		/// <param name="dbAction"></param>
-		private static ISessionFactory start<TM, TE>(ConnectionInfo connectionInfo, AutoMappingInfo<TM, TE> autoMappingInfo, DBAction dbAction)
+	    ///  Create Session Factory.
+	    ///  To be used at Application_Start.
+	    /// </summary>
+	    ///  <typeparam name="TM">Any mapping class. Passed automatic by passing to AutoMappingInfo.</typeparam>
+	    ///  <typeparam name="TE">Any entity class. Passed automatic by passing to AutoMappingInfo.</typeparam>
+	    /// <param name="config">Dictionary of application configuration</param>
+	    /// <param name="connectionInfo">About database connection</param>
+	    /// <param name="autoMappingInfo">About mappings on the entities</param>
+	    /// <param name="dbAction"></param>
+	    private static ISessionFactory start<TM, TE>(IConfiguration config, ConnectionInfo connectionInfo, AutoMappingInfo<TM, TE> autoMappingInfo, DBAction dbAction)
 			where TM : IAutoMappingOverride<TE>
 		{
 			// ReSharper disable once InvertIf
 			if (connectionInfo == null)
 			{
-				var scriptFileFullName = ConfigurationManager.AppSettings["ScriptFileFullName"];
+				var scriptFileFullName = config["ScriptFileFullName"];
 
 				if (scriptFileFullName != null && scriptFileFullName.ToLower() == "current")
 				{
@@ -39,27 +40,27 @@ namespace Keon.NHibernate.Base
 
 				connectionInfo = new ConnectionInfo
 				{
-					DBMS = ConfigurationManager.AppSettings["DBMS"].Cast<DBMS>(),
+					DBMS = config["DBMS"].Cast<DBMS>(),
 					ScriptFileFullName = scriptFileFullName,
-					ShowSQL = (ConfigurationManager.AppSettings["ShowSQL"] ?? "false").ToLower() == "true",
+					ShowSQL = (config["ShowSQL"] ?? "false").ToLower() == "true",
 				};
 
-				var connStr = ConfigurationManager.ConnectionStrings["ConnectionString"];
+				var connStr = config["ConnectionString"];
 
 				if (connStr != null)
 				{
-					connectionInfo.ConnectionString = connStr.ConnectionString;
+					connectionInfo.ConnectionString = connStr;
 				}
 				else
 				{
-					connectionInfo.Server = ConfigurationManager.AppSettings["Server"];
-					connectionInfo.DataBase = ConfigurationManager.AppSettings["DataBase"];
-					connectionInfo.Login = ConfigurationManager.AppSettings["Login"];
-					connectionInfo.Password = ConfigurationManager.AppSettings["Password"];
+					connectionInfo.Server = config["Server"];
+					connectionInfo.DataBase = config["DataBase"];
+					connectionInfo.Login = config["Login"];
+					connectionInfo.Password = config["Password"];
 				}
 			}
 
-			return createSessionFactory(connectionInfo, autoMappingInfo, dbAction);
+			return createSessionFactory(config, connectionInfo, autoMappingInfo, dbAction);
 		}
 
 		/// <summary>
@@ -69,42 +70,43 @@ namespace Keon.NHibernate.Base
 		/// </summary>
 		/// <typeparam name="TM">Any mapping class. Passed automatic by passing to AutoMappingInfo.</typeparam>
 		/// <typeparam name="TE">Any entity class. Passed automatic by passing to AutoMappingInfo.</typeparam>
+		/// <param name="config">Dictionary of application configuration</param>
 		/// <param name="autoMappingInfo">About mappings on the entities</param>
 		/// <param name="dbAction">Action into DB when start project</param>
-		internal static ISessionFactory Start<TM, TE>(AutoMappingInfo<TM, TE> autoMappingInfo, DBAction dbAction)
+		internal static ISessionFactory Start<TM, TE>(IConfiguration config, AutoMappingInfo<TM, TE> autoMappingInfo, DBAction dbAction)
 			where TM : IAutoMappingOverride<TE>
 		{
-			return start(null, autoMappingInfo, dbAction);
+			return start(config, null, autoMappingInfo, dbAction);
 		}
 
-		private static ISessionFactory createSessionFactory<TM, TE>(ConnectionInfo connectionInfo, AutoMappingInfo<TM, TE> autoMappingInfo, DBAction dbAction)
+		private static ISessionFactory createSessionFactory<TM, TE>(IConfiguration config, ConnectionInfo connectionInfo, AutoMappingInfo<TM, TE> autoMappingInfo, DBAction dbAction)
             where TM : IAutoMappingOverride<TE>
         {
             var schemaChanger = new SchemaChanger(connectionInfo.ScriptFileFullName);
 
-            var automapping = autoMappingInfo.CreateAutoMapping();
+            var autoMapping = autoMappingInfo.CreateAutoMapping();
 
-            var config = Fluently.Configure()
+            var fluent = Fluently.Configure()
                 .Database(connectionInfo.ConfigureDataBase())
-                .Mappings(m => m.AutoMappings.Add(automapping));
+                .Mappings(m => m.AutoMappings.Add(autoMapping));
 
-			if (ConfigurationManager.AppSettings["NHibernateProfiler-enable"] == "true")
+			if (config["NHibernateProfiler-enable"] == "true")
 			{
-				config.ExposeConfiguration(c => c.SetProperty("generate_statistics", "true"));
+				fluent.ExposeConfiguration(c => c.SetProperty("generate_statistics", "true"));
 			}
 
 			switch (dbAction)
             {
                 case DBAction.Recreate:
-                    config = config.ExposeConfiguration(schemaChanger.Build);
+                    fluent = fluent.ExposeConfiguration(schemaChanger.Build);
 		            break;
 
                 case DBAction.Update:
-                    config = config.ExposeConfiguration(schemaChanger.Update);
+                    fluent = fluent.ExposeConfiguration(schemaChanger.Update);
                     break;
 
                 case DBAction.Validate:
-                    config = config.ExposeConfiguration(schemaChanger.Validate);
+                    fluent = fluent.ExposeConfiguration(schemaChanger.Validate);
                     break;
 	            case DBAction.None:
 		            break;
@@ -112,8 +114,7 @@ namespace Keon.NHibernate.Base
 		            throw new ArgumentOutOfRangeException(nameof(dbAction), dbAction, null);
             }
 
-            return config.BuildSessionFactory();
+            return fluent.BuildSessionFactory();
         }
-
     }
 }
