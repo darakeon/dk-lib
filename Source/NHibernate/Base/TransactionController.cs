@@ -9,19 +9,20 @@ namespace Keon.NHibernate.Base
     internal class TransactionController : ITransactionController
 	{
 		private static ISession session => SessionManager.GetCurrent();
+		private ITransaction transaction;
 
 		public void Begin()
 	    {
 		    if (session == null) return;
 
-			if (session.Transaction != null
-                    && session.Transaction.IsActive)
+			if (transaction != null
+                    && transaction.IsActive)
                 throw new DKException("There's a Transaction opened already, cannot begin a new one.");
 
-            session.BeginTransaction();
+            transaction = session.BeginTransaction();
 
-            if (session.Transaction == null
-                    || !session.Transaction.IsActive)
+            if (transaction == null
+                    || !transaction.IsActive)
                 throw new DKException("Transaction not opened.");
 
         }
@@ -32,7 +33,7 @@ namespace Keon.NHibernate.Base
 
             testTransaction("commit");
 
-            session.Transaction.Commit();
+            transaction.Commit();
 
             session.Flush();
         }
@@ -48,10 +49,10 @@ namespace Keon.NHibernate.Base
 
 			if (session.Connection.State != ConnectionState.Closed)
 			{
-				if (session.Transaction.IsActive)
+				if (transaction.IsActive)
 				{
 					testTransaction("rollback");
-					session.Transaction.Rollback();
+					transaction.Rollback();
 				}
 			}
 
@@ -60,11 +61,11 @@ namespace Keon.NHibernate.Base
 			SessionManager.Failed = true;
         }
 
-		private static void testTransaction(String action)
+		private void testTransaction(String action)
         {
 			if (session == null) return;
 
-            if (session.Transaction.WasCommitted || session.Transaction.WasRolledBack)
+            if (transaction.WasCommitted || transaction.WasRolledBack)
                 throw new DKException($"There's a Transaction opened already, cannot {action}.");
         }
     }
