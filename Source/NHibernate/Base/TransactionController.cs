@@ -6,41 +6,52 @@ using NHibernate;
 
 namespace Keon.NHibernate.Base
 {
-    internal class TransactionController : ITransactionController
+	internal class TransactionController : ITransactionController
 	{
 		private static ISession session => SessionManager.GetCurrent();
-		private ITransaction transaction;
+		private static ITransaction transaction;
 
 		public void Begin()
-	    {
-		    if (session == null) return;
+		{
+			if (session == null) return;
 
-			if (transaction != null
-                    && transaction.IsActive)
-                throw new DKException("There's a Transaction opened already, cannot begin a new one.");
+			if (transaction != null && transaction.IsActive)
+			{
+				try
+				{
+					transaction.Rollback();
+					Begin();
+					return;
+				}
+				catch (Exception inner)
+				{
+					throw new DKException(
+						"There's a Transaction opened already, cannot begin a new one.",
+						inner
+					);
+				}
+			}
 
-            transaction = session.BeginTransaction();
+			transaction = session.Transaction;
+			transaction.Begin();
 
-            if (transaction == null
-                    || !transaction.IsActive)
-                throw new DKException("Transaction not opened.");
-
-        }
+			if (transaction == null || !transaction.IsActive)
+				throw new DKException("Transaction not opened.");
+		}
 
 		public void Commit()
-        {
-	        if (session == null) return;
+		{
+			if (session == null) return;
 
-            testTransaction("commit");
+			testTransaction("commit");
 
-            transaction.Commit();
-
-            session.Flush();
-        }
+			transaction.Commit();
+			session.Flush();
+		}
 
 		public void Rollback()
-        {
-	        if (session == null) return;
+		{
+			if (session == null) return;
 
 			if (session.Connection.State == ConnectionState.Closed)
 			{
@@ -58,15 +69,15 @@ namespace Keon.NHibernate.Base
 
 			session.Refresh();
 
-			SessionManager.Failed = true;
-        }
+			SessionManager.AddFailed(session);
+		}
 
 		private void testTransaction(String action)
-        {
+		{
 			if (session == null) return;
 
-            if (transaction.WasCommitted || transaction.WasRolledBack)
-                throw new DKException($"There's a Transaction opened already, cannot {action}.");
-        }
-    }
+			if (transaction.WasCommitted || transaction.WasRolledBack)
+				throw new DKException($"There's a Transaction opened already, cannot {action}.");
+		}
+	}
 }

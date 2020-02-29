@@ -30,7 +30,7 @@ namespace Keon.NHibernate.Base
 		/// </summary>
 		public static ISession GetCurrent()
 		{
-			return session ?? (session = SessionFactoryManager.OpenSession());
+			return session ??= SessionFactoryManager.OpenSession();
 		}
 
 
@@ -38,7 +38,12 @@ namespace Keon.NHibernate.Base
 		/// <summary>
 		/// Tells if the Session Transaction have Failed
 		/// </summary>
-		public static Boolean Failed { private get; set; }
+		public static void AddFailed(ISession youHaveFailed)
+		{
+			failed.Add(youHaveFailed);
+		}
+
+		private static readonly IList<ISession> failed = new List<ISession>();
 
 		/// <summary>
 		/// Close session
@@ -50,10 +55,15 @@ namespace Keon.NHibernate.Base
 
 			if (session.IsOpen)
 			{
-				if (Failed)
+				if (failed.Contains(session))
+				{
 					session.Clear();
+					failed.Remove(session);
+				}
 				else
+				{
 					session.Flush();
+				}
 			}
 
 			session = null;
