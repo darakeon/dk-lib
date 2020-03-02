@@ -10,43 +10,38 @@ namespace Keon.NHibernate.Base
     public class BaseService<I>
 		where I: struct
     {
-        /// <summary></summary>
-        public BaseService()
-        {
-            transactionController = getTransactionController();
-        }
-
-	    private ITransactionController getTransactionController()
+	    private ITransactionController getTransactionController(String caller)
 	    {
 		    if (FakeHelper.IsFake)
 			    return new FakeTransaction<I>();
 
-		    return new TransactionController();
+		    return new TransactionController(caller);
 	    }
-
-		private ITransactionController transactionController { get; }
 
 		/// <summary>
 		/// Execute commands inside a transaction.
 		/// Anything executed without it will not work
 		/// </summary>
+		/// <param name="caller">Caller name, to print states in case of errors</param>
 		/// <param name="action">() => { return [your-code-here] }</param>
 		/// <param name="onError">() => { [your-ON-ERROR-code-here] }</param>
-		protected T InTransaction<T>(Func<T> action, Action onError = null)
+		protected T inTransaction<T>(String caller, Func<T> action, Action onError = null)
 		{
-			transactionController.Begin();
+			var controller = getTransactionController(caller);
+
+			controller.Begin();
 
 			try
 			{
 				var result = action();
 
-				transactionController.Commit();
+				controller.Commit();
 
 				return result;
 			}
 			catch (Exception)
 			{
-				transactionController.Rollback();
+				controller.Rollback();
 
 				onError?.Invoke();
 
@@ -58,11 +53,12 @@ namespace Keon.NHibernate.Base
 		/// Execute commands inside a transaction.
 		/// Anything executed without it will not work
 		/// </summary>
+		/// <param name="caller">Caller name, to print states in case of errors</param>
 		/// <param name="action">() => { [your-code-here] }</param>
 		/// <param name="onError">() => { [your-ON-ERROR-code-here] }</param>
-		protected void InTransaction(Action action, Action onError = null)
+		protected void inTransaction(String caller, Action action, Action onError = null)
 		{
-			InTransaction(() =>
+			inTransaction(caller, () =>
 			{
 				action();
 				return 0;

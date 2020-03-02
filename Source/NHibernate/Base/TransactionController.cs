@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Keon.NHibernate.Helpers;
 using Keon.Util.Exceptions;
 using NHibernate;
@@ -8,50 +10,73 @@ namespace Keon.NHibernate.Base
 {
 	internal class TransactionController : ITransactionController
 	{
+		public TransactionController(String caller)
+		{
+			this.caller = caller;
+		}
+
+		private String caller { get; }
+		private State state { get; set; }
+		private Boolean completed => state > State.EndBegin;
+
+
 		private static ISession session => SessionManager.GetCurrent();
-		private static ITransaction transaction;
+		private ITransaction transaction;
+
+		private static readonly IList<TransactionController> states =
+			new List<TransactionController>();
 
 		public void Begin()
 		{
 			if (session == null) return;
 
-			if (transaction != null && transaction.IsActive)
+			transaction = session.Transaction;
+
+			if (transaction.IsActive)
 			{
-				try
-				{
-					transaction.Rollback();
-					Begin();
-					return;
-				}
-				catch (Exception inner)
-				{
-					throw new DKException(
-						"There's a Transaction opened already, cannot begin a new one.",
-						inner
-					);
-				}
+				var whoIsUsing = states.Where(s => !s.completed)
+					.Select(s => s.toString(transaction));
+
+				var pending = String.Join("/", whoIsUsing);
+
+				throw new DKException(
+					$"[{caller}] There's a Transaction opened already," +
+					" cannot begin a new one." +
+					$" Pending: {pending}"
+				);
 			}
 
-			transaction = session.Transaction;
+			states.Add(this);
+
+			state = State.StartBegin;
+
 			transaction.Begin();
 
 			if (transaction == null || !transaction.IsActive)
 				throw new DKException("Transaction not opened.");
+
+			state = State.EndBegin;
 		}
 
 		public void Commit()
 		{
 			if (session == null) return;
 
+			state = State.StartCommit;
+
 			testTransaction("commit");
 
 			transaction.Commit();
 			session.Flush();
+
+			state = State.EndCommit;
 		}
 
 		public void Rollback()
 		{
 			if (session == null) return;
+
+			state = State.StartRollback;
 
 			if (session.Connection.State == ConnectionState.Closed)
 			{
@@ -60,16 +85,15 @@ namespace Keon.NHibernate.Base
 
 			if (session.Connection.State != ConnectionState.Closed)
 			{
-				if (transaction.IsActive)
-				{
-					testTransaction("rollback");
-					transaction.Rollback();
-				}
+				testTransaction("rollback");
+				transaction.Rollback();
 			}
 
 			session.Refresh();
 
 			SessionManager.AddFailed(session);
+
+			state = State.EndRollback;
 		}
 
 		private void testTransaction(String action)
@@ -78,6 +102,23 @@ namespace Keon.NHibernate.Base
 
 			if (transaction.WasCommitted || transaction.WasRolledBack)
 				throw new DKException($"There's a Transaction opened already, cannot {action}.");
+		}
+
+		private String toString(ITransaction other)
+		{
+			var marker = transaction == other ? "*" : "";
+
+			return $"{caller}{marker} [{state}]";
+		}
+
+		enum State
+		{
+			StartBegin,
+			EndBegin,
+			StartCommit,
+			EndCommit,
+			StartRollback,
+			EndRollback
 		}
 	}
 }
