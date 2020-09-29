@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Keon.NHibernate</AssemblyName>
     <RootNamespace>Keon.NHibernate</RootNamespace>
     <Authors>darakeon</Authors>
@@ -14,11 +14,10 @@
     <RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>utility nhibernate orm</PackageTags>
-    <PackageReleaseNotes>Updated to .NET Core
-Fix configuration</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix query with join</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.1</Version>
+    <Version>2.0.4</Version>
     <PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
