@@ -19,11 +19,6 @@ namespace Keon.NHibernate.Helpers
 			return getOrCreateCriteria(criteria, property.NormalizePropertyName(), joinType);
 		}
 
-
-		internal static ICriteria GetOrCreateRelationCriteria(this ICriteria criteria, params Type[] levels)
-		{
-			return getOrCreateCriteria(criteria, levels.Select(i => i.Name));
-		}
 		
 		internal static ICriteria GetOrCreateRelationCriteria<T, TEntity>(this ICriteria criteria, Expression<Func<T, TEntity>> property, JoinType joinType = default_join_type)
 		{
