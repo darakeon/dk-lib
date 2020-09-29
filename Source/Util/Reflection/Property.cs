@@ -46,9 +46,8 @@ namespace Keon.Util.Reflection
 		///</summary>
 		public static IEnumerable<String> NormalizePropertyName<TOrigin, TProperty>(this Expression<Func<TOrigin, TProperty>> property)
 		{
-			var name = property.GetName();
+			var name = property.ToString();
 			return name.Split('.').Skip(1);
 		}
-
-	}
+    }
 }
