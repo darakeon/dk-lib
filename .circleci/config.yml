@@ -1,0 +1,32 @@
+version: 2.1
+
+jobs:
+  nhibernate:
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:latest
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dotnet-{{ checksum "Source/NHibernate/NHibernate.csproj" }}
+      - run:
+          name: dependencies
+          command: dotnet restore Source/NHibernate/NHibernate.csproj
+      - save_cache:
+          key: dotnet-{{ checksum "Source/NHibernate/NHibernate.csproj" }}
+          paths:
+            - ~/.nuget/packages
+      - run:
+          name: pack
+          command: dotnet pack -o packs -c Release --no-restore Source/NHibernate/NHibernate.csproj
+      - store_artifacts:
+          path: packs
+      - run:
+          name: upload
+          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg
+
+workflows:
+  version: 2.1
+  all:
+    jobs:
+      - nhibernate
