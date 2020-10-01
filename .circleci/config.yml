@@ -17,6 +17,9 @@ jobs:
           paths:
             - ~/.nuget/packages
       - run:
+          name: build
+          command: dotnet build -c Release --no-restore Source/NHibernate/NHibernate.csproj
+      - run:
           name: pack
           command: dotnet pack -o packs -c Release --no-restore Source/NHibernate/NHibernate.csproj
       - store_artifacts:
