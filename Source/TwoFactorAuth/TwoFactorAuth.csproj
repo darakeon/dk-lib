@@ -35,8 +35,4 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy $(OutDir)\Keon.TwoFactorAuth.dll C:\Users\lcsal\.nuget\packages\keon.twofactorauth\1.0.1\lib\netcoreapp3.0" />
-  </Target>
 </Project>
