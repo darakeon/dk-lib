@@ -14,10 +14,10 @@
     <RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>utility nhibernate orm</PackageTags>
-    <PackageReleaseNotes>Fix query with join</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix concept of completed transaction</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.4</Version>
+    <Version>2.0.5</Version>
     <PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
