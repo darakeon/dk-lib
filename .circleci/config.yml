@@ -1,6 +1,33 @@
 version: 2.1
 
 jobs:
+  util:
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:latest
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dotnet-{{ checksum "Source/Util/Util.csproj" }}
+      - run:
+          name: dependencies
+          command: dotnet restore Source/Util/Util.csproj
+      - save_cache:
+          key: dotnet-{{ checksum "Source/Util/Util.csproj" }}
+          paths:
+            - ~/.nuget/packages
+      - run:
+          name: build
+          command: dotnet build -c Release --no-restore Source/Util/Util.csproj
+      - run:
+          name: pack
+          command: dotnet pack -o packs -c Release --no-restore Source/Util/Util.csproj
+      - store_artifacts:
+          path: packs
+      - run:
+          name: upload
+          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+
   nhibernate:
     docker:
       - image: mcr.microsoft.com/dotnet/core/sdk:latest
@@ -28,8 +55,65 @@ jobs:
           name: upload
           command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
 
+  mvc:
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:latest
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dotnet-{{ checksum "Source/MVC/MVC.csproj" }}
+      - run:
+          name: dependencies
+          command: dotnet restore Source/MVC/MVC.csproj
+      - save_cache:
+          key: dotnet-{{ checksum "Source/MVC/MVC.csproj" }}
+          paths:
+            - ~/.nuget/packages
+      - run:
+          name: build
+          command: dotnet build -c Release --no-restore Source/MVC/MVC.csproj
+      - run:
+          name: pack
+          command: dotnet pack -o packs -c Release --no-restore Source/MVC/MVC.csproj
+      - store_artifacts:
+          path: packs
+      - run:
+          name: upload
+          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+
+  tfa:
+    docker:
+      - image: mcr.microsoft.com/dotnet/core/sdk:latest
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dotnet-{{ checksum "Source/TwoFactorAuth/TwoFactorAuth.csproj" }}
+      - run:
+          name: dependencies
+          command: dotnet restore Source/TwoFactorAuth/TwoFactorAuth.csproj
+      - save_cache:
+          key: dotnet-{{ checksum "Source/TwoFactorAuth/TwoFactorAuth.csproj" }}
+          paths:
+            - ~/.nuget/packages
+      - run:
+          name: build
+          command: dotnet build -c Release --no-restore Source/TwoFactorAuth/TwoFactorAuth.csproj
+      - run:
+          name: pack
+          command: dotnet pack -o packs -c Release --no-restore Source/TwoFactorAuth/TwoFactorAuth.csproj
+      - store_artifacts:
+          path: packs
+      - run:
+          name: upload
+          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+
 workflows:
   version: 2.1
   all:
     jobs:
+      - util
       - nhibernate
+      - mvc
+      - tfa
