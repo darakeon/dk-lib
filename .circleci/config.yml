@@ -26,7 +26,7 @@ jobs:
           path: packs
       - run:
           name: upload
-          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg
+          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
 
 workflows:
   version: 2.1
