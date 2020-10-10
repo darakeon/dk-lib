@@ -123,7 +123,7 @@ namespace Keon.NHibernate.Operations
 		/// Use this instead NewQuery from simple conditions
 		/// </summary>
 		/// <param name="condition">Lambda expression condition</param>
-		public IList<Entity> SimpleFilter(Expression<Func<Entity, bool>> condition)
+		public IList<Entity> Where(Expression<Func<Entity, bool>> condition)
 		{
 			return data.NewQuery().Where(condition).List;
 		}
