@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Keon.NHibernate.Base;
+using Keon.NHibernate.Operations;
 using Keon.Util.DB;
 using NHibernate;
 
