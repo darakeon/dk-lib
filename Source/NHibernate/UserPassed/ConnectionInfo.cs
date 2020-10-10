@@ -1,6 +1,6 @@
 ﻿using System;
 using FluentNHibernate.Cfg.Db;
-using Keon.NHibernate.Helpers;
+using Keon.NHibernate.Base;
 using Keon.Util.Exceptions;
 
 namespace Keon.NHibernate.UserPassed

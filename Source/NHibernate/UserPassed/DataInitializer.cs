@@ -1,4 +1,4 @@
-﻿using Keon.NHibernate.Helpers;
+﻿using Keon.NHibernate.Base;
 
 namespace Keon.NHibernate.UserPassed
 {
