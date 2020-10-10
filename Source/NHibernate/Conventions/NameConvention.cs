@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.Inspections;
 using FluentNHibernate.Conventions.Instances;
@@ -10,14 +11,23 @@ namespace Keon.NHibernate.Conventions
     {
         internal class ManyToMany : ManyToManyTableNameConvention
         {
-            protected override String GetBiDirectionalTableName(IManyToManyCollectionInspector collection, IManyToManyCollectionInspector otherSide)
+            protected override String GetBiDirectionalTableName(
+	            IManyToManyCollectionInspector collection,
+	            IManyToManyCollectionInspector otherSide
+	        )
             {
-				return $"{collection.EntityType.Name.ToLower()}_{otherSide.EntityType.Name.ToLower()}";
-			}
+	            var firstEntity = collection.EntityType.Name.ToLower();
+	            var secondEntity = otherSide.EntityType.Name.ToLower();
+	            return $"{firstEntity}_{secondEntity}";
+            }
 
-			protected override String GetUniDirectionalTableName(IManyToManyCollectionInspector collection)
-            {
-				return $"{collection.EntityType.Name.ToLower()}_{collection.ChildType.Name.ToLower()}";
+			protected override String GetUniDirectionalTableName(
+				IManyToManyCollectionInspector collection
+			)
+			{
+				var entityName = collection.EntityType.Name.ToLower();
+				var childName = collection.ChildType.Name.ToLower();
+				return $"{entityName}_{childName}";
 			}
 		}
 
@@ -29,7 +39,8 @@ namespace Keon.NHibernate.Conventions
 
                 instance.Column(propertyName);
 
-                instance.ForeignKey($"FK_{instance.EntityType.Name}_{instance.Name}");
+                var entityType = instance.EntityType.Name;
+                instance.ForeignKey($"FK_{entityType}_{instance.Name}");
             }
         }
 
@@ -37,7 +48,9 @@ namespace Keon.NHibernate.Conventions
 		{
 			public void Apply(IClassInstance instance)
 			{
-				var tableName = GetTableNameWithNamespace(instance.EntityType);
+				var tableName = GetTableNameWithNamespace(
+					instance.EntityType
+				);
 
 				instance.Table(tableName.ToLower());
 			}
@@ -50,8 +63,8 @@ namespace Keon.NHibernate.Conventions
 				var referenceName = instance.Member.Name;
 
 				referenceName = referenceName.EndsWith("List")
-							   ? referenceName.Substring(0, referenceName.Length - 4)
-							   : referenceName;
+					? referenceName.Substring(0, referenceName.Length - 4)
+					: referenceName;
 
 				if (instance.IsSystemEntity())
 				{
@@ -93,10 +106,6 @@ namespace Keon.NHibernate.Conventions
             return $"{name}_ID";
         }
 
-		private const int first_letters = 2;
-		private const int last_letters = 2;
-		private const int total_letters = first_letters + last_letters;
-
 		/// <summary>
 		/// Rules for table naming from entity type
 		/// </summary>
@@ -108,28 +117,34 @@ namespace Keon.NHibernate.Conventions
 			if (entityType.Namespace == null || entityType.Namespace == mainNamespace)
 				return entityType.Name;
 
-			var @namespace = entityType.Namespace.Substring(mainNamespace.Length + 1);
+			var @namespace = entityType.Namespace
+				.Substring(mainNamespace.Length + 1);
 
-			var namespacePieces = @namespace.Split('.');
-
-			for (var p = 0; p < namespacePieces.Length; p++)
-			{
-				var piece = namespacePieces[p];
-				var count = piece.Length;
-
-				if (count <= total_letters)
-					continue;
-
-				var firstPart = piece.Substring(0, first_letters);
-				var shortenLetters = count - total_letters;
-				var lastPart = piece.Substring(count - last_letters, last_letters);
-
-				namespacePieces[p] = String.Concat(firstPart, shortenLetters, lastPart);
-			}
+			var namespacePieces = @namespace
+				.Split('.')
+				.Select(shortenName);
 
 			var namespaceForDB = String.Join("_", namespacePieces);
 
 			return String.Concat(namespaceForDB, "_", entityType.Name);
 		}
-	}
+
+		private const int firstLetters = 2;
+		private const int lastLetters = 2;
+		private const int totalLetters = firstLetters + lastLetters;
+
+		private static String shortenName(String text)
+		{
+			var count = text.Length;
+
+			if (count <= totalLetters)
+				return text;
+
+			var firstPart = text.Substring(0, firstLetters);
+			var shortenLetters = count - totalLetters;
+			var lastPart = text.Substring(count - lastLetters, lastLetters);
+
+			return String.Concat(firstPart, shortenLetters, lastPart);
+		}
+    }
 }

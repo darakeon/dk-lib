@@ -1,6 +1,5 @@
 ﻿using System;
 using FluentNHibernate.Automapping.Alterations;
-using Keon.NHibernate.Helpers;
 using Keon.NHibernate.UserPassed;
 using Keon.Util.DB;
 using Keon.Util.Exceptions;
@@ -70,9 +69,6 @@ namespace Keon.NHibernate.Base
 				return dbInitializer?.DBAction ?? DBAction.Validate;
 			}
 		}
-
-
-
 
 		internal static ISession OpenSession()
 		{

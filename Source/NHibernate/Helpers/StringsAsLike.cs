@@ -7,9 +7,9 @@ namespace Keon.NHibernate.Helpers
 {
     internal class StringsAsLike
     {
-        public static Disjunction GenericSearch<T>(String[] words)
+        public static Disjunction LikeAny<Entity>(String[] words)
         {
-            var type = typeof(T);
+            var type = typeof(Entity);
             var meta = SessionFactoryManager.Instance.GetClassMetadata(type);
 
             var disjunction = new Disjunction();
@@ -26,12 +26,13 @@ namespace Keon.NHibernate.Helpers
                     disjunction.Add(
                         Restrictions.InsensitiveLike(
                             mappedPropertyName,
-                            "%" + word + "%"));
+                            "%" + word + "%"
+                        )
+                    );
                 }
             }
 
             return disjunction;
-
         }
     }
 }

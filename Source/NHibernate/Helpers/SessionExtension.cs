@@ -6,7 +6,6 @@ namespace Keon.NHibernate.Helpers
 {
 	internal static class SessionExtension
 	{
-        //TODO: REFACTORING: change 'refresh' to 'evict'
 		public static void Refresh(this ISession session)
 		{
 			var dirtyEntityList = new List<object>();
@@ -34,7 +33,9 @@ namespace Keon.NHibernate.Helpers
 
 				try
 				{
-					var dirtyEntity = entityEntry.Persister.FindDirty(currentState, loadedState, entity, sessionImplementation);
+					var dirtyEntity = entityEntry.Persister.FindDirty(
+						currentState, loadedState, entity, sessionImplementation
+					);
 
 					if (dirtyEntity != null)
 					{
@@ -51,10 +52,7 @@ namespace Keon.NHibernate.Helpers
 					session.Evict(dirtyEntity);
 				}
 				catch (UnresolvableObjectException) { }
-
 			}
 		}
-
-
 	}
 }

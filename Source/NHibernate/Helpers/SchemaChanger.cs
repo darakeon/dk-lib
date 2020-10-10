@@ -50,11 +50,9 @@ namespace Keon.NHibernate.Helpers
 
             scriptAction(schema.Execute, true);
 
-
             if (!schema.Exceptions.Any())
                 return;
 
-            
             var message = new StringBuilder();
 
             schema.Exceptions
@@ -71,37 +69,29 @@ namespace Keon.NHibernate.Helpers
             new SchemaValidator(config).Validate();
         }
 
-
-
         private delegate void ScriptAction(Action<String> scriptAction, Boolean execute);
-
-        private void scriptAction(ScriptAction method, Boolean execute)
+        private void scriptAction(ScriptAction schemaAction, Boolean execute)
         {
             if (scriptFileName == null)
             {
-                method(null, execute);
+                schemaAction(null, execute);
             }
             else
             {
-                if (!File.Exists(scriptFileName))
-                    File.Create(scriptFileName).Close();
+                var format = "yyyy-MM-dd hh:mm:ss ===========================";
+                var time = DateTime.Now.ToString(format);
+                write(scriptFileName, time);
 
-                using (var file = new FileStream(scriptFileName, FileMode.Append, FileAccess.Write))
-                using (var sw = new StreamWriter(file))
-                {
-                    sw.WriteLine(
-                            DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss ===========================")
-                        );
-
-	                // ReSharper disable once AccessToDisposedClosure
-	                void updateExport(string x) => sw.WriteLine(x);
-
-	                method(updateExport, execute);
-
-                    sw.Close();
-                }
+                schemaAction(text => write(scriptFileName, text), execute);
             }
         }
 
+        private void write(String path, String text)
+        {
+	        if (!File.Exists(path))
+		        File.WriteAllLines(path, new[] { text });
+	        else
+				File.AppendAllLines(path, new[] { text });
+        }
     }
 }

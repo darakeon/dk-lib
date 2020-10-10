@@ -23,8 +23,6 @@ namespace Keon.NHibernate.Base
 		public delegate String GetKey();
 		private static event GetKey getKey;
 
-
-
 		/// <summary>
 		/// Get current NH Session
 		/// </summary>
@@ -32,8 +30,6 @@ namespace Keon.NHibernate.Base
 		{
 			return session ??= SessionFactoryManager.OpenSession();
 		}
-
-
 
 		/// <summary>
 		/// Tells if the Session Transaction have Failed
@@ -69,20 +65,18 @@ namespace Keon.NHibernate.Base
 			session = null;
 		}
 
-
-
 		/// <summary>
 		/// Get objects from DB without NH cache
 		/// </summary>
-		/// <typeparam name="T">Main entity</typeparam>
-		/// <typeparam name="I">Integer ID type</typeparam>
-		public static T GetNonCached<T, I>(I id)
+		/// <typeparam name="Entity">Main entity</typeparam>
+		/// <typeparam name="ID">Integer ID type</typeparam>
+		public static Entity GetNonCached<Entity, ID>(ID id)
 		{
-			T result;
+			Entity result;
 
 			using (var otherSession = GetNonCached())
 			{
-				result = otherSession.Get<T>(id);
+				result = otherSession.Get<Entity>(id);
 				otherSession.Close();
 				otherSession.Dispose();
 			}
@@ -98,9 +92,8 @@ namespace Keon.NHibernate.Base
 			return SessionFactoryManager.OpenSession();
 		}
 
-
-
-		private static readonly IDictionary<String, ISession> sessionList = new Dictionary<String, ISession>();
+		private static readonly IDictionary<String, ISession> sessionList =
+			new Dictionary<String, ISession>();
 
 		private static ISession session
 		{
@@ -126,8 +119,5 @@ namespace Keon.NHibernate.Base
 					sessionList.Add(key, value);
 			}
 		}
-
-
-
 	}
 }

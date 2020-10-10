@@ -30,8 +30,8 @@ namespace Keon.MVC.Forms
         /// Create a SelectList from List of objects (must be IListable)
         ///</summary>
         ///<param name="list">The list that will fill the SelectList</param>
-        public static SelectList CreateSelect<T>(IList<T> list)
-            where T : IListable
+        public static SelectList CreateSelect<Item>(IList<Item> list)
+            where Item : IListable
         {
             return new SelectList(list, "ID", "NAME");
         }

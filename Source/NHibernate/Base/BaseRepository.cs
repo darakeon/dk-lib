@@ -11,51 +11,45 @@ namespace Keon.NHibernate.Base
 	/// <summary>
 	/// Higher level queries
 	/// </summary>
-	/// <typeparam name="T">Main entity</typeparam>
-	/// <typeparam name="I">Integer ID type</typeparam>
-	public class BaseRepository<T, I>
-		where T : class, IEntity<I>, new()
-		where I : struct
+	/// <typeparam name="Entity">Main entity</typeparam>
+	/// <typeparam name="ID">Integer ID type</typeparam>
+	public class BaseRepository<Entity, ID>
+		where Entity : class, IEntity<ID>, new()
+		where ID : struct
 	{
-		private readonly IData<T, I> data;
-		private Func<I, I> next { get; }
+		private readonly IData<Entity, ID> data;
 
 		/// <summary>
 		/// Initializes DB reader/writer
 		/// </summary>
-		protected BaseRepository(Func<I, I> next)
+		protected BaseRepository()
 		{
-			this.next = next;
 			data = getBaseData();
 		}
 
-		private IData<T, I> getBaseData()
+		private IData<Entity, ID> getBaseData()
 		{
-			return new BaseData<T, I>();
+			return new BaseData<Entity, ID>();
 		}
-
 
 		/// <summary>
 		/// Signature of methods to execute on Save or Update
 		/// </summary>
 		/// <param name="entity"></param>
-		public delegate void DelegateAction(T entity);
-
-
+		public delegate void DelegateAction(Entity entity);
 
 		/// <summary>
 		/// Records that at DB
 		/// </summary>
-		public T SaveOrUpdate(T entity, params DelegateAction[] actions)
+		public Entity SaveOrUpdate(Entity entity, params DelegateAction[] actions)
 		{
 			return data.SaveOrUpdate(entity, actions);
 		}
 
-
 		/// <summary>
 		/// Get entity by its ID
 		/// </summary>
-		public T Get(I id)
+		public Entity Get(ID id)
 		{
 			return data.GetById(id);
 		}
@@ -63,7 +57,7 @@ namespace Keon.NHibernate.Base
 		/// <summary>
 		/// Get old data of the entity
 		/// </summary>
-		protected T GetNonCached(I id)
+		protected Entity getNonCached(ID id)
 		{
 			return data.GetNonCached(id);
 		}
@@ -71,37 +65,34 @@ namespace Keon.NHibernate.Base
 		/// <summary>
 		/// Get old data of query
 		/// </summary>
-		protected TResult NewNonCachedQuery<TResult>(Func<IQuery<T, I>, TResult> action)
+		protected TResult newNonCachedQuery<TResult>(Func<IQuery<Entity, ID>, TResult> action)
 		{
 			return data.NewNonCachedQuery(action);
 		}
-
 
 		/// <summary>
 		/// Verify if there is any entity that correspond to the expression
 		/// </summary>
 		/// <param name="func"></param>
 		/// <returns></returns>
-		public Boolean Any(Expression<Func<T, Boolean>> func)
+		public Boolean Any(Expression<Func<Entity, Boolean>> func)
 		{
 			return data.NewQuery().SimpleFilter(func).Count > 0;
 		}
-
 
 		/// <summary>
 		/// Return unique entity for expression
 		/// </summary>
 		/// <exception cref="Exception">Not unique object</exception>
-		public T SingleOrDefault(Expression<Func<T, Boolean>> func)
+		public Entity SingleOrDefault(Expression<Func<Entity, Boolean>> func)
 		{
 			return data.NewQuery().SimpleFilter(func).UniqueResult;
 		}
 
-
 		/// <summary>
 		/// Delete permanently the entity of DB
 		/// </summary>
-		public void Delete(T entity)
+		public void Delete(Entity entity)
 		{
 			data.Delete(entity);
 		}
@@ -109,25 +100,23 @@ namespace Keon.NHibernate.Base
 		/// <summary>
 		/// Delete permanently the entity of DB
 		/// </summary>
-		public void Delete(I id)
+		public void Delete(ID id)
 		{
 			Delete(Get(id));
 		}
 
-
 		/// <summary>
 		/// Return an object to take data
 		/// </summary>
-		public IQuery<T, I> NewQuery()
+		public IQuery<Entity, ID> NewQuery()
 		{
 			return data.NewQuery();
 		}
 
-
 		/// <summary>
 		/// Get all elements of the type from database
 		/// </summary>
-		public IList<T> GetAll()
+		public IList<Entity> GetAll()
 		{
 			return data.NewQuery().Result;
 		}
@@ -136,7 +125,7 @@ namespace Keon.NHibernate.Base
 		/// Use this instead NewQuery from simple conditions
 		/// </summary>
 		/// <param name="condition">Lambda expression condition</param>
-		public IList<T> SimpleFilter(Expression<Func<T, bool>> condition)
+		public IList<Entity> SimpleFilter(Expression<Func<Entity, bool>> condition)
 		{
 			return data.NewQuery().SimpleFilter(condition).Result;
 		}
@@ -153,17 +142,15 @@ namespace Keon.NHibernate.Base
 		/// Use this instead NewQuery from simple conditions count
 		/// </summary>
 		/// <param name="condition">Lambda expression condition</param>
-		public Int32 Count(Expression<Func<T, Boolean>> condition)
+		public Int32 Count(Expression<Func<Entity, Boolean>> condition)
 		{
 			return data.NewQuery().SimpleFilter(condition).Count;
 		}
 
-		
-
 		/// <summary>
 		/// Save file method for attach file to entity
 		/// </summary>
-		protected static void SaveFile<TUpload, TEntity>(TUpload upload, TEntity entity, String uploadsDirectory)
+		protected static void saveFile<TUpload, TEntity>(TUpload upload, TEntity entity, String uploadsDirectory)
 			where TUpload : IUpload
 			where TEntity : IUploadParent
 		{
@@ -180,29 +167,5 @@ namespace Keon.NHibernate.Base
 
 			entity.SetFileNames(newFileName, upload.OriginalName);
 		}
-	}
-
-	/// <inheritdoc />
-	public class BaseRepository<T> : BaseRepository<T, Int32>
-		where T : class, IEntity, new()
-	{
-		/// <inheritdoc />
-		protected BaseRepository() : base(i => ++i) { }
-	}
-
-	/// <inheritdoc />
-	public class BaseRepositoryShort<T> : BaseRepository<T, Int16>
-		where T : class, IEntityShort, new()
-	{
-		/// <inheritdoc />
-		protected BaseRepositoryShort() : base(i => ++i) { }
-	}
-
-	/// <inheritdoc />
-	public class BaseRepositoryLong<T> : BaseRepository<T, Int64>
-		where T : class, IEntityLong, new()
-	{
-		/// <inheritdoc />
-		protected BaseRepositoryLong() : base(i => ++i) { }
 	}
 }

@@ -16,7 +16,7 @@
         ///</summary>
         Recreate,
         ///<summary>
-        /// Just ajust the DB to match the entities.
+        /// Just adjust the DB to match the entities.
         /// Can recreate foreign keys.
         ///</summary>
         Update,

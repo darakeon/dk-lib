@@ -10,7 +10,10 @@ namespace Keon.NHibernate.Conventions
 	{
 		public void Accept(IAcceptanceCriteria<IPropertyInspector> criteria)
 		{
-			criteria.Expect(p => p.Type == typeof(Decimal) || p.Type == typeof(Decimal?));
+			criteria.Expect(
+				p => p.Type == typeof(Decimal) 
+					|| p.Type == typeof(Decimal?)
+			);
 		}
 
 		public void Apply(IPropertyInstance instance)
