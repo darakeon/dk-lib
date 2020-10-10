@@ -11,7 +11,7 @@ namespace Keon.NHibernate.Operations
 	/// </summary>
 	/// <typeparam name="Entity">Main entity</typeparam>
 	/// <typeparam name="ID">Integer ID type</typeparam>
-	internal class BaseData<Entity, ID>
+	internal class SessionOperations<Entity, ID>
 		where Entity : class, IEntity<ID>, new()
 		where ID : struct
 	{
@@ -19,7 +19,7 @@ namespace Keon.NHibernate.Operations
 
 		public Entity SaveOrUpdate(
 			Entity entity,
-			params BaseRepository<Entity, ID>.DelegateAction[] actions
+			params NHRepo<Entity, ID>.DelegateAction[] actions
 		)
 		{
 			foreach (var delegateAction in actions)

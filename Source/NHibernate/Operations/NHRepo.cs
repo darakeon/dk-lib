@@ -11,23 +11,23 @@ namespace Keon.NHibernate.Operations
 	/// </summary>
 	/// <typeparam name="Entity">Main entity</typeparam>
 	/// <typeparam name="ID">Integer ID type</typeparam>
-	public class BaseRepository<Entity, ID>
+	public class NHRepo<Entity, ID>
 		where Entity : class, IEntity<ID>, new()
 		where ID : struct
 	{
-		private readonly BaseData<Entity, ID> data;
+		private readonly SessionOperations<Entity, ID> data;
 
 		/// <summary>
 		/// Initializes DB reader/writer
 		/// </summary>
-		protected BaseRepository()
+		protected NHRepo()
 		{
 			data = getBaseData();
 		}
 
-		private BaseData<Entity, ID> getBaseData()
+		private SessionOperations<Entity, ID> getBaseData()
 		{
-			return new BaseData<Entity, ID>();
+			return new SessionOperations<Entity, ID>();
 		}
 
 		/// <summary>
