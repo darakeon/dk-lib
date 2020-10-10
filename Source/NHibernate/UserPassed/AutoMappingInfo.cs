@@ -3,8 +3,8 @@ using System.Linq;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Automapping.Alterations;
 using FluentNHibernate.Conventions;
-using Keon.NHibernate.Conventions;
-using Keon.NHibernate.Helpers;
+using Keon.NHibernate.Mappings;
+using Keon.NHibernate.Schema;
 
 namespace Keon.NHibernate.UserPassed
 {
