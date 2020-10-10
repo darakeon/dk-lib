@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq.Expressions;
-using Keon.NHibernate.Files;
 using Keon.NHibernate.Queries;
 using Keon.Util.DB;
-using Keon.Util.Extensions;
 
 namespace Keon.NHibernate.Operations
 {
@@ -146,27 +143,6 @@ namespace Keon.NHibernate.Operations
 		public Int32 Count(Expression<Func<Entity, Boolean>> condition)
 		{
 			return data.NewQuery().SimpleFilter(condition).Count;
-		}
-
-		/// <summary>
-		/// Save file method for attach file to entity
-		/// </summary>
-		protected static void saveFile<TUpload, TEntity>(TUpload upload, TEntity entity, String uploadsDirectory)
-			where TUpload : IUpload
-			where TEntity : IUploadParent
-		{
-			var info = new FileInfo(upload.OriginalName);
-			var siteDirectory = Directory.GetCurrentDirectory();
-			var directory = Path.Combine(siteDirectory, uploadsDirectory);
-			var newFileName = Token.New() + info.Extension;
-			var path = Path.Combine(directory, newFileName);
-
-			if (!Directory.Exists(directory))
-				Directory.CreateDirectory(directory);
-
-			upload.Save(path);
-
-			entity.SetFileNames(newFileName, upload.OriginalName);
 		}
 	}
 }
