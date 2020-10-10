@@ -1,6 +1,5 @@
 ﻿using System;
 using FluentNHibernate.Automapping.Alterations;
-using Keon.NHibernate.Fakes;
 using Keon.NHibernate.Helpers;
 using Keon.NHibernate.UserPassed;
 using Keon.Util.DB;
@@ -45,12 +44,6 @@ namespace Keon.NHibernate.Base
 			if (Instance != null)
 				return;
 
-			FakeHelper.IsFake = (
-				config["FakeDB"] ?? "false"
-			).ToLower() == "true";
-
-			if (FakeHelper.IsFake) return;
-
 			var mapInfo =
 				new AutoMappingInfo<TMap, TEntity>
 				{
@@ -83,9 +76,6 @@ namespace Keon.NHibernate.Base
 
 		internal static ISession OpenSession()
 		{
-			if (FakeHelper.IsFake)
-				return null;
-
 			if (Instance == null)
 				throw new DKException("Restart the Application.");
 

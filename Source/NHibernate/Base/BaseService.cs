@@ -1,5 +1,4 @@
 ﻿using System;
-using Keon.NHibernate.Fakes;
 
 namespace Keon.NHibernate.Base
 {
@@ -12,9 +11,6 @@ namespace Keon.NHibernate.Base
     {
 	    private ITransactionController getTransactionController(String caller)
 	    {
-		    if (FakeHelper.IsFake)
-			    return new FakeTransaction<I>();
-
 		    return new TransactionController(caller);
 	    }
 
