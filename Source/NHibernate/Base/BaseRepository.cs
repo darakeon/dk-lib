@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
-using Keon.NHibernate.Fakes;
 using Keon.NHibernate.Queries;
 using Keon.Util.DB;
 using Keon.Util.Extensions;
@@ -32,9 +31,6 @@ namespace Keon.NHibernate.Base
 
 		private IData<T, I> getBaseData()
 		{
-			if (FakeHelper.IsFake)
-				return new FakeData<T, I>(next);
-
 			return new BaseData<T, I>();
 		}
 
