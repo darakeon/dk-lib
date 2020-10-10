@@ -142,7 +142,7 @@ namespace Keon.NHibernate.UserPassed
 
 	            case DBMS.SQLite:
 	            {
-		            return configure(OracleClientConfiguration.Oracle10);
+		            return configure(SQLiteConfiguration.Standard);
 	            }
 
 	            default:
