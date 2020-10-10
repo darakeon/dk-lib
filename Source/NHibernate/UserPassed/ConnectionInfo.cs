@@ -51,160 +51,121 @@ namespace Keon.NHibernate.UserPassed
         /// </summary>
         public Boolean ShowSQL { get; set; }
 
-
         internal IPersistenceConfigurer ConfigureDataBase()
         {
             switch (DBMS)
             {
-                case DBMS.MySQL:
-                    var configurerMySQL =
-                        ConnectionString == null
-                        ? MySQLConfiguration.Standard
-                            .ConnectionString(c => c
-                                .Server(Server)
-                                .Database(DataBase)
-                                .Username(Login)
-                                .Password(Password))
-                        : MySQLConfiguration.Standard
-                            .ConnectionString(ConnectionString);
+	            case DBMS.MySQL:
+	            {
+		            return configure(
+			            MySQLConfiguration.Standard, 
+			            c => c.Server(Server)
+							.Database(DataBase)
+							.Username(Login)
+							.Password(Password)
+			        );
+	            }
 
-                    if (ShowSQL)
-                        configurerMySQL = configurerMySQL.ShowSql();
+	            case DBMS.MsSql7:
+	            {
+		            return configure(
+			            MsSqlConfiguration.MsSql7,
+			            c => c.Server(Server)
+				            .Database(DataBase)
+				            .Username(Login)
+				            .Password(Password)
+		            );
+	            }
 
-                    return configurerMySQL;
+	            case DBMS.MsSql2008:
+	            {
+		            return configure(
+			            MsSqlConfiguration.MsSql2008,
+			            c => c.Server(Server)
+				            .Database(DataBase)
+				            .Username(Login)
+				            .Password(Password)
+		            );
+	            }
 
-                case DBMS.MsSql7:
-                    var configurerMsSql7 =
-                        ConnectionString == null
-                        ? MsSqlConfiguration.MsSql7
-                            .ConnectionString(c => c
-                                .Server(Server)
-                                .Database(DataBase)
-                                .Username(Login)
-                                .Password(Password))
-                        : MsSqlConfiguration.MsSql7
-                            .ConnectionString(ConnectionString);
+	            case DBMS.MsSql2005:
+	            {
+		            return configure(
+			            MsSqlConfiguration.MsSql2005,
+			            c => c.Server(Server)
+				            .Database(DataBase)
+				            .Username(Login)
+				            .Password(Password)
+		            );
+	            }
 
-                    if (ShowSQL)
-                        configurerMsSql7 = configurerMsSql7.ShowSql();
+	            case DBMS.MsSql2000:
+	            {
+		            return configure(
+			            MsSqlConfiguration.MsSql2000,
+			            c => c.Server(Server)
+				            .Database(DataBase)
+				            .Username(Login)
+				            .Password(Password)
+		            );
+	            }
 
-                    return configurerMsSql7;
+	            case DBMS.Postgres:
+	            {
+		            return configure(
+			            PostgreSQLConfiguration.Standard,
+			            c => c.Database(DataBase)
+				            .Username(Login)
+				            .Password(Password)
+		            );
+	            }
 
-                case DBMS.MsSql2008:
-                    var configurerMsSql2008 =
-                        ConnectionString == null
-                        ? MsSqlConfiguration.MsSql2008
-                            .ConnectionString(c => c
-                                .Server(Server)
-                                .Database(DataBase)
-                                .Username(Login)
-                                .Password(Password))
-                        : MsSqlConfiguration.MsSql2008
-                            .ConnectionString(ConnectionString);
+	            case DBMS.Oracle9:
+	            {
+		            return configure(
+			            OracleClientConfiguration.Oracle9,
+			            c => c.Server(Server)
+							.Username(Login)
+				            .Password(Password)
+		            );
+	            }
 
-                    if (ShowSQL)
-                        configurerMsSql2008 = configurerMsSql2008.ShowSql();
+	            case DBMS.Oracle10:
+	            {
+		            return configure(
+			            OracleClientConfiguration.Oracle10,
+			            c => c.Server(Server)
+				            .Username(Login)
+				            .Password(Password)
+		            );
+	            }
 
-                    return configurerMsSql2008;
+	            case DBMS.SQLite:
+	            {
+		            return configure(OracleClientConfiguration.Oracle10);
+	            }
 
-                case DBMS.MsSql2005:
-                    var configurerMsSql2005 =
-                        ConnectionString == null
-                        ? MsSqlConfiguration.MsSql2005
-                            .ConnectionString(c => c
-                                .Server(Server)
-                                .Database(DataBase)
-                                .Username(Login)
-                                .Password(Password))
-                        : MsSqlConfiguration.MsSql2005
-                            .ConnectionString(ConnectionString);
-
-                    if (ShowSQL)
-                        configurerMsSql2005 = configurerMsSql2005.ShowSql();
-
-                    return configurerMsSql2005;
-
-                case DBMS.MsSql2000:
-                    var configurerMsSql2000 =
-                        ConnectionString == null
-                        ? MsSqlConfiguration.MsSql2000
-                            .ConnectionString(c => c
-                                .Server(Server)
-                                .Database(DataBase)
-                                .Username(Login)
-                                .Password(Password))
-                        : MsSqlConfiguration.MsSql2000
-                            .ConnectionString(ConnectionString);
-
-                    if (ShowSQL)
-                        configurerMsSql2000 = configurerMsSql2000.ShowSql();
-
-                    return configurerMsSql2000;
-
-                case DBMS.Postgre:
-                    var configurerPostgre =
-                        ConnectionString == null
-                        ? PostgreSQLConfiguration.Standard
-                            .ConnectionString(c => c
-                                .Database(DataBase)
-                                .Username(Login)
-                                .Password(Password))
-                        : PostgreSQLConfiguration.Standard
-                            .ConnectionString(ConnectionString);
-
-                    if (ShowSQL)
-                        configurerPostgre = configurerPostgre.ShowSql();
-
-                    return configurerPostgre;
-
-                case DBMS.Oracle9:
-                    var configurerOracle9 =
-                        ConnectionString == null
-                        ? OracleClientConfiguration.Oracle9
-                            .ConnectionString(c => c
-                                .Server(Server)
-                                .Username(Login)
-                                .Password(Password))
-                        : OracleClientConfiguration.Oracle9
-                            .ConnectionString(ConnectionString);
-
-                    if (ShowSQL)
-                        configurerOracle9 = configurerOracle9.ShowSql();
-
-                    return configurerOracle9;
-
-                case DBMS.Oracle10:
-                    var configurerOracle10 =
-                        ConnectionString == null
-                        ? OracleClientConfiguration.Oracle10
-                            .ConnectionString(c => c
-                                .Server(Server)
-                                .Username(Login)
-                                .Password(Password))
-                        : OracleClientConfiguration.Oracle10
-                            .ConnectionString(ConnectionString);
-
-                    if (ShowSQL)
-                        configurerOracle10 = configurerOracle10.ShowSql();
-
-                    return configurerOracle10;
-
-                case DBMS.SQLite:
-                    var configurerSQLite = SQLiteConfiguration.Standard
-                        .ConnectionString(ConnectionString);
-
-                    if (ShowSQL)
-                        configurerSQLite = configurerSQLite.ShowSql();
-
-                    return configurerSQLite;
-
-                default:
-                    throw new DKException("Not Suported!");
+	            default:
+                    throw new DKException("Not supported!");
             }
         }
 
+        private IPersistenceConfigurer configure<Config, ConnStr>(
+	        PersistenceConfiguration<Config, ConnStr> connection, 
+			Action<ConnStr>? config = null
+	    ) 
+	        where Config : PersistenceConfiguration<Config, ConnStr> 
+	        where ConnStr : ConnectionStringBuilder, new()
+        {
+	        var configuration =
+		        config != null && ConnectionString == null
+			        ? connection.ConnectionString(config)
+			        : connection.ConnectionString(ConnectionString);
 
+	        if (ShowSQL)
+		        configuration = configuration.ShowSql();
 
+	        return configuration;
+        }
     }
-
 }
