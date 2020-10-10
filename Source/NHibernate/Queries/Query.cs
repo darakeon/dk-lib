@@ -34,7 +34,7 @@ namespace Keon.NHibernate.Queries
 		/// Make a filter with lambda expression
 		/// </summary>
 		/// <param name="where">Lambda expression</param>
-		public Query<Entity, ID> SimpleFilter(Expression<Func<Entity, Boolean>> where)
+		public Query<Entity, ID> Where(Expression<Func<Entity, Boolean>> where)
         {
             criteria = criteria.Add(Restrictions.Where(where));
             return this;
@@ -45,9 +45,9 @@ namespace Keon.NHibernate.Queries
 		/// </summary>
 		/// <param name="entityRelation">Lambda expression for parent entity</param>
 		/// <param name="where">Lambda expression of condition</param>
-		public Query<Entity, ID> SimpleFilter<TEntity>(
-			Expression<Func<Entity, TEntity>> entityRelation,
-			Expression<Func<TEntity, Boolean>> where
+		public Query<Entity, ID> Where<Parent>(
+			Expression<Func<Entity, Parent>> entityRelation,
+			Expression<Func<Parent, Boolean>> where
 		)
 		{
 			var newCriteria = criteria.RelationCriteria(entityRelation);
@@ -60,9 +60,9 @@ namespace Keon.NHibernate.Queries
 		/// </summary>
 		/// <param name="entityRelation">Lambda expression for child entity</param>
 		/// <param name="where">Lambda expression of condition</param>
-		public Query<Entity, ID> SimpleFilter<TEntity>(
-			Expression<Func<Entity, IList<TEntity>>> entityRelation,
-			Expression<Func<TEntity, Boolean>> where
+		public Query<Entity, ID> Where<Parent>(
+			Expression<Func<Entity, IList<Parent>>> entityRelation,
+			Expression<Func<Parent, Boolean>> where
 		)
 		{
 			var newCriteria = criteria.RelationCriteria(entityRelation);
@@ -75,7 +75,7 @@ namespace Keon.NHibernate.Queries
 		/// </summary>
 		/// <param name="property">Lambda of property to test</param>
 		/// <param name="contains">List to be verified</param>
-		public Query<Entity, ID> InCondition<Prop>(
+		public Query<Entity, ID> Contains<Prop>(
 			Expression<Func<Entity, Prop>> property, Prop[] contains
 		)
 		{
@@ -124,7 +124,7 @@ namespace Keon.NHibernate.Queries
 		/// <param name="property">Lambda of property</param>
 		/// <param name="term">Text to search</param>
 		/// <param name="likeType">Start, End, Both</param>
-	    public Query<Entity, ID> LikeCondition(
+	    public Query<Entity, ID> Like(
 		    Expression<Func<Entity, object>> property,
 		    String term,
 		    LikeType likeType = LikeType.Both
@@ -146,17 +146,17 @@ namespace Keon.NHibernate.Queries
 		/// <param name="ascendingRelation">Relation to parent entity</param>
 		/// <param name="property">Property of parent</param>
 		/// <param name="term">Terms of search</param>
-		public Query<Entity, ID> LikeCondition<TAscending>(
-			Expression<Func<Entity, TAscending>> ascendingRelation,
-			Expression<Func<TAscending, object>> property,
+		public Query<Entity, ID> Like<Parent>(
+			Expression<Func<Entity, Parent>> ascendingRelation,
+			Expression<Func<Parent, object>> property,
 			String term
 		)
 		{
 			var newCriteria = criteria.RelationCriteria(ascendingRelation);
 
-			var searchTerms = new List<SearchItem<TAscending>>
+			var searchTerms = new List<SearchItem<Parent>>
 			{
-				new SearchItem<TAscending>(property, term)
+				new SearchItem<Parent>(property, term)
 			};
 
 			newCriteria.Add(accumulateLikeOr(searchTerms));
@@ -168,7 +168,7 @@ namespace Keon.NHibernate.Queries
 		/// Search for text inside entity property values
 		/// </summary>
 		/// <param name="searchTerms">Fields and texts to search</param>
-		public Query<Entity, ID> LikeCondition(
+		public Query<Entity, ID> Like(
 			IList<SearchItem<Entity>> searchTerms
 		)
 		{
@@ -186,8 +186,8 @@ namespace Keon.NHibernate.Queries
 			return this;
 		}
 
-		private static AbstractCriterion accumulateLikeOr<TSearch>(
-			ICollection<SearchItem<TSearch>> searchTerms,
+		private static AbstractCriterion accumulateLikeOr<Search>(
+			ICollection<SearchItem<Search>> searchTerms,
 			LikeType likeType = LikeType.Both
 		)
 		{
@@ -238,8 +238,8 @@ namespace Keon.NHibernate.Queries
 		/// Show primary entity even if the other entity doesn't exists
 		/// </summary>
 		/// <param name="entityRelation">Parent entity</param>
-		public Query<Entity, ID> LeftJoin<TEntity>(
-			Expression<Func<Entity, TEntity>> entityRelation
+		public Query<Entity, ID> LeftJoin<Parent>(
+			Expression<Func<Entity, Parent>> entityRelation
 		)
 		{
 			criteria.RelationCriteria(
@@ -253,8 +253,8 @@ namespace Keon.NHibernate.Queries
 		/// Show primary entity even if the other entity doesn't exists
 		/// </summary>
 		/// <param name="entityRelation">Child entity</param>
-		public Query<Entity, ID> LeftJoin<TEntity>(
-			Expression<Func<Entity, IList<TEntity>>> entityRelation
+		public Query<Entity, ID> LeftJoin<Parent>(
+			Expression<Func<Entity, IList<Parent>>> entityRelation
 		)
 		{
 			criteria.RelationCriteria(
@@ -268,8 +268,8 @@ namespace Keon.NHibernate.Queries
 		/// <summary>
 		/// Fetch eagerly, using a separate select.
 		/// </summary>
-		public Query<Entity, ID> FetchModeEager<TEntity>(
-			Expression<Func<Entity, IList<TEntity>>> listProperty
+		public Query<Entity, ID> Eager<Parent>(
+			Expression<Func<Entity, IList<Parent>>> listProperty
 		)
 		{
 			var name = listProperty.GetName();
@@ -283,10 +283,10 @@ namespace Keon.NHibernate.Queries
 		/// </summary>
 		/// <param name="func">Property to be checked</param>
 		/// <param name="value">Value to find</param>
-		public Query<Entity, ID> HasFlag<TEnum>(
-			Expression<Func<Entity, TEnum>> func, TEnum value
+		public Query<Entity, ID> HasFlag<Prop>(
+			Expression<Func<Entity, Prop>> func, Prop value
 		)
-			where TEnum : struct, IConvertible
+			where Prop : struct, IConvertible
 		{
 			var columnName = func.GetName();
 			var integerValue = value.ToInt32(new NumberFormatInfo());
@@ -305,8 +305,8 @@ namespace Keon.NHibernate.Queries
 		/// </summary>
 		/// <param name="order">Property to order</param>
 		/// <param name="ascending">Whether the order is ascending (true) or descending (false)</param>
-		public Query<Entity, ID> OrderBy<TPropOrder>(
-			Expression<Func<Entity, TPropOrder>> order,
+		public Query<Entity, ID> OrderBy<Prop>(
+			Expression<Func<Entity, Prop>> order,
 			Boolean? ascending = true
 		)
         {
@@ -324,8 +324,8 @@ namespace Keon.NHibernate.Queries
 		/// <summary>
 		/// Ordering using parent entity
 		/// </summary>
-		public Query<Entity, ID> OrderByParent<TPropOrder>(
-			Expression<Func<Entity, TPropOrder>> order,
+		public Query<Entity, ID> OrderByParent<Parent>(
+			Expression<Func<Entity, Parent>> order,
 			Boolean? ascending = true
 		)
 		{
@@ -358,14 +358,6 @@ namespace Keon.NHibernate.Queries
 			}
 
 			return this;
-		}
-
-		/// <summary>
-		/// Verify if there is any item that corresponds to the query
-		/// </summary>
-		public Boolean Any()
-		{
-			return Take(1).Result.Count > 0;
 		}
 
 		/// <summary>
@@ -533,7 +525,7 @@ namespace Keon.NHibernate.Queries
 		/// <summary>
 		/// Execute the query, getting all the results
 		/// </summary>
-		public IList<Entity> Result => criteria.List<Entity>();
+		public IList<Entity> List => criteria.List<Entity>();
 
 		/// <summary>
 		/// Execute the query, return just one result
@@ -541,12 +533,17 @@ namespace Keon.NHibernate.Queries
 		/// <exception cref="NonUniqueResultException">
 		///		If there is more than one result from constructed query
 		/// </exception>
-		public Entity UniqueResult => criteria.UniqueResult<Entity>();
+		public Entity SingleOrDefault => criteria.UniqueResult<Entity>();
 
 		/// <summary>
 		/// Return first result of list, or null if list is empty
 		/// </summary>
-		public Entity FirstOrDefault => page(1).UniqueResult;
+		public Entity FirstOrDefault => page(1).SingleOrDefault;
+
+		/// <summary>
+		/// Verify if there is any item that corresponds to the query
+		/// </summary>
+		public Boolean Any => Count > 0;
 
 		/// <summary>
 		/// Result for summarized queries

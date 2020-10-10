@@ -75,7 +75,7 @@ namespace Keon.NHibernate.Operations
 		/// <returns></returns>
 		public Boolean Any(Expression<Func<Entity, Boolean>> func)
 		{
-			return data.NewQuery().SimpleFilter(func).Count > 0;
+			return data.NewQuery().Where(func).Count > 0;
 		}
 
 		/// <summary>
@@ -84,7 +84,7 @@ namespace Keon.NHibernate.Operations
 		/// <exception cref="Exception">Not unique object</exception>
 		public Entity SingleOrDefault(Expression<Func<Entity, Boolean>> func)
 		{
-			return data.NewQuery().SimpleFilter(func).UniqueResult;
+			return data.NewQuery().Where(func).SingleOrDefault;
 		}
 
 		/// <summary>
@@ -116,7 +116,7 @@ namespace Keon.NHibernate.Operations
 		/// </summary>
 		public IList<Entity> GetAll()
 		{
-			return data.NewQuery().Result;
+			return data.NewQuery().List;
 		}
 
 		/// <summary>
@@ -125,7 +125,7 @@ namespace Keon.NHibernate.Operations
 		/// <param name="condition">Lambda expression condition</param>
 		public IList<Entity> SimpleFilter(Expression<Func<Entity, bool>> condition)
 		{
-			return data.NewQuery().SimpleFilter(condition).Result;
+			return data.NewQuery().Where(condition).List;
 		}
 
 		/// <summary>
@@ -142,7 +142,7 @@ namespace Keon.NHibernate.Operations
 		/// <param name="condition">Lambda expression condition</param>
 		public Int32 Count(Expression<Func<Entity, Boolean>> condition)
 		{
-			return data.NewQuery().SimpleFilter(condition).Count;
+			return data.NewQuery().Where(condition).Count;
 		}
 	}
 }
