@@ -18,7 +18,7 @@ namespace Keon.NHibernate.Operations
 		where Entity : class, IEntity<ID>, new()
 		where ID : struct
 	{
-		private readonly IData<Entity, ID> data;
+		private readonly BaseData<Entity, ID> data;
 
 		/// <summary>
 		/// Initializes DB reader/writer
@@ -28,7 +28,7 @@ namespace Keon.NHibernate.Operations
 			data = getBaseData();
 		}
 
-		private IData<Entity, ID> getBaseData()
+		private BaseData<Entity, ID> getBaseData()
 		{
 			return new BaseData<Entity, ID>();
 		}
@@ -66,7 +66,7 @@ namespace Keon.NHibernate.Operations
 		/// <summary>
 		/// Get old data of query
 		/// </summary>
-		protected TResult newNonCachedQuery<TResult>(Func<IQuery<Entity, ID>, TResult> action)
+		protected TResult newNonCachedQuery<TResult>(Func<Query<Entity, ID>, TResult> action)
 		{
 			return data.NewNonCachedQuery(action);
 		}
@@ -109,7 +109,7 @@ namespace Keon.NHibernate.Operations
 		/// <summary>
 		/// Return an object to take data
 		/// </summary>
-		public IQuery<Entity, ID> NewQuery()
+		public Query<Entity, ID> NewQuery()
 		{
 			return data.NewQuery();
 		}
