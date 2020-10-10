@@ -11,7 +11,7 @@ namespace Keon.NHibernate.Operations
 	/// </summary>
 	/// <typeparam name="Entity">Main entity</typeparam>
 	/// <typeparam name="ID">Integer ID type</typeparam>
-	internal class BaseData<Entity, ID> : IData<Entity, ID>
+	internal class BaseData<Entity, ID>
 		where Entity : class, IEntity<ID>, new()
 		where ID : struct
 	{
@@ -56,12 +56,12 @@ namespace Keon.NHibernate.Operations
 			return session.Get<Entity>(id);
 		}
 
-		public IQuery<Entity, ID> NewQuery()
+		public Query<Entity, ID> NewQuery()
 		{
 			return getQuery(session);
 		}
 
-		public TResult NewNonCachedQuery<TResult>(Func<IQuery<Entity, ID>, TResult> action)
+		public TResult NewNonCachedQuery<TResult>(Func<Query<Entity, ID>, TResult> action)
 		{
 			TResult result;
 			using (var otherSession = SessionManager.GetNonCached())
@@ -75,7 +75,7 @@ namespace Keon.NHibernate.Operations
 			return result;
 		}
 
-		private static IQuery<Entity, ID> getQuery(ISession session)
+		private static Query<Entity, ID> getQuery(ISession session)
 		{
 			return new Query<Entity, ID>(session);
 		}

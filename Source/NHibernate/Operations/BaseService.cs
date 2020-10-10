@@ -8,11 +8,6 @@ namespace Keon.NHibernate.Operations
 	/// </summary>
     public class BaseService
     {
-	    private ITransactionController getTransactionController(String caller)
-	    {
-		    return new TransactionController(caller);
-	    }
-
 		/// <summary>
 		/// Execute commands inside a transaction.
 		/// Anything executed without it will not work
@@ -22,7 +17,7 @@ namespace Keon.NHibernate.Operations
 		/// <param name="onError">() => { [your-ON-ERROR-code-here] }</param>
 		protected Result inTransaction<Result>(String caller, Func<Result> action, Action onError = null)
 		{
-			var controller = getTransactionController(caller);
+			var controller = new TransactionController(caller);
 
 			controller.Begin();
 

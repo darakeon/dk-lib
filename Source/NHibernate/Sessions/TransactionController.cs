@@ -7,7 +7,7 @@ using NHibernate;
 
 namespace Keon.NHibernate.Sessions
 {
-	internal class TransactionController : ITransactionController
+	internal class TransactionController
 	{
 		public TransactionController(String caller)
 		{
