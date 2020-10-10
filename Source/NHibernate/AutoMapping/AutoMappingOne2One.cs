@@ -17,12 +17,16 @@ namespace Keon.NHibernate.AutoMapping
 		/// <param name="mapping">Object received in AutoMappingOverride</param>
 		/// <param name="propertyExpression">Lambda of property with correspondent entity</param>
 		/// <param name="parentExpression">Lambda of property that represents this entity in other entity</param>
-		public static OneToOnePart<TFather> IsWeakEntity<T, TFather>(this AutoMapping<T> mapping, Expression<Func<T, TFather>> propertyExpression, Expression<Func<TFather, T>> parentExpression)
+		public static OneToOnePart<Parent> IsWeakEntity<Entity, Parent>(
+			this AutoMapping<Entity> mapping,
+			Expression<Func<Entity, Parent>> propertyExpression,
+			Expression<Func<Parent, Entity>> parentExpression
+		)
 		{
 			var body = (MemberExpression)parentExpression.Body;
-
-			return mapping.HasOne(propertyExpression).PropertyRef(body.Member.Name);
+			
+			return mapping.HasOne(propertyExpression)
+				.PropertyRef(body.Member.Name);
 		}
-
 	}
 }

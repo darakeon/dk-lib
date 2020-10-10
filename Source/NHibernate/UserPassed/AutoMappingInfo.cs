@@ -9,12 +9,11 @@ using Keon.NHibernate.Helpers;
 namespace Keon.NHibernate.UserPassed
 {
     /// <summary>
-    /// Information to use Automapping of Fluent
+    /// Information to use auto-mapping of Fluent
     /// </summary>
-    /// <typeparam name="TM">Some of the AutoMaps, just for reference</typeparam>
-    /// <typeparam name="TE">Some of the Entities, just for reference</typeparam>
-    //public class AutoMappingInfo<TM, TE> where TM : IAutoMappingOverride<TE>
-    public class AutoMappingInfo<TM, TE> where TM : IAutoMappingOverride<TE>
+    /// <typeparam name="Map">Some of the AutoMaps, just for reference</typeparam>
+    /// <typeparam name="Entity">Some of the Entities, just for reference</typeparam>
+    public class AutoMappingInfo<Map, Entity> where Map : IAutoMappingOverride<Entity>
     {
 		/// <summary>
 		/// BaseEntities, if it exists, to be ignored on mapping
@@ -31,16 +30,14 @@ namespace Keon.NHibernate.UserPassed
         /// </summary>
         public IConvention[] Conventions { get; set; }
 
-
-
         internal AutoPersistenceModel CreateAutoMapping()
         {
             var storeConfiguration = new StoreConfiguration(SuperEntities);
-            var assembly = typeof(TE).Assembly;
+            var assembly = typeof(Entity).Assembly;
 
             var autoMap = AutoMap
                 .Assemblies(storeConfiguration, assembly)
-                .UseOverridesFromAssemblyOf<TM>()
+                .UseOverridesFromAssemblyOf<Map>()
 				.Conventions.AddFromAssemblyOf<EnumConvention>()
                 .Conventions.Add(
                     new NullableConvention.Property(),

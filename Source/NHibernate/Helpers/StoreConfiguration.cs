@@ -27,7 +27,5 @@ namespace Keon.NHibernate.Helpers
 		{
 			return type.IsIn(superEntities);
 		}
-
-
 	}
 }

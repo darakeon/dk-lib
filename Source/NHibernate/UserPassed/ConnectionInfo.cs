@@ -10,9 +10,8 @@ namespace Keon.NHibernate.UserPassed
     /// </summary>
     public class ConnectionInfo
     {
-
-        /// <summary>
-        /// Server Name. No needed for Postgre and SQLite.
+	    /// <summary>
+        /// Server Name. No needed for Postgres and SQLite.
         /// </summary>
         public String Server { get; set; }
 
@@ -36,12 +35,10 @@ namespace Keon.NHibernate.UserPassed
         /// </summary>
         public String ConnectionString { get; set; }
 
-
         /// <summary>
-        /// Database Managment System used.
+        /// Database Management System used.
         /// </summary>
         public DBMS DBMS { get; set; }
-
 
         /// <summary>
         /// The File Full Name for export Script.

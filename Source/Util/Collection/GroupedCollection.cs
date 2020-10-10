@@ -9,42 +9,42 @@ namespace Keon.Util.Collection
     /// <summary>
     /// Collection Grouped by one of the properties of the original IList
     /// </summary>
-    /// <typeparam name="TI">Type of the Items of the Group</typeparam>
-    /// <typeparam name="TG">Type of the property responsible for Grouping</typeparam>
-    public class GroupedCollection<TI, TG> : IEnumerable
-        where TI : IGroupable<TG>
+    /// <typeparam name="Items">Type of the Items of the Group</typeparam>
+    /// <typeparam name="Prop">Type of the property responsible for Grouping</typeparam>
+    public class GroupedCollection<Items, Prop> : IEnumerable
+        where Items : IGroupable<Prop>
     {
         /// <summary>
         /// Collection Grouped by one of the properties of the original IList
         /// </summary>
         public GroupedCollection()
         {
-            groupList = new List<ItemGroup<TI, TG>>();
+            groupList = new List<ItemGroup<Items, Prop>>();
         }
 
 
-        private IList<ItemGroup<TI, TG>> groupList { get; }
+        private IList<ItemGroup<Items, Prop>> groupList { get; }
 
         ///<summary>
         /// Add an Item to the list, evaluation the Group whether it belongs
         ///</summary>
-        public void Add(TI item)
+        public void Add(Items item)
         {
             var group = item.GetGroup();
 
             if (!groupList.Any(mg => mg.Group.Equals(group)))
-                groupList.Add(new ItemGroup<TI, TG>(group));
+                groupList.Add(new ItemGroup<Items, Prop>(group));
 
 
             groupList
-                .SingleOrDefault(gp => gp.Group.Equals(group))
-                ?.Add(item);
+                .SingleOrDefault(gp => gp.Group.Equals(group))?
+                .Add(item);
         }
 
         ///<summary>
         /// Add an List of the Item to the list, evaluation the Group whether it belongs
         ///</summary>
-        public void AddRange(IList<TI> list)
+        public void AddRange(IList<Items> list)
         {
             foreach (var measure in list)
             {
@@ -56,7 +56,7 @@ namespace Keon.Util.Collection
         ///<summary>
         /// Return a Group of items
         ///</summary>
-        public ItemGroup<TI, TG> this[Int32 group]
+        public ItemGroup<Items, Prop> this[Int32 group]
         {
             get => groupList[group];
 	        set => groupList[group] = value;
@@ -66,7 +66,7 @@ namespace Keon.Util.Collection
         /// Return the list of Groups and itens
         /// Recommended when is needed to use Linq
         ///</summary>
-        public IList<ItemGroup<TI, TG>> List => groupList;
+        public IList<ItemGroup<Items, Prop>> List => groupList;
 
 
 	    /// <summary> Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>. </summary>
@@ -76,14 +76,10 @@ namespace Keon.Util.Collection
             return $"Count = {List.Count}";
         }
 
-
-
-        #region IEnumerable Members
-
         ///<summary>
         /// To make ForEach
         ///</summary>
-        public IEnumerator<ItemGroup<TI, TG>> GetEnumerator()
+        public IEnumerator<ItemGroup<Items, Prop>> GetEnumerator()
         {
             return groupList.GetEnumerator();
         }
@@ -92,9 +88,6 @@ namespace Keon.Util.Collection
         {
             return groupList.GetEnumerator();
         }
-
-        #endregion
-
     }
 
 }

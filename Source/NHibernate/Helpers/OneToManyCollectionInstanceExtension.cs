@@ -5,10 +5,12 @@ namespace Keon.NHibernate.Helpers
 {
 	internal static class OneToManyCollectionInstanceExtension
 	{
-		internal static Boolean IsSystemEntity(this IOneToManyCollectionInstance instance)
+		internal static Boolean IsSystemEntity(
+			this IOneToManyCollectionInstance instance
+		)
 		{
-			return instance.ChildType != null && !instance.ChildType.IsEnum;
+			return instance.ChildType != null 
+			    && !instance.ChildType.IsEnum;
 		}
-
 	}
 }

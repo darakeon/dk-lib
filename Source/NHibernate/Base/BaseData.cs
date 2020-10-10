@@ -8,15 +8,18 @@ namespace Keon.NHibernate.Base
 	/// <summary>
 	/// Base communication with DB
 	/// </summary>
-	/// <typeparam name="T">Main entity</typeparam>
-	/// <typeparam name="I">Integer ID type</typeparam>
-	internal class BaseData<T, I> : IData<T, I>
-		where T : class, IEntity<I>, new()
-		where I : struct
+	/// <typeparam name="Entity">Main entity</typeparam>
+	/// <typeparam name="ID">Integer ID type</typeparam>
+	internal class BaseData<Entity, ID> : IData<Entity, ID>
+		where Entity : class, IEntity<ID>, new()
+		where ID : struct
 	{
 		private ISession session => SessionManager.GetCurrent();
 
-		public T SaveOrUpdate(T entity, params BaseRepository<T, I>.DelegateAction[] actions)
+		public Entity SaveOrUpdate(
+			Entity entity,
+			params BaseRepository<Entity, ID>.DelegateAction[] actions
+		)
 		{
 			foreach (var delegateAction in actions)
 			{
@@ -26,9 +29,9 @@ namespace Keon.NHibernate.Base
 			return saveOrUpdate(entity);
 		}
 
-		private T saveOrUpdate(T entity)
+		private Entity saveOrUpdate(Entity entity)
 		{
-			if (entity.ID.Equals(default(I)) || session.Contains(entity))
+			if (entity.ID.Equals(default(ID)) || session.Contains(entity))
 				session.SaveOrUpdate(entity);
 			else
 				session.Merge(entity);
@@ -36,35 +39,28 @@ namespace Keon.NHibernate.Base
 			return entity;
 		}
 
-
-
-		public T GetNonCached(I id)
+		public Entity GetNonCached(ID id)
 		{
-			return SessionManager.GetNonCached<T, I>(id);
+			return SessionManager.GetNonCached<Entity, ID>(id);
 		}
 
-
-
-		public void Delete(T obj)
+		public void Delete(Entity obj)
 		{
 			if (obj != null)
 				session.Delete(obj);
 		}
 
-
-		public T GetById(I id)
+		public Entity GetById(ID id)
 		{
-			return session.Get<T>(id);
+			return session.Get<Entity>(id);
 		}
 
-
-
-		public IQuery<T, I> NewQuery()
+		public IQuery<Entity, ID> NewQuery()
 		{
 			return getQuery(session);
 		}
 
-		public TResult NewNonCachedQuery<TResult>(Func<IQuery<T, I>, TResult> action)
+		public TResult NewNonCachedQuery<TResult>(Func<IQuery<Entity, ID>, TResult> action)
 		{
 			TResult result;
 			using (var otherSession = SessionManager.GetNonCached())
@@ -78,9 +74,9 @@ namespace Keon.NHibernate.Base
 			return result;
 		}
 
-		private IQuery<T, I> getQuery(ISession session)
+		private static IQuery<Entity, ID> getQuery(ISession session)
 		{
-			return new Query<T, I>(session);
+			return new Query<Entity, ID>(session);
 		}
 	}
 }

@@ -16,13 +16,15 @@ namespace Keon.NHibernate.AutoMapping
 		/// </summary>
 		/// <param name="mapping">Object received in AutoMappingOverride</param>
 		/// <param name="propertyExpression">Lambda of property with correspondent property</param>
-		public static PropertyPart MapAsReservedWord<T>(this AutoMapping<T> mapping, Expression<Func<T, object>> propertyExpression)
+		public static PropertyPart MapAsReservedWord<Entity>(
+			this AutoMapping<Entity> mapping,
+			Expression<Func<Entity, object>> propertyExpression
+		)
 		{
 			var unary = (UnaryExpression) propertyExpression.Body;
 			var body = (MemberExpression)unary.Operand;
 
 			return mapping.Map(propertyExpression).Column("_" + body.Member.Name);
 		}
-
 	}
 }

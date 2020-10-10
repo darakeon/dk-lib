@@ -5,9 +5,7 @@ namespace Keon.NHibernate.Base
 	/// <summary>
 	/// Base for services, to have transaction
 	/// </summary>
-	/// <typeparam name="I">Integer ID type</typeparam>
-    public class BaseService<I>
-		where I: struct
+    public class BaseService
     {
 	    private ITransactionController getTransactionController(String caller)
 	    {
@@ -21,7 +19,7 @@ namespace Keon.NHibernate.Base
 		/// <param name="caller">Caller name, to print states in case of errors</param>
 		/// <param name="action">() => { return [your-code-here] }</param>
 		/// <param name="onError">() => { [your-ON-ERROR-code-here] }</param>
-		protected T inTransaction<T>(String caller, Func<T> action, Action onError = null)
+		protected Result inTransaction<Result>(String caller, Func<Result> action, Action onError = null)
 		{
 			var controller = getTransactionController(caller);
 
@@ -61,13 +59,4 @@ namespace Keon.NHibernate.Base
 			}, onError);
 		}
     }
-
-	/// <inheritdoc />
-	public class BaseService : BaseService<Int32> { }
-
-	/// <inheritdoc />
-	public class BaseServiceShort : BaseService<Int16> { }
-
-	/// <inheritdoc />
-	public class BaseServiceLong : BaseService<Int64> { }
 }

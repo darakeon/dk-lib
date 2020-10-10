@@ -14,70 +14,80 @@ using NHibernate.Transform;
 
 namespace Keon.NHibernate.Queries
 {
-	class Query<T, I> : IQuery<T, I>
-		where T : class, IEntity<I>, new()
-		where I : struct
+	class Query<Entity, ID> : IQuery<Entity, ID>
+		where Entity : class, IEntity<ID>, new()
+		where ID : struct
 	{
 		private ICriteria criteria { get; set; }
 		private Boolean distinctMainEntity { get; set; }
 
 		public Query(ISession session)
 		{
-			criteria = session.CreateCriteria<T>();
+			criteria = session.CreateCriteria<Entity>();
 		}
 
-		public IQuery<T, I> SimpleFilter(Expression<Func<T, Boolean>> where)
+		public IQuery<Entity, ID> SimpleFilter(Expression<Func<Entity, Boolean>> where)
         {
             criteria = criteria.Add(Restrictions.Where(where));
             return this;
         }
 
-		public IQuery<T, I> SimpleFilter<TEntity>(Expression<Func<T, TEntity>> entityRelation, Expression<Func<TEntity, Boolean>> where)
+		public IQuery<Entity, ID> SimpleFilter<TEntity>(Expression<Func<Entity, TEntity>> entityRelation, Expression<Func<TEntity, Boolean>> where)
 		{
-			var newCriteria = criteria.GetOrCreateRelationCriteria(entityRelation);
+			var newCriteria = criteria.RelationCriteria(entityRelation);
 			newCriteria.Add(Restrictions.Where(where));
 			return this;
 		}
 
-		public IQuery<T, I> SimpleFilter<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation, Expression<Func<TEntity, Boolean>> where)
+		public IQuery<Entity, ID> SimpleFilter<TEntity>(Expression<Func<Entity, IList<TEntity>>> entityRelation, Expression<Func<TEntity, Boolean>> where)
 		{
-			var newCriteria = criteria.GetOrCreateRelationCriteria(entityRelation);
+			var newCriteria = criteria.RelationCriteria(entityRelation);
 			newCriteria.Add(Restrictions.Where(where));
 			return this;
 		}
 
-		public IQuery<T, I> InCondition<TEntity>(Expression<Func<T, TEntity>> property, IList<TEntity> contains)
+		public IQuery<Entity, ID> InCondition<Prop>(Expression<Func<Entity, Prop>> property, Prop[] contains)
 		{
 			var propertyName = property.GetName();
-			var newCriteria = criteria.GetOrCreatePropertyCriteria(property);
-			newCriteria.Add(Restrictions.In(propertyName, contains.ToArray()));
+			
+			var newCriteria = criteria.PropertyCriteria(property);
+			
+			newCriteria.Add(
+				Restrictions.In(propertyName, contains)
+			);
 
 			return this;
 		}
 
-		public IQuery<T, I> IsNotEmpty<L>(Expression<Func<T, IList<L>>> listProperty)
+		public IQuery<Entity, ID> IsNotEmpty<Prop>(
+			Expression<Func<Entity, IList<Prop>>> listProperty
+		)
 		{
-			var newCriteria = criteria.GetOrCreateRelationCriteria(listProperty, JoinType.LeftOuterJoin);
+			var newCriteria = criteria.RelationCriteria(
+				listProperty, JoinType.LeftOuterJoin
+			);
+			
 			newCriteria.Add(Restrictions.IsNotNull(Projections.Id()));
+			
 			return this;
 		}
 
-		public IQuery<T, I> IsEmpty<L>(Expression<Func<T, IList<L>>> listProperty)
+		public IQuery<Entity, ID> IsEmpty<PropItem>(Expression<Func<Entity, IList<PropItem>>> listProperty)
 		{
-			var newCriteria = criteria.GetOrCreateRelationCriteria(listProperty, JoinType.LeftOuterJoin);
+			var newCriteria = criteria.RelationCriteria(listProperty, JoinType.LeftOuterJoin);
 			newCriteria.Add(Restrictions.IsNull(Projections.Id()));
 			return this;
 		}
 
-	    public IQuery<T, I> LikeCondition(
-		    Expression<Func<T, object>> property,
+	    public IQuery<Entity, ID> LikeCondition(
+		    Expression<Func<Entity, object>> property,
 		    String term,
 		    LikeType likeType = LikeType.Both
 		)
 		{
-			var searchTerms = new List<SearchItem<T>>
+			var searchTerms = new List<SearchItem<Entity>>
 			{
-				new SearchItem<T>(property, term)
+				new SearchItem<Entity>(property, term)
 			};
 
 			criteria = criteria.Add(accumulateLikeOr(searchTerms, likeType));
@@ -85,13 +95,13 @@ namespace Keon.NHibernate.Queries
 			return this;
 		}
 
-		public IQuery<T, I> LikeCondition<TAscending>(
-			Expression<Func<T, TAscending>> ascendingRelation,
+		public IQuery<Entity, ID> LikeCondition<TAscending>(
+			Expression<Func<Entity, TAscending>> ascendingRelation,
 			Expression<Func<TAscending, object>> property,
 			String term
 		)
 		{
-			var newCriteria = criteria.GetOrCreateRelationCriteria(ascendingRelation);
+			var newCriteria = criteria.RelationCriteria(ascendingRelation);
 
 			var searchTerms = new List<SearchItem<TAscending>>
 			{
@@ -103,13 +113,13 @@ namespace Keon.NHibernate.Queries
 			return this;
 		}
 
-		public IQuery<T, I> LikeCondition(IList<SearchItem<T>> searchTerms)
+		public IQuery<Entity, ID> LikeCondition(IList<SearchItem<Entity>> searchTerms)
 		{
 			criteria = criteria.Add(accumulateLikeOr(searchTerms));
 
 			foreach (var searchTerm in searchTerms)
 			{
-				if (searchTerm.ParentType() == typeof(T))
+				if (searchTerm.ParentType() == typeof(Entity))
 					continue;
 
 				var type = searchTerm.ParentType();
@@ -164,21 +174,21 @@ namespace Keon.NHibernate.Queries
 			criteria.CreateAlias(type.Name, type.Name, JoinType.LeftOuterJoin);
 		}
 
-		public IQuery<T, I> LeftJoin<TEntity>(Expression<Func<T, TEntity>> entityRelation)
+		public IQuery<Entity, ID> LeftJoin<TEntity>(Expression<Func<Entity, TEntity>> entityRelation)
 		{
-			criteria.GetOrCreateRelationCriteria(entityRelation, JoinType.LeftOuterJoin);
+			criteria.RelationCriteria(entityRelation, JoinType.LeftOuterJoin);
 
 			return this;
 		}
 
-		public IQuery<T, I> LeftJoin<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation)
+		public IQuery<Entity, ID> LeftJoin<TEntity>(Expression<Func<Entity, IList<TEntity>>> entityRelation)
 		{
-			criteria.GetOrCreateRelationCriteria(entityRelation, JoinType.LeftOuterJoin);
+			criteria.RelationCriteria(entityRelation, JoinType.LeftOuterJoin);
 
 			return this;
 		}
 
-		public IQuery<T, I> FetchModeEager<TEntity>(Expression<Func<T, IList<TEntity>>> listProperty)
+		public IQuery<Entity, ID> FetchModeEager<TEntity>(Expression<Func<Entity, IList<TEntity>>> listProperty)
 		{
 			var name = listProperty.GetName();
 			criteria.Fetch(SelectMode.Fetch, name);
@@ -186,7 +196,7 @@ namespace Keon.NHibernate.Queries
 			return this;
 		}
 
-		public IQuery<T, I> HasFlag<TEnum>(Expression<Func<T, TEnum>> func, TEnum value)
+		public IQuery<Entity, ID> HasFlag<TEnum>(Expression<Func<Entity, TEnum>> func, TEnum value)
 			where TEnum : struct, IConvertible
 		{
 			var columnName = func.GetName();
@@ -201,7 +211,7 @@ namespace Keon.NHibernate.Queries
 			return this;
 		}
 
-		public IQuery<T, I> OrderBy<TPropOrder>(Expression<Func<T, TPropOrder>> order, Boolean? ascending = true)
+		public IQuery<Entity, ID> OrderBy<TPropOrder>(Expression<Func<Entity, TPropOrder>> order, Boolean? ascending = true)
         {
             var propName = order.GetName();
 
@@ -214,9 +224,9 @@ namespace Keon.NHibernate.Queries
             return this;
         }
 
-		public IQuery<T, I> OrderByParent<TPropOrder>(Expression<Func<T, TPropOrder>> order, Boolean? ascending = true)
+		public IQuery<Entity, ID> OrderByParent<TPropOrder>(Expression<Func<Entity, TPropOrder>> order, Boolean? ascending = true)
 		{
-			criteria.GetOrCreatePropertyCriteria(order, JoinType.LeftOuterJoin);
+			criteria.PropertyCriteria(order, JoinType.LeftOuterJoin);
 
 			var normalizedPropertyName = order.NormalizePropertyName();
 			var propName = String.Join(".", normalizedPropertyName);
@@ -232,7 +242,7 @@ namespace Keon.NHibernate.Queries
 			return this;
 		}
 
-		public IQuery<T, I> Take(Int32 topItems)
+		public IQuery<Entity, ID> Take(Int32 topItems)
 		{
 			if (topItems != 0)
 			{
@@ -248,12 +258,12 @@ namespace Keon.NHibernate.Queries
 			return Take(1).Result.Count > 0;
 		}
 
-	    public IQuery<T, I> Page(ISearch search)
+	    public IQuery<Entity, ID> Page(ISearch search)
 		{
 			return page(search.ItemsPerPage, search.Page);
 		}
 
-		private IQuery<T, I> page(Int32? itemsPerPage, Int32? page = 1)
+		private IQuery<Entity, ID> page(Int32? itemsPerPage, Int32? page = 1)
 		{
 			// ReSharper disable once InvertIf
 			if (itemsPerPage.HasValue && page != 0)
@@ -268,7 +278,7 @@ namespace Keon.NHibernate.Queries
 			return this;
 		}
 
-		public IQuery<T, I> DistinctMainEntity()
+		public IQuery<Entity, ID> DistinctMainEntity()
 		{
 			criteria.SetResultTransformer(Transformers.DistinctRootEntity);
 
@@ -277,62 +287,62 @@ namespace Keon.NHibernate.Queries
 			return this;
 		}
 
-		public IQuery<T, I> TransformResult<D, P, G, S>(
-			IList<G> groupProperties,
-			IList<S> summarizeProperties
+		public IQuery<Entity, ID> TransformResult<Result, Prop, Group, Aggregate>(
+			IList<Group> groupProperties,
+			IList<Aggregate> summarizeProperties
 		)
-			where G : GroupBy<T, I, D, P>
-			where S : Summarize<T, I, D, P>
-			where D : new()
+			where Group : GroupBy<Entity, ID, Result, Prop>
+			where Aggregate : Summarize<Entity, ID, Result, Prop>
+			where Result : new()
 		{
-			setProjections<D, P, G, S>(groupProperties, summarizeProperties);
-			criteria.SetResultTransformer(Transformers.AliasToBean(typeof(D)));
+			setProjections<Result, Prop, Group, Aggregate>(groupProperties, summarizeProperties);
+			criteria.SetResultTransformer(Transformers.AliasToBean(typeof(Result)));
 
 			return this;
 		}
 
-		private void setProjections<D, P, G, S>
+		private void setProjections<Result, Prop, Group, Aggregate>
 		(
-			IEnumerable<G> groupProperties,
-			IEnumerable<S> summarizeProperties
+			IEnumerable<Group> groupProperties,
+			IEnumerable<Aggregate> summarizeProperties
 		)
-			where G : GroupBy<T, I, D, P>
-			where S : Summarize<T, I, D, P>
-			where D : new()
+			where Group : GroupBy<Entity, ID, Result, Prop>
+			where Aggregate : Summarize<Entity, ID, Result, Prop>
+			where Result : new()
 		{
 			var projections = Projections.ProjectionList();
 
-			setGroupProjections<D, P, G>(projections, groupProperties);
-			seSProjections<D, P, S>(projections, summarizeProperties);
+			setGroupProjections<Result, Prop, Group>(projections, groupProperties);
+			seSProjections<Result, Prop, Aggregate>(projections, summarizeProperties);
 
 			criteria.SetProjection(projections);
 		}
 
-		public IQuery<T, I> TransformResult<D, P, G>(IList<G> groupProperties)
-			where G : GroupBy<T, I, D, P> where D : new()
+		public IQuery<Entity, ID> TransformResult<Result, Prop, Group>(IList<Group> groupProperties)
+			where Group : GroupBy<Entity, ID, Result, Prop> where Result : new()
 		{
-			setProjections<D, P, G>(groupProperties);
-			criteria.SetResultTransformer(Transformers.AliasToBean(typeof(D)));
+			setProjections<Result, Prop, Group>(groupProperties);
+			criteria.SetResultTransformer(Transformers.AliasToBean(typeof(Result)));
 
 			return this;
 		}
 
-		private void setProjections<D, P, G>(IEnumerable<G> groupProperties)
-			where G : GroupBy<T, I, D, P>
-			where D : new()
+		private void setProjections<Result, Prop, Group>(IEnumerable<Group> groupProperties)
+			where Group : GroupBy<Entity, ID, Result, Prop>
+			where Result : new()
 		{
 			var projections = Projections.ProjectionList();
 
-			setGroupProjections<D, P, G>(projections, groupProperties);
+			setGroupProjections<Result, Prop, Group>(projections, groupProperties);
 
 			criteria.SetProjection(projections);
 		}
 
-		private static void setGroupProjections<D, P, G>(
-			ProjectionList list, IEnumerable<G> group
+		private static void setGroupProjections<Result, Prop, Group>(
+			ProjectionList list, IEnumerable<Group> group
 		)
-			where G : GroupBy<T, I, D, P>
-			where D : new()
+			where Group : GroupBy<Entity, ID, Result, Prop>
+			where Result : new()
 		{
 			foreach (var expression in group)
 			{
@@ -340,11 +350,12 @@ namespace Keon.NHibernate.Queries
 			}
 		}
 
-		private static void seSProjections
-			<D, P, S>
-		(ProjectionList projections, IEnumerable<S> summarizeProperties)
-			where S : Summarize<T, I, D, P>
-			where D : new()
+		private static void seSProjections<Result, Prop, Aggregate>(
+			ProjectionList projections,
+			IEnumerable<Aggregate> summarizeProperties
+		)
+			where Aggregate : Summarize<Entity, ID, Result, Prop>
+			where Result : new()
 		{
 			foreach (var associationProperty in summarizeProperties)
 			{
@@ -383,32 +394,32 @@ namespace Keon.NHibernate.Queries
             }
         }
 
-		public IList<T> Result => criteria.List<T>();
+		public IList<Entity> Result => criteria.List<Entity>();
 
-		public T UniqueResult => criteria.UniqueResult<T>();
+		public Entity UniqueResult => criteria.UniqueResult<Entity>();
 
-		public T FirstOrDefault => page(1).UniqueResult;
+		public Entity FirstOrDefault => page(1).UniqueResult;
 
 		public IList<TResult> ResultAs<TResult>()
 		{
 			return criteria.List<TResult>();
 		}
 
-		public Int32 SumInt(Expression<Func<T, object>> property)
+		public Int32 SumInt(Expression<Func<Entity, object>> property)
 		{
 			return (Int32?)criteria
 				.SetProjection(Projections.Sum(property))
 				.UniqueResult() ?? 0;
 		}
 
-		public Int64 SumLong(Expression<Func<T, object>> property)
+		public Int64 SumLong(Expression<Func<Entity, object>> property)
 		{
 			return (Int64?)criteria
 				.SetProjection(Projections.Sum(property))
 				.UniqueResult() ?? 0;
 		}
 
-		public Decimal SumDecimal(Expression<Func<T, object>> property)
+		public Decimal SumDecimal(Expression<Func<Entity, object>> property)
 		{
 			return (Decimal?)criteria
 				.SetProjection(Projections.Sum(property))

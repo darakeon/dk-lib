@@ -10,48 +10,48 @@ namespace Keon.NHibernate.Queries
 	/// <summary>
 	/// Object to handle database fluently
 	/// </summary>
-	/// <typeparam name="T">Main entity</typeparam>
-	/// <typeparam name="I">Integer ID type</typeparam>
-	public interface IQuery<T, I>
-		where T : class, IEntity<I>, new()
-		where I : struct
+	/// <typeparam name="Entity">Main entity</typeparam>
+	/// <typeparam name="ID">Integer ID type</typeparam>
+	public interface IQuery<Entity, ID>
+		where Entity : class, IEntity<ID>, new()
+		where ID : struct
 	{
 		/// <summary>
 		/// Make a filter with lambda expression
 		/// </summary>
 		/// <param name="where">Lambda expression</param>
-		IQuery<T, I> SimpleFilter(Expression<Func<T, Boolean>> where);
+		IQuery<Entity, ID> SimpleFilter(Expression<Func<Entity, Boolean>> where);
 
 		/// <summary>
 		/// Make a filter with lambda expression
 		/// </summary>
 		/// <param name="entityRelation">Lambda expression for parent entity</param>
 		/// <param name="where">Lambda expression of condition</param>
-		IQuery<T, I> SimpleFilter<TEntity>(Expression<Func<T, TEntity>> entityRelation, Expression<Func<TEntity, Boolean>> where);
+		IQuery<Entity, ID> SimpleFilter<TEntity>(Expression<Func<Entity, TEntity>> entityRelation, Expression<Func<TEntity, Boolean>> where);
 
 		/// <summary>
 		/// Make a filter with lambda expression
 		/// </summary>
 		/// <param name="entityRelation">Lambda expression for child entity</param>
 		/// <param name="where">Lambda expression of condition</param>
-		IQuery<T, I> SimpleFilter<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation, Expression<Func<TEntity, Boolean>> where);
+		IQuery<Entity, ID> SimpleFilter<TEntity>(Expression<Func<Entity, IList<TEntity>>> entityRelation, Expression<Func<TEntity, Boolean>> where);
 
 		/// <summary>
 		/// List of entities where certain property is in a list of possibilities
 		/// </summary>
 		/// <param name="property">Lambda of property to test</param>
 		/// <param name="contains">List to be verified</param>
-		IQuery<T, I> InCondition<TEntity>(Expression<Func<T, TEntity>> property, IList<TEntity> contains);
+		IQuery<Entity, ID> InCondition<TEntity>(Expression<Func<Entity, TEntity>> property, TEntity[] contains);
 
 		/// <summary>
 		/// Test whether a list is not empty
 		/// </summary>
-		IQuery<T, I> IsNotEmpty<L>(Expression<Func<T, IList<L>>> listProperty);
+		IQuery<Entity, ID> IsNotEmpty<Prop>(Expression<Func<Entity, IList<Prop>>> listProperty);
 
 		/// <summary>
 		/// Test whether a list is empty
 		/// </summary>
-		IQuery<T, I> IsEmpty<L>(Expression<Func<T, IList<L>>> listProperty);
+		IQuery<Entity, ID> IsEmpty<Prop>(Expression<Func<Entity, IList<Prop>>> listProperty);
 
 		/// <summary>
 		/// Search for text inside entity property values
@@ -59,7 +59,7 @@ namespace Keon.NHibernate.Queries
 		/// <param name="property">Lambda of property</param>
 		/// <param name="term">Text to search</param>
 		/// <param name="likeType">Start, End, Both</param>
-		IQuery<T, I> LikeCondition(Expression<Func<T, object>> property, String term, LikeType likeType = LikeType.Both);
+		IQuery<Entity, ID> LikeCondition(Expression<Func<Entity, object>> property, String term, LikeType likeType = LikeType.Both);
 
 		/// <summary>
 		/// Search for text inside entity property values
@@ -67,37 +67,37 @@ namespace Keon.NHibernate.Queries
 		/// <param name="ascendingRelation">Relation to parent entity</param>
 		/// <param name="property">Property of parent</param>
 		/// <param name="term">Terms of search</param>
-		IQuery<T, I> LikeCondition<TAscending>(Expression<Func<T, TAscending>> ascendingRelation, Expression<Func<TAscending, object>> property, String term);
+		IQuery<Entity, ID> LikeCondition<TAscending>(Expression<Func<Entity, TAscending>> ascendingRelation, Expression<Func<TAscending, object>> property, String term);
 
 		/// <summary>
 		/// Search for text inside entity property values
 		/// </summary>
 		/// <param name="searchTerms">Fields and texts to search</param>
-		IQuery<T, I> LikeCondition(IList<SearchItem<T>> searchTerms);
+		IQuery<Entity, ID> LikeCondition(IList<SearchItem<Entity>> searchTerms);
 
 		/// <summary>
 		/// Show primary entity even if the other entity doesn't exists
 		/// </summary>
 		/// <param name="entityRelation">Parent entity</param>
-		IQuery<T, I> LeftJoin<TEntity>(Expression<Func<T, TEntity>> entityRelation);
+		IQuery<Entity, ID> LeftJoin<TEntity>(Expression<Func<Entity, TEntity>> entityRelation);
 
 		/// <summary>
 		/// Show primary entity even if the other entity doesn't exists
 		/// </summary>
 		/// <param name="entityRelation">Child entity</param>
-		IQuery<T, I> LeftJoin<TEntity>(Expression<Func<T, IList<TEntity>>> entityRelation);
+		IQuery<Entity, ID> LeftJoin<TEntity>(Expression<Func<Entity, IList<TEntity>>> entityRelation);
 
 		/// <summary>
 		/// Fetch eagerly, using a separate select.
 		/// </summary>
-		IQuery<T, I> FetchModeEager<TEntity>(Expression<Func<T, IList<TEntity>>> listProperty);
+		IQuery<Entity, ID> FetchModeEager<TEntity>(Expression<Func<Entity, IList<TEntity>>> listProperty);
 
 		/// <summary>
 		/// Verify if a flagged enum has a specific flag
 		/// </summary>
 		/// <param name="func">Property to be checked</param>
 		/// <param name="value">Value to find</param>
-		IQuery<T, I> HasFlag<TEnum>(Expression<Func<T, TEnum>> func, TEnum value)
+		IQuery<Entity, ID> HasFlag<TEnum>(Expression<Func<Entity, TEnum>> func, TEnum value)
 			where TEnum : struct, IConvertible;
 
 		/// <summary>
@@ -105,18 +105,18 @@ namespace Keon.NHibernate.Queries
 		/// </summary>
 		/// <param name="order">Property to order</param>
 		/// <param name="ascending">Whether the order is ascending (true) or descending (false)</param>
-		IQuery<T, I> OrderBy<O>(Expression<Func<T, O>> order, Boolean? ascending = true);
+		IQuery<Entity, ID> OrderBy<Prop>(Expression<Func<Entity, Prop>> order, Boolean? ascending = true);
 
 		/// <summary>
 		/// Ordering using parent entity
 		/// </summary>
-		IQuery<T, I> OrderByParent<O>(Expression<Func<T, O>> order, Boolean? ascending = true);
+		IQuery<Entity, ID> OrderByParent<Prop>(Expression<Func<Entity, Prop>> order, Boolean? ascending = true);
 
 		/// <summary>
 		/// Take just the first items
 		/// </summary>
 		/// <param name="topItems">Number of items to take</param>
-		IQuery<T, I> Take(Int32 topItems);
+		IQuery<Entity, ID> Take(Int32 topItems);
 
 		/// <summary>
 		/// Verify if there is any item that corresponds to the query
@@ -127,42 +127,42 @@ namespace Keon.NHibernate.Queries
 		/// To get a page of the results
 		/// </summary>
 		/// <param name="search">Parameters of paging</param>
-		IQuery<T, I> Page(ISearch search);
+		IQuery<Entity, ID> Page(ISearch search);
 
 		/// <summary>
 		/// To do not duplicate main entity
 		/// </summary>
-		IQuery<T, I> DistinctMainEntity();
+		IQuery<Entity, ID> DistinctMainEntity();
 
 		/// <summary>
 		/// Group and summarize result
 		/// </summary>
 		/// <param name="groupProperties">Group by</param>
 		/// <param name="summarizeProperties">Summarize properties (Count, Max, Sum)</param>
-		/// <typeparam name="D">Type of class to be returned (summarized)</typeparam>
-		/// <typeparam name="P">Type of the property in both entities</typeparam>
-		/// <typeparam name="G">Need to construct from Query.GroupBy</typeparam>
-		/// <typeparam name="S">Need to construct from Query.Summarize</typeparam>
-		IQuery<T, I> TransformResult<D, P, G, S>(
-			IList<G> groupProperties,
-			IList<S> summarizeProperties
+		/// <typeparam name="Result">Type of class to be returned (summarized)</typeparam>
+		/// <typeparam name="Prop">Type of the property in both entities</typeparam>
+		/// <typeparam name="Group">Need to construct from Query.GroupBy</typeparam>
+		/// <typeparam name="Aggregate">Need to construct from Query.Summarize</typeparam>
+		IQuery<Entity, ID> TransformResult<Result, Prop, Group, Aggregate>(
+			IList<Group> groupProperties,
+			IList<Aggregate> summarizeProperties
 		)
-			where G : GroupBy<T, I, D, P>
-			where S : Summarize<T, I, D, P>
-			where D : new();
+			where Group : GroupBy<Entity, ID, Result, Prop>
+			where Aggregate : Summarize<Entity, ID, Result, Prop>
+			where Result : new();
 
 		/// <summary>
 		/// Group and summarize result
 		/// </summary>
 		/// <param name="groupProperties">Group by</param>
-		/// <typeparam name="D">Type of class to be returned (summarized)</typeparam>
-		/// <typeparam name="P">Type of the property in both entities</typeparam>
-		/// <typeparam name="G">Need to construct from Query.GroupBy</typeparam>
-		IQuery<T, I> TransformResult<D, P, G>(
-			IList<G> groupProperties
+		/// <typeparam name="Result">Type of class to be returned (summarized)</typeparam>
+		/// <typeparam name="Prop">Type of the property in both entities</typeparam>
+		/// <typeparam name="Group">Need to construct from Query.GroupBy</typeparam>
+		IQuery<Entity, ID> TransformResult<Result, Prop, Group>(
+			IList<Group> groupProperties
 		)
-			where G : GroupBy<T, I, D, P>
-			where D : new();
+			where Group : GroupBy<Entity, ID, Result, Prop>
+			where Result : new();
 
 		/// <summary>
 		/// Execute the query, getting just the amount of items
@@ -172,18 +172,18 @@ namespace Keon.NHibernate.Queries
 		/// <summary>
 		/// Execute the query, getting all the results
 		/// </summary>
-		IList<T> Result { get; }
+		IList<Entity> Result { get; }
 
 		/// <summary>
 		/// Execute the query, return just one result
 		/// </summary>
 		/// <exception cref="NonUniqueResultException">If there is more than one result from constructed query</exception>
-		T UniqueResult { get; }
+		Entity UniqueResult { get; }
 
 		/// <summary>
 		/// Return first result of list, or null if list is empty
 		/// </summary>
-		T FirstOrDefault { get; }
+		Entity FirstOrDefault { get; }
 
 		/// <summary>
 		/// Result for summarized queries
@@ -193,16 +193,16 @@ namespace Keon.NHibernate.Queries
 		/// <summary>
 		/// Sum for Int32 field
 		/// </summary>
-		Int32 SumInt(Expression<Func<T, object>> property);
+		Int32 SumInt(Expression<Func<Entity, object>> property);
 
 		/// <summary>
 		/// Sum for Int64 field
 		/// </summary>
-		Int64 SumLong(Expression<Func<T, object>> property);
+		Int64 SumLong(Expression<Func<Entity, object>> property);
 
 		/// <summary>
 		/// Sum for Decimal field
 		/// </summary>
-		Decimal SumDecimal(Expression<Func<T, object>> property);
+		Decimal SumDecimal(Expression<Func<Entity, object>> property);
 	}
 }
