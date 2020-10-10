@@ -6,7 +6,7 @@ namespace Keon.NHibernate.Operations
 	/// <summary>
 	/// Base for services, to have transaction
 	/// </summary>
-    public class BaseService
+    public class NHService
     {
 		/// <summary>
 		/// Execute commands inside a transaction.
