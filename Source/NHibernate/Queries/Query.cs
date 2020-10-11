@@ -18,11 +18,10 @@ namespace Keon.NHibernate.Queries
 	/// </summary>
 	/// <typeparam name="Entity">Main entity</typeparam>
 	/// <typeparam name="ID">Integer ID type</typeparam>
-	public class Query<Entity, ID>
+	public class Query<Entity, ID> : Executor<Entity>
 		where Entity : class, IEntity<ID>, new()
 		where ID : struct
 	{
-		private ICriteria criteria { get; set; }
 		private Boolean distinctMainEntity { get; set; }
 
 		internal Query(ISession session)
@@ -397,114 +396,6 @@ namespace Keon.NHibernate.Queries
 		}
 
 		/// <summary>
-		/// Group and summarize result
-		/// </summary>
-		/// <param name="groupProperties">Group by</param>
-		/// <param name="summarizeProperties">Summarize properties (Count, Max, Sum)</param>
-		/// <typeparam name="Result">Type of class to be returned (summarized)</typeparam>
-		/// <typeparam name="Prop">Type of the property in both entities</typeparam>
-		/// <typeparam name="Group">Need to construct from Query.GroupBy</typeparam>
-		/// <typeparam name="Aggregate">Need to construct from Query.Summarize</typeparam>
-		public Query<Entity, ID> TransformResult<Result, Prop, Group, Aggregate>(
-			IList<Group> groupProperties,
-			IList<Aggregate> summarizeProperties
-		)
-			where Group : GroupBy<Entity, ID, Result, Prop>
-			where Aggregate : Summarize<Entity, ID, Result, Prop>
-			where Result : new()
-		{
-			setProjections<Result, Prop, Group, Aggregate>(groupProperties, summarizeProperties);
-			criteria.SetResultTransformer(Transformers.AliasToBean(typeof(Result)));
-
-			return this;
-		}
-
-		private void setProjections<Result, Prop, Group, Aggregate>
-		(
-			IEnumerable<Group> groupProperties,
-			IEnumerable<Aggregate> summarizeProperties
-		)
-			where Group : GroupBy<Entity, ID, Result, Prop>
-			where Aggregate : Summarize<Entity, ID, Result, Prop>
-			where Result : new()
-		{
-			var projections = Projections.ProjectionList();
-
-			setGroupProjections<Result, Prop, Group>(projections, groupProperties);
-			seSProjections<Result, Prop, Aggregate>(projections, summarizeProperties);
-
-			criteria.SetProjection(projections);
-		}
-
-		/// <summary>
-		/// Group and summarize result
-		/// </summary>
-		/// <param name="groupProperties">Group by</param>
-		/// <typeparam name="Result">Type of class to be returned (summarized)</typeparam>
-		/// <typeparam name="Prop">Type of the property in both entities</typeparam>
-		/// <typeparam name="Group">Need to construct from Query.GroupBy</typeparam>
-		public Query<Entity, ID> TransformResult<Result, Prop, Group>(IList<Group> groupProperties)
-			where Group : GroupBy<Entity, ID, Result, Prop> where Result : new()
-		{
-			setProjections<Result, Prop, Group>(groupProperties);
-			criteria.SetResultTransformer(Transformers.AliasToBean(typeof(Result)));
-
-			return this;
-		}
-
-		private void setProjections<Result, Prop, Group>(IEnumerable<Group> groupProperties)
-			where Group : GroupBy<Entity, ID, Result, Prop>
-			where Result : new()
-		{
-			var projections = Projections.ProjectionList();
-
-			setGroupProjections<Result, Prop, Group>(projections, groupProperties);
-
-			criteria.SetProjection(projections);
-		}
-
-		private static void setGroupProjections<Result, Prop, Group>(
-			ProjectionList list, IEnumerable<Group> group
-		)
-			where Group : GroupBy<Entity, ID, Result, Prop>
-			where Result : new()
-		{
-			foreach (var expression in group)
-			{
-				list.Add(Projections.Alias(Projections.GroupProperty(expression.Origin), expression.Destiny));
-			}
-		}
-
-		private static void seSProjections<Result, Prop, Aggregate>(
-			ProjectionList projections,
-			IEnumerable<Aggregate> summarizeProperties
-		)
-			where Aggregate : Summarize<Entity, ID, Result, Prop>
-			where Result : new()
-		{
-			foreach (var associationProperty in summarizeProperties)
-			{
-				var projection = getProjection(associationProperty.Origin, associationProperty.Type);
-				projections.Add(Projections.Alias(projection, associationProperty.Destiny));
-			}
-		}
-
-		private static IProjection getProjection(String property, SummarizeType type)
-		{
-			switch (type)
-			{
-				case SummarizeType.Count:
-					return Projections.Count(property);
-				case SummarizeType.Max:
-					return Projections.Max(property);
-				case SummarizeType.Sum:
-					return Projections.Sum(property);
-				default:
-					throw new NotImplementedException();
-			}
-		}
-
-		/// <summary>
 		/// Execute the query, getting just the amount of items
 		/// </summary>
 		public Int32 Count
@@ -523,19 +414,6 @@ namespace Keon.NHibernate.Queries
         }
 
 		/// <summary>
-		/// Execute the query, getting all the results
-		/// </summary>
-		public IList<Entity> List => criteria.List<Entity>();
-
-		/// <summary>
-		/// Execute the query, return just one result
-		/// </summary>
-		/// <exception cref="NonUniqueResultException">
-		///		If there is more than one result from constructed query
-		/// </exception>
-		public Entity SingleOrDefault => criteria.UniqueResult<Entity>();
-
-		/// <summary>
 		/// Return first result of list, or null if list is empty
 		/// </summary>
 		public Entity FirstOrDefault => page(1).SingleOrDefault;
@@ -546,14 +424,6 @@ namespace Keon.NHibernate.Queries
 		public Boolean Any => Count > 0;
 
 		/// <summary>
-		/// Result for summarized queries
-		/// </summary>
-		public IList<TResult> ResultAs<TResult>()
-		{
-			return criteria.List<TResult>();
-		}
-
-		/// <summary>
 		/// Sum for numeric fields
 		/// </summary>
 		public Number Sum<Number>(Expression<Func<Entity, object>> property)
@@ -562,6 +432,12 @@ namespace Keon.NHibernate.Queries
 			return (Number?)criteria
 				.SetProjection(Projections.Sum(property))
 				.UniqueResult() ?? default;
+		}
+
+		public Transformer<Entity, ID, Result> TransformResult<Result>()
+			where Result : new()
+		{
+			return new Transformer<Entity, ID, Result>(criteria);
 		}
 	}
 }
