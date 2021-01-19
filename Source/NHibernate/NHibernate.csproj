@@ -22,7 +22,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Lucas\Git\Me\DK\Source\NHibernate\Keon.NHibernate.xml</DocumentationFile>
+    <DocumentationFile>Keon.NHibernate.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

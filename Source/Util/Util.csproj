@@ -22,7 +22,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Lucas\Git\Me\DK\Source\Util\Keon.Util.xml</DocumentationFile>
+    <DocumentationFile>Keon.Util.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
