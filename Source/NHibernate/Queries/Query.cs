@@ -76,7 +76,7 @@ namespace Keon.NHibernate.Queries
 		/// <param name="acceptedValues">List to be verified</param>
 		public Query<Entity, ID> In<Prop>(
 			Expression<Func<Entity, Prop>> property,
-			Prop[] acceptedValues
+			IEnumerable<Prop> acceptedValues
 		)
 		{
 			var propertyName = property.GetName();
@@ -84,7 +84,10 @@ namespace Keon.NHibernate.Queries
 			var newCriteria = criteria.PropertyCriteria(property);
 
 			newCriteria.Add(
-				Restrictions.In(propertyName, acceptedValues)
+				Restrictions.In(
+					propertyName,
+					acceptedValues.ToArray()
+				)
 			);
 
 			return this;
@@ -97,7 +100,7 @@ namespace Keon.NHibernate.Queries
 		/// <param name="disallowedValues">List to be verified</param>
 		public Query<Entity, ID> NotIn<Prop>(
 			Expression<Func<Entity, Prop>> property,
-			Prop[] disallowedValues
+			IEnumerable<Prop> disallowedValues
 		)
 		{
 			var propertyName = property.GetName();
@@ -106,7 +109,10 @@ namespace Keon.NHibernate.Queries
 
 			newCriteria.Add(
 				Restrictions.Not(
-					Restrictions.In(propertyName, disallowedValues)
+					Restrictions.In(
+						propertyName,
+						disallowedValues.ToArray()
+					)
 				)
 			);
 
