@@ -73,17 +73,41 @@ namespace Keon.NHibernate.Queries
 		/// List of entities where certain property is in a list of possibilities
 		/// </summary>
 		/// <param name="property">Lambda of property to test</param>
-		/// <param name="contains">List to be verified</param>
-		public Query<Entity, ID> Contains<Prop>(
-			Expression<Func<Entity, Prop>> property, Prop[] contains
+		/// <param name="acceptedValues">List to be verified</param>
+		public Query<Entity, ID> In<Prop>(
+			Expression<Func<Entity, Prop>> property,
+			Prop[] acceptedValues
 		)
 		{
 			var propertyName = property.GetName();
-			
+
 			var newCriteria = criteria.PropertyCriteria(property);
-			
+
 			newCriteria.Add(
-				Restrictions.In(propertyName, contains)
+				Restrictions.In(propertyName, acceptedValues)
+			);
+
+			return this;
+		}
+
+		/// <summary>
+		/// List of entities where certain property is NOT in a list of possibilities
+		/// </summary>
+		/// <param name="property">Lambda of property to test</param>
+		/// <param name="disallowedValues">List to be verified</param>
+		public Query<Entity, ID> NotIn<Prop>(
+			Expression<Func<Entity, Prop>> property,
+			Prop[] disallowedValues
+		)
+		{
+			var propertyName = property.GetName();
+
+			var newCriteria = criteria.PropertyCriteria(property);
+
+			newCriteria.Add(
+				Restrictions.Not(
+					Restrictions.In(propertyName, disallowedValues)
+				)
 			);
 
 			return this;
