@@ -88,7 +88,7 @@ namespace Keon.NHibernate.Sessions
 				transaction.Rollback();
 			}
 
-			session.Refresh();
+			session.Clear();
 
 			SessionManager.AddFailed(session);
 
