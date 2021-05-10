@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   util:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:latest
+      - image: darakeon/netcore
     steps:
       - checkout
       - restore_cache:
@@ -30,7 +30,7 @@ jobs:
 
   nhibernate:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:latest
+      - image: darakeon/netcore
     steps:
       - checkout
       - restore_cache:
@@ -57,7 +57,7 @@ jobs:
 
   mvc:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:latest
+      - image: darakeon/netcore
     steps:
       - checkout
       - restore_cache:
@@ -84,7 +84,7 @@ jobs:
 
   tfa:
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:latest
+      - image: darakeon/netcore
     steps:
       - checkout
       - restore_cache:
