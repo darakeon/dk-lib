@@ -8,24 +8,24 @@ namespace Keon.Util.Collection
     /// <summary>
     /// Item of a Grouped Collection
     /// </summary>
-    /// <typeparam name="TI">Type of the Items of the Group</typeparam>
-    /// <typeparam name="TG">Type of the property responsable for Grouping</typeparam>
-    public class ItemGroup<TI, TG> : IEnumerable
-        where TI : IGroupable<TG>
+    /// <typeparam name="I">Type of the Items of the Group</typeparam>
+    /// <typeparam name="G">Type of the property responsible for Grouping</typeparam>
+    public class ItemGroup<I, G> : IEnumerable
+        where I : IGroupable<G>
     {
         /// <summary>
         /// Item of a Grouped Collection
         /// </summary>
         public ItemGroup()
         {
-            itemList = new List<TI>();
+            itemList = new List<I>();
         }
 
         /// <inheritdoc />
         /// <summary>
         /// Item of a Grouped Collection
         /// </summary>
-        public ItemGroup(TG group)
+        public ItemGroup(G group)
             : this()
         {
             Group = group;
@@ -34,16 +34,16 @@ namespace Keon.Util.Collection
         ///<summary>
         /// The group chosen of this list
         ///</summary>
-        public TG Group { get; set; }
+        public G Group { get; set; }
 
 
-        private IList<TI> itemList { get; }
+        private IList<I> itemList { get; }
 
 
         ///<summary>
         /// Add an item for this Group
         ///</summary>
-        public void Add(TI item)
+        public void Add(I item)
         {
             itemList.Add(item);
         }
@@ -52,7 +52,7 @@ namespace Keon.Util.Collection
         ///<summary>
         /// Get an item by its position
         ///</summary>
-        public TI this[Int32 item]
+        public I this[Int32 item]
         {
             get => itemList[item];
 	        set => itemList[item] = value;
@@ -61,7 +61,7 @@ namespace Keon.Util.Collection
         ///<summary>
         /// Return the list of objects of this group
         ///</summary>
-        public IList<TI> List => itemList;
+        public IList<I> List => itemList;
 
 
 	    #region IEnumerable Members
@@ -69,7 +69,7 @@ namespace Keon.Util.Collection
         ///<summary>
         /// To make ForEach
         ///</summary>
-        public IEnumerator<TI> GetEnumerator()
+        public IEnumerator<I> GetEnumerator()
         {
             return itemList.GetEnumerator();
         }

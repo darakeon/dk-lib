@@ -123,7 +123,7 @@ namespace Keon.NHibernate.UserPassed
 	            case DBMS.Oracle9:
 	            {
 		            return configure(
-			            OracleClientConfiguration.Oracle9,
+			            OracleManagedDataClientConfiguration.Oracle9,
 			            c => c.Server(Server)
 							.Username(Login)
 				            .Password(Password)
@@ -133,7 +133,7 @@ namespace Keon.NHibernate.UserPassed
 	            case DBMS.Oracle10:
 	            {
 		            return configure(
-			            OracleClientConfiguration.Oracle10,
+			            OracleManagedDataClientConfiguration.Oracle10,
 			            c => c.Server(Server)
 				            .Username(Login)
 				            .Password(Password)
@@ -152,7 +152,7 @@ namespace Keon.NHibernate.UserPassed
 
         private IPersistenceConfigurer configure<Config, ConnStr>(
 	        PersistenceConfiguration<Config, ConnStr> connection, 
-			Action<ConnStr>? config = null
+			Action<ConnStr> config = null
 	    ) 
 	        where Config : PersistenceConfiguration<Config, ConnStr> 
 	        where ConnStr : ConnectionStringBuilder, new()

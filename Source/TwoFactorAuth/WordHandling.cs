@@ -12,7 +12,6 @@ namespace Keon.TwoFactorAuth
 		{
 			return new Regex(pattern)
 				.Matches(input)
-				.Cast<Match>()
 				.Select(m => m.Groups[0].Value)
 				.ToList();
 		}

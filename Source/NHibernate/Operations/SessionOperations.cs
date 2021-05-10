@@ -63,21 +63,19 @@ namespace Keon.NHibernate.Operations
 
 		public TResult NewNonCachedQuery<TResult>(Func<Query<Entity, ID>, TResult> action)
 		{
-			TResult result;
-			using (var otherSession = SessionManager.GetNonCached())
-			{
-				var query = getQuery(otherSession);
-				result = action(query);
-				otherSession.Close();
-				otherSession.Dispose();
-			}
+			using var otherSession = SessionManager.GetNonCached();
+
+			var query = getQuery(otherSession);
+			var result = action(query);
+			otherSession.Close();
+			otherSession.Dispose();
 
 			return result;
 		}
 
 		private static Query<Entity, ID> getQuery(ISession session)
 		{
-			return new Query<Entity, ID>(session);
+			return new(session);
 		}
 	}
 }

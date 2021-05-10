@@ -16,7 +16,7 @@ namespace Keon.Util.Extensions
             return str == null
                        ? null
                        : str.First().ToString().ToUpper()
-                         + str.Substring(1).ToLower();
+                         + str[1..].ToLower();
         }
 
         ///<summary>

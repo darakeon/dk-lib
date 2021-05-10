@@ -29,7 +29,7 @@ namespace Keon.NHibernate.Sessions
 		{
 			if (session == null) return;
 
-			transaction = session.Transaction;
+			transaction = session.GetCurrentTransaction();
 
 			if (transaction.IsActive)
 			{

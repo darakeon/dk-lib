@@ -33,7 +33,7 @@ namespace Keon.MVC.Forms
         public static SelectList CreateSelect<Item>(IList<Item> list)
             where Item : IListable
         {
-            return new SelectList(list, "ID", "NAME");
+            return new(list, "ID", "NAME");
         }
 
 

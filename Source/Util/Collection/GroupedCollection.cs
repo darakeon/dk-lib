@@ -63,7 +63,7 @@ namespace Keon.Util.Collection
         }
 
         ///<summary>
-        /// Return the list of Groups and itens
+        /// Return the list of Groups and items
         /// Recommended when is needed to use Linq
         ///</summary>
         public IList<ItemGroup<Items, Prop>> List => groupList;

@@ -9,7 +9,6 @@ namespace Keon.MVC.Route
 	///</summary>
 	public class RouteInfo
 	{
-		/// <inheritdoc />
 		/// <summary>
 		///  RouteData of the current Url
 		/// </summary>

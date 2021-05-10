@@ -26,9 +26,9 @@ namespace Keon.Util.Extensions
             var name = permission.ToString();
             var readableName = name[0].ToString();
 
-            foreach (var letter in name.Substring(1))
+            foreach (var letter in name[1..])
             {
-                if (letter >= 'A' && letter <= 'Z')
+                if (letter is >= 'A' and <= 'Z')
                 {
                     readableName += " ";
                 }

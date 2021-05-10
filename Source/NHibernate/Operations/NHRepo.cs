@@ -27,7 +27,7 @@ namespace Keon.NHibernate.Operations
 
 		private SessionOperations<Entity, ID> getBaseData()
 		{
-			return new SessionOperations<Entity, ID>();
+			return new();
 		}
 
 		/// <summary>

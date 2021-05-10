@@ -29,7 +29,7 @@ namespace Keon.NHibernate.Schema
 
 			var info = new FileInfo(this.scriptFileName);
 
-			if (info.Directory != null && !info.Directory.Exists)
+			if (info.Directory is {Exists: false})
 			{
 				Directory.CreateDirectory(info.Directory.FullName);
 			}

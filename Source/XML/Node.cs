@@ -71,7 +71,7 @@ namespace Keon.XML
                 var node = xmlNode.ChildNodes[n];
 
 	            // ReSharper disable once SwitchStatementMissingSomeCases
-                switch (node.NodeType)
+                switch (node?.NodeType)
                 {
                     case XmlNodeType.Element:
                         Children.Add(new Node(node));
@@ -88,7 +88,7 @@ namespace Keon.XML
 		///  Xml node structure
 		///  </summary>
 		/// <param name="path">Path of the XML file</param>
-		/// <param name="readChildren">Whether is to read all the childs (recursive read)</param>
+		/// <param name="readChildren">Whether is to read all the children (recursive read)</param>
         public Node(String path, Boolean readChildren = true) : this(createNodesFromFile(path), readChildren) { }
 
         private static XmlNode createNodesFromFile(String path)
@@ -261,8 +261,12 @@ namespace Keon.XML
             {
 	            var barIndex = file.LastIndexOf(@"\", StringComparison.Ordinal);
 
-				var path = file.Substring(0, barIndex + 1) + "BackUp";
-                var name = DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + file.Substring(barIndex + 1);
+				var path = file[..(barIndex + 1)] + "BackUp";
+				
+				// ReSharper disable once StringLiteralTypo
+				const String dateFormat = "yyyyMMddHHmmssfff";
+
+				var name = DateTime.Now.ToString(dateFormat) + "_" + file[(barIndex + 1)..];
 
                 copy = Path.Combine(path, name);
 
@@ -285,32 +289,16 @@ namespace Keon.XML
         {
             return Name;
         }
-        #endregion
+		#endregion
 
 
 
 
-        #region IEnumerator Members
-
-        //public object Current
-        //{
-        //    get { return this.Childs.GetEnumerator().Current; }
-        //}
-
-        //public Boolean MoveNext()
-        //{
-        //    return this.Childs.GetEnumerator().MoveNext();
-        //}
-
-        //public void Reset()
-        //{
-        //    this.Childs.GetEnumerator().Reset();
-        //}
-
-        ///<summary>
-        /// To make ForEach
-        ///</summary>
-        public IEnumerator<Node> GetEnumerator()
+		#region IEnumerator Members
+		///<summary>
+		/// To make ForEach
+		///</summary>
+		public IEnumerator<Node> GetEnumerator()
         {
             return Children.GetEnumerator();
         }

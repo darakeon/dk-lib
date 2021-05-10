@@ -161,7 +161,7 @@ namespace Keon.NHibernate.Queries
 		{
 			var searchTerms = new List<SearchItem<Entity>>
 			{
-				new SearchItem<Entity>(property, term)
+				new(property, term)
 			};
 
 			criteria = criteria.Add(accumulateLikeOr(searchTerms, likeType));
@@ -185,7 +185,7 @@ namespace Keon.NHibernate.Queries
 
 			var searchTerms = new List<SearchItem<Parent>>
 			{
-				new SearchItem<Parent>(property, term)
+				new(property, term)
 			};
 
 			newCriteria.Add(accumulateLikeOr(searchTerms));
@@ -464,10 +464,15 @@ namespace Keon.NHibernate.Queries
 				.UniqueResult() ?? default;
 		}
 
+		/// <summary>
+		/// Transform to make grouped results
+		/// </summary>
+		/// <typeparam name="Result">The final type to make the result</typeparam>
+		/// <returns>Class to handle grouped options</returns>
 		public Transformer<Entity, ID, Result> TransformResult<Result>()
 			where Result : new()
 		{
-			return new Transformer<Entity, ID, Result>(criteria);
+			return new(criteria);
 		}
 	}
 }

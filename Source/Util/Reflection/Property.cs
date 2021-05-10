@@ -38,7 +38,7 @@ namespace Keon.Util.Reflection
 		/// </summary>
 		public static Type ReferenceType<TObject, TProperty>(this Expression<Func<TObject, TProperty>> property)
 		{
-			return ((MemberExpression)property.Body).Expression.Type;
+			return ((MemberExpression)property.Body).Expression?.Type;
 		}
 
 		///<summary>

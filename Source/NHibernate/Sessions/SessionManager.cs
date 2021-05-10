@@ -73,14 +73,11 @@ namespace Keon.NHibernate.Sessions
 		/// <typeparam name="ID">Integer ID type</typeparam>
 		public static Entity GetNonCached<Entity, ID>(ID id)
 		{
-			Entity result;
-
-			using (var otherSession = GetNonCached())
-			{
-				result = otherSession.Get<Entity>(id);
-				otherSession.Close();
-				otherSession.Dispose();
-			}
+			using var otherSession = GetNonCached();
+			
+			var result = otherSession.Get<Entity>(id);
+			otherSession.Close();
+			otherSession.Dispose();
 
 			return result;
 		}

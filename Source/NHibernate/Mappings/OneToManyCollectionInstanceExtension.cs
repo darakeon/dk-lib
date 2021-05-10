@@ -9,8 +9,7 @@ namespace Keon.NHibernate.Mappings
 			this IOneToManyCollectionInstance instance
 		)
 		{
-			return instance.ChildType != null 
-			    && !instance.ChildType.IsEnum;
+			return instance.ChildType is {IsEnum: false};
 		}
 	}
 }

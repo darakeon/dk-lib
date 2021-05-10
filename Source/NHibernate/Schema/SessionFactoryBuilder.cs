@@ -81,9 +81,12 @@ namespace Keon.NHibernate.Schema
 			    return scriptFileFullName;
 
 		    scriptFileFullName = Directory.GetCurrentDirectory();
-		    var filename = DateTime.Now.ToString(@"Ba\seyyyyMMddhhmmss");
+			// ReSharper disable StringLiteralTypo
+			const String dateFormat = @"Ba\seyyyyMMddhhmmss";
+			// ReSharper restore StringLiteralTypo
+			var filename = DateTime.Now.ToString(dateFormat);
 
-		    scriptFileFullName = Path.Combine(scriptFileFullName, filename);
+			scriptFileFullName = Path.Combine(scriptFileFullName, filename);
 
 		    return scriptFileFullName;
 	    }

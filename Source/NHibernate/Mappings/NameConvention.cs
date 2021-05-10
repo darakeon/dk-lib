@@ -62,7 +62,7 @@ namespace Keon.NHibernate.Mappings
 				var referenceName = instance.Member.Name;
 
 				referenceName = referenceName.EndsWith("List")
-					? referenceName.Substring(0, referenceName.Length - 4)
+					? referenceName[..^4]
 					: referenceName;
 
 				if (instance.IsSystemEntity())
@@ -116,8 +116,7 @@ namespace Keon.NHibernate.Mappings
 			if (entityType.Namespace == null || entityType.Namespace == mainNamespace)
 				return entityType.Name;
 
-			var @namespace = entityType.Namespace
-				.Substring(mainNamespace.Length + 1);
+			var @namespace = entityType.Namespace[(mainNamespace.Length + 1)..];
 
 			var namespacePieces = @namespace
 				.Split('.')
@@ -139,7 +138,7 @@ namespace Keon.NHibernate.Mappings
 			if (count <= totalLetters)
 				return text;
 
-			var firstPart = text.Substring(0, firstLetters);
+			var firstPart = text[..firstLetters];
 			var shortenLetters = count - totalLetters;
 			var lastPart = text.Substring(count - lastLetters, lastLetters);
 

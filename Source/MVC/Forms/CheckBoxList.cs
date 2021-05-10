@@ -37,7 +37,7 @@ namespace Keon.MVC.Forms
 
         private static CheckBoxItem add(IListable item, IEnumerable<Int32> chosen)
         {
-            return new CheckBoxItem
+            return new()
             {
                 ID = item.ID,
                 Name = item.Name,

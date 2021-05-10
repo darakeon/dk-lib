@@ -22,7 +22,7 @@ namespace Keon.TwoFactorAuth
 		}
 
 		/// <summary>
-		/// Generate codes for presente, past and future,
+		/// Generate codes for present, past and future,
 		/// to compensate clock not synced
 		/// </summary>
 		/// <param name="key">secret key to generate code</param>
@@ -61,7 +61,7 @@ namespace Keon.TwoFactorAuth
 
 			var text = digit.ToString();
 
-			return text.Substring(text.Length - size);
+			return text[^size..];
 		}
 
 		private static Byte[] getBytes(String hexadecimal)
