@@ -69,12 +69,12 @@ namespace Keon.NHibernate.Schema
             new SchemaValidator(config).Validate();
         }
 
-        private delegate void ScriptAction(Action<String> scriptAction, Boolean execute);
-        private void scriptAction(ScriptAction schemaAction, Boolean execute)
+        private delegate void scriptActionDelegate(Action<String> scriptAction, Boolean execute);
+        private void scriptAction(scriptActionDelegate schemaActionDelegate, Boolean execute)
         {
             if (scriptFileName == null)
             {
-                schemaAction(null, execute);
+                schemaActionDelegate(null, execute);
             }
             else
             {
@@ -82,7 +82,7 @@ namespace Keon.NHibernate.Schema
                 var time = DateTime.Now.ToString(format);
                 write(scriptFileName, time);
 
-                schemaAction(text => write(scriptFileName, text), execute);
+                schemaActionDelegate(text => write(scriptFileName, text), execute);
             }
         }
 
