@@ -31,7 +31,7 @@ namespace Keon.NHibernate.Sessions
 
 			transaction = session.GetCurrentTransaction();
 
-			if (transaction.IsActive)
+			if (transaction != null)
 			{
 				var whoIsUsing = states.Where(s => !s.completed)
 					.Select(s => s.toString(transaction));
@@ -49,7 +49,7 @@ namespace Keon.NHibernate.Sessions
 
 			state = State.StartBegin;
 
-			transaction.Begin();
+			transaction = session.BeginTransaction();
 
 			if (transaction == null || !transaction.IsActive)
 				throw new DKException("Transaction not opened.");
