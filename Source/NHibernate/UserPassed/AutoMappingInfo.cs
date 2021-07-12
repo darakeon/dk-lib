@@ -22,9 +22,9 @@ namespace Keon.NHibernate.UserPassed
 		public Type[] BaseEntities { get; set; }
 
 		/// <summary>
-		/// Classes which subclasses use its table
+		/// Classes that should be ignored in mapping
 		/// </summary>
-		public Type[] SuperEntities { get; set; }
+		public Type[] IgnoredEntities { get; set; }
 
 		/// <summary>
 		/// Conventions to configure Fluent
@@ -33,7 +33,8 @@ namespace Keon.NHibernate.UserPassed
 
 		internal AutoPersistenceModel CreateAutoMapping()
 		{
-			var storeConfiguration = new StoreConfiguration(SuperEntities);
+			var storeConfiguration = new StoreConfiguration(IgnoredEntities);
+
 			var assembly = typeof(Entity).Assembly;
 
 			var autoMap = AutoMap

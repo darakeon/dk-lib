@@ -8,11 +8,11 @@ namespace Keon.NHibernate.Schema
 {
 	internal class StoreConfiguration : DefaultAutomappingConfiguration
 	{
-		private readonly Type[] superEntities;
+		private readonly Type[] ignoredEntities;
 
-		public StoreConfiguration(params Type[] superEntities)
+		public StoreConfiguration(params Type[] ignoredEntities)
 		{
-			this.superEntities = superEntities;
+			this.ignoredEntities = ignoredEntities;
 		}
 
 		public override Boolean ShouldMap(Type type)
@@ -25,7 +25,7 @@ namespace Keon.NHibernate.Schema
 
 		public override Boolean IsDiscriminated(Type type)
 		{
-			return type.IsIn(superEntities);
+			return type.IsIn(ignoredEntities);
 		}
 	}
 }
