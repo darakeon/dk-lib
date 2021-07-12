@@ -5,6 +5,7 @@ using FluentNHibernate.Automapping.Alterations;
 using FluentNHibernate.Conventions;
 using Keon.NHibernate.Mappings;
 using Keon.NHibernate.Schema;
+using Keon.Util.DB;
 
 namespace Keon.NHibernate.UserPassed
 {
@@ -38,6 +39,7 @@ namespace Keon.NHibernate.UserPassed
 			var autoMap = AutoMap
 				.Assemblies(storeConfiguration, assembly)
 				.UseOverridesFromAssemblyOf<Map>()
+				.Where(isEntity)
 				.Conventions.AddFromAssemblyOf<EnumConvention>()
 				.Conventions.Add(
 					new NullableConvention.Property(),
@@ -65,5 +67,17 @@ namespace Keon.NHibernate.UserPassed
 			return autoMap;
 		}
 
+		private readonly Type[] entityInterfaces = {
+			typeof(IEntity),
+			typeof(IEntityShort),
+			typeof(IEntityLong),
+		};
+
+		private Boolean isEntity(Type type)
+		{
+			return type.GetInterfaces()
+				.Intersect(entityInterfaces)
+				.Any();
+		}
 	}
 }

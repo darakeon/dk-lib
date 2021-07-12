@@ -7,7 +7,7 @@
 	<Authors>darakeon</Authors>
 	<Company>Dara Keon</Company>
 	<Product>Keon NHibernate</Product>
-	<Description>NHibernate encapsulation with some pre-configured stuff</Description>
+	<Description>Filter to only use entities that implements the mandatory interfaces</Description>
 	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	<PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
 	<PackageIconUrl></PackageIconUrl>
@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Add NotIn to get properties not in a list, change Contains to In</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>2.2.2</Version>
+	<Version>2.3.0</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
@@ -28,7 +28,7 @@
   <ItemGroup>
 	<PackageReference Include="FluentNHibernate" Version="3.1.0" />
 	<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
-	<PackageReference Include="NHibernate" Version="5.3.8" />
+	<PackageReference Include="NHibernate" Version="5.3.9" />
   </ItemGroup>
 
   <ItemGroup>
