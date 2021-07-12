@@ -39,7 +39,6 @@ namespace Keon.NHibernate.UserPassed
 			var autoMap = AutoMap
 				.Assemblies(storeConfiguration, assembly)
 				.UseOverridesFromAssemblyOf<Map>()
-				.Where(isEntity)
 				.Conventions.AddFromAssemblyOf<EnumConvention>()
 				.Conventions.Add(
 					new NullableConvention.Property(),
