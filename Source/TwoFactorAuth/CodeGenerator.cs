@@ -36,7 +36,7 @@ namespace Keon.TwoFactorAuth
 				var hexTimestamp = getHexTimestamp(r);
 				var message = getBytes(hexTimestamp);
 				var code = getCode(message, key);
-				
+
 				result.Add(code);
 			}
 

@@ -11,7 +11,7 @@ namespace Keon.NHibernate.Mappings
 		public void Accept(IAcceptanceCriteria<IPropertyInspector> criteria)
 		{
 			criteria.Expect(
-				p => p.Type == typeof(Boolean) 
+				p => p.Type == typeof(Boolean)
 					|| p.Type == typeof(Boolean?)
 			);
 		}

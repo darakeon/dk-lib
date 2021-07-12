@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Keon.NHibernate.Mappings
 {
-    internal static class PropertyPartExtension
+	internal static class PropertyPartExtension
 	{
 		public const Int32 BigString = 8000;
 
@@ -21,5 +21,5 @@ namespace Keon.NHibernate.Mappings
 				.CustomSqlType("mediumtext")
 				.Nullable();
 		}
-    }
+	}
 }

@@ -6,17 +6,17 @@ using Keon.Util.DB;
 
 namespace Keon.NHibernate.Schema
 {
-    internal class StoreConfiguration : DefaultAutomappingConfiguration
-    {
-	    private readonly Type[] superEntities;
+	internal class StoreConfiguration : DefaultAutomappingConfiguration
+	{
+		private readonly Type[] superEntities;
 
-        public StoreConfiguration(params Type[] superEntities)
-        {
-	        this.superEntities = superEntities;
-        }
+		public StoreConfiguration(params Type[] superEntities)
+		{
+			this.superEntities = superEntities;
+		}
 
-        public override Boolean ShouldMap(Type type)
-        {
+		public override Boolean ShouldMap(Type type)
+		{
 			return !type.IsNested
 				&& type.GetInterfaces().Any(
 					i => i.GUID == typeof(IEntity<>).GUID

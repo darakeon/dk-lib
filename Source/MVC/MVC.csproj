@@ -1,45 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>Keon.MVC</AssemblyName>
-    <RootNamespace>Keon.MVC</RootNamespace>
-    <Authors>darakeon</Authors>
-    <Company>Dara Keon</Company>
-    <Product>Keon MVC</Product>
-    <Description>Helpers for Microsoft MVC</Description>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
-    <PackageIconUrl></PackageIconUrl>
-    <RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>utility mvc</PackageTags>
-    <PackageReleaseNotes>Updated to .NET Core</PackageReleaseNotes>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.1</Version>
-    <PackageIcon>image.png</PackageIcon>
+	<TargetFramework>net5.0</TargetFramework>
+	<AssemblyName>Keon.MVC</AssemblyName>
+	<RootNamespace>Keon.MVC</RootNamespace>
+	<Authors>darakeon</Authors>
+	<Company>Dara Keon</Company>
+	<Product>Keon MVC</Product>
+	<Description>Helpers for Microsoft MVC</Description>
+	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+	<PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
+	<PackageIconUrl></PackageIconUrl>
+	<RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageTags>utility mvc</PackageTags>
+	<PackageReleaseNotes>Updated to .NET Core</PackageReleaseNotes>
+	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<Version>2.0.1</Version>
+	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Keon.MVC.xml</DocumentationFile>
+	<DocumentationFile>Keon.MVC.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+	<PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Util\Util.csproj" />
+	<ProjectReference Include="..\Util\Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\Nuget\image.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+	<None Include="..\..\Nuget\image.png">
+	  <Pack>True</Pack>
+	  <PackagePath></PackagePath>
+	</None>
   </ItemGroup>
 
 </Project>

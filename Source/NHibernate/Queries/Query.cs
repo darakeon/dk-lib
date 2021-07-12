@@ -34,10 +34,10 @@ namespace Keon.NHibernate.Queries
 		/// </summary>
 		/// <param name="where">Lambda expression</param>
 		public Query<Entity, ID> Where(Expression<Func<Entity, Boolean>> where)
-        {
-            criteria = criteria.Add(Restrictions.Where(where));
-            return this;
-        }
+		{
+			criteria = criteria.Add(Restrictions.Where(where));
+			return this;
+		}
 
 		/// <summary>
 		/// Make a filter with lambda expression
@@ -129,9 +129,9 @@ namespace Keon.NHibernate.Queries
 			var newCriteria = criteria.RelationCriteria(
 				listProperty, JoinType.LeftOuterJoin
 			);
-			
+
 			newCriteria.Add(Restrictions.IsNotNull(Projections.Id()));
-			
+
 			return this;
 		}
 
@@ -153,10 +153,10 @@ namespace Keon.NHibernate.Queries
 		/// <param name="property">Lambda of property</param>
 		/// <param name="term">Text to search</param>
 		/// <param name="likeType">Start, End, Both</param>
-	    public Query<Entity, ID> Like(
-		    Expression<Func<Entity, object>> property,
-		    String term,
-		    LikeType likeType = LikeType.Both
+		public Query<Entity, ID> Like(
+			Expression<Func<Entity, object>> property,
+			String term,
+			LikeType likeType = LikeType.Both
 		)
 		{
 			var searchTerms = new List<SearchItem<Entity>>
@@ -338,8 +338,8 @@ namespace Keon.NHibernate.Queries
 			Expression<Func<Entity, Prop>> order,
 			Boolean? ascending = true
 		)
-        {
-            var propName = order.GetName();
+		{
+			var propName = order.GetName();
 
 			var orderBy = ascending.HasValue && ascending.Value
 				? Order.Asc(propName)
@@ -347,8 +347,8 @@ namespace Keon.NHibernate.Queries
 
 			criteria = criteria.AddOrder(orderBy);
 
-            return this;
-        }
+			return this;
+		}
 
 		/// <summary>
 		/// Ordering using parent entity
@@ -393,7 +393,7 @@ namespace Keon.NHibernate.Queries
 		/// To get a page of the results
 		/// </summary>
 		/// <param name="search">Parameters of paging</param>
-	    public Query<Entity, ID> Page(ISearch search)
+		public Query<Entity, ID> Page(ISearch search)
 		{
 			return page(search.ItemsPerPage, search.Page);
 		}
@@ -429,9 +429,9 @@ namespace Keon.NHibernate.Queries
 		/// Execute the query, getting just the amount of items
 		/// </summary>
 		public Int32 Count
-        {
-            get
-            {
+		{
+			get
+			{
 				var countProjection = distinctMainEntity
 					? Projections.Count(Projections.Distinct(Projections.Id()))
 					: Projections.Count(Projections.Id());
@@ -440,8 +440,8 @@ namespace Keon.NHibernate.Queries
 					.SetProjection(countProjection)
 					.List<Int32>()
 					.Sum();
-            }
-        }
+			}
+		}
 
 		/// <summary>
 		/// Return first result of list, or null if list is empty

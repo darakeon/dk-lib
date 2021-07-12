@@ -9,23 +9,23 @@ using NHibernate;
 
 namespace Keon.NHibernate.Schema
 {
-    internal class SessionFactoryBuilder
-    {
-	    /// <summary>
-	    ///  Create Session Factory.
-	    ///  To be used at Application_Start.
-	    /// </summary>
-	    ///  <typeparam name="Map">Any mapping class. Passed automatic by passing to AutoMappingInfo.</typeparam>
-	    ///  <typeparam name="Entity">Any entity class. Passed automatic by passing to AutoMappingInfo.</typeparam>
-	    /// <param name="config">Dictionary of application configuration</param>
-	    /// <param name="connectionInfo">About database connection</param>
-	    /// <param name="autoMappingInfo">About mappings on the entities</param>
-	    /// <param name="dbAction"></param>
-	    private static ISessionFactory start<Map, Entity>(
-		    IConfiguration config,
-		    ConnectionInfo connectionInfo,
-		    AutoMappingInfo<Map, Entity> autoMappingInfo,
-		    DBAction dbAction
+	internal class SessionFactoryBuilder
+	{
+		/// <summary>
+		///  Create Session Factory.
+		///  To be used at Application_Start.
+		/// </summary>
+		///  <typeparam name="Map">Any mapping class. Passed automatic by passing to AutoMappingInfo.</typeparam>
+		///  <typeparam name="Entity">Any entity class. Passed automatic by passing to AutoMappingInfo.</typeparam>
+		/// <param name="config">Dictionary of application configuration</param>
+		/// <param name="connectionInfo">About database connection</param>
+		/// <param name="autoMappingInfo">About mappings on the entities</param>
+		/// <param name="dbAction"></param>
+		private static ISessionFactory start<Map, Entity>(
+			IConfiguration config,
+			ConnectionInfo connectionInfo,
+			AutoMappingInfo<Map, Entity> autoMappingInfo,
+			DBAction dbAction
 		)
 			where Map : IAutoMappingOverride<Entity>
 		{
@@ -37,50 +37,50 @@ namespace Keon.NHibernate.Schema
 			);
 		}
 
-	    private static ConnectionInfo getConnectionInfo(IConfiguration config)
-	    {
-		    var scriptFileFullName = getScriptFileFullName(config);
+		private static ConnectionInfo getConnectionInfo(IConfiguration config)
+		{
+			var scriptFileFullName = getScriptFileFullName(config);
 
-		    var connectionInfo = new ConnectionInfo
-		    {
-			    DBMS = config["DBMS"].Cast<DBMS>(),
-			    ScriptFileFullName = scriptFileFullName,
-			    ShowSQL = (config["ShowSQL"] ?? "false").ToLower() == "true",
-		    };
+			var connectionInfo = new ConnectionInfo
+			{
+				DBMS = config["DBMS"].Cast<DBMS>(),
+				ScriptFileFullName = scriptFileFullName,
+				ShowSQL = (config["ShowSQL"] ?? "false").ToLower() == "true",
+			};
 
-		    populateConnStr(config, connectionInfo);
+			populateConnStr(config, connectionInfo);
 
-		    return connectionInfo;
-	    }
+			return connectionInfo;
+		}
 
-	    private static void populateConnStr(IConfiguration config, ConnectionInfo connectionInfo)
-	    {
-		    var connStr = config["ConnectionString"];
+		private static void populateConnStr(IConfiguration config, ConnectionInfo connectionInfo)
+		{
+			var connStr = config["ConnectionString"];
 
-		    if (connStr != null)
-		    {
-			    connectionInfo.ConnectionString = connStr;
-		    }
-		    else
-		    {
-			    connectionInfo.Server = config["Server"];
-			    connectionInfo.DataBase = config["DataBase"];
-			    connectionInfo.Login = config["Login"];
-			    connectionInfo.Password = config["Password"];
-		    }
-	    }
+			if (connStr != null)
+			{
+				connectionInfo.ConnectionString = connStr;
+			}
+			else
+			{
+				connectionInfo.Server = config["Server"];
+				connectionInfo.DataBase = config["DataBase"];
+				connectionInfo.Login = config["Login"];
+				connectionInfo.Password = config["Password"];
+			}
+		}
 
-	    private static String getScriptFileFullName(IConfiguration config)
-	    {
-		    var scriptFileFullName = config["ScriptFileFullName"];
+		private static String getScriptFileFullName(IConfiguration config)
+		{
+			var scriptFileFullName = config["ScriptFileFullName"];
 
-		    if (scriptFileFullName == null)
-			    return null;
+			if (scriptFileFullName == null)
+				return null;
 
-		    if (scriptFileFullName.ToLower() != "current")
-			    return scriptFileFullName;
+			if (scriptFileFullName.ToLower() != "current")
+				return scriptFileFullName;
 
-		    scriptFileFullName = Directory.GetCurrentDirectory();
+			scriptFileFullName = Directory.GetCurrentDirectory();
 			// ReSharper disable StringLiteralTypo
 			const String dateFormat = @"Ba\seyyyyMMddhhmmss";
 			// ReSharper restore StringLiteralTypo
@@ -88,10 +88,10 @@ namespace Keon.NHibernate.Schema
 
 			scriptFileFullName = Path.Combine(scriptFileFullName, filename);
 
-		    return scriptFileFullName;
-	    }
+			return scriptFileFullName;
+		}
 
-	    /// <summary>
+		/// <summary>
 		/// Create Session Factory, using the AppSettings.
 		/// The keys required are the ConnectionInfo class properties.
 		/// To be used at Application_Start.
@@ -112,15 +112,15 @@ namespace Keon.NHibernate.Schema
 			AutoMappingInfo<Map, Entity> autoMappingInfo,
 			DBAction dbAction
 		)
-            where Map : IAutoMappingOverride<Entity>
-        {
-            var schemaChanger = new SchemaChanger(connectionInfo.ScriptFileFullName);
+			where Map : IAutoMappingOverride<Entity>
+		{
+			var schemaChanger = new SchemaChanger(connectionInfo.ScriptFileFullName);
 
-            var autoMapping = autoMappingInfo.CreateAutoMapping();
+			var autoMapping = autoMappingInfo.CreateAutoMapping();
 
-            var fluent = Fluently.Configure()
-                .Database(connectionInfo.ConfigureDataBase())
-                .Mappings(m => m.AutoMappings.Add(autoMapping));
+			var fluent = Fluently.Configure()
+				.Database(connectionInfo.ConfigureDataBase())
+				.Mappings(m => m.AutoMappings.Add(autoMapping));
 
 			if (config["NHibernateProfiler-enable"] == "true")
 			{
@@ -131,8 +131,8 @@ namespace Keon.NHibernate.Schema
 
 			fluent = setDbAction(dbAction, fluent, schemaChanger);
 
-            return fluent.BuildSessionFactory();
-        }
+			return fluent.BuildSessionFactory();
+		}
 
 		private static FluentConfiguration setDbAction(
 			DBAction dbAction,
@@ -161,5 +161,5 @@ namespace Keon.NHibernate.Schema
 
 			return fluent;
 		}
-    }
+	}
 }

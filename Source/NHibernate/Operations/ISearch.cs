@@ -11,7 +11,7 @@ namespace Keon.NHibernate.Operations
 		/// Page target, considering ItemsPerPage
 		/// </summary>
 		Int32 Page { get; }
-		
+
 		/// <summary>
 		/// Items that should be brought on each page
 		/// </summary>

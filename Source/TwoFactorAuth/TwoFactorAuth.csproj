@@ -1,38 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>Keon.TwoFactorAuth</AssemblyName>
-    <RootNamespace>Keon.TwoFactorAuth</RootNamespace>
-    <Authors>darakeon</Authors>
-    <Company>Dara Keon</Company>
-    <Product>Keon Two Factor Auth</Product>
-    <Description>Two factor code and secret generator</Description>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
-    <PackageIconUrl></PackageIconUrl>
-    <RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>utility two-factor twofactor 2fa tfa</PackageTags>
-    <PackageReleaseNotes>First upload to Nuget</PackageReleaseNotes>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.3</Version>
-    <PackageIcon>image.png</PackageIcon>
+	<TargetFramework>net5.0</TargetFramework>
+	<AssemblyName>Keon.TwoFactorAuth</AssemblyName>
+	<RootNamespace>Keon.TwoFactorAuth</RootNamespace>
+	<Authors>darakeon</Authors>
+	<Company>Dara Keon</Company>
+	<Product>Keon Two Factor Auth</Product>
+	<Description>Two factor code and secret generator</Description>
+	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+	<PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
+	<PackageIconUrl></PackageIconUrl>
+	<RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageTags>utility two-factor twofactor 2fa tfa</PackageTags>
+	<PackageReleaseNotes>First upload to Nuget</PackageReleaseNotes>
+	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<Version>1.0.3</Version>
+	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Keon.TwoFactorAuth.xml</DocumentationFile>
+	<DocumentationFile>Keon.TwoFactorAuth.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2021.1.0" />
+	<PackageReference Include="JetBrains.Annotations" Version="2021.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\Nuget\image.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+	<None Include="..\..\Nuget\image.png">
+	  <Pack>True</Pack>
+	  <PackagePath></PackagePath>
+	</None>
   </ItemGroup>
 </Project>

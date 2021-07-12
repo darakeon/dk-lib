@@ -24,7 +24,7 @@ namespace Keon.NHibernate.Mappings
 		)
 		{
 			var body = (MemberExpression)parentExpression.Body;
-			
+
 			return mapping.HasOne(propertyExpression)
 				.PropertyRef(body.Member.Name);
 		}

@@ -16,7 +16,7 @@ namespace Keon.NHibernate.Sessions
 
 		private String caller { get; }
 		private State state { get; set; }
-		private Boolean completed => 
+		private Boolean completed =>
 			state == State.EndCommit || state == State.EndRollback;
 
 		private static ISession session => SessionManager.GetCurrent();

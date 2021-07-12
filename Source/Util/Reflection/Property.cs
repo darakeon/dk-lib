@@ -5,18 +5,18 @@ using System.Linq.Expressions;
 
 namespace Keon.Util.Reflection
 {
-    ///<summary>
-    /// Helper of PropertyInfo
-    ///</summary>
-    public static class Property
-    {
-        ///<summary>
-        /// Give a name of a property, to use lambda expression, not strings
-        ///</summary>
-        public static String GetName<TOrigin>(this Expression<Func<TOrigin>> property)
-        {
+	///<summary>
+	/// Helper of PropertyInfo
+	///</summary>
+	public static class Property
+	{
+		///<summary>
+		/// Give a name of a property, to use lambda expression, not strings
+		///</summary>
+		public static String GetName<TOrigin>(this Expression<Func<TOrigin>> property)
+		{
 			return property.Body.getName();
-        }
+		}
 
 		///<summary>
 		/// Give a name of a property, to use lambda expression, not strings
@@ -27,11 +27,11 @@ namespace Keon.Util.Reflection
 		}
 
 		private static String getName(this Expression property)
-        {
-            var expression = property.ToString().Split('.');
+		{
+			var expression = property.ToString().Split('.');
 
-            return expression.LastOrDefault();
-        }
+			return expression.LastOrDefault();
+		}
 
 		/// <summary>
 		/// Parent type
@@ -49,5 +49,5 @@ namespace Keon.Util.Reflection
 			var name = property.ToString();
 			return name.Split('.').Skip(1);
 		}
-    }
+	}
 }

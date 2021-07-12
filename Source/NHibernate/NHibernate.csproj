@@ -1,45 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>Keon.NHibernate</AssemblyName>
-    <RootNamespace>Keon.NHibernate</RootNamespace>
-    <Authors>darakeon</Authors>
-    <Company>Dara Keon</Company>
-    <Product>Keon NHibernate</Product>
-    <Description>NHibernate encapsulation with some pre-configured stuff</Description>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
-    <PackageIconUrl></PackageIconUrl>
-    <RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>utility nhibernate orm</PackageTags>
-    <PackageReleaseNotes>Add NotIn to get properties not in a list, change Contains to In</PackageReleaseNotes>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.2.2</Version>
-    <PackageIcon>image.png</PackageIcon>
+	<TargetFramework>net5.0</TargetFramework>
+	<AssemblyName>Keon.NHibernate</AssemblyName>
+	<RootNamespace>Keon.NHibernate</RootNamespace>
+	<Authors>darakeon</Authors>
+	<Company>Dara Keon</Company>
+	<Product>Keon NHibernate</Product>
+	<Description>NHibernate encapsulation with some pre-configured stuff</Description>
+	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+	<PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
+	<PackageIconUrl></PackageIconUrl>
+	<RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageTags>utility nhibernate orm</PackageTags>
+	<PackageReleaseNotes>Add NotIn to get properties not in a list, change Contains to In</PackageReleaseNotes>
+	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<Version>2.2.2</Version>
+	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Keon.NHibernate.xml</DocumentationFile>
+	<DocumentationFile>Keon.NHibernate.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentNHibernate" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
-    <PackageReference Include="NHibernate" Version="5.3.8" />
+	<PackageReference Include="FluentNHibernate" Version="3.1.0" />
+	<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+	<PackageReference Include="NHibernate" Version="5.3.8" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Util\Util.csproj" />
+	<ProjectReference Include="..\Util\Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\Nuget\image.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+	<None Include="..\..\Nuget\image.png">
+	  <Pack>True</Pack>
+	  <PackagePath></PackagePath>
+	</None>
   </ItemGroup>
 
 </Project>

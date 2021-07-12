@@ -8,13 +8,13 @@ using Keon.NHibernate.Schema;
 
 namespace Keon.NHibernate.UserPassed
 {
-    /// <summary>
-    /// Information to use auto-mapping of Fluent
-    /// </summary>
-    /// <typeparam name="Map">Some of the AutoMaps, just for reference</typeparam>
-    /// <typeparam name="Entity">Some of the Entities, just for reference</typeparam>
-    public class AutoMappingInfo<Map, Entity> where Map : IAutoMappingOverride<Entity>
-    {
+	/// <summary>
+	/// Information to use auto-mapping of Fluent
+	/// </summary>
+	/// <typeparam name="Map">Some of the AutoMaps, just for reference</typeparam>
+	/// <typeparam name="Entity">Some of the Entities, just for reference</typeparam>
+	public class AutoMappingInfo<Map, Entity> where Map : IAutoMappingOverride<Entity>
+	{
 		/// <summary>
 		/// BaseEntities, if it exists, to be ignored on mapping
 		/// </summary>
@@ -25,30 +25,30 @@ namespace Keon.NHibernate.UserPassed
 		/// </summary>
 		public Type[] SuperEntities { get; set; }
 
-        /// <summary>
-        /// Conventions to configure Fluent
-        /// </summary>
-        public IConvention[] Conventions { get; set; }
+		/// <summary>
+		/// Conventions to configure Fluent
+		/// </summary>
+		public IConvention[] Conventions { get; set; }
 
-        internal AutoPersistenceModel CreateAutoMapping()
-        {
-            var storeConfiguration = new StoreConfiguration(SuperEntities);
-            var assembly = typeof(Entity).Assembly;
+		internal AutoPersistenceModel CreateAutoMapping()
+		{
+			var storeConfiguration = new StoreConfiguration(SuperEntities);
+			var assembly = typeof(Entity).Assembly;
 
-            var autoMap = AutoMap
-                .Assemblies(storeConfiguration, assembly)
-                .UseOverridesFromAssemblyOf<Map>()
+			var autoMap = AutoMap
+				.Assemblies(storeConfiguration, assembly)
+				.UseOverridesFromAssemblyOf<Map>()
 				.Conventions.AddFromAssemblyOf<EnumConvention>()
-                .Conventions.Add(
-                    new NullableConvention.Property(),
-                    new NullableConvention.Reference(),
+				.Conventions.Add(
+					new NullableConvention.Property(),
+					new NullableConvention.Reference(),
 					new CascadeConvention.OneToMany(),
 					new CascadeConvention.ManyToOne(),
-                    new NameConvention.ManyToMany(),
-                    new NameConvention.HasMany(),
-                    new NameConvention.Reference(),
-                    new NameConvention.TableNameConvention()
-                );
+					new NameConvention.ManyToMany(),
+					new NameConvention.HasMany(),
+					new NameConvention.Reference(),
+					new NameConvention.TableNameConvention()
+				);
 
 			if (BaseEntities != null)
 			{
@@ -60,10 +60,10 @@ namespace Keon.NHibernate.UserPassed
 			}
 
 			if (Conventions != null)
-                autoMap = autoMap.Conventions.Add(Conventions);
+				autoMap = autoMap.Conventions.Add(Conventions);
 
-            return autoMap;
-        }
-    
-    }
+			return autoMap;
+		}
+
+	}
 }

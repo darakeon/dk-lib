@@ -9,132 +9,132 @@ using Microsoft.AspNetCore.Http;
 
 namespace Keon.MVC.Forms
 {
-    /// <summary>
-    /// Generate captcha for form validations
-    /// </summary>
-    public class Captcha
-    {
-	    private readonly HttpContext context;
+	/// <summary>
+	/// Generate captcha for form validations
+	/// </summary>
+	public class Captcha
+	{
+		private readonly HttpContext context;
 
-	    /// <param name="newText">Which the text should be regenerated</param>
-	    /// <param name="getContext">Http context getter</param>
-	    public Captcha(Boolean newText, GetContext getContext)
-        {
-	        context = getContext();
-            
-	        if (newText || String.IsNullOrEmpty(text))
-            {
-                generateString();
-            }
-        }
+		/// <param name="newText">Which the text should be regenerated</param>
+		/// <param name="getContext">Http context getter</param>
+		public Captcha(Boolean newText, GetContext getContext)
+		{
+			context = getContext();
 
-        /// <summary>
-        /// Captcha image generated
-        /// </summary>
-        public String Image => generateImage(text);
+			if (newText || String.IsNullOrEmpty(text))
+			{
+				generateString();
+			}
+		}
 
-        /// <summary>
-	    /// Validate and change captcha
-	    /// </summary>
-	    public bool ValidateAndRenew(String typed)
-        {
-            var valid = typed == text;
+		/// <summary>
+		/// Captcha image generated
+		/// </summary>
+		public String Image => generateImage(text);
 
-            generateString();
+		/// <summary>
+		/// Validate and change captcha
+		/// </summary>
+		public bool ValidateAndRenew(String typed)
+		{
+			var valid = typed == text;
 
-            return valid;
-        }
+			generateString();
 
-        private ISession session => context.Session;
+			return valid;
+		}
+
+		private ISession session => context.Session;
 		private string text => context.Session.GetString("Captcha");
 
-	    private void generateString()
-        {
-            var random = new Random();
-            var captcha = String.Empty;
+		private void generateString()
+		{
+			var random = new Random();
+			var captcha = String.Empty;
 
-            for (var i = 0; i < 6; i++)
-            {
-                var positionNewChar = random.Next(0, possibleCharacters.Length);
+			for (var i = 0; i < 6; i++)
+			{
+				var positionNewChar = random.Next(0, possibleCharacters.Length);
 
-                captcha += possibleCharacters[positionNewChar];
-            }
+				captcha += possibleCharacters[positionNewChar];
+			}
 
-            session.SetString("Captcha", captcha);
-        }
+			session.SetString("Captcha", captcha);
+		}
 
 
 
-        private String generateImage(String captcha)
-        {
-	        using var bitmap = new Bitmap(imageWidth, imageHeight);
-	        
-	        drawCaptcha(captcha, bitmap);
+		private String generateImage(String captcha)
+		{
+			using var bitmap = new Bitmap(imageWidth, imageHeight);
 
-	        var filename = Guid.NewGuid() + ".png";
-	        var dir = Path.Combine("Assets", "Images", "Generated", "Captcha");
-	        var path = Path.Combine(dir, filename);
+			drawCaptcha(captcha, bitmap);
 
-	        bitmap.Save(path, ImageFormat.Png);
+			var filename = Guid.NewGuid() + ".png";
+			var dir = Path.Combine("Assets", "Images", "Generated", "Captcha");
+			var path = Path.Combine(dir, filename);
 
-	        cleanOldFiles(dir);
+			bitmap.Save(path, ImageFormat.Png);
 
-	        return path;
-        }
+			cleanOldFiles(dir);
 
-        private void drawCaptcha(String captcha, Bitmap bitmap)
-        {
-	        using var graphics = Graphics.FromImage(bitmap);
-	        
-	        graphics.SmoothingMode = SmoothingMode.AntiAlias;
-	        graphics.Clear(imageColor);
-	        graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+			return path;
+		}
 
-	        using var font = new Font(fontType, fontSize, FontStyle.Bold);
-	        graphics.DrawString(captcha, font, Brushes.White, textTop, textLeft);
-        }
+		private void drawCaptcha(String captcha, Bitmap bitmap)
+		{
+			using var graphics = Graphics.FromImage(bitmap);
 
-        private static void cleanOldFiles(String dir)
-        {
-            var oldFiles = Directory.GetFiles(dir, "*.png");
+			graphics.SmoothingMode = SmoothingMode.AntiAlias;
+			graphics.Clear(imageColor);
+			graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-            foreach (var file in oldFiles)
-            {
-                var info = new FileInfo(file);
-                var lastHour = DateTime.Now.AddHours(-1);
+			using var font = new Font(fontType, fontSize, FontStyle.Bold);
+			graphics.DrawString(captcha, font, Brushes.White, textTop, textLeft);
+		}
 
-                var fileOld =
-                    info.CreationTime < lastHour
-                    || info.LastWriteTime < lastHour;
+		private static void cleanOldFiles(String dir)
+		{
+			var oldFiles = Directory.GetFiles(dir, "*.png");
 
-                if (fileOld)
-                {
-                    File.Delete(file);
-                }
-            }
-        }
+			foreach (var file in oldFiles)
+			{
+				var info = new FileInfo(file);
+				var lastHour = DateTime.Now.AddHours(-1);
 
-        #region Config
+				var fileOld =
+					info.CreationTime < lastHour
+					|| info.LastWriteTime < lastHour;
 
-        private readonly String[] possibleCharacters =
-        {
-            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-            "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-            "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
-        };
+				if (fileOld)
+				{
+					File.Delete(file);
+				}
+			}
+		}
 
-        private const String fontType = "Times New Roman";
-        private const Int32 fontSize = 17;
+		#region Config
 
-        private readonly Color imageColor = Color.FromArgb(33, 140, 0);
-        private const Int32 imageWidth = 100;
-        private const Int32 imageHeight = 30;
+		private readonly String[] possibleCharacters =
+		{
+			"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+			"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+			"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+			"n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+			"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+		};
 
-        private const Int32 textTop = 3;
-        private const Int32 textLeft = 3;
+		private const String fontType = "Times New Roman";
+		private const Int32 fontSize = 17;
 
-        #endregion
-    }
+		private readonly Color imageColor = Color.FromArgb(33, 140, 0);
+		private const Int32 imageWidth = 100;
+		private const Int32 imageHeight = 30;
+
+		private const Int32 textTop = 3;
+		private const Int32 textLeft = 3;
+
+		#endregion
+	}
 }

@@ -37,7 +37,7 @@ namespace Keon.NHibernate.Queries
 			Expression<Func<Result, Prop>> destiny
 		)
 		{
-			var group = 
+			var group =
 				new GroupBy<Entity, ID, Result, Prop>(
 					origin, destiny
 				);

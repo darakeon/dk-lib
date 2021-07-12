@@ -6,8 +6,8 @@ namespace Keon.NHibernate.Operations
 	/// <summary>
 	/// Base for services, to have transaction
 	/// </summary>
-    public class NHService
-    {
+	public class NHService
+	{
 		/// <summary>
 		/// Execute commands inside a transaction.
 		/// Anything executed without it will not work
@@ -54,5 +54,5 @@ namespace Keon.NHibernate.Operations
 				return 0;
 			}, onError);
 		}
-    }
+	}
 }

@@ -74,7 +74,7 @@ namespace Keon.NHibernate.Sessions
 		public static Entity GetNonCached<Entity, ID>(ID id)
 		{
 			using var otherSession = GetNonCached();
-			
+
 			var result = otherSession.Get<Entity>(id);
 			otherSession.Close();
 			otherSession.Dispose();

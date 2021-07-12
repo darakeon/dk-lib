@@ -6,19 +6,19 @@ using FluentNHibernate.Conventions.Instances;
 
 namespace Keon.NHibernate.Mappings
 {
-    internal class NameConvention
-    {
-        internal class ManyToMany : ManyToManyTableNameConvention
-        {
-            protected override String GetBiDirectionalTableName(
-	            IManyToManyCollectionInspector collection,
-	            IManyToManyCollectionInspector otherSide
-	        )
-            {
-	            var firstEntity = collection.EntityType.Name.ToLower();
-	            var secondEntity = otherSide.EntityType.Name.ToLower();
-	            return $"{firstEntity}_{secondEntity}";
-            }
+	internal class NameConvention
+	{
+		internal class ManyToMany : ManyToManyTableNameConvention
+		{
+			protected override String GetBiDirectionalTableName(
+				IManyToManyCollectionInspector collection,
+				IManyToManyCollectionInspector otherSide
+			)
+			{
+				var firstEntity = collection.EntityType.Name.ToLower();
+				var secondEntity = otherSide.EntityType.Name.ToLower();
+				return $"{firstEntity}_{secondEntity}";
+			}
 
 			protected override String GetUniDirectionalTableName(
 				IManyToManyCollectionInspector collection
@@ -30,18 +30,18 @@ namespace Keon.NHibernate.Mappings
 			}
 		}
 
-        internal class Reference : IReferenceConvention
-        {
-            public void Apply(IManyToOneInstance instance)
-            {
-                var propertyName = putID(instance.Property.Name);
+		internal class Reference : IReferenceConvention
+		{
+			public void Apply(IManyToOneInstance instance)
+			{
+				var propertyName = putID(instance.Property.Name);
 
-                instance.Column(propertyName);
+				instance.Column(propertyName);
 
-                var entityType = instance.EntityType.Name;
-                instance.ForeignKey($"FK_{entityType}_{instance.Name}");
-            }
-        }
+				var entityType = instance.EntityType.Name;
+				instance.ForeignKey($"FK_{entityType}_{instance.Name}");
+			}
+		}
 
 		internal class TableNameConvention : IClassConvention
 		{
@@ -56,9 +56,9 @@ namespace Keon.NHibernate.Mappings
 		}
 
 		internal class HasMany : IHasManyConvention
-        {
-            public void Apply(IOneToManyCollectionInstance instance)
-            {
+		{
+			public void Apply(IOneToManyCollectionInstance instance)
+			{
 				var referenceName = instance.Member.Name;
 
 				referenceName = referenceName.EndsWith("List")
@@ -100,10 +100,10 @@ namespace Keon.NHibernate.Mappings
 			}
 		}
 
-        private static String putID(String name)
-        {
-            return $"{name}_ID";
-        }
+		private static String putID(String name)
+		{
+			return $"{name}_ID";
+		}
 
 		/// <summary>
 		/// Rules for table naming from entity type
@@ -144,5 +144,5 @@ namespace Keon.NHibernate.Mappings
 
 			return String.Concat(firstPart, shortenLetters, lastPart);
 		}
-    }
+	}
 }

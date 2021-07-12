@@ -3,10 +3,10 @@ using FluentNHibernate.Conventions.Instances;
 
 namespace Keon.NHibernate.Mappings
 {
-    internal class CascadeConvention
-    {
+	internal class CascadeConvention
+	{
 		public class ManyToOne : IReferenceConvention
-	    {
+		{
 			public void Apply(IManyToOneInstance instance)
 			{
 				//The weak entity should not update the strong one.
@@ -15,10 +15,10 @@ namespace Keon.NHibernate.Mappings
 			}
 		}
 
-	    public class OneToMany : IHasManyConvention
-	    {
-		    public void Apply(IOneToManyCollectionInstance instance)
-		    {
+		public class OneToMany : IHasManyConvention
+		{
+			public void Apply(IOneToManyCollectionInstance instance)
+			{
 				if (instance.IsSystemEntity())
 				{
 					instance.Cascade.None();
@@ -30,5 +30,5 @@ namespace Keon.NHibernate.Mappings
 				}
 			}
 		}
-    }
+	}
 }

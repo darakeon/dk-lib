@@ -9,22 +9,22 @@ using NHibernate.Tool.hbm2ddl;
 
 namespace Keon.NHibernate.Schema
 {
-    /// <summary>
-    /// Make changes to database tables
-    /// </summary>
-    public class SchemaChanger
-    {
-        private readonly String scriptFileName;
+	/// <summary>
+	/// Make changes to database tables
+	/// </summary>
+	public class SchemaChanger
+	{
+		private readonly String scriptFileName;
 
-	    /// <summary>
-	    /// Construct class with the name of the script
-	    /// </summary>
-	    public SchemaChanger(String scriptFileName)
-        {
-            var addressPattern = new Regex(@"^(\\|[A-Z]\:).*");
+		/// <summary>
+		/// Construct class with the name of the script
+		/// </summary>
+		public SchemaChanger(String scriptFileName)
+		{
+			var addressPattern = new Regex(@"^(\\|[A-Z]\:).*");
 
-            this.scriptFileName = addressPattern.IsMatch(scriptFileName)
-                ? scriptFileName
+			this.scriptFileName = addressPattern.IsMatch(scriptFileName)
+				? scriptFileName
 				: Path.Combine(AppDomain.CurrentDomain.BaseDirectory, scriptFileName);
 
 			var info = new FileInfo(this.scriptFileName);
@@ -36,62 +36,62 @@ namespace Keon.NHibernate.Schema
 		}
 
 		internal void Build(Configuration config)
-        {
-            var schema = new SchemaExport(config);
+		{
+			var schema = new SchemaExport(config);
 
-            schema.Drop(false, true);
+			schema.Drop(false, true);
 
-            scriptAction(schema.Create, true);
-        }
+			scriptAction(schema.Create, true);
+		}
 
-        internal void Update(Configuration config)
-        {
-            var schema = new SchemaUpdate(config);
+		internal void Update(Configuration config)
+		{
+			var schema = new SchemaUpdate(config);
 
-            scriptAction(schema.Execute, true);
+			scriptAction(schema.Execute, true);
 
-            if (!schema.Exceptions.Any())
-                return;
+			if (!schema.Exceptions.Any())
+				return;
 
-            var message = new StringBuilder();
+			var message = new StringBuilder();
 
-            schema.Exceptions
-	            .ToList()
-	            .ForEach(
+			schema.Exceptions
+				.ToList()
+				.ForEach(
 					e => message.AppendLine(e.Message)
 				);
 
-            throw new DKException(message.ToString());
-        }
+			throw new DKException(message.ToString());
+		}
 
-        internal void Validate(Configuration config)
-        {
-            new SchemaValidator(config).Validate();
-        }
+		internal void Validate(Configuration config)
+		{
+			new SchemaValidator(config).Validate();
+		}
 
-        private delegate void scriptActionDelegate(Action<String> scriptAction, Boolean execute);
-        private void scriptAction(scriptActionDelegate schemaActionDelegate, Boolean execute)
-        {
-            if (scriptFileName == null)
-            {
-                schemaActionDelegate(null, execute);
-            }
-            else
-            {
-                var format = "yyyy-MM-dd hh:mm:ss ===========================";
-                var time = DateTime.Now.ToString(format);
-                write(scriptFileName, time);
+		private delegate void scriptActionDelegate(Action<String> scriptAction, Boolean execute);
+		private void scriptAction(scriptActionDelegate schemaActionDelegate, Boolean execute)
+		{
+			if (scriptFileName == null)
+			{
+				schemaActionDelegate(null, execute);
+			}
+			else
+			{
+				var format = "yyyy-MM-dd hh:mm:ss ===========================";
+				var time = DateTime.Now.ToString(format);
+				write(scriptFileName, time);
 
-                schemaActionDelegate(text => write(scriptFileName, text), execute);
-            }
-        }
+				schemaActionDelegate(text => write(scriptFileName, text), execute);
+			}
+		}
 
-        private void write(String path, String text)
-        {
-	        if (!File.Exists(path))
-		        File.WriteAllLines(path, new[] { text });
-	        else
+		private void write(String path, String text)
+		{
+			if (!File.Exists(path))
+				File.WriteAllLines(path, new[] { text });
+			else
 				File.AppendAllLines(path, new[] { text });
-        }
-    }
+		}
+	}
 }
