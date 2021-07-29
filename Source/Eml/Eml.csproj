@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>Keon.Eml</AssemblyName>
+    <Authors>darakeon</Authors>
+    <Company>Dara Keon</Company>
+    <Product>Keon Eml</Product>
+    <Description>Eml files translations to email headers + body</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
+    <PackageIcon>image.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>eml reader</PackageTags>
+    <RootNamespace>Keon.Eml</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>Keon.Eml.xml</DocumentationFile>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Nuget\image.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

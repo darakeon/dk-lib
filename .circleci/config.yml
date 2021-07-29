@@ -136,6 +136,33 @@ jobs:
           name: upload
           command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
 
+  eml:
+    docker:
+      - image: darakeon/netcore
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dotnet-{{ checksum "Source/Eml/Eml.csproj" }}
+      - run:
+          name: dependencies
+          command: dotnet restore Source/Eml/Eml.csproj
+      - save_cache:
+          key: dotnet-{{ checksum "Source/Eml/Eml.csproj" }}
+          paths:
+            - ~/.nuget/packages
+      - run:
+          name: build
+          command: dotnet build -c Release --no-restore Source/Eml/Eml.csproj
+      - run:
+          name: pack
+          command: dotnet pack -o packs -c Release --no-restore Source/Eml/Eml.csproj
+      - store_artifacts:
+          path: packs
+      - run:
+          name: upload
+          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+
 workflows:
   version: 2.1
   all:
@@ -145,3 +172,4 @@ workflows:
       - mvc
       - tfa
       - xml
+      - eml
