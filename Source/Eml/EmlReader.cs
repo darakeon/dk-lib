@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Keon.Eml
 {
@@ -11,68 +11,37 @@ namespace Keon.Eml
 	/// </summary>
 	public class EmlReader
 	{
-		private EmlReader(
-			String subject, String body,
-			IDictionary<String, String> headers,
-			DateTime? creation
-		)
-		{
-			Subject = subject;
-			Body = body;
-			Headers = headers;
-			Creation = creation;
-		}
-
 		/// <summary>
 		/// Subject of the e-mail, decoded in case of original being in Base64
 		/// </summary>
-		public String Subject { get; }
+		public String Subject { get; private set; }
 
 		/// <summary>
 		/// E-mail body, decoded in case of original being in Base64
 		/// </summary>
-		public String Body { get; }
+		public String Body { get; private set; }
 
 		/// <summary>
 		/// Headers of the e-mail
 		/// </summary>
-		public IDictionary<String, String> Headers { get; }
+		public IDictionary<String, String> Headers =>
+			new ReadOnlyDictionary<String, String>(headers);
+
+		private IDictionary<String, String> headers { get; set; }
 
 		/// <summary>
 		/// Creation date - only if eml file is given
 		/// </summary>
 		public DateTime? Creation { get; }
 
-		/// <summary>
-		/// Read the content of the eml from a file
-		/// </summary>
-		/// <param name="path">file info object of the file</param>
-		/// <returns>
-		///		The content of the file processed, if it exists;
-		///		else, returns null
-		/// </returns>
-		public static EmlReader ReadFromFile(String path)
+		private Boolean isBase64
 		{
-			return Read(new FileInfo(path));
-		}
-
-		/// <summary>
-		/// Read the content of the eml from a file
-		/// </summary>
-		/// <param name="email">file info object of the file</param>
-		/// <returns>
-		///		The content of the file processed, if it exists;
-		///		else, returns null
-		/// </returns>
-		public static EmlReader Read(FileInfo email)
-		{
-			if (!email.Exists)
-				return null;
-
-			var content = File.ReadAllLines(email.FullName);
-			var creation = email.CreationTimeUtc;
-
-			return Read(content, creation);
+			get
+			{
+				var key = "Content-Transfer-Encoding";
+				return headers.ContainsKey(key)
+				       && headers[key] == "base64";
+			}
 		}
 
 		/// <summary>
@@ -80,22 +49,31 @@ namespace Keon.Eml
 		/// </summary>
 		/// <param name="content">Content of the eml file</param>
 		/// <param name="creation">Creation date of e-mail</param>
-		public static EmlReader Read(String content, DateTime? creation = null)
-		{
-			return Read(content.Split("\n"), creation);
-		}
+		public EmlReader(String content, DateTime? creation = null)
+			: this(content.Split("\n"), creation) { }
 
 		/// <summary>
 		/// Read the content of the eml from a file
 		/// </summary>
 		/// <param name="content">Content of the eml file</param>
 		/// <param name="creation">Creation date of e-mail</param>
-		public static EmlReader Read(String[] content, DateTime? creation = null)
+		public EmlReader(String[] content, DateTime? creation = null)
 		{
-			var headers = new Dictionary<String, String>();
+			content = extractHeaders(content);
+
+			setSubject();
+
+			processBody(content);
+
+			Creation = creation;
+		}
+
+		private String[] extractHeaders(String[] content)
+		{
+			headers = new Dictionary<String, String>();
 
 			var l = 0;
-			for (; l < content.Length && content[l] != ""; l++)
+			for (; l < content.Length; l++)
 			{
 				var line = content[l];
 
@@ -115,11 +93,31 @@ namespace Keon.Eml
 				}
 			}
 
-			var subject = getSubject(headers);
+			return content.Skip(l).ToArray();
+		}
 
-			var base64 = EmlReader.base64(headers);
+		private void setSubject()
+		{
+			var key = "Subject";
 
-			content = content.Skip(l).ToArray();
+			if (!headers.ContainsKey(key))
+				return;
+
+			Subject = headers[key];
+
+			if (Subject.Contains("utf-8"))
+			{
+				Subject = String.Join("",
+					Subject
+						.Split(" ")
+						.Select(s => s[10..^2].FromBase64())
+				);
+			}
+		}
+
+		private void processBody(String[] content)
+		{
+			var base64 = isBase64;
 
 			if (!base64)
 			{
@@ -128,53 +126,38 @@ namespace Keon.Eml
 					.ToArray();
 			}
 
-			var body = String.Join("\n", content);
+			Body = String.Join("\n", content);
 
 			if (base64)
-				body = convert(body);
+				Body = Body.FromBase64();
 
-			body = body
-				.Replace("\"\"", "\"")
-				.Replace("=\n", "")
-				.Replace("=0A", "\n")
-				.Replace("=3D", "=")
+			Body = Body
+					.Replace("\"\"", "\"")
+					.Replace("=\n", "")
+					.Replace("=0A", "\n")
+					.Replace("=3D", "=")
 				;
-
-			return new EmlReader(subject, body, headers, creation);
 		}
 
-		private static String getSubject(Dictionary<String, String> headers)
+		/// <summary>
+		/// Read the content of the eml from a file
+		/// </summary>
+		/// <param name="path">file info object of the file</param>
+		/// <returns>
+		///		The content of the file processed, if it exists;
+		///		else, returns null
+		/// </returns>
+		public static EmlReader FromFile(String path)
 		{
-			var key = "Subject";
+			var info = new FileInfo(path);
 
-			if (!headers.ContainsKey(key))
+			if (!info.Exists)
 				return null;
 
-			var subject = headers[key];
+			var content = File.ReadAllLines(info.FullName);
+			var creation = info.CreationTimeUtc;
 
-			if (subject.Contains("utf-8"))
-			{
-				subject = String.Join("",
-					subject
-						.Split(" ")
-						.Select(s => convert(s[10..^2]))
-				);
-			}
-
-			return subject;
-		}
-
-		private static Boolean base64(Dictionary<String, String> headers)
-		{
-			var key = "Content-Transfer-Encoding";
-			return headers.ContainsKey(key)
-				&& headers[key] == "base64";
-		}
-
-		private static String convert(String text)
-		{
-			var bytes = Convert.FromBase64String(text);
-			return Encoding.UTF8.GetString(bytes);
+			return new EmlReader(content, creation);
 		}
 	}
 }

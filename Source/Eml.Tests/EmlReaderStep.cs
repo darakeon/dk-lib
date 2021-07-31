@@ -10,13 +10,13 @@ using TechTalk.SpecFlow.Assist;
 namespace Eml.Tests
 {
 	[Binding]
-	public class Step : BaseStep
+	public class EmlReaderStep : BaseStep
 	{
-		public Step(ScenarioContext context) : base(context) { }
+		public EmlReaderStep(ScenarioContext context) : base(context) { }
 
-		private FileInfo file
+		private String file
 		{
-			get => get<FileInfo>("file");
+			get => get<String>("file");
 			set => set("file", value);
 		}
 
@@ -49,8 +49,7 @@ namespace Eml.Tests
 		[Given(@"the file name ([\w\-]+\.eml)")]
 		public void GivenTheFileName_Eml(String filename)
 		{
-			var path = Path.Combine("examples", filename);
-			file = new FileInfo(path);
+			file = Path.Combine("examples", filename);
 		}
 
 		[Given(@"the content (.+)")]
@@ -78,15 +77,15 @@ namespace Eml.Tests
 		[When(@"file read is called")]
 		public void WhenFileReadIsCalled()
 		{
-			reader = EmlReader.Read(file);
+			reader = EmlReader.FromFile(file);
 		}
 
 		[When(@"content read is called")]
 		public void WhenContentReadIsCalled()
 		{
 			reader = content != null
-				? EmlReader.Read(content, creation)
-				: EmlReader.Read(contentLines, creation);
+				? new EmlReader(content, creation)
+				: new EmlReader(contentLines, creation);
 		}
 
 
