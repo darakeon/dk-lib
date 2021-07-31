@@ -143,14 +143,17 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - dotnet-{{ checksum "Source/Eml/Eml.csproj" }}
+            - dotnet-{{ checksum "Source/Eml/Eml.csproj" }}-{{ checksum "Source/Eml.Tests/Eml.Tests.csproj" }}
       - run:
           name: dependencies
-          command: dotnet restore Source/Eml/Eml.csproj
+          command: dotnet restore Source/Eml/Eml.csproj && dotnet restore Source/Eml.Tests/Eml.Tests.csproj
       - save_cache:
-          key: dotnet-{{ checksum "Source/Eml/Eml.csproj" }}
+          key: dotnet-{{ checksum "Source/Eml/Eml.csproj" }}-{{ checksum "Source/Eml.Tests/Eml.Tests.csproj" }}
           paths:
             - ~/.nuget/packages
+      - run:
+          name: test
+          command: dotnet test Source/Eml.Tests/Eml.Tests.csproj
       - run:
           name: build
           command: dotnet build -c Release --no-restore Source/Eml/Eml.csproj

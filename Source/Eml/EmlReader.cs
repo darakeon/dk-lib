@@ -99,30 +99,25 @@ namespace Keon.Eml
 			{
 				var line = content[l];
 
-				if (line.StartsWith(" "))
+				if (line.StartsWith(" ") || line.StartsWith("\t"))
 				{
 					var key = headers.Keys.Last();
 					headers[key] += line;
 				}
-				else
+				else if (line.Contains(":"))
 				{
 					var parts = line.Split(":", 2);
 					headers.Add(parts[0], parts[1].Trim());
 				}
+				else
+				{
+					break;
+				}
 			}
 
-			var subject = headers["Subject"];
+			var subject = getSubject(headers);
 
-			if (subject.Contains("utf-8"))
-			{
-				subject = String.Join("",
-					subject
-						.Split(" ")
-						.Select(s => convert(s[10..^2]))
-				);
-			}
-
-			var base64 = headers["Content-Transfer-Encoding"] == "base64";
+			var base64 = EmlReader.base64(headers);
 
 			content = content.Skip(l).ToArray();
 
@@ -146,6 +141,34 @@ namespace Keon.Eml
 				;
 
 			return new EmlReader(subject, body, headers, creation);
+		}
+
+		private static String getSubject(Dictionary<String, String> headers)
+		{
+			var key = "Subject";
+
+			if (!headers.ContainsKey(key))
+				return null;
+
+			var subject = headers[key];
+
+			if (subject.Contains("utf-8"))
+			{
+				subject = String.Join("",
+					subject
+						.Split(" ")
+						.Select(s => convert(s[10..^2]))
+				);
+			}
+
+			return subject;
+		}
+
+		private static Boolean base64(Dictionary<String, String> headers)
+		{
+			var key = "Content-Transfer-Encoding";
+			return headers.ContainsKey(key)
+				&& headers[key] == "base64";
 		}
 
 		private static String convert(String text)
