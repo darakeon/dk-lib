@@ -135,7 +135,7 @@ namespace Eml.Tests
 					reader.Headers.ContainsKey(key),
 					$"Key '{key}' not found"
 				);
-				
+
 				Assert.AreEqual(
 					headers[key], reader.Headers[key],
 					$"Key '{key}' with wrong value"
