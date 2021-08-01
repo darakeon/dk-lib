@@ -145,3 +145,36 @@ Scenario: 14. Without content transfer encoding
 			| Body  |
 			| plain |
 		And the subject is null
+
+Scenario: 15. Multiple content types
+	Given the content
+			| Content                              |
+			| Content-Type: multipart/alternative; |
+			| &	boundary="----=_BOUND_=----"       |
+			|                                      |
+			| MULTI                                |
+			|                                      |
+			| ----=_BOUND_=----                    |
+			| Content-Type: text/plain;            |
+			| &	charset="utf-8"                    |
+			|                                      |
+			| JUST TEXT                            |
+			|                                      |
+			| ----=_BOUND_=----                    |
+			| Content-Type: text/html;             |
+			| &	charset="utf-8"                    |
+			|                                      |
+			| <HTML></HTML>                        |
+			|                                      |
+			| ----=_BOUND_=----                    |
+	When content read is called
+	Then the header is
+			| Key          | Value                                      |
+			| Content-Type | multipart/alternative text/plain text/html |
+		And the body is
+			| Body          |
+			| -- PLAIN      |
+			| JUST TEXT     |
+			|               |
+			| -- HTML       |
+			| <HTML></HTML> |
