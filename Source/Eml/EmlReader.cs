@@ -38,6 +38,8 @@ namespace Keon.Eml
 		private readonly IDictionary<String, String> headers =
 			new Dictionary<String, String>();
 
+		private String lastHeader = null;
+
 		/// <summary>
 		/// Creation date - only if eml file is given
 		/// </summary>
@@ -99,6 +101,8 @@ namespace Keon.Eml
 			var key = parts[0];
 			var value = parts[1].Trim();
 
+			lastHeader = key;
+
 			if (value.EndsWith(";"))
 				value = value[..^1];
 
@@ -110,7 +114,7 @@ namespace Keon.Eml
 
 		private void addHeaderOtherLines(String line)
 		{
-			var key = headers.Keys.Last();
+			var key = lastHeader;
 
 			if (key == contentTypeKey)
 			{
