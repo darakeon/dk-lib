@@ -178,3 +178,54 @@ Scenario: 15. Multiple content types
 			|               |
 			| -- HTML       |
 			| <HTML></HTML> |
+
+Scenario: A16. Repeated headers
+	Given the content
+			| Content    |
+			| Header: H1 |
+			| Header: H2 |
+			|            |
+			| Content    |
+	When content read is called
+	Then the body is
+			| Body    |
+			| Content |
+		And the header is
+			| Key    | Value |
+			| Header | H1 H2 |
+
+Scenario: A17. Repeated non-sequencial headers
+	Given the content
+			| Content     |
+			| Header1: H1 |
+			| Header2: H2 |
+			| Header1: H3 |
+			|             |
+			| Content     |
+	When content read is called
+	Then the body is
+			| Body    |
+			| Content |
+		And the header is
+			| Key     | Value |
+			| Header1 | H1 H3 |
+			| Header2 | H2    |
+
+Scenario: A18. Repeated non-sequencial multiline headers
+	Given the content
+			| Content     |
+			| Header1: H1 |
+			| & H2        |
+			| Header2: H3 |
+			| Header1: H4 |
+			| & H5        |
+			|             |
+			| Content     |
+	When content read is called
+	Then the body is
+			| Body    |
+			| Content |
+		And the header is
+			| Key     | Value       |
+			| Header1 | H1 H2 H4 H5 |
+			| Header2 | H3          |
