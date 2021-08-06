@@ -38,7 +38,7 @@ namespace Keon.Eml
 		private readonly IDictionary<String, String> headers =
 			new Dictionary<String, String>();
 
-		private String lastHeader = null;
+		private String lastHeader;
 
 		/// <summary>
 		/// Creation date - only if eml file is given
@@ -46,6 +46,18 @@ namespace Keon.Eml
 		public DateTime? Creation { get; }
 
 		private String boundary;
+
+		private Int32 boundIndex(String[] content)
+		{
+			var middleBound = $"--{boundary}";
+			var endBound = $"--{boundary}--";
+
+			var list = content.ToList();
+			var middle = list.IndexOf(middleBound);
+			var end = list.IndexOf(endBound);
+
+			return middle == -1 ? end : middle;
+		}
 
 		private Boolean isBase64 =>
 			headers.ContainsKey(encodingKey)
@@ -177,9 +189,9 @@ namespace Keon.Eml
 
 		private String processMultiBody(String[] content)
 		{
-			var start = content.ToList().IndexOf(boundary);
+			var start = boundIndex(content);
 			content = extractHeaders(content[(start + 1)..]);
-			var end = content.ToList().IndexOf(boundary);
+			var end = boundIndex(content);
 
 			if (end < 0)
 				return null;
