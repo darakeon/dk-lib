@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+	<metadata>
+		<id>$id$</id>
+
+		<version>$version$</version>
+		<title>$product$</title>
+		<description>$description$</description>
+		<summary>$description$</summary>
+		<tags>utility eml</tags>
+
+		<authors>$author$</authors>
+		<owners>darakeon</owners>
+
+		<projectUrl>https://github.com/darakeon/dk-lib</projectUrl>
+		<repository type="git" url="https://github.com/darakeon/dk-lib" />
+		<license type="expression">Apache-2.0</license>
+		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+
+		<releaseNotes>Multipart parsing fixes</releaseNotes>
+	</metadata>
+</package>

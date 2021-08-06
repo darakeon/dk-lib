@@ -20,8 +20,8 @@ Using .NET 3.1 because of AWS lambda - it does not accepts 5.0 at simplest versi
     <RepositoryType>git</RepositoryType>
     <PackageTags>eml reader</PackageTags>
     <RootNamespace>Keon.Eml</RootNamespace>
-    <Version>2.0.0</Version>
-    <PackageReleaseNotes>Added parsing of multipart content type</PackageReleaseNotes>
+    <Version>2.0.1</Version>
+    <PackageReleaseNotes>Multipart parsing fixes</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

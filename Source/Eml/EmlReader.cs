@@ -117,8 +117,13 @@ namespace Keon.Eml
 
 			lastHeader = key;
 
-			if (key == contentTypeKey && value.EndsWith(";"))
-				value = value[..^1];
+			if (key == contentTypeKey)
+			{
+				var boundary = new Regex(boundaryPattern).Match(line);
+				if (boundary.Success) this.boundary = boundary.Groups[1].Value;
+
+				value = value.Split(";").First();
+			}
 
 			if (headers.ContainsKey(key))
 				headers[key] += $" {value}";
