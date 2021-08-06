@@ -1,0 +1,15 @@
+syntax: glob
+*.user
+obj
+bin
+*dotCover
+_ReSharper*
+*.suo
+packages/*
+.hg*
+.vs
+
+*.nupkg
+DK.TwoFactorAuth/Keon.TwoFactorAuth.xml
+
+*/Keon.*.xml
