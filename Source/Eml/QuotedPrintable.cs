@@ -1,22 +1,24 @@
 ﻿using System;
-using System.Text;
 
 namespace Keon.Eml
 {
 	/// <summary>
-	/// Base64 Helper
+	/// QuotedPrintable Helper
 	/// </summary>
-	public static class Base64
+	public static class QuotedPrintable
 	{
 		/// <summary>
 		/// Convert Base64 text into human readable text
 		/// </summary>
 		/// <param name="text">Text in Base64 format</param>
 		/// <returns>Decoded text</returns>
-		public static String FromBase64(this String text)
+		public static String FromQuotedPrintable(this String text)
 		{
-			var bytes = Convert.FromBase64String(text);
-			return Encoding.UTF8.GetString(bytes);
+			return text
+				.Replace("\"\"", "\"")
+				.Replace("=\n", "")
+				.Replace("=3D", "=")
+				.Replace("=0A", "\n");
 		}
 
 		/// <summary>
@@ -24,10 +26,10 @@ namespace Keon.Eml
 		/// </summary>
 		/// <param name="lines">Text in Base64 format</param>
 		/// <returns>Decoded text</returns>
-		public static String[] FromBase64(this String[] lines)
+		public static String[] FromQuotedPrintable(this String[] lines)
 		{
 			return String.Join("\n", lines)
-				.FromBase64()
+				.FromQuotedPrintable()
 				.Split("\n");
 		}
 	}

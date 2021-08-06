@@ -1,0 +1,62 @@
+Return-Path: <thepa@maddisonfinancial.com.au>
+Received: from remote.maddisonfinancial.com.au ([193.114.141.62])
+ by inbound-smtp.us-west-2.amazonaws.com with SMTP id j20sfo8jqt4qg8kk2mt5a6i42jqr63i01uhj03g1
+ for lcdk@heylisten.com;
+ Tue, 22 Jun 2021 07:00:39 +0000 (UTC)
+X-SES-Spam-Verdict: PASS
+X-SES-Virus-Verdict: PASS
+Received-SPF: fail (spfCheck: domain of maddisonfinancial.com.au does not designate 193.114.141.62 as permitted sender) client-ip=193.114.141.62; envelope-from=thepa@maddisonfinancial.com.au; helo=193.114.141.62;
+Authentication-Results: amazonses.com;
+ spf=fail (spfCheck: domain of maddisonfinancial.com.au does not designate 193.114.141.62 as permitted sender) client-ip=193.114.141.62; envelope-from=thepa@maddisonfinancial.com.au; helo=193.114.141.62;
+ dmarc=none header.from=maddisonfinancial.com.au;
+X-SES-RECEIPT: AEFBQUFBQUFBQUFIdks5eXF3ZVg0YUI3MGthMDdHZkFtRm9KSzBwa3A5c2FNcE9qMS80TEszR0dMcDR6STI5c2IyZHJtV1loRHZaSXZVVy92dFVFNnpqakJMc1I1Q280Y3NYR0RWUXpEMDZmcFJxTm1UeTREK0xNSnZOQ1hoTWxuN2FTUGl0N2Y5aGZRMzgxc1cyMk9Jci85VE9JeldzQVFLVU9GRnNHT1Vhc20wcmlVYTN0VnRCRlBxMkNRdFRWRmM2YS84YjQzVnJ1YjJXUmRxSFV2S3g1a0d4OERoREM0N3hlYUtlVENueTZXVWxBSG1OSStDc1dEd0MzVkZYMGI0L1dhYTU4TGFYb1dqUlRGdC9LRVpXN2xlVjZoaW5GMU1jczBxOWlNa0cxOWgzNStlMWpmdVVVaWpxdjNneWx3MnNpR0xPb1diVUU9
+X-SES-DKIM-SIGNATURE: a=rsa-sha256; q=dns/txt; b=hwpegNxRAPfHdVLrC6dFDNJ2xG21zLczZIIDIe9PsRu8vVGlkro3mRE8rDL34rPz96/ppQRoNP8mYPQnbg/Bn96nPQZPQ/xPyMv9Mwb9+hG2zXObTD7+EEPmCzkvBMsaqYQcCIA/ztYLuqLbkuzmi0UMgEA0KohAR70Rp1SFQao=; c=relaxed/simple; s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1624345242; v=1; bh=dVDmRiV0KWlyfuMSpvX8YTyroHWvXFKSeelhdCBmt+E=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;
+Received: from mail.maddisonfinancial.com.au (192.168.88.254) by
+ remote.maddisonfinancial.com.au (192.168.88.1) with Microsoft SMTP Server id
+ 14.3.498.0; Tue, 22 Jun 2021 17:00:32 +1000
+From: the self help saint <thepa@maddisonfinancial.com.au>
+Subject: Discover your Potential with reading
+To: <camera@medfag.com>
+Content-Type: text/plain
+Reply-To: <acessenossositeabaixo@gmail.com>
+Date: Tue, 22 Jun 2021 09:00:32 +0200
+MIME-Version: 1.0
+Message-ID:
+ <2150b64e-696c-4c4f-870e-b66187a1fe9a@MAD-SBS.MaddisonFinancial.int>
+Return-Path: thepa@maddisonfinancial.com.au
+Received-SPF: Fail (MAD-SBS.MaddisonFinancial.int: domain of
+ thepa@maddisonfinancial.com.au does not designate 192.168.88.254 as
+ permitted sender) receiver=MAD-SBS.MaddisonFinancial.int;
+ client-ip=192.168.88.254; helo=mail.maddisonfinancial.com.au;
+
+
+Discover your Potential with reading
+
+https://theselfhelpsaint.com/
+
+Of all the skills you�ll ever learn growing up, arguably none are more important than the ability to 
+
+read. Each book that you read is an opportunity to learn something new. You can expand your vocabulary, 
+
+train your brain, increase wellness, lower stress, and discover something new about yourself.
+
+Assist your Mental Wellbeing now
+with Amazing Book Collection with us
+In the studies from the University of Liverpool, reading can help your wellbeing by improving powers of 
+
+concentration. Reading can also help wellbeing by encouraging enthusiasm in learning. You�ll also 
+
+increase verbalized and
+internalized thought.
+
+Check our latest collection exclusively on Amazon.
+
+SPORTS PSYCHOLOGY
+https://www.amazon.com/dp/B08Z9N5CYQ
+
+INTERMITTENT FASTING
+https://www.amazon.com/dp/B08Z8L517F
+
+GET RICH
+https://www.amazon.com/dp/B08Y972QB5
+

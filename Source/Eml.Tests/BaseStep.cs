@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TechTalk.SpecFlow;
 
 namespace Eml.Tests
@@ -36,6 +37,29 @@ namespace Eml.Tests
 				return null;
 			else
 				return DateTime.Parse(date);
+		}
+
+		protected String trimAmpersand(String text)
+		{
+			return trimStartAmpersand(
+				trimEndAmpersand(
+					text
+				)
+			);
+		}
+
+		private String trimStartAmpersand(String text)
+		{
+			return text.Length > 1 && text.First() == '&'
+				? text[1..]
+				: text;
+		}
+
+		private String trimEndAmpersand(String text)
+		{
+			return text.Length > 1 && text.Last() == '&'
+				? text[..^1]
+				: text;
 		}
 	}
 }

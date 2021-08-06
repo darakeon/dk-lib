@@ -1,16 +1,16 @@
-﻿Feature: Eml Reader
+﻿Feature: A. Eml Reader
 
-Scenario: 01. Existent file
+Scenario: A01. Existent file
 	Given the file name nami-sense-of-direction.eml
 	When file read is called
 	Then the result is not null
 
-Scenario: 02. Non existent file
+Scenario: A02. Non existent file
 	Given the file name zoro-sense-of-direction.eml
 	When file read is called
 	Then the result is null
 
-Scenario: 03. Content with creation date
+Scenario: A03. Content with creation date
 	Given the content Test
 		And the creation date 2021-07-29 23:13:54
 	When content read is called
@@ -19,7 +19,7 @@ Scenario: 03. Content with creation date
 			| Test |
 		And the creation date is 2021-07-29 23:13:54
 
-Scenario: 04. Content without creation date
+Scenario: A04. Content without creation date
 	Given the content Test
 	When content read is called
 	Then the body is
@@ -27,7 +27,7 @@ Scenario: 04. Content without creation date
 			| Test |
 		And the creation date is null
 
-Scenario: 05. Content with line break symbols inside
+Scenario: A05. Content with line break symbols inside
 	Given the content Test\nLines
 	When content read is called
 	Then the body is
@@ -35,7 +35,7 @@ Scenario: 05. Content with line break symbols inside
 			| Test  |
 			| Lines |
 
-Scenario: 06. Content split into lines
+Scenario: A06. Content split into lines
 	Given the content
 			| Content |
 			| Test    |
@@ -46,7 +46,7 @@ Scenario: 06. Content split into lines
 			| Test  |
 			| Lines |
 
-Scenario: 07. Simple headers
+Scenario: A07. Simple headers
 	Given the content
 			| Content      |
 			| Header: Test |
@@ -60,7 +60,7 @@ Scenario: 07. Simple headers
 			| Key    | Value |
 			| Header | Test  |
 
-Scenario: 08. Multiline headers
+Scenario: A08. Multiline headers
 	Given the content
 			| Content      |
 			| Header: Test |
@@ -75,7 +75,7 @@ Scenario: 08. Multiline headers
 			| Key    | Value         |
 			| Header | Test Continue |
 
-Scenario: 09. Multiline headers with tab
+Scenario: A09. Multiline headers with tab
 	Given the content
 			| Content      |
 			| Header: Test |
@@ -90,7 +90,7 @@ Scenario: 09. Multiline headers with tab
 			| Key    | Value         |
 			| Header | Test	Continue |
 
-Scenario: 10. With subject
+Scenario: A10. With subject
 	Given the content
 			| Content        |
 			| Subject: Title |
@@ -102,7 +102,7 @@ Scenario: 10. With subject
 			| Content |
 		And the subject is Title
 		
-Scenario: 11. With encoded subject
+Scenario: A11. With encoded subject
 	Given the content
 			| Content                       |
 			| Subject: =?utf-8?B?VGl0bGU=?= |
@@ -114,7 +114,7 @@ Scenario: 11. With encoded subject
 			| Content |
 		And the subject is Title
 
-Scenario: 12. Without subject
+Scenario: A12. Without subject
 	Given the content
 			| Content |
 			| Content |
@@ -124,7 +124,7 @@ Scenario: 12. Without subject
 			| Content |
 		And the subject is null
 
-Scenario: 13. With content transfer encoding base64
+Scenario: A13. With content transfer encoding base64
 	Given the content
 			| Content                           |
 			| Content-Transfer-Encoding: base64 |
@@ -136,7 +136,7 @@ Scenario: 13. With content transfer encoding base64
 			| Content |
 		And the subject is null
 
-Scenario: 14. Without content transfer encoding
+Scenario: A14. Without content transfer encoding
 	Given the content
 			| Content |
 			| plain   |
@@ -146,7 +146,7 @@ Scenario: 14. Without content transfer encoding
 			| plain |
 		And the subject is null
 
-Scenario: 15. Multiple content types
+Scenario: A15. Multiple content types
 	Given the content
 			| Content                              |
 			| Content-Type: multipart/alternative; |

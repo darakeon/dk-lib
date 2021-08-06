@@ -1,0 +1,48 @@
+Return-Path: <mvlsca@astgas.com>
+Received: from AST-EX01.astgas.com ([58.215.220.102])
+ by inbound-smtp.us-west-2.amazonaws.com with SMTP id mmf2pet2864od3utdhkqpciuhdl2u1urn10t5r01
+ for lcdk@heylisten.com;
+ Wed, 26 May 2021 05:13:22 +0000 (UTC)
+X-SES-Spam-Verdict: PASS
+X-SES-Virus-Verdict: PASS
+Received-SPF: pass (spfCheck: domain of astgas.com designates 58.215.220.102 as permitted sender) client-ip=58.215.220.102; envelope-from=mvlsca@astgas.com; helo=58.215.220.102;
+Authentication-Results: amazonses.com;
+ spf=pass (spfCheck: domain of astgas.com designates 58.215.220.102 as permitted sender) client-ip=58.215.220.102; envelope-from=mvlsca@astgas.com; helo=58.215.220.102;
+ dmarc=none header.from=astgas.com;
+X-SES-RECEIPT: AEFBQUFBQUFBQUFGVTJDSlJOOWNWSWZHRWNQZkI3YXRHT1VzeHN6N01iUmR5dGhmb09pcSs3N1RHOVdhaHpjY3lySTlTVUNFOTA1Z2lRVDI3MXYwMjV5bDNGOWo5T3ppSVlIT0RWQ2hQY2ZvMEpaa3R2MTdYang0b08yTWVMTWZ6NWE5TVY4Qlh1WlM2a0JiT0pJK2twTDlwSC9pS05TblBHYTRrcTJaRXkzS0YxSmtscERpR1kvYlFSazF2Kzc0aVFyc3hOaFY3QVhPWDRIaW4rc2ZXdFZBaFE5cHVQQVYvMWVaT1RaS3FQWG5HdVJBc2JtZ29FTzhBeHRYWjh4MHh3bzNJVXppOEVuZWE0aWJraHlLcXJtVEFMTXMvZnprN1BPVkZyK3FPa1lTZ1lPOGRnSWRzWUE9PQ==
+X-SES-DKIM-SIGNATURE: a=rsa-sha256; q=dns/txt; b=fjj5DF9VENBeSVyofdDl8rDfVD6mz2xKV3q2tJ3OKHRCJsNPO0IJI9sqDYIhbtGgBofp+iQ1Bq0NyKmMRg8gLSVLl+zcSQDCJRpAGBDgih6xRk5IRzTCaoek6/bDUX0M/ohyBAk3Lk960MmKOHGyduIKZWsX9oV1mVz2OriTudg=; c=relaxed/simple; s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1622006003; v=1; bh=EkrbpzTI194FGfq+5tGHTJx+H24s1pKnBazMeSS8HKc=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;
+Received: from AST-EX01.astgas.com (192.168.0.14) by AST-EX01.astgas.com
+ (192.168.0.14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Wed, 26 May
+ 2021 13:10:15 +0800
+Received: from smtp.astgas.com (172.245.25.164) by AST-EX01.astgas.com
+ (192.168.0.14) with Microsoft SMTP Server id 15.1.1847.3 via Frontend
+ Transport; Wed, 26 May 2021 13:10:04 +0800
+From: MWR Financial <mvlsca@astgas.com>
+Subject: Discover The  Secrets Of The Wealthy!
+To: <dfltraining@aol.com>
+Content-Type: text/plain
+Reply-To: <acessenossositeabaixo@gmail.com>
+Date: Wed, 26 May 2021 07:12:34 +0200
+Message-ID: <42bb4719-ac05-4f6c-9eb9-edf7ed6a5e79@AST-EX01.astgas.com>
+Return-Path: mvlsca@astgas.com
+MIME-Version: 1.0
+X-CrossPremisesHeadersFilteredBySendConnector: AST-EX01.astgas.com
+X-OrganizationHeadersPreserved: AST-EX01.astgas.com
+
+
+Be Your Own Boss & Get Paid Daily $$$ With a MWR Home Base Business.
+
+http://easyurl.us/hbb
+
+BUSINESS & MEMBERSHIP includes...
+Biz Center, Financial EDGE Membership, Websites, Capture Systems, Marketing Materials, On-Going 
+
+Training, Unlimites Support, Mobile Biz App Whith...
+Discount Shopping & Dining For More Savings.
+
+And EVERYTHING YOU NEED TO SUCCEED:
+Save Money, Make Money & Grow Money
+
+Click below:
+http://easyurl.us/hbb

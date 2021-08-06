@@ -1,0 +1,43 @@
+Return-Path: <ripdyzfw@utapao.com>
+Received: from mail.utapao.com ([122.154.114.126])
+ by inbound-smtp.us-west-2.amazonaws.com with SMTP id b67qhtebaevolmq4qmvpd1ts17kastk9tspa37o1
+ for lcdk@heylisten.com;
+ Tue, 29 Jun 2021 09:58:13 +0000 (UTC)
+X-SES-Spam-Verdict: PASS
+X-SES-Virus-Verdict: PASS
+Received-SPF: permerror (spfCheck: Error in processing SPF Record) client-ip=122.154.114.126; envelope-from=ripdyzfw@utapao.com; helo=122.154.114.126;
+Authentication-Results: amazonses.com;
+ spf=permerror (spfCheck: Error in processing SPF Record) client-ip=122.154.114.126; envelope-from=ripdyzfw@utapao.com; helo=122.154.114.126;
+ dmarc=none header.from=utapao.com;
+X-SES-RECEIPT: AEFBQUFBQUFBQUFGYmxjRWVOTnU1WGk1VHEzbks2L0NmdXVid2VuaHBUUnN1Z2lnOGpDYUtzeHRiZC9ZUzB1eGM3aHo0bHhsdTl1Mzd4U0RqVjIvTDBkSzZzTnlrN0Z3RUJmd241SkFHRVlmbTU4YzZwbmpsMU0yeUlGejN5U3hRK1dwS00wMi95SFhhek85VzA4Qkt3N3JPYlFobUVBbVBuVG5rS21ka2lOaUtYOFZ1dmtVSVg4dzVPQlhjekNSV1lZaDFUQ3dXZmg4Ymp0YmF3TVB4MzlWQTdYeUNMcGZMbFo5VDIvYlc1aFdBTWZYSGlnVXpoZkVHTWRTcTZOTjFJTUNEZ0FSWU9sWkc4L1dSUDZNVndmeWdsTUJ5YnExNlZ3ajNBRmV1dzNwS0FZTUI5K21KakF5aXZLWjBPalRhZEYxNFJ0Y2pZVm89
+X-SES-DKIM-SIGNATURE: a=rsa-sha256; q=dns/txt; b=jb3R6+Y6RY1N1bYzJRxsgHIxvzo8c+dBEchoBfr87caBV7rwb2wLq9DwKsoFQBIM/GeHwsoY4optCeFgeVChaCnDZQGHTTdfdeZf8RISyXDsMjYsMKXD3KwG7zU/kTDEzoe33CwnfZVfgJwJiu8x6F7n0KQPzQ+b2p6F/Aa2w6w=; c=relaxed/simple; s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1624960695; v=1; bh=EkrbpzTI194FGfq+5tGHTJx+H24s1pKnBazMeSS8HKc=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;
+Received: from mail.utapao.com (172-245-25-164-host.colocrossing.com [172.245.25.164])
+	by mail.utapao.com  with ESMTP id 15T9uUDr017949-15T9uUDt017949;
+	Tue, 29 Jun 2021 16:56:31 +0700
+Message-Id: <202106290956.15T9uUDr017949-15T9uUDt017949@mail.utapao.com>
+From: "MWR Financial" <ripdyzfw@utapao.com>
+Subject: Discover The  Secrets Of The Wealthy!
+To: info@iqbradingco.com
+Content-Type: text/plain
+Reply-To: acessenossositeabaixo@gmail.com
+Date: Tue, 29 Jun 2021 11:56:32 +0200
+X-FEAS-SPF: spf-result=permerror, ip=172.245.25.164, helo=mail.utapao.com, mailFrom=ripdyzfw@utapao.com
+Authentication-Results: mail.utapao.com;
+	spf=permerror (utapao.com: 172.245.25.164 is neither permitted nor denied by best guess record for domain of ripdyzfw@utapao.com) smtp.mailfrom=ripdyzfw@utapao.com
+
+
+Be Your Own Boss & Get Paid Daily $$$ With a MWR Home Base Business.
+
+http://easyurl.us/hbb
+
+BUSINESS & MEMBERSHIP includes...
+Biz Center, Financial EDGE Membership, Websites, Capture Systems, Marketing Materials, On-Going 
+
+Training, Unlimites Support, Mobile Biz App Whith...
+Discount Shopping & Dining For More Savings.
+
+And EVERYTHING YOU NEED TO SUCCEED:
+Save Money, Make Money & Grow Money
+
+Click below:
+http://easyurl.us/hbb

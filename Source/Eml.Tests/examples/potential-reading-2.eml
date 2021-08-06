@@ -1,0 +1,65 @@
+Return-Path: <mpuqkvc@caterinaru.ru>
+Received: from mag.ru (caterinaru.ru [195.9.130.170])
+ by inbound-smtp.us-west-2.amazonaws.com with SMTP id 4560hhoiv71ou6jgko7qqcb3ca1sau1lgb65uo81
+ for lcdk@heylisten.com;
+ Tue, 22 Jun 2021 07:02:03 +0000 (UTC)
+X-SES-Spam-Verdict: PASS
+X-SES-Virus-Verdict: PASS
+Received-SPF: none (spfCheck: 195.9.130.170 is neither permitted nor denied by domain of caterinaru.ru) client-ip=195.9.130.170; envelope-from=mpuqkvc@caterinaru.ru; helo=caterinaru.ru;
+Authentication-Results: amazonses.com;
+ spf=none (spfCheck: 195.9.130.170 is neither permitted nor denied by domain of caterinaru.ru) client-ip=195.9.130.170; envelope-from=mpuqkvc@caterinaru.ru; helo=caterinaru.ru;
+ dkim=pass header.i=@caterinaru.ru;
+ dmarc=none header.from=caterinaru.ru;
+X-SES-RECEIPT: AEFBQUFBQUFBQUFISzZrQzV6RW1vSGpnaHNHZ2V2WjFlOTh5OEJMbnZiRkhtTU9MZWZaY0VYc2lCM0FGZ3BpL0VKQkNzYnRRK3NCQjNZaVJWOThXQ2F4azZuaVlmeG1JcldOYXUzRk1pbHJ6R2tJWlFBeE1pcDRFbktCcFZzSTA0dnNCWU5tNHpJL2RyeGVxN3ZvV1NsaWxVSkZqWVBDaFhHbVBMc3E4K3pLM1gweTRwQnVHbWE5SmNhNjZ4NEhjT0pLcncwNGxHYkd4L3V5TDRocy9FMURzMzE0WFpiYWN0NXdtWDVnZ25iZUMvQzAySDl3OW42VTUzT29Wc3NCNWsvODJGVDNrMTRheVdHcG9NcHkycG1TVUVPdU5QZk5SWStYQ0QvMVZlWHUwbVdjNlJYZHFkS1E9PQ==
+X-SES-DKIM-SIGNATURE: a=rsa-sha256; q=dns/txt; b=dnCMPbxlyQw2kR1qDe8R0W9BYuSc+H73/sqYoRZC7ogpkzswLATj3wEepDg2XhqCTldR9OdcX9b9SfEEA5RgN/xFaNiDuYNb2FaXmumUQ0ujdujV5x02LI9tPO8z8iFbgI1eNPDWtL9VKueoiC3ajv/mVGK8G1hZa1dMnyEbngI=; c=relaxed/simple; s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1624345325; v=1; bh=dVDmRiV0KWlyfuMSpvX8YTyroHWvXFKSeelhdCBmt+E=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=caterinaru.ru; s=email; h=Date:Reply-To:Content-Type:To:Subject:From:Sender
+	:Message-ID:Cc:MIME-Version:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=66lGE9Md4gDHlpUJS3I0r6W3bjCRycKsIBUMvg6bQqE=; b=02oAZJ4xHGVSs+qssYEiR3KQIb
+	te4FjXNV5TNyhlGbqS86grn+dPys6nz8Bz7nR5ZLhay9hmt1g+cuBa+dE0Xweq9wnhFzLdcYJktA2
+	qaNU4fES44V9+TENcmcGcwe5b3HohN5XG2DpnHSJjngBwVOvr8+CexxW5jqIlHUucUVk=;
+Received: from [172.245.25.166] (helo=smtp.caterinaru.ru)
+	by mag.ru with esmtp (Exim 4.89)
+	(envelope-from <mpuqkvc@caterinaru.ru>)
+	id 1lvaPy-000GAO-Ak; Tue, 22 Jun 2021 10:01:54 +0300
+From: "the self help saint" <mpuqkvc@caterinaru.ru>
+Subject: Discover your Potential with reading
+To: camera@medfag.com
+Content-Type: text/plain
+Reply-To: acessenossositeabaixo@gmail.com
+Date: Tue, 22 Jun 2021 09:01:54 +0200
+
+
+Discover your Potential with reading
+
+https://theselfhelpsaint.com/
+
+Of all the skills you�ll ever learn growing up, arguably none are more important than the ability to 
+
+read. Each book that you read is an opportunity to learn something new. You can expand your vocabulary, 
+
+train your brain, increase wellness, lower stress, and discover something new about yourself.
+
+Assist your Mental Wellbeing now
+with Amazing Book Collection with us
+In the studies from the University of Liverpool, reading can help your wellbeing by improving powers of 
+
+concentration. Reading can also help wellbeing by encouraging enthusiasm in learning. You�ll also 
+
+increase verbalized and
+internalized thought.
+
+Check our latest collection exclusively on Amazon.
+
+SPORTS PSYCHOLOGY
+https://www.amazon.com/dp/B08Z9N5CYQ
+
+INTERMITTENT FASTING
+https://www.amazon.com/dp/B08Z8L517F
+
+GET RICH
+https://www.amazon.com/dp/B08Y972QB5
+
