@@ -1,4 +1,4 @@
-Delivered-To: lc.sales.duarte@gmail.com
+Delivered-To: __.-----.~~~~~~@gmail.com
 Received: by 2002:a2e:9d13:0:0:0:0:0 with SMTP id t19csp4345638lji;
         Mon, 28 Jun 2021 17:27:18 -0700 (PDT)
 X-Google-Smtp-Source: ABdhPJzuW4FW52U2UngDWFhXd/PFSZ+HXZsCdJBuGaBtxcpXZH8MhxfzsyeNXf0jZ+45jcXrw9xH
@@ -28,7 +28,7 @@ ARC-Authentication-Results: i=1; mx.google.com;
 Return-Path: <0101017a5529c141-7a63fe23-3421-488b-81cf-147de69fac01-000000@us-west-2.amazonses.com>
 Received: from a27-18.smtp-out.us-west-2.amazonses.com (a27-18.smtp-out.us-west-2.amazonses.com. [54.240.27.18])
         by mx.google.com with ESMTPS id t4si19843560pgq.351.2021.06.28.17.27.18
-        for <lc.sales.duarte@gmail.com>
+        for <__.-----.~~~~~~@gmail.com>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
         Mon, 28 Jun 2021 17:27:18 -0700 (PDT)
 Received-SPF: pass (google.com: domain of 0101017a5529c141-7a63fe23-3421-488b-81cf-147de69fac01-000000@us-west-2.amazonses.com designates 54.240.27.18 as permitted sender) client-ip=54.240.27.18;
@@ -43,8 +43,8 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
 	wjtnQ+6kOIJAYWYqLG+Y+pt61ZkVwLxFlXkyibB2ecm9hfbbH6x5xWGSvI0atfTAVZu
 	XmYWtFDaKBy3t3tAYJX/4Ft9NqTU+KTIiSu/jGxQ=
 MIME-Version: 1.0
-From: "Mdon" <mdon@darakeon.com>
-To: lc.sales.duarte@gmail.com
+From: "Mdon" <mdon@heylisten.com>
+To: __.-----.~~~~~~@gmail.com
 Reply-To: no-reply@heylisten.com,
  0101017a552996ce-71e24526-e13c-48f5-a122-b2b52b7c8059-000000@us-west-2.amazonses.com
 Date: Tue, 29 Jun 2021 00:27:17 +0000
@@ -55,7 +55,7 @@ Message-ID: <0101017a5529c141-7a63fe23-3421-488b-81cf-147de69fac01-000000@us-wes
 Feedback-ID: 1.us-west-2.Rds362gvi39GQ9Tq60G5L4bj0fOATXls03cEWUv1JMs=:AmazonSES
 X-SES-Outgoing: 2021.06.29-54.240.27.18
 
-To: zimablue@darakeon.com<br />Date: 6/29/2021 12:27:07 AM<br />M=
+To: zimablue@heylisten.com<br />Date: 6/29/2021 12:27:07 AM<br />M=
 essage IDs: 1f11055ivk6shcsf3jsqeq7k5r7oikth7661u881,<0101017a552=
 996ce-71e24526-e13c-48f5-a122-b2b52b7c8059-000000@us-west-2.amazo=
 nses.com><br />Message-ID: <0101017a552996ce-71e24526-e13c-48f5-a=
@@ -95,8 +95,8 @@ days. So the time remaining for the deletion is:=3D0A=3D0A<div st=
 yle=3D"text-align:center; padding: 20px 0 30px 0;">=3D0A	<h1 styl=
 e=3D"margin: 0; font-size: 45px;">=3D0A		59=3D0A	</h1>=3D0A	days=3D=
 0A</div>=3D0A=3D0A<a style=3D"color: #550; cursor: pointer; displ=
-ay: block; text-align: center;"=3D0A		href=3D"https://dontflymone=
-y.com/contract" target=3D"_blank">=3D0A	Read the terms of use at =
+ay: block; text-align: center;"=3D0A		href=3D"https://heylisten=
+.com/contract" target=3D"_blank">=3D0A	Read the terms of use at =
 the website<br />=3D0A	to understand more about data deletion.=3D=
 0A</a>=3D0A=3D0A			<span style=3D"display: none">AD7F8E8B13BF4744=
 989C2E6B7FF90C27</span>=3D0A		</div>=3D0A=3D0A	<div style=3D"=3D0=
