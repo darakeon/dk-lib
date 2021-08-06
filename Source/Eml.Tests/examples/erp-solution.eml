@@ -1,0 +1,55 @@
+Return-Path: <rjzfzab@popskateshop.com>
+Received: from popskateshop.com (vps-1e8d6f7a.vps.ovh.net [146.59.233.57])
+ by inbound-smtp.us-west-2.amazonaws.com with SMTP id cp4um8sak41428e5mbj3r2cffieth4j9u3ekss01
+ for lcdk@heylisten.com;
+ Tue, 01 Jun 2021 01:29:23 +0000 (UTC)
+X-SES-Spam-Verdict: PASS
+X-SES-Virus-Verdict: PASS
+Received-SPF: pass (spfCheck: domain of popskateshop.com designates 146.59.233.57 as permitted sender) client-ip=146.59.233.57; envelope-from=rjzfzab@popskateshop.com; helo=vps-1e8d6f7a.vps.ovh.net;
+Authentication-Results: amazonses.com;
+ spf=pass (spfCheck: domain of popskateshop.com designates 146.59.233.57 as permitted sender) client-ip=146.59.233.57; envelope-from=rjzfzab@popskateshop.com; helo=vps-1e8d6f7a.vps.ovh.net;
+ dmarc=none header.from=popskateshop.com;
+X-SES-RECEIPT: AEFBQUFBQUFBQUFFVUxmalBlWW5mMGhXb0huTHNyTWxHOUF4ZjJqd2gzK3g1NTZWdEZwc3liTUN1M015aVEwa3dBMzFGT0xxbW5tSEk3THZ5MzlERk5vcVRIb0hKdlUzNjcvMW00VE1TUmtWY0NQZDU0NVo5TE9xT3dwc0dLWmF2aFQ2V1lOV2pBUjZRUURFck1mQStoaC9pTmxMQ00ycmNjRkJlTzd5cmd0RVFaQTZ5ZVFFQ0hRVEpTeEw5RE9vYk9oZlN1MVVVWGgwZkxUTzFmZkdVckdic1R5Qi9kc3F2ZUZITmIrZmhqWjUya0t2V0s1UGlDT05nTzBPZWlKeWtVSjVLTXJkTk5XRGVJVDZpZ1c5Zkx2UEZUWi9PQklEbW5nbDl2NWpKalJzS0FTeFRSdXEvNUE9PQ==
+X-SES-DKIM-SIGNATURE: a=rsa-sha256; q=dns/txt; b=J582h+8dIpZPcY9oK7i8YxaVpHvlWjzekJza3dkJexubc9fabeqJCWEUJMbifV6jKVpIw0g4jKhtDKNjbNSzMMETV3VZsTtjcEyfBaf4xYSAE7c5VQIP9zs+bA3fZYfXRq+2zy7XfX4w6vF1RSE2cCGqFzyhK2zmWpgx/oFgzLg=; c=relaxed/simple; s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1622510964; v=1; bh=fPBsEcve7HKvHuYIpDC8Cn8fBCZPADj3svaChFl4Nlw=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;
+Received: from mail.popskateshop.com (unknown [172.245.25.164])
+	by popskateshop.com (Postfix) with ESMTP id 4209744AE6E;
+	Sat, 29 May 2021 09:49:09 +0000 (UTC)
+From: "Win a brand new Iphone 12 Pro" <rjzfzab@popskateshop.com>
+Subject: How to get the iPhone 12 Pro Free (Secret)
+To: dflores@mediadoresgt.com
+Content-Type: text/plain
+Reply-To: partnership@oxaccounting.com
+Date: Sat, 29 May 2021 11:49:10 +0200
+
+
+Hello,
+
+Would you love to use a better accounting/ERP solution customized just for you?
+
+Ox ERP�is all you need. We are UK's foremost Accounting/ERP solution provider servicing thousands of brands across the globe, from hotels to service providers, to manufacturers and distributors...
+
+Our solution was built to carter for different categories of organizations, be it small, medium or large scale enterprises.
+You are guaranteed quality service at an affordable price.
+
+Our features includes:�unlimited number of users(at no extra cost), unlimited no of branches/location, Balance Sheet,Trial Balance, Profit And Loss Statement, Aging Analysis, Inventory, Supplier/Vendor Account, Customer Account, Invoicing, Payroll, Fixed Asset Management, Document Management, Ox Hotel: Booking/Reservation, Financial Reports, Business Analytics, Purchases Management, Statutory Compliance, Point Of Sale, Barcode/RFID, Mobile/PC Apps
+
+Get Ox ERP Now!.
+
+
+We are open to partnerships with accountants/business consultants or any business/individual that would love to�own�an accounting software brand. 
+
+Reply this email or reach out to us on�partnership@oxaccounting.com
+
+We would love to hear from you.
+
+Partnering with us will be mutually beneficial.
+
+Best regards,
+Ox Accounting Team
+Ox Accounting LTD
+Kemp House, 160 City Road, London, EC1V 2NX, UNITED KINGDOM.
+Registered in UNITED KINGDOM, Number 13301381.
++4476868740852
+
+
+

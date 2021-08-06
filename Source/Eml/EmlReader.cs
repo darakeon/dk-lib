@@ -15,6 +15,7 @@ namespace Keon.Eml
 		private const String subjectKey = "Subject";
 		private const String encodingKey = "Content-Transfer-Encoding";
 		private const String encodingBase64 = "base64";
+		private const String encodingQuotedPrintable = "quoted-printable";
 		private const String contentTypeKey = "Content-Type";
 		private const String contentMulti = "multipart/alternative";
 		private const String boundaryPattern = @"\s+boundary=""(.+)""";
@@ -59,9 +60,10 @@ namespace Keon.Eml
 			return middle == -1 ? end : middle;
 		}
 
-		private Boolean isBase64 =>
+		private String lastEncoding =>
 			headers.ContainsKey(encodingKey)
-				&& headers[encodingKey] == encodingBase64;
+				? headers[encodingKey].Split(" ").Last()
+				: null;
 
 		/// <summary>
 		/// Read the content of the eml from a file
@@ -115,7 +117,7 @@ namespace Keon.Eml
 
 			lastHeader = key;
 
-			if (value.EndsWith(";"))
+			if (key == contentTypeKey && value.EndsWith(";"))
 				value = value[..^1];
 
 			if (headers.ContainsKey(key))
@@ -167,24 +169,21 @@ namespace Keon.Eml
 
 		private String processSimpleBody(String[] content)
 		{
-			if (!isBase64)
+			switch (lastEncoding)
 			{
-				content = content
-					.Where(c => !String.IsNullOrEmpty(c))
-					.ToArray();
+				case encodingBase64:
+					content = content.FromBase64();
+					break;
+				case encodingQuotedPrintable:
+					content = content.FromQuotedPrintable();
+					break;
 			}
 
-			var body = String.Join("\n", content);
+			content = content
+				.Where(l => !String.IsNullOrWhiteSpace(l))
+				.ToArray();
 
-			if (isBase64)
-				body = body.FromBase64();
-
-			return body
-				.Replace("\"\"", "\"")
-				.Replace("=\n", "")
-				.Replace("=0A", "\n")
-				.Replace("=3D", "=")
-				;
+			return String.Join("\n", content).Replace("\r", "");
 		}
 
 		private String processMultiBody(String[] content)
@@ -197,11 +196,13 @@ namespace Keon.Eml
 				return null;
 
 			var lastAdded = 
-				headers["Content-Type"]
-					.Split("/").Last();
+				headers[contentTypeKey]
+					.Split("/").Last()
+					.ToUpper();
 
-			var body = "-- " + lastAdded.ToUpper() + "\n"
-			    + processSimpleBody(content[..end]);
+			var currentBody = processSimpleBody(content[..end]);
+
+			var body = $"-- {lastAdded}\n{currentBody}";
 
 			var otherBodies = processMultiBody(content);
 			if (otherBodies != null) body += "\n\n" + otherBodies;

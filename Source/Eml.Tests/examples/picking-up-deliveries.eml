@@ -1,0 +1,78 @@
+Return-Path: <wthtegsxtgu@cybernostics.com.au>
+Received: from cybernostics.com.au (mail.cybernostics.com.au [74.207.247.145])
+ by inbound-smtp.us-west-2.amazonaws.com with SMTP id lb38g70cdepde1b0j2vh73j9hlm2i98hf5kvlh01
+ for lcdk@heylisten.com;
+ Wed, 19 May 2021 09:40:28 +0000 (UTC)
+X-SES-Spam-Verdict: PASS
+X-SES-Virus-Verdict: PASS
+Received-SPF: none (spfCheck: 74.207.247.145 is neither permitted nor denied by domain of cybernostics.com.au) client-ip=74.207.247.145; envelope-from=wthtegsxtgu@cybernostics.com.au; helo=mail.cybernostics.com.au;
+Authentication-Results: amazonses.com;
+ spf=none (spfCheck: 74.207.247.145 is neither permitted nor denied by domain of cybernostics.com.au) client-ip=74.207.247.145; envelope-from=wthtegsxtgu@cybernostics.com.au; helo=mail.cybernostics.com.au;
+ dmarc=none header.from=cybernostics.com.au;
+X-SES-RECEIPT: AEFBQUFBQUFBQUFHMC9GMEFvTS9uMHdiZG9CMnRqTTNXdnRLK3d6c212TzFBbFdyNVdqK2pWcEJwY2xabFQyTVZJWG5EV0tIVkljd25wNlZvS1lQQ0dIdUN1YkpqMHo4UXo1REJQdVg4d1BKd0J6TW9UaXYxTVppaHg5ek00dGhvdnhzWEZWeU1kRDBqUDJkcWUzQXBCQTFZRklnZGdXMVVQZVgxb0UrSlV6Ny9GdU9GRmZZMG5OWGtPdTVyTHB4Ly94RkJHNjdLNlRWUjdXbUl6UFRUQjd6bDB0WW54alZrRHRqcEIrK3NRNXdxaVdvUHZTN2YxdW1wNVJYZUh2a0g4SGhJcnUvNUh2RTIvU0dlMDBXT2VpYlhEZDhjZzA4MlFQQTBZbDlGQ3JmMmRlTW1KMWZuTG85WXJQQk92bm5aSEZMOUExbnU4Wnc9
+X-SES-DKIM-SIGNATURE: a=rsa-sha256; q=dns/txt; b=PTujoXCktHOvbxdiJQUiBqX8WfGC3JKbg9/x2s+rzmLjMlR/qb9nqelsWspU1Is4JUjpSZbQ92C3AcluUgRX1hik+Gc0mtib64g0uWmJf/retWqn6qnObxgB5RkZK4xmISYexzkffya1xhpfm+5TEXiP4fOW9diAt+fKGbsxwbg=; c=relaxed/simple; s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1621417228; v=1; bh=QL1JGViO6b2/r3uP4cL2Romu1w1qLxUVkfDDW/3k4rk=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;
+Received: from smtp.cybernostics.com.au (unknown [172.245.25.164])
+	by cybernostics.com.au (Postfix) with ESMTP id 04920B8E95F;
+	Wed, 19 May 2021 08:45:28 +0000 (UTC)
+From: "Ball Technologies" <wthtegsxtgu@cybernostics.com.au>
+Subject: Complete service of picking up deliveries
+To: dflores@mediadoresgt.com
+Content-Type: text/plain
+Reply-To: info@theteamball.com
+Date: Wed, 19 May 2021 10:45:30 +0200
+
+
+Owner or manager of a Business.
+Ball provides you with the complete service of picking up deliveries of orders and leaving them at the 
+
+door of your client's house.
+You only take care of packing the product and we make the delivery in real time.
+
+ 10 Benefits of partnering with us.
+ 1- Different free Marketing for your business.
+ 2- New service for your clients.
+ 3- $ 0.00 Registration and membership fee.
+ 3- 0% o Commission fee per order for the store, (other companies charge you 35% of the total sale plus 
+
+payment fee assigned to customers).
+ 4- When you take the order you will be able to see in the App or in your computer software, how much 
+
+is the value that you will charge the customer according to the Distance, time and tips if the customer 
+
+considers giving to include it in the invoice.
+ 5- $ 0.00 Cost of drivers payroll and higher sales.  
+6- $ 0.00 cost of maintenance and fleet of cars.
+ 7- Driver earns only delivery fee paid by customer plus tips.
+ 8-We provide investigated drivers with different classes of vehicles, and rates ranging from a bicycle 
+
+to catering trucks.
+ 9- You can save your favorite drivers in your memory of the app or software installed on your computer 
+
+or choose the closest one.  
+10- Free and easy installation.
+       Partner with Ball and be part of the true shared economy!!
+
+ We want to send you a Starter Kit and learn more about you
+ ?Form?
+ Name of Owner or Manager:
+ Position:
+ Business name:
+ Business Type:
+ Amount of delivery that you think can be generated in the first month:
+ Contact E-Mail:
+ Business email:
+ Telephone contact:
+ Business address:
+ Condition:
+ City:
+ Zip code:
+
+
+Company name: Ball Technologies
+Trade Name: Ball Delivery
+Email: info@theteamball.com
+Web :�www.ballsvcs.com
+Android: Ball Rider Link Ball Rider - Apps on Google Play
+Iphone : Ball Passenger link  ?Ball Passenger on the App�Store (apple.com)
+
+

@@ -1,0 +1,110 @@
+Delivered-To: lc.sales.duarte@gmail.com
+Received: by 2002:a2e:9d13:0:0:0:0:0 with SMTP id t19csp4345638lji;
+        Mon, 28 Jun 2021 17:27:18 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzuW4FW52U2UngDWFhXd/PFSZ+HXZsCdJBuGaBtxcpXZH8MhxfzsyeNXf0jZ+45jcXrw9xH
+X-Received: by 2002:a17:902:8bca:b029:11d:b5c0:5677 with SMTP id r10-20020a1709028bcab029011db5c05677mr25439013plo.11.1624926438653;
+        Mon, 28 Jun 2021 17:27:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1624926438; cv=none;
+        d=google.com; s=arc-20160816;
+        b=IdRfOv/droCqlBugDsDzWRUIXvu41GQlV044KQcewP1CzwmYcI+xPSQBvdGP1gTUvB
+         JY69qN5/eLaW5iL16hRuMLHBA2StlxIDS2Tpy5Rp6LODM3XfOzY0ZjDL8S60z4ZdaJ1e
+         UwPlmN0FUjzZ5Hk59/nxAIfzL/ITkcA4SK8LabQyQrZzzLGJAQB4kzOkbQWIOprDi6D2
+         YFjsaObUeN8XRp+Ln/HLH0v6q8jg3SN92kyjyVsNulLUiwYxBVQpMynIdL4stNiC1XK3
+         szmRfz6qC7DxEwBS6+aZDhRKwR+oyTxerohN+pZTya5nYZ5mcGTMdb+YpyXbPF6rx6HB
+         fOxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=feedback-id:message-id:content-transfer-encoding:subject:date
+         :reply-to:to:from:mime-version:dkim-signature;
+        bh=2tEp7xDIPw3rFt+qxbD+CjJoMKWBMsYtJvhqtMWFtXU=;
+        b=p3H2iiCTK42sYagDKEdBB0VrNvKcHOIL9QHFeq6rVDXSiWx7yefZouSH4rWE+dF9Oy
+         7I1GVNqQFw72LKG0yA675bA0/MZiYzfTlTtlr1vPROehMWRPHCa54+EgQPK9HYhdFW0p
+         kP+wY6lP1EWda40QU4a0R5F3xgmAprMVUScyeUesVGY/zsN3BMQDH2cdKBHtY1b/rbwW
+         J92ZNWshlJGYa6zAS9AbJ7a4h/KHSjoJJa1YceRN/gzQiPfJDbC9W0MEe9xf0vlBRknz
+         Qo5X9rUUwWpT8c3uZomX94Y1M2VTrozxb03fDnZeJs48FgSYnaif4FEucptU1hvsvb/A
+         IUew==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@amazonses.com header.s=7v7vs6w47njt4pimodk5mmttbegzsi6n header.b=lUF4zAX8;
+       spf=pass (google.com: domain of 0101017a5529c141-7a63fe23-3421-488b-81cf-147de69fac01-000000@us-west-2.amazonses.com designates 54.240.27.18 as permitted sender) smtp.mailfrom=0101017a5529c141-7a63fe23-3421-488b-81cf-147de69fac01-000000@us-west-2.amazonses.com
+Return-Path: <0101017a5529c141-7a63fe23-3421-488b-81cf-147de69fac01-000000@us-west-2.amazonses.com>
+Received: from a27-18.smtp-out.us-west-2.amazonses.com (a27-18.smtp-out.us-west-2.amazonses.com. [54.240.27.18])
+        by mx.google.com with ESMTPS id t4si19843560pgq.351.2021.06.28.17.27.18
+        for <lc.sales.duarte@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
+        Mon, 28 Jun 2021 17:27:18 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 0101017a5529c141-7a63fe23-3421-488b-81cf-147de69fac01-000000@us-west-2.amazonses.com designates 54.240.27.18 as permitted sender) client-ip=54.240.27.18;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@amazonses.com header.s=7v7vs6w47njt4pimodk5mmttbegzsi6n header.b=lUF4zAX8;
+       spf=pass (google.com: domain of 0101017a5529c141-7a63fe23-3421-488b-81cf-147de69fac01-000000@us-west-2.amazonses.com designates 54.240.27.18 as permitted sender) smtp.mailfrom=0101017a5529c141-7a63fe23-3421-488b-81cf-147de69fac01-000000@us-west-2.amazonses.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1624926437;
+	h=MIME-Version:From:To:Reply-To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID:Feedback-ID;
+	bh=wpYlUT/3vx5AUrz3SHlbFkLYLgHzXK43gZjLl09dFr8=;
+	b=lUF4zAX8stv6fAl6dJNY866GKEpsxUla/MPdEWOz0KZ7OmcT0rojTrI63FgL4l9x
+	wjtnQ+6kOIJAYWYqLG+Y+pt61ZkVwLxFlXkyibB2ecm9hfbbH6x5xWGSvI0atfTAVZu
+	XmYWtFDaKBy3t3tAYJX/4Ft9NqTU+KTIiSu/jGxQ=
+MIME-Version: 1.0
+From: "Mdon" <mdon@darakeon.com>
+To: lc.sales.duarte@gmail.com
+Reply-To: no-reply@heylisten.com,
+ 0101017a552996ce-71e24526-e13c-48f5-a122-b2b52b7c8059-000000@us-west-2.amazonses.com
+Date: Tue, 29 Jun 2021 00:27:17 +0000
+Subject: You seem to be not using the system anymore
+Content-Type: text/html; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Message-ID: <0101017a5529c141-7a63fe23-3421-488b-81cf-147de69fac01-000000@us-west-2.amazonses.com>
+Feedback-ID: 1.us-west-2.Rds362gvi39GQ9Tq60G5L4bj0fOATXls03cEWUv1JMs=:AmazonSES
+X-SES-Outgoing: 2021.06.29-54.240.27.18
+
+To: zimablue@darakeon.com<br />Date: 6/29/2021 12:27:07 AM<br />M=
+essage IDs: 1f11055ivk6shcsf3jsqeq7k5r7oikth7661u881,<0101017a552=
+996ce-71e24526-e13c-48f5-a122-b2b52b7c8059-000000@us-west-2.amazo=
+nses.com><br />Message-ID: <0101017a552996ce-71e24526-e13c-48f5-a=
+122-b2b52b7c8059-000000@us-west-2.amazonses.com>=0AFeedback-ID: 1=
+.us-west-2.Rds362gvi39GQ9Tq60G5L4bj0fOATXls03cEWUv1JMs=3D:AmazonS=
+ES=0AX-SES-Outgoing: 2021.06.29-54.240.27.55=0A<!DOCTYPE html PUB=
+LIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/T=
+R/xhtml1/DTD/xhtml1-transitional.dtd">=3D0A<html xmlns=3D"http://=
+www.w3.org/1999/xhtml">=3D0A<head>=3D0A	<title>You seem to be not=
+ using the system anymore</title>=3D0A</head>=3D0A<body>=3D0A<div=
+ style=3D"=3D0A		text-align: justify;=3D0A		font-size: 15px;=3D0A=
+	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;=3D0A		=
+background-color: #EEE;=3D0A		border: 1px solid #DDD;=3D0A		margi=
+n: 20px auto;=3D0A		width: 400px;=3D0A		border-radius: 4px;=3D0A	=
+">=3D0A=3D0A		<div style=3D"=3D0A			color: #345;=3D0A			backgroun=
+d-color: #DDD;=3D0A			padding: 10px 15px;=3D0A			border-bottom: 1=
+px solid #DDD;=3D0A			border-radius: 3px 3px 0 0;=3D0A		">=3D0A		=
+	<div style=3D"=3D0A				font-size: 1.5em;=3D0A				margin: 0.5em 0=
+.5em 0.3em 0.2em;=3D0A			">=3D0A				NoInteraction=3D0A=3D0A				<a=
+ style=3D"color: #550; text-decoration: none; float: right"=3D0A	=
+				href=3D"https://heylisten.com" target=3D"_blank" title=3D"=
+Don't fly Money">=3D0A					<img src=3D"https://heylisten.com/a=
+ssets/images/mail-pig.png" alt=3D"Don't fly Money" title=3D"Don't=
+ fly Money" />=3D0A				</a>=3D0A			</div>=3D0A		</div>=3D0A=3D0A	=
+	<div style=3D"padding: 15px; background: #EEE; color: #345;">=3D=
+0A			<span style=3D"text-align: center; display: block; font-weig=
+ht: bold; font-style: italic; font-size: 140%;">=3D0A	Your user a=
+nd data inserted in Don't fly Money system are about to be delete=
+d.=3D0A</span>=3D0A=3D0A<br />=3D0A=3D0AThe system using is free,=
+ butthere are costs for whom maintains it online. There is some t=
+imethat the inserted data at the System are not accessed or chang=
+ed. So there is no meaning in keeping it, given they are not bein=
+g used. The last access was at:=3D0A=3D0A<div style=3D"text-align=
+: center; padding: 10px;">=3D0A	<h3>05/29/2021</h3>=3D0A</div>=3D=
+0A=3D0AThe deletion is not immediate. There are a deadline of 90 =
+days. So the time remaining for the deletion is:=3D0A=3D0A<div st=
+yle=3D"text-align:center; padding: 20px 0 30px 0;">=3D0A	<h1 styl=
+e=3D"margin: 0; font-size: 45px;">=3D0A		59=3D0A	</h1>=3D0A	days=3D=
+0A</div>=3D0A=3D0A<a style=3D"color: #550; cursor: pointer; displ=
+ay: block; text-align: center;"=3D0A		href=3D"https://dontflymone=
+y.com/contract" target=3D"_blank">=3D0A	Read the terms of use at =
+the website<br />=3D0A	to understand more about data deletion.=3D=
+0A</a>=3D0A=3D0A			<span style=3D"display: none">AD7F8E8B13BF4744=
+989C2E6B7FF90C27</span>=3D0A		</div>=3D0A=3D0A	<div style=3D"=3D0=
+A			color: #345;=3D0A			background-color: #DDD;=3D0Apadding: 10px=
+ 15px;=3D0A			border-bottom: 1px solid #DDD;=3D0A			border-radius=
+: 0 0 3px 3px;=3D0A			text-align: center;=3D0A		">=3D0A			We have=
+ NO link with financial institutions.<br />=3D0A			Don't reply th=
+is e-mail.<br />=3D0A			Our contact: lcdk@heylisten.com=3D0A			=
+<span style=3D"display: none">AD7F8E8B13BF4744989C2E6B7FF90C27</s=
+pan>=3D0A		</div>=3D0A	</div>=3D0A</body>=3D0A</html>=3D0A=0A
+

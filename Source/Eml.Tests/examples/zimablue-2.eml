@@ -1,0 +1,100 @@
+Return-Path: <0101017aefa85e50-00e7b1ca-b088-4065-838b-48876067f126-000000@us-west-2.amazonses.com>
+Received: from a27-188.smtp-out.us-west-2.amazonses.com (a27-188.smtp-out.us-west-2.amazonses.com [54.240.27.188])
+ by inbound-smtp.us-west-2.amazonaws.com with SMTP id oivn336ttggr7afbm6uu1afajdt3on1ve3ckkt01
+ for zimablue@darakeon.com;
+ Thu, 29 Jul 2021 00:27:07 +0000 (UTC)
+X-SES-Spam-Verdict: PASS
+X-SES-Virus-Verdict: PASS
+Received-SPF: pass (spfCheck: domain of us-west-2.amazonses.com designates 54.240.27.188 as permitted sender) client-ip=54.240.27.188; envelope-from=0101017aefa85e50-00e7b1ca-b088-4065-838b-48876067f126-000000@us-west-2.amazonses.com; helo=a27-188.smtp-out.us-west-2.amazonses.com;
+Authentication-Results: amazonses.com;
+ spf=pass (spfCheck: domain of us-west-2.amazonses.com designates 54.240.27.188 as permitted sender) client-ip=54.240.27.188; envelope-from=0101017aefa85e50-00e7b1ca-b088-4065-838b-48876067f126-000000@us-west-2.amazonses.com; helo=a27-188.smtp-out.us-west-2.amazonses.com;
+ dkim=pass header.i=@amazonses.com;
+ dmarc=none header.from=heylisten.com;
+X-SES-RECEIPT: AEFBQUFBQUFBQUFGM29xYlVSak1HNU5abXpWaVJidXNXTGs0WHlqM2UvekxnUTIyUVVGVXlYdXdINkwxUFlJL1l2NmdDcVNGK2xhRGlZd2YzdExtSmpzVFliOEwwUWJReGtNa1JXNm9mYW52TkxyVXBPYlQ4ZDY5V2pLQXVhMDBZczBSSmlWM0NUTVVvc2tSWWsyL1JhVzJ1eHdSUC80b1dvRGJXUDlQWS9LazVZUTJRVkVGUFc1VFNUYUdNQkFrTEU2eFdMU0l4VnBBMitCRkVtZzd5T3M2Y3IvcEdZVldlakhoNCs1NGo2dERMbG5JblRKRjVTYVllQytPbUlySmNWZDVkQVFacmRVaEVKc2lVSFFnSTBVUUZ0NFV2ZXZ3M2l3NXdQUThwNlIrSllIeUdPRXE1TXhqb3lGUWVjZVVtNFM2ZDdtblRoRkJVVFBJQmZydTNtWFcvdEJnQmM3M0dMZjZqb2V1bDIva1ZEcGR3MHVEbFdWekxBYzMvS3ZPRTdIS1A2Tk92Q284PQ==
+X-SES-DKIM-SIGNATURE: a=rsa-sha256; q=dns/txt; b=jacE+wZzNurohOsSuP/pJQqDRUn15Wxze3b3FTXIBjOEkdsYhb09D8asE1uYP4a/C/sVa3NGqgPlh1rlaUltar/NOCTx7vvnjQY+0nuW7TjunLmwdKO4jkSaxUYjkI/3nsHExnqMEAvISE1pjKn5i86MyHVpgjmx5PjH0uiSvpc=; c=relaxed/simple; s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1627518427; v=1; bh=BaXG3gmdNptflHxh2voUjXxNppvmnHydqPtCGc7AFIo=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1627518426;
+ h=MIME-Version:From:To:Date:Subject:Content-Type:Content-Transfer-Encoding:Message-ID:Feedback-ID;
+ bh=BaXG3gmdNptflHxh2voUjXxNppvmnHydqPtCGc7AFIo=;
+ b=PdOwWvsTt/DkqGYQPq2YLA3jUTxkN8ZccmIe3Zl34CKs5XDnLqAREtujEFFqh6mq
+ 7CXBu0ETiK9j0GkZowjkWJ7Sd5BkX0GckV8QlKwPduU3j2XXEohX35Ek409kQ8XGzyg
+ oK8WwlpOPX/ymJB2fCOKATEHTeqvmwKJ2WvNfL2s=
+MIME-Version: 1.0
+From: no-reply@heylisten.com
+To: zimablue@darakeon.com
+Date: Thu, 29 Jul 2021 00:27:06 +0000
+Subject: You seem to be not using the system anymore
+Content-Type: text/html; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Message-ID: <0101017aefa85e50-00e7b1ca-b088-4065-838b-48876067f126-000000@us-west-2.amazonses.com>
+Feedback-ID: 1.us-west-2.Rds362gvi39GQ9Tq60G5L4bj0fOATXls03cEWUv1JMs=:AmazonSES
+X-SES-Outgoing: 2021.07.29-54.240.27.188
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "h=
+ttp://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">=0A<html =
+xmlns=3D"http://www.w3.org/1999/xhtml">=0A<head>=0A <title>You se=
+em to be not using the system anymore</title>=0A</head>=0A<body>=0A=
+<div style=3D"=0A  text-align: justify;=0A  font-size: 15px;=0A =
+font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;=0A  ba=
+ckground-color: #EEE;=0A  border: 1px solid #DDD;=0A  margin: 20p=
+x auto;=0A  width: 420px;=0A  border-radius: 4px;=0A ">=0A=0A  <d=
+iv style=3D"=0A   color: #345;=0A   background-color: #DDD;=0A   =
+padding: 10px 15px;=0A   border-bottom: 1px solid #DDD;=0A   bord=
+er-radius: 3px 3px 0 0;=0A  ">=0A   <div style=3D"=0A    font-siz=
+e: 1.5em;=0A    margin: 0.5em 0.5em 0.3em 0.2em;=0A   ">=0A    No=
+Interaction=0A=0A    <a style=3D"color: #550; text-decoration: n=
+one; float: right"=0A     href=3D"https://heylisten.com" targe=
+t=3D"_blank" title=3D"Don't fly Money">=0A     <img src=3D"https:=
+//heylisten.com/assets/images/mail-pig.png" alt=3D"Don't fly M=
+oney" title=3D"Don't fly Money" />=0A    </a>=0A   </div>=0A  </d=
+iv>=0A=0A  <div style=3D"padding: 15px; background: #EEE; color: =
+#345;">=0A   <span style=3D"text-align: center; display: block; f=
+ont-weight: bold; font-style: italic; font-size: 140%;">=0A Your =
+user and data inserted in Don't fly Money system are about to be =
+deleted.=0A</span>=0A=0A<br />=0A=0AThe system using is free, but=
+there are costs for whom maintains it online. There is some time=
+that the inserted data at the System are not accessed or changed=
+. So there is no meaning in keeping it, given they are not being =
+used. The last access was at:=0A=0A<div style=3D"text-align: cent=
+er; padding: 10px;">=0A <h3>05/29/2021</h3>=0A</div>=0A=0AThe del=
+etion is not immediate. There are a deadline of 90 days. So the t=
+ime remaining for the deletion is:=0A=0A<div style=3D"text-align:=
+center; padding: 20px 0 30px 0;">=0A <h1 style=3D"margin: 0; fon=
+t-size: 45px;">=0A  29=0A </h1>=0A days=0A</div>=0A=0A<a style=3D=
+"color: #550; cursor: pointer; display: block; text-align: center=
+;"=0A  href=3D"https://heylisten.com/contract" target=3D"_blan=
+k">=0A Read the terms of use at the website<br />=0A to understan=
+d more about data deletion.=0A</a>=0A=0A   <span style=3D"display=
+: none">97B9D5F823834725B2064A16A9C873B1</span>=0A  </div>=0A=0A =
+<div style=3D"=0A   color: #345;=0A   background-color: #DDD;=0A=
+padding: 20px 15px;=0A   border-bottom: 1px solid #DDD;=0A   b=
+order-radius: 0 0 3px 3px;=0A   text-align: left;=0A  ">=0A   <a =
+href=3D"https://heylisten.com/Misc"=0A    target=3D"_blank"=0A=
+style=3D"=0A     float: right;=0A     padding: 5px;=0A     ba=
+ckground: #363;=0A     border: 2px dashed #F0F;=0A     border-rad=
+ius: 10px;=0A     margin: -6px 0 0 0;=0A    "=0A   >=0A    <div s=
+tyle=3D"=0A    position: relative;=0A    width: 45px;=0A    heigh=
+t: 54px;=0A ">=0A=0A <div style=3D"=0A   width: 45px;=0A   height=
+: 17px;=0A   left: 0;=0A   top: 27px;=0A   position: absolute;=0A=
+background-size: cover;=0A   background-image: url('https://do=
+ntflymoney.com/Assets/images/miscs/101-arm-0.png')=0A  "></div>=0A=
+=0A <div style=3D"=0A   width: 27px;=0A   height: 15px;=0A   left=
+: 9px;=0A   top: 39px;=0A   position: absolute;=0A   background-s=
+ize: cover;=0A   background-image: url('https://heylisten.com/=
+Assets/images/miscs/101-leg-1.png')=0A  "></div>=0A=0A <div style=
+=3D"=0A   width: 33px;=0A   height: 33px;=0A   left: 6px;=0A   to=
+p: 11px;=0A   position: absolute;=0A   background-size: cover;=0A=
+background-image: url('https://heylisten.com/Assets/images/=
+miscs/101-body.png')=0A  "></div>=0A=0A <div style=3D"=0A   width=
+: 22px;=0A   height: 16px;=0A   left: 11px;=0A   top: 0;=0A   pos=
+ition: absolute;=0A   background-size: cover;=0A   background-ima=
+ge: url('https://heylisten.com/Assets/images/miscs/101-ant-11.=
+png')=0A  "></div>=0A=0A <div style=3D"=0A   width: 11px;=0A   he=
+ight: 8px;=0A   left: 17px;=0A   top: 21px;=0A   position: absolu=
+te;=0A   background-size: cover;=0A   background-image: url('http=
+s://heylisten.com/Assets/images/miscs/101-eye-11.png')=0A  "><=
+/div>=0A</div>=0A=0A   </a>=0A=0A   We have NO link with financia=
+l institutions.<br />=0A   Don't reply this e-mail.<br />=0A   Ou=
+r contact: lcdk@heylisten.com=0A=0A   <span style=3D"display: n=
+one">97B9D5F823834725B2064A16A9C873B1</span>=0A  </div>=0A </div>=
+=0A</body>=0A</html>=0A

@@ -63,7 +63,7 @@ namespace Eml.Tests
 		{
 			contentLines = table.Rows
 				.Select(r => r["Content"])
-				.Select(c => c.Length > 1 && c[0] == '&' ? c[1..] : c)
+				.Select(trimAmpersand)
 				.ToArray();
 		}
 
@@ -104,7 +104,11 @@ namespace Eml.Tests
 		[Then(@"the body is")]
 		public void ThenTheBodyIs(Table table)
 		{
-			var expected = table.Rows.Select(r => r["Body"]).ToArray();
+			var expected = table.Rows
+				.Select(r => r["Body"])
+				.Select(trimAmpersand)
+				.ToArray();
+
 			var actual = reader.Body.Split("\n");
 
 			Assert.AreEqual(expected.Length, actual.Length);
@@ -113,6 +117,22 @@ namespace Eml.Tests
 			{
 				Assert.AreEqual(expected[l], actual[l]);
 			}
+		}
+
+		[Then(@"the body is same as content of (.+)")]
+		public void ThenTheBodyIsSameAsContentOf(String filename)
+		{
+			var path = Path.Combine("examples", filename);
+			var expected = File.ReadAllLines(path);
+
+			var actual = reader.Body.Split("\n");
+
+			for (var l = 0; l < Math.Min(actual.Length, expected.Length); l++)
+			{
+				Assert.AreEqual(expected[l], actual[l], $"Line {l}");
+			}
+
+			Assert.AreEqual(expected.Length, actual.Length);
 		}
 
 		[Then(@"the creation date is (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|null)")]
@@ -124,10 +144,9 @@ namespace Eml.Tests
 		[Then(@"the header is")]
 		public void ThenTheHeaderIs(Table table)
 		{
-			var headers = table.CreateSet<KeyValuePair<String, String>>()
+			var headers = table
+				.CreateSet<KeyValuePair<String, String>>()
 				.ToDictionary(p => p.Key, p => p.Value);
-
-			Assert.AreEqual(headers.Count, reader.Headers.Count);
 
 			foreach (var key in headers.Keys)
 			{
@@ -136,11 +155,17 @@ namespace Eml.Tests
 					$"Key '{key}' not found"
 				);
 
+				var expected = headers[key]
+					.Replace("§", "\t");
+
 				Assert.AreEqual(
-					headers[key], reader.Headers[key],
+					trimAmpersand(expected),
+					reader.Headers[key],
 					$"Key '{key}' with wrong value"
 				);
 			}
+
+			Assert.AreEqual(headers.Count, reader.Headers.Count);
 		}
 
 		[Then(@"the subject is (.+)")]

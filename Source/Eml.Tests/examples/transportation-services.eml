@@ -1,0 +1,88 @@
+Return-Path: <lczhw@regsys.cc>
+Received: from regsys.cc (regsys.cc [45.91.101.184])
+ by inbound-smtp.us-west-2.amazonaws.com with SMTP id tv6df2s248n3oecha4c8usjh1vnag6eguk39bao1
+ for lcdk@heylisten.com;
+ Thu, 24 Jun 2021 12:32:50 +0000 (UTC)
+X-SES-Spam-Verdict: PASS
+X-SES-Virus-Verdict: PASS
+Received-SPF: pass (spfCheck: domain of regsys.cc designates 45.91.101.184 as permitted sender) client-ip=45.91.101.184; envelope-from=lczhw@regsys.cc; helo=regsys.cc;
+Authentication-Results: amazonses.com;
+ spf=pass (spfCheck: domain of regsys.cc designates 45.91.101.184 as permitted sender) client-ip=45.91.101.184; envelope-from=lczhw@regsys.cc; helo=regsys.cc;
+ dmarc=pass header.from=regsys.cc;
+X-SES-RECEIPT: AEFBQUFBQUFBQUFGdEg3UTVQb255MGpMTy9EUC9xa3kyZkpRdzJTSXNaazFJVCtZRnJMRW44YTJZVy9BcnRjMzZIOFVrN2xkY2lrUHlUUnlIODVOQzFiTnZXRlNXOFFSMUFPalVLNW4rd0M0ZnNDTjBFTUFDMTNQOEdHbXRSdmphVXFlOTM2ampKbC9QdDhSZjZSZTdZZjhHK3dvMWRZNWNjN0lCazllQmpENGlqY2hlVjhvei8wL2xFZlNjNFAxUDdIWHY3TURmL3F4dFoxS1k3dVlVclJGeDNaNFlLOWdndDJnTlh0M0JOVUFhNGF1VFYySkZLRlRValQ4UzdFaCt3clJKUlJWeUlXVjBJdE9zRUJqS0VhTzJpRzUyNzczNjEwRkZkZ0xkMUczZ3dFczVFYldwdlE9PQ==
+X-SES-DKIM-SIGNATURE: a=rsa-sha256; q=dns/txt; b=RLDtupBxvaDD23140emdTVOqbq8f9uRkVFdjJyK2sAFiXfxarjvpaZ3CdFq/QWaN3wpeziBHVbocKvnQW5TNIXDFLwZcGIVtoX50ewHqNOWW2XYwQhRuL+Ntsk5pxzXtpkwE31auRUWcNMC/X0izCEYfaexkxc6qmYHVJ7z0/Gg=; c=relaxed/simple; s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1624537971; v=1; bh=F3e3EqzFXQE8ObXjuVHFQwbpjI42R4iJdqqS04rYS58=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;
+Received: from mail.regsys.cc (unknown [172.245.25.166])
+	by regsys.cc (Postfix) with ESMTP id 3D58F4B9D6D;
+	Thu, 24 Jun 2021 14:22:24 +0200 (CEST)
+From: "CANGLU LOGISTICS" <lczhw@regsys.cc>
+Subject: Transportation Services
+To: camera@medfag.com
+Content-Type: text/plain
+Reply-To: canglulogistics@gmail.com
+Date: Thu, 24 Jun 2021 14:22:24 +0200
+
+
+CANGLU LOGISTICS
+
+Who we are?
+�Dedicated Company founded in 2016 specializing in the client logistics needs. No matter the place, the 
+
+type of merchandise Cang Lu Logistics can handle the service.
+�We have been creating expertise in Just in Time service all over the world.
+�Every client is important to us, no matter if the volume is high or low, small or large We are a 
+
+dedicated company to serve all your needs.
+
+Transportation Services
+�Ocean Services:                     
+�Full Container 
+�LCL Services
+�Over side freight
+�ISF 
+�Air Freight:
+�Door to Door Cargo
+�Loose Air Cargo
+�+/- 85 kg Boxes
+�Overnight Air Cargo
+
+ All Cargo Airlines
+
+�Truck Transportation:                     
+�Truck Load (US, MX, CA, CN)
+�Loose Truck Service (US, MX, CA, CN)
+�Truck Transfer Service
+�Parcel Service / Warehouse
+�DHL Service
+�FEDEX
+�UPS
+�Shanghai port Warehouse
+
+Import/Export?
+�Customs Broker Service:                     
+�Import Service (CHINA, USA, CANADA, MEXICO)
+�China: 3rd Party Company importation with permits
+�USA: Import Registration, FDA, 3rd Party Company Import, Duties and Permits.
+�Mexico: Import permits, 3rd Party Company importation services, Duties.
+�CANADA: Barcode application, Import requirements 
+�Export Service (CHINA, USA, CANADA & MEXICO)
+�China: 3rd Party Company importation service.
+�USA: AES Declaration Service, NAFTA, INBOND, BONDED WAREHOUSE
+�Mexico: Export Declaration service, 3rd Party Importation Service, 
+�CANADA: INBOND Service
+�Importer Registration. (USA, MEXICO, CHINA)
+
+CONTACT US:
+�Phone: (626) 888-7961 (USA)
+�We-Chat: +528991492733 (Mexico)
+�WhatsApp: +52 8991492733 (Mexico)
+�canglulog.com
+�Valeria Gutierrez Rivasplata
+�Tel:+51 958 590 567 (Peru)
+
+CANG LU China Logistics Department
+ADD:102-6 Multi-Function of Airport, Fuyong Town, BaoAn Distric, Shenzhen, China.
+Cell:0086-18826560680 (China)
+Tel:0755-27208803
+APP: LU (Tracking and Pick up number) (working on it)
+EMAIL: canglulogistics@gmail.com
+EMAIL: canglucn@gmail.com

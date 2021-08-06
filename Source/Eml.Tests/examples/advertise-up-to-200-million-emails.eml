@@ -1,0 +1,91 @@
+Return-Path: <nzosgb@fortinettac.com>
+Received: from fortinettac.com (fekvm.purdon.ca [206.47.13.55])
+ by inbound-smtp.us-west-2.amazonaws.com with SMTP id badi6492u2jspt7kl5gdf7gifqftjv09fbom4n01
+ for lcdk@heylisten.com;
+ Thu, 15 Jul 2021 12:57:33 +0000 (UTC)
+X-SES-Spam-Verdict: PASS
+X-SES-Virus-Verdict: PASS
+Received-SPF: permerror (spfCheck: Error in processing SPF Record) client-ip=206.47.13.55; envelope-from=nzosgb@fortinettac.com; helo=fekvm.purdon.ca;
+Authentication-Results: amazonses.com;
+ spf=permerror (spfCheck: Error in processing SPF Record) client-ip=206.47.13.55; envelope-from=nzosgb@fortinettac.com; helo=fekvm.purdon.ca;
+ dkim=pass header.i=@fortinettac.com;
+ dmarc=pass header.from=fortinettac.com;
+X-SES-RECEIPT: AEFBQUFBQUFBQUFHSVNjUXVvZmsrU1NObUJHb2xOUmxhalJjNG1MdFBvRVpQOUZhbFJOSGpsTmhFN3gwcWE5bUkxWkxXUDdRTkNDQ2M1R3ptVyt6T3A5WlZEWUdVbDdVM2pCNjJldW9WQnFQMitxRGdLcnRuR01vTi92YlEyYnNVeUtlK2QwdHlsQWFrd2YyY1BucWdNOFJJSmlBVFRqUGROdjczckl1ek1lOWdYMkVic0E0d0dFVWJOYitOWjNodk1LeTNCWlhBZnNpbW8xQWptT2VBRXYySnpqNXhaaFh6bW5oWjZSNDd0TzZNc3o3MXRVRU9JTy8vZFhQOUpzNzhyUkNTZU50ZXV3SmdxVTNvOHJLQ0Y4ZnQ1aDF6b2ZiQStMOUREbGVOMlJYWGZVbjJxZTE0Mm14aEwvd1RQMC9GWUtBS3dMam4rbVU9
+X-SES-DKIM-SIGNATURE: a=rsa-sha256; q=dns/txt; b=WB54h4wf5MFy2mxtYk0ONlRsjOeD/NvhO4dbiIxyHqkAs2PLDWbg2Rx5Scd7gpKZ7zM9KNkguMWv22peTGFQnZAPlYmHL2w7OYkS/wlu67G9OGHewTTGUM1jtLjxAmskODJF60Ndr6Sh3OAGUO9wTglyYqkV50os7Bj5RJU8PKE=; c=relaxed/simple; s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1626353855; v=1; bh=Bl3dV6tobygOPBkGY6K4GRPMmTKMw4huFvR4EwIqZ9s=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;
+Received: from mail.fortinettac.com (23-95-86-83-host.colocrossing.com [23.95.86.83])
+	by mail.fortinettac.com  with ESMTP id 12MMXtNA019033-12MMXtNC019033;
+	Mon, 22 Mar 2021 18:33:55 -0400
+Message-Id: <202103222233.12MMXtNA019033-12MMXtNC019033@mail.fortinettac.com>
+From: "BOOM OF SALES" <nzosgb@fortinettac.com>
+Subject: Advertise up to 200 MILLION EMAILS
+To: robert.cook@vitecgroup.com
+Reply-To: contactardados@gmail.com
+Date: Mon, 22 Mar 2021 23:33:55 +0100
+X-FEAS-SPF-Spam: spf-result=fail, ip=23.95.86.83, helo=mail.fortinettac.com, mailFrom=nzosgb@fortinettac.com
+Authentication-Results: mail.fortinettac.com;
+	spf=fail (fortinettac.com: 23.95.86.83 is not permitted sender for domain of nzosgb@fortinettac.com) smtp.mailfrom=nzosgb@fortinettac.com
+X-FE-Policy-ID: 6:1:0:SYSTEM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; d=fortinettac.com; s=test12; c=relaxed/relaxed;
+ h=from:subject:to:reply-to:date;
+ bh=CBRhFNd2N8AScMuurDsrKLPIma+jCQ4W8a78xcXdqXo=;
+ b=POYfJkiI9/v+DWOx3E4AkGtCEh6JniBKBSMYwtlQ/leA1gXnnNorGUUTk/dVdo7NjEdB6cxVycHi
+	cuYjiR4d2wSyZjcCkZWyHxvhJ3eUnWS7SEJflsLIHua3M+sY7Asg7fNfZX9PLZACZKnIMHR4kMfN
+	cjgSYbNrIRt4aR4tnZRAPBZej3ZDDA7jt/cQ1gyZK4ZwksvMMCeUs5sCot9ImwUVLjtyV9eqvrDY
+	gI2B1kX2vAJuJtRJrf4yBdjbVd3DsvXQI339hNm+6pr45YVkuSCXFbES7a6rkdc9nrRL9TR8i9NU
+	ExpmGv0vVX5RJdPyu57nAVPDfvmpcFHUBA74jA==
+
+
+Advertise up to 200 MILLION EMAILS WITH THE LOWEST PRICE! Immediate BOOM OF SALES!
+
+TALK TO US on WhatsApp: +55 22 99788 1694
+
+You can advertise all over the world, or you can choose the countries and areas of your interest.
+The greatest advertisement in the whole world, and you can watch the results ONLINE in real time, with our Exclusive Online Panel !
+
+See the details:
+
+- We do all the work for you.
+- We send your ad up to 200 million emails.
+- You can choose the areas of your best interest to direct the email sending.
+- Your can watch online all the results in real time.
+- If you don�t have the ad ready, we can create it for you at no extra cost.
+
+To start your BOOM OF SALES, answer this email with the information below:
+
+----------------------------------------------------
+Name:
+Email:
+WhatsApp:
+Choose the best option for you below:
+
+(  ) US$ 99 - Advertise to 1 MILLION EMAILS
+(  ) US$ 150 - Advertise to 5 MILLION EMAILS
+(  ) US$ 200 - Advertise to 25 MILLION EMAILS
+(  ) US$ 300 - Advertise to 50 MILLION EMAILS
+(  ) US$ 500 - Advertise to 100 MILLION EMAILS
+(  ) US$ 750 - Advertise to 200 MILLION EMAILS
+-----------------------------------------------------
+
+Or talk to us:
+
+WhatsApp:
++55 22 99788 1694
+
+Skype:
+corbettsoftware
+
+----------------------------------------------------------------------------------
+
+Best regards,
+
+BOOM OF SALES
+
+
+C O R B E T T
+ S I N C E 1 9 9 8
+
+WhatsApp:
++55 22 99788 1694
+
+Skype:
+corbettsoftware
