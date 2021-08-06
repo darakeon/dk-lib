@@ -154,19 +154,19 @@ Scenario: 15. Multiple content types
 			|                                      |
 			| MULTI                                |
 			|                                      |
-			| ----=_BOUND_=----                    |
+			| ------=_BOUND_=----                  |
 			| Content-Type: text/plain;            |
 			| &	charset="utf-8"                    |
 			|                                      |
 			| JUST TEXT                            |
 			|                                      |
-			| ----=_BOUND_=----                    |
+			| ------=_BOUND_=----                  |
 			| Content-Type: text/html;             |
 			| &	charset="utf-8"                    |
 			|                                      |
 			| <HTML></HTML>                        |
 			|                                      |
-			| ----=_BOUND_=----                    |
+			| ------=_BOUND_=------                |
 	When content read is called
 	Then the header is
 			| Key          | Value                                      |
