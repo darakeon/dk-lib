@@ -13,13 +13,26 @@ namespace Keon.Eml
 	public class EmlReader
 	{
 		private const String subjectKey = "Subject";
+
 		private const String encodingKey = "Content-Transfer-Encoding";
 		private const String encodingBase64 = "base64";
 		private const String encodingQuotedPrintable = "quoted-printable";
+
 		private const String contentTypeKey = "Content-Type";
 		private const String contentMulti = "multipart/alternative";
 		private const String contentPlain = "PLAIN";
+
 		private const String boundaryPattern = @"\s+boundary=""(.+)""";
+
+		private const String styles = 
+			"text-align: center;" +
+		    " font-family: courier new;" +
+			" padding: 3px;" +
+			" background: #000;" +
+			" border-top: 6px double #C00;" +
+			" border-bottom: 6px double #80C;" +
+			" color: #CCC;" +
+			" font-weight: bold;";
 
 		/// <summary>
 		/// Subject of the e-mail, decoded in case of original being in Base64
@@ -211,7 +224,7 @@ namespace Keon.Eml
 			if (lastAdded == contentPlain)
 				currentBody = $"<pre>{currentBody}</pre>";
 
-			var body = $"-- {lastAdded}<br />\n{currentBody}";
+			var body = $"<div style='{styles}'>{lastAdded}</div>\n{currentBody}";
 
 			var otherBodies = processMultiBody(content);
 			if (otherBodies != null) body += "<br />\n<br />\n" + otherBodies;

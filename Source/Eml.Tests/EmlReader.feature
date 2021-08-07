@@ -172,12 +172,12 @@ Scenario: A15. Multiple content types
 			| Key          | Value                                      |
 			| Content-Type | multipart/alternative text/plain text/html |
 		And the body is
-			| Body                       |
-			| -- PLAIN<br />             |
-			| <pre>JUST TEXT</pre><br /> |
-			| <br />                     |
-			| -- HTML<br />              |
-			| <HTML></HTML>              |
+			| Body                                                                                                                                                                                                |
+			| <div style='text-align: center; font-family: courier new; padding: 3px; background: #000; border-top: 6px double #C00; border-bottom: 6px double #80C; color: #CCC; font-weight: bold;'>PLAIN</div> |
+			| <pre>JUST TEXT</pre><br />                                                                                                                                                                          |
+			| <br />                                                                                                                                                                                              |
+			| <div style='text-align: center; font-family: courier new; padding: 3px; background: #000; border-top: 6px double #C00; border-bottom: 6px double #80C; color: #CCC; font-weight: bold;'>HTML</div>  |
+			| <HTML></HTML>                                                                                                                                                                                       |
 
 Scenario: A16. Repeated headers
 	Given the content
