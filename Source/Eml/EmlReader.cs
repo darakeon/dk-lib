@@ -18,6 +18,7 @@ namespace Keon.Eml
 		private const String encodingQuotedPrintable = "quoted-printable";
 		private const String contentTypeKey = "Content-Type";
 		private const String contentMulti = "multipart/alternative";
+		private const String contentPlain = "PLAIN";
 		private const String boundaryPattern = @"\s+boundary=""(.+)""";
 
 		/// <summary>
@@ -207,10 +208,13 @@ namespace Keon.Eml
 
 			var currentBody = processSimpleBody(content[..end]);
 
-			var body = $"-- {lastAdded}\n{currentBody}";
+			if (lastAdded == contentPlain)
+				currentBody = $"<pre>{currentBody}</pre>";
+
+			var body = $"-- {lastAdded}<br />\n{currentBody}";
 
 			var otherBodies = processMultiBody(content);
-			if (otherBodies != null) body += "\n\n" + otherBodies;
+			if (otherBodies != null) body += "<br />\n<br />\n" + otherBodies;
 
 			return body;
 		}

@@ -172,12 +172,12 @@ Scenario: A15. Multiple content types
 			| Key          | Value                                      |
 			| Content-Type | multipart/alternative text/plain text/html |
 		And the body is
-			| Body          |
-			| -- PLAIN      |
-			| JUST TEXT     |
-			|               |
-			| -- HTML       |
-			| <HTML></HTML> |
+			| Body                       |
+			| -- PLAIN<br />             |
+			| <pre>JUST TEXT</pre><br /> |
+			| <br />                     |
+			| -- HTML<br />              |
+			| <HTML></HTML>              |
 
 Scenario: A16. Repeated headers
 	Given the content
