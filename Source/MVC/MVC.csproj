@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Updated to .NET Core</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>2.0.1</Version>
+	<Version>2.0.2</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
@@ -28,7 +28,7 @@
   <ItemGroup>
 	<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
 	<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
-	<PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+	<PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
