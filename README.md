@@ -1,5 +1,5 @@
 # Keon library
-[![darakeon](https://circleci.com/gh/darakeon/dk-lib.svg?style=svg)](.circleci/config.yml)
+[![darakeon](https://circleci.com/gh/darakeon/dk-lib.svg?style=shield)](.circleci/config.yml)
 
 Helpers to make .NET simpler
 
