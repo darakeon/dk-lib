@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>net5.0</TargetFramework>
+	<TargetFramework>net6.0</TargetFramework>
 	<AssemblyName>Keon.NHibernate</AssemblyName>
 	<RootNamespace>Keon.NHibernate</RootNamespace>
 	<Authors>darakeon</Authors>
@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Add NotIn to get properties not in a list, change Contains to In</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>2.3.2</Version>
+	<Version>3.0.0</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
@@ -28,7 +28,7 @@
   <ItemGroup>
 	<PackageReference Include="FluentNHibernate" Version="3.1.0" />
 	<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
-	<PackageReference Include="NHibernate" Version="5.3.11" />
+	<PackageReference Include="NHibernate" Version="5.3.12" />
   </ItemGroup>
 
   <ItemGroup>
