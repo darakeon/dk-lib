@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>net5.0</TargetFramework>
+	<TargetFramework>net6.0</TargetFramework>
 	<AssemblyName>Keon.XML</AssemblyName>
 	<RootNamespace>Keon.XML</RootNamespace>
 	<Authors>darakeon</Authors>
@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Updated to .NET Core</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>2.0.1</Version>
+	<Version>3.0.0</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
