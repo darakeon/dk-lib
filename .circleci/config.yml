@@ -20,6 +20,21 @@ jobs:
           name: build
           command: dotnet build -c Release --no-restore Source/Util/Util.csproj
       - run:
+          path: Source/Util
+          name: security check
+          command: |
+            RESULT=$(dotnet list package --vulnerable --include-transitive)
+
+            echo "$RESULT"
+
+            NUMBER_OF_PROJECTS=1
+            EXPECTED=$(expr $NUMBER_OF_PROJECTS + 4)
+            CURRENT=$(echo "$RESULT" | wc -l)
+
+            if [ $CURRENT != $EXPECTED ]; then
+                exit 1
+            fi
+      - run:
           name: pack
           command: dotnet pack -o packs -c Release --no-restore Source/Util/Util.csproj
       - store_artifacts:
@@ -46,6 +61,21 @@ jobs:
       - run:
           name: build
           command: dotnet build -c Release --no-restore Source/NHibernate/NHibernate.csproj
+      - run:
+          path: Source/NHibernate
+          name: security check
+          command: |
+            RESULT=$(dotnet list package --vulnerable --include-transitive)
+
+            echo "$RESULT"
+
+            NUMBER_OF_PROJECTS=1
+            EXPECTED=$(expr $NUMBER_OF_PROJECTS + 4)
+            CURRENT=$(echo "$RESULT" | wc -l)
+
+            if [ $CURRENT != $EXPECTED ]; then
+                exit 1
+            fi
       - run:
           name: pack
           command: dotnet pack -o packs -c Release --no-restore Source/NHibernate/NHibernate.csproj
@@ -74,6 +104,21 @@ jobs:
           name: build
           command: dotnet build -c Release --no-restore Source/MVC/MVC.csproj
       - run:
+          path: Source/MVC
+          name: security check
+          command: |
+            RESULT=$(dotnet list package --vulnerable --include-transitive)
+
+            echo "$RESULT"
+
+            NUMBER_OF_PROJECTS=1
+            EXPECTED=$(expr $NUMBER_OF_PROJECTS + 4)
+            CURRENT=$(echo "$RESULT" | wc -l)
+
+            if [ $CURRENT != $EXPECTED ]; then
+                exit 1
+            fi
+      - run:
           name: pack
           command: dotnet pack -o packs -c Release --no-restore Source/MVC/MVC.csproj
       - store_artifacts:
@@ -101,6 +146,21 @@ jobs:
           name: build
           command: dotnet build -c Release --no-restore Source/TwoFactorAuth/TwoFactorAuth.csproj
       - run:
+          path: Source/TwoFactorAuth
+          name: security check
+          command: |
+            RESULT=$(dotnet list package --vulnerable --include-transitive)
+
+            echo "$RESULT"
+
+            NUMBER_OF_PROJECTS=1
+            EXPECTED=$(expr $NUMBER_OF_PROJECTS + 4)
+            CURRENT=$(echo "$RESULT" | wc -l)
+
+            if [ $CURRENT != $EXPECTED ]; then
+                exit 1
+            fi
+      - run:
           name: pack
           command: dotnet pack -o packs -c Release --no-restore Source/TwoFactorAuth/TwoFactorAuth.csproj
       - store_artifacts:
@@ -127,6 +187,21 @@ jobs:
       - run:
           name: build
           command: dotnet build -c Release --no-restore Source/XML/XML.csproj
+      - run:
+          path: Source/XML
+          name: security check
+          command: |
+            RESULT=$(dotnet list package --vulnerable --include-transitive)
+
+            echo "$RESULT"
+
+            NUMBER_OF_PROJECTS=1
+            EXPECTED=$(expr $NUMBER_OF_PROJECTS + 4)
+            CURRENT=$(echo "$RESULT" | wc -l)
+
+            if [ $CURRENT != $EXPECTED ]; then
+                exit 1
+            fi
       - run:
           name: pack
           command: dotnet pack -o packs -c Release --no-restore Source/XML/XML.csproj
@@ -157,6 +232,36 @@ jobs:
       - run:
           name: build
           command: dotnet build -c Release --no-restore Source/Eml/Eml.csproj
+      - run:
+          path: Source/Eml
+          name: security check
+          command: |
+            RESULT=$(dotnet list package --vulnerable --include-transitive)
+
+            echo "$RESULT"
+
+            NUMBER_OF_PROJECTS=1
+            EXPECTED=$(expr $NUMBER_OF_PROJECTS + 4)
+            CURRENT=$(echo "$RESULT" | wc -l)
+
+            if [ $CURRENT != $EXPECTED ]; then
+                exit 1
+            fi
+      - run:
+          path: Source/Eml.Tests
+          name: security check
+          command: |
+            RESULT=$(dotnet list package --vulnerable --include-transitive)
+
+            echo "$RESULT"
+
+            NUMBER_OF_PROJECTS=1
+            EXPECTED=$(expr $NUMBER_OF_PROJECTS + 4)
+            CURRENT=$(echo "$RESULT" | wc -l)
+
+            if [ $CURRENT != $EXPECTED ]; then
+                exit 1
+            fi
       - run:
           name: pack
           command: dotnet pack -o packs -c Release --no-restore Source/Eml/Eml.csproj
