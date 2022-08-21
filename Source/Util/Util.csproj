@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Fix Normalize Property Name funcion</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>3.0.0</Version>
+	<Version>3.0.1</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
