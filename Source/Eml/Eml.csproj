@@ -20,7 +20,7 @@ Using .NET 3.1 because of AWS lambda - it does not accepts 5.0 at simplest versi
     <RepositoryType>git</RepositoryType>
     <PackageTags>eml reader</PackageTags>
     <RootNamespace>Keon.Eml</RootNamespace>
-    <Version>3.0.2</Version>
+    <Version>3.0.3</Version>
     <PackageReleaseNotes>Style at contents from different types division</PackageReleaseNotes>
   </PropertyGroup>
 

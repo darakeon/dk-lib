@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Updated to .NET Core</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>3.0.1</Version>
+	<Version>3.0.2</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
