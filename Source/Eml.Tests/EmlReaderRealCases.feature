@@ -694,7 +694,7 @@ Scenario: C12. Zima blue delete user tests
 			| X-SES-Virus-Verdict       | PASS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 		And the body is same as content of zimablue-2.html
 
-Scenario: C12. Gmail test
+Scenario: C13. Gmail test
 	Given the file name gmail-test.eml
 	When file read is called
 	Then the result is not null
