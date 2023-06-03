@@ -22,7 +22,7 @@ namespace Keon.Eml
 		private const String contentMulti = "multipart/alternative";
 		private const String contentPlain = "PLAIN";
 
-		private const String boundaryPattern = @"\s+boundary=""(.+)""";
+		private const String boundaryPattern = @"\s+boundary=""?([^""]+)""?";
 
 		private const String styles = 
 			"text-align: center;" +
