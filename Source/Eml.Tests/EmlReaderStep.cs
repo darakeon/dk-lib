@@ -80,6 +80,12 @@ namespace Eml.Tests
 			reader = EmlReader.FromFile(file);
 		}
 
+		[When(@"file read is called without decorations")]
+		public void WhenFileReadIsCalledWithoutDecorations()
+		{
+			reader = EmlReader.FromFile(file, false);
+		}
+
 		[When(@"content read is called")]
 		public void WhenContentReadIsCalled()
 		{
@@ -175,6 +181,30 @@ namespace Eml.Tests
 				Assert.Null(reader.Subject);
 			else
 				Assert.AreEqual(subject, reader.Subject);
+		}
+
+		[Then(@"these contents will be the attachments")]
+		public void ThenTheseContentsWillBeTheAttachments(Table table)
+		{
+			var fileNames = table.Rows
+				.Select(r => r["File"])
+				.Select(trimAmpersand)
+				.ToArray();
+
+			var actual = reader.Attachments;
+
+			Assert.AreEqual(fileNames.Length, actual.Count);
+
+			for (var l = 0; l < actual.Count; l++)
+			{
+				var fileName = fileNames[l];
+				var path = Path.Combine("examples", fileName);
+
+				Assert.AreEqual(
+					File.ReadAllText(path),
+					actual[l]
+				);
+			}
 		}
 	}
 }

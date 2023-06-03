@@ -721,3 +721,24 @@ Scenario: C13. Gmail test
 			| X-SES-Spam-Verdict      | PASS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 			| X-SES-Virus-Verdict     | PASS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 		And the body is same as content of gmail-test.html
+
+Scenario: C14. With attachments
+	Given the file name with-attachments.eml
+	When file read is called without decorations
+	Then the result is not null
+		And the header is
+			| Key                       | Value                                              |
+			| X-Sender                  | dfm@dontflymoney.com                               |
+			| X-Receiver                | hh07@dontflymoney.com                              |
+			| MIME-Version              | 1.0                                                |
+			| From                      | dfm@dontflymoney.com                               |
+			| To                        | hh07@dontflymoney.com                              |
+			| Date                      | 3 Jun 2023 13:28:14 +0100                          |
+			| Subject                   | Dados exportados                                   |
+			| Content-Type              | multipart/mixed text/html application/octet-stream |
+			| Content-Transfer-Encoding | base64 base64                                      |
+			| Content-Disposition       | attachment                                         |
+		And the body is same as content of with-attachments.html
+		And these contents will be the attachments
+			| File                 |
+			| with-attachments.csv |

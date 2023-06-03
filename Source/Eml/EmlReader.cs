@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Keon.Eml
 		private const String encodingQuotedPrintable = "quoted-printable";
 
 		private const String contentTypeKey = "Content-Type";
-		private const String contentMulti = "multipart/alternative";
+		private const String contentMulti = "multipart/";
 		private const String contentPlain = "PLAIN";
 
 		private const String boundaryPattern = @"\s+boundary=""?([^""]+)""?";
@@ -34,15 +35,33 @@ namespace Keon.Eml
 			" color: #CCC;" +
 			" font-weight: bold;";
 
+
 		/// <summary>
 		/// Subject of the e-mail, decoded in case of original being in Base64
 		/// </summary>
 		public String Subject { get; private set; }
 
+
 		/// <summary>
 		/// E-mail body, decoded in case of original being in Base64
 		/// </summary>
 		public String Body { get; private set; }
+
+		private IList<String> bodies = new List<String>();
+
+
+		/// <summary>
+		/// Attachments, decoded in case of original being in Base64
+		/// </summary>
+		public ImmutableList<String> Attachments =>
+			ImmutableList.CreateRange(attachments);
+
+		private IList<String> attachments = new List<String>();
+
+		private Boolean attachmentsStarted =>
+			headers.ContainsKey("Content-Disposition")
+				&& headers["Content-Disposition"].Contains("attachment");
+
 
 		/// <summary>
 		/// Headers of the e-mail
@@ -83,22 +102,70 @@ namespace Keon.Eml
 		/// Read the content of the eml from a file
 		/// </summary>
 		/// <param name="content">Content of the eml file</param>
-		/// <param name="creation">Creation date of e-mail</param>
-		public EmlReader(String content, DateTime? creation = null)
-			: this(content.Split("\n"), creation) { }
+		public EmlReader(String content)
+			: this(content, null, true) { }
 
 		/// <summary>
 		/// Read the content of the eml from a file
 		/// </summary>
 		/// <param name="content">Content of the eml file</param>
 		/// <param name="creation">Creation date of e-mail</param>
-		public EmlReader(String[] content, DateTime? creation = null)
+		public EmlReader(String content, DateTime? creation)
+			: this(content, creation, true) { }
+
+		/// <summary>
+		/// Read the content of the eml from a file
+		/// </summary>
+		/// <param name="content">Content of the eml file</param>
+		/// <param name="decorate">Whether to add or not a div to split different types of bodies</param>
+		public EmlReader(String content, Boolean decorate)
+			: this(content, null, decorate) { }
+
+		/// <summary>
+		/// Read the content of the eml from a file
+		/// </summary>
+		/// <param name="content">Content of the eml file</param>
+		/// <param name="decorate">Whether to add or not a div to split different types of bodies</param>
+		/// <param name="creation">Creation date of e-mail</param>
+		public EmlReader(String content, DateTime? creation, Boolean decorate)
+			: this(content.Split("\n"), creation, decorate) { }
+
+		/// <summary>
+		/// Read the content of the eml from a file
+		/// </summary>
+		/// <param name="content">Content of the eml file</param>
+		public EmlReader(String[] content)
+			: this(content, null, true) { }
+
+		/// <summary>
+		/// Read the content of the eml from a file
+		/// </summary>
+		/// <param name="content">Content of the eml file</param>
+		/// <param name="creation">Creation date of e-mail</param>
+		public EmlReader(String[] content, DateTime? creation)
+			: this(content, creation, true) { }
+
+		/// <summary>
+		/// Read the content of the eml from a file
+		/// </summary>
+		/// <param name="content">Content of the eml file</param>
+		/// <param name="decorate">Whether to add or not a div to split different types of bodies</param>
+		public EmlReader(String[] content, Boolean decorate)
+			: this(content, null, decorate) { }
+
+		/// <summary>
+		/// Read the content of the eml from a file
+		/// </summary>
+		/// <param name="content">Content of the eml file</param>
+		/// <param name="decorate">Whether to add or not a div to split different types of bodies</param>
+		/// <param name="creation">Creation date of e-mail</param>
+		public EmlReader(String[] content, DateTime? creation, Boolean decorate)
 		{
 			content = extractHeaders(content);
 
 			setSubject();
 
-			processBody(content);
+			processBody(content, decorate);
 
 			Creation = creation;
 		}
@@ -151,7 +218,7 @@ namespace Keon.Eml
 
 			if (key == contentTypeKey)
 			{
-				if (headers[contentTypeKey] != contentMulti) return;
+				if (!headers[contentTypeKey].StartsWith(contentMulti)) return;
 				
 				var boundary = new Regex(boundaryPattern).Match(line);
 				if (boundary.Success) this.boundary = boundary.Groups[1].Value;
@@ -179,11 +246,20 @@ namespace Keon.Eml
 			}
 		}
 
-		private void processBody(String[] content)
+		private void processBody(String[] content, Boolean decorate)
 		{
-			Body = boundary == null
-				? processSimpleBody(content)
-				: processMultiBody(content);
+			if (boundary == null)
+			{
+				bodies.Add(
+					processSimpleBody(content)
+				);
+			}
+			else
+			{
+				processMultiBody(content, decorate);
+			}
+
+			Body = String.Join("<br />\n<br />\n", bodies);
 		}
 
 		private String processSimpleBody(String[] content)
@@ -205,14 +281,14 @@ namespace Keon.Eml
 			return String.Join("\n", content).Replace("\r", "");
 		}
 
-		private String processMultiBody(String[] content)
+		private void processMultiBody(String[] content, Boolean decorate)
 		{
 			var start = boundIndex(content);
 			content = extractHeaders(content[(start + 1)..]);
 			var end = boundIndex(content);
 
 			if (end < 0)
-				return null;
+				return;
 
 			var lastAdded = 
 				headers[contentTypeKey]
@@ -221,15 +297,24 @@ namespace Keon.Eml
 
 			var currentBody = processSimpleBody(content[..end]);
 
-			if (lastAdded == contentPlain)
-				currentBody = $"<pre>{currentBody}</pre>";
+			if (decorate)
+			{
+				if (lastAdded == contentPlain)
+					currentBody = $"<pre>{currentBody}</pre>";
 
-			var body = $"<div style='{styles}'>{lastAdded}</div>\n{currentBody}";
+				currentBody = $"<div style='{styles}'>{lastAdded}</div>\n{currentBody}";
+			}
 
-			var otherBodies = processMultiBody(content);
-			if (otherBodies != null) body += "<br />\n<br />\n" + otherBodies;
+			if (attachmentsStarted)
+			{
+				attachments.Add(currentBody);
+			}
+			else
+			{
+				bodies.Add(currentBody);
+			}
 
-			return body;
+			processMultiBody(content, decorate);
 		}
 
 		/// <summary>
@@ -240,7 +325,7 @@ namespace Keon.Eml
 		///		The content of the file processed, if it exists;
 		///		else, returns null
 		/// </returns>
-		public static EmlReader FromFile(String path)
+		public static EmlReader FromFile(String path, Boolean decorate = true)
 		{
 			var info = new FileInfo(path);
 
@@ -250,7 +335,7 @@ namespace Keon.Eml
 			var content = File.ReadAllLines(info.FullName);
 			var creation = info.CreationTimeUtc;
 
-			return new EmlReader(content, creation);
+			return new EmlReader(content, creation, decorate);
 		}
 	}
 }
