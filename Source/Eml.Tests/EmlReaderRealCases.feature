@@ -1,4 +1,5 @@
-﻿Feature: C. Eml Reader tested based e-mail that could not be processed before
+﻿# tested based e-mail that could not be processed before
+Feature: C. Eml Reader Real Cases
 
 Scenario: C01. Advertise spam
 	Given the file name advertise-up-to-200-million-emails.eml
