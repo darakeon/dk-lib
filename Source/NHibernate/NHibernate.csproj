@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Add NotIn to get properties not in a list, change Contains to In</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>3.0.8</Version>
+	<Version>3.0.9</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
