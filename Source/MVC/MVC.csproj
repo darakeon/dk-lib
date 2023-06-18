@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	<TargetFramework>net6.0</TargetFramework>
@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Updated to .NET Core</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>3.0.6</Version>
+	<Version>3.0.8</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
@@ -26,12 +26,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.18" />
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-	<PackageReference Include="System.Net.Http" Version="4.3.4" />
-	<PackageReference Include="System.Text.Encodings.Web" Version="7.0.0" />
-	<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
 
   <ItemGroup>
