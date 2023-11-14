@@ -142,12 +142,12 @@ namespace Keon.Util.Tests
 
 			const String originalText = "Hey, listen!";
 
-			Assert.Throws(typeof(ArgumentException), () =>
+			Assert.Throws(typeof(FormatException), () =>
 			{
 				Crypt.Encrypt(originalText);
 			});
 
-			Assert.Throws(typeof(ArgumentException), () =>
+			Assert.Throws(typeof(FormatException), () =>
 			{
 				Crypt.Decrypt(originalText);
 			});
@@ -165,12 +165,12 @@ namespace Keon.Util.Tests
 
 			const String originalText = "Hey, listen!";
 
-			Assert.Throws(typeof(ArgumentException), () =>
+			Assert.Throws(typeof(FormatException), () =>
 			{
 				Crypt.Encrypt(originalText);
 			});
 
-			Assert.Throws(typeof(ArgumentException), () =>
+			Assert.Throws(typeof(FormatException), () =>
 			{
 				Crypt.Decrypt(originalText);
 			});
