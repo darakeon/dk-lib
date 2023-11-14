@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Upgrade to .NET 7.0</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>4.0.2</Version>
+	<Version>4.0.3</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
