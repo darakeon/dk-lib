@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	<TargetFramework>net7.0</TargetFramework>
@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Upgrade to .NET 7.0</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>4.0.0</Version>
+	<Version>4.1.0</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
@@ -27,7 +27,7 @@
 
   <ItemGroup>
 	<PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
-	<PackageReference Include="BouncyCastle.NetCore" Version="1.9.0" />
+	<PackageReference Include="BouncyCastle.NetCore" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>
