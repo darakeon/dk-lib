@@ -34,8 +34,8 @@ namespace Keon.Util.Crypto
 			}
 		}
 
-		private static readonly String key = File.ReadAllText("key.pk");
-		private static readonly String iv = File.ReadAllText("iv.pk");
+		private static String key => Environment.GetEnvironmentVariable("KEON_CRYPT_KEY");
+		private static String iv => Environment.GetEnvironmentVariable("KEON_CRYPT_IV");
 
 		/// <summary>
 		/// Encrypt using a key and iv inside files key.pk and iv.pk

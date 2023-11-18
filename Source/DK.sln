@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.452
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwoFactorAuth", "TwoFactorAuth\TwoFactorAuth.csproj", "{FC3C099E-3909-468E-A1F8-EE2D74FCA970}"
 EndProject
@@ -20,7 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC", "MVC\MVC.csproj", "{5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eml", "Eml\Eml.csproj", "{17C84B62-2FC6-40EC-9BD3-4A7B8A317DA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eml.Tests", "Eml.Tests\Eml.Tests.csproj", "{F04AB4F2-A922-4520-AE02-0D1CC962AC75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eml.Tests", "Eml.Tests\Eml.Tests.csproj", "{F04AB4F2-A922-4520-AE02-0D1CC962AC75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util.Tests", "Util.Tests\Util.Tests.csproj", "{125F0773-9F60-4BA5-86EF-BC43AB831705}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,6 +118,18 @@ Global
 		{F04AB4F2-A922-4520-AE02-0D1CC962AC75}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F04AB4F2-A922-4520-AE02-0D1CC962AC75}.Release|x86.ActiveCfg = Release|Any CPU
 		{F04AB4F2-A922-4520-AE02-0D1CC962AC75}.Release|x86.Build.0 = Release|Any CPU
+		{125F0773-9F60-4BA5-86EF-BC43AB831705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{125F0773-9F60-4BA5-86EF-BC43AB831705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{125F0773-9F60-4BA5-86EF-BC43AB831705}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{125F0773-9F60-4BA5-86EF-BC43AB831705}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{125F0773-9F60-4BA5-86EF-BC43AB831705}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{125F0773-9F60-4BA5-86EF-BC43AB831705}.Debug|x86.Build.0 = Debug|Any CPU
+		{125F0773-9F60-4BA5-86EF-BC43AB831705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{125F0773-9F60-4BA5-86EF-BC43AB831705}.Release|Any CPU.Build.0 = Release|Any CPU
+		{125F0773-9F60-4BA5-86EF-BC43AB831705}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{125F0773-9F60-4BA5-86EF-BC43AB831705}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{125F0773-9F60-4BA5-86EF-BC43AB831705}.Release|x86.ActiveCfg = Release|Any CPU
+		{125F0773-9F60-4BA5-86EF-BC43AB831705}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

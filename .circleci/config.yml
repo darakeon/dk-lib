@@ -17,10 +17,28 @@ jobs:
           paths:
             - ~/.nuget/packages
       - run:
+          name: test
+          command: dotnet test Source/Util.Tests/Util.Tests.csproj
+      - run:
           name: build
           command: dotnet build -c Release --no-restore Source/Util/Util.csproj
       - run:
           path: Source/Util
+          name: security check
+          command: |
+            RESULT=$(dotnet list package --vulnerable --include-transitive)
+
+            echo "$RESULT"
+
+            NUMBER_OF_PROJECTS=1
+            EXPECTED=$(expr $NUMBER_OF_PROJECTS + 4)
+            CURRENT=$(echo "$RESULT" | wc -l)
+
+            if [ $CURRENT != $EXPECTED ]; then
+                exit 1
+            fi
+      - run:
+          path: Source/Util.Tests
           name: security check
           command: |
             RESULT=$(dotnet list package --vulnerable --include-transitive)
