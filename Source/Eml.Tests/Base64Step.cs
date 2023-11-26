@@ -39,7 +39,7 @@ namespace Eml.Tests
 		[Then(@"the new text will be (.+)")]
 		public void ThenTheNewTextWillBeTitle(String expected)
 		{
-			Assert.AreEqual(expected, decoded);
+			Assert.That(decoded, Is.EqualTo(expected));
 		}
 	}
 }

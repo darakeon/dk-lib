@@ -98,13 +98,13 @@ namespace Eml.Tests
 		[Then(@"the result is null")]
 		public void ThenTheResultIsNull()
 		{
-			Assert.IsNull(reader);
+			Assert.That(reader, Is.Null);
 		}
 
 		[Then(@"the result is not null")]
 		public void ThenTheResultIsNotNull()
 		{
-			Assert.IsNotNull(reader);
+			Assert.That(reader, Is.Not.Null);
 		}
 
 		[Then(@"the body is")]
@@ -117,11 +117,11 @@ namespace Eml.Tests
 
 			var actual = reader.Body.Split("\n");
 
-			Assert.AreEqual(expected.Length, actual.Length);
+			Assert.That(actual.Length, Is.EqualTo(expected.Length));
 
 			for (var l = 0; l < actual.Length; l++)
 			{
-				Assert.AreEqual(expected[l], actual[l]);
+				Assert.That(actual[l], Is.EqualTo(expected[l]));
 			}
 		}
 
@@ -135,16 +135,16 @@ namespace Eml.Tests
 
 			for (var l = 0; l < Math.Min(actual.Length, expected.Length); l++)
 			{
-				Assert.AreEqual(expected[l], actual[l], $"Line {l}");
+				Assert.That(actual[l], Is.EqualTo(expected[l]), $"Line {l}");
 			}
 
-			Assert.AreEqual(expected.Length, actual.Length);
+			Assert.That(actual.Length, Is.EqualTo(expected.Length));
 		}
 
 		[Then(@"the creation date is (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}|null)")]
 		public void ThenTheCreationDateIs(DateTime? creation)
 		{
-			Assert.AreEqual(creation, reader.Creation);
+			Assert.That(reader.Creation, Is.EqualTo(creation));
 		}
 
 		[Then(@"the header is")]
@@ -156,31 +156,32 @@ namespace Eml.Tests
 
 			foreach (var key in headers.Keys)
 			{
-				Assert.True(
+				Assert.That(
 					reader.Headers.ContainsKey(key),
+					Is.True,
 					$"Key '{key}' not found"
 				);
 
 				var expected = headers[key]
 					.Replace("§", "\t");
 
-				Assert.AreEqual(
-					trimAmpersand(expected),
+				Assert.That(
 					reader.Headers[key],
+					Is.EqualTo(trimAmpersand(expected)),
 					$"Key '{key}' with wrong value"
 				);
 			}
 
-			Assert.AreEqual(headers.Count, reader.Headers.Count);
+			Assert.That(reader.Headers.Count, Is.EqualTo(headers.Count));
 		}
 
 		[Then(@"the subject is (.+)")]
 		public void ThenTheSubjectIs(String subject)
 		{
 			if (subject == "null")
-				Assert.Null(reader.Subject);
+				Assert.That(reader.Subject, Is.Null);
 			else
-				Assert.AreEqual(subject, reader.Subject);
+				Assert.That(reader.Subject, Is.EqualTo(subject));
 		}
 
 		[Then(@"these contents will be the attachments")]
@@ -193,16 +194,16 @@ namespace Eml.Tests
 
 			var actual = reader.Attachments;
 
-			Assert.AreEqual(fileNames.Length, actual.Count);
+			Assert.That(actual.Count, Is.EqualTo(fileNames.Length));
 
 			for (var l = 0; l < actual.Count; l++)
 			{
 				var fileName = fileNames[l];
 				var path = Path.Combine("examples", fileName);
 
-				Assert.AreEqual(
-					File.ReadAllText(path),
-					actual[l]
+				Assert.That(
+					actual[l],
+					Is.EqualTo(File.ReadAllText(path))
 				);
 			}
 		}
