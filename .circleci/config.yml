@@ -319,6 +319,15 @@ jobs:
               echo 'no main, no push'
             fi
 
+  dependabot:
+    docker:
+      - image: python
+    steps:
+      - checkout
+      - run:
+          name: change version of csproj changed files
+          command: python .github/change-version.py
+
 workflows:
   version: 2.1
   all:
@@ -329,3 +338,12 @@ workflows:
       - tfa
       - xml
       - eml
+
+  dependency:
+    jobs:
+      - dependabot:
+          filters:
+            branches:
+              only:
+                - /^dependabot/.+$/
+
