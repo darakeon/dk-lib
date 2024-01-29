@@ -59,7 +59,12 @@ jobs:
           path: packs
       - run:
           name: upload
-          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+          command: |
+            if [ "$CIRCLE_BRANCH" == "main" ]; then
+              dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+            else
+              echo 'no main, no push'
+            fi
 
   nhibernate:
     docker:
@@ -101,7 +106,12 @@ jobs:
           path: packs
       - run:
           name: upload
-          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+          command: |
+            if [ "$CIRCLE_BRANCH" == "main" ]; then
+              dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+            else
+              echo 'no main, no push'
+            fi
 
   mvc:
     docker:
@@ -143,7 +153,12 @@ jobs:
           path: packs
       - run:
           name: upload
-          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+          command: |
+            if [ "$CIRCLE_BRANCH" == "main" ]; then
+              dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+            else
+              echo 'no main, no push'
+            fi
 
   tfa:
     docker:
@@ -185,7 +200,12 @@ jobs:
           path: packs
       - run:
           name: upload
-          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+          command: |
+            if [ "$CIRCLE_BRANCH" == "main" ]; then
+              dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+            else
+              echo 'no main, no push'
+            fi
 
   xml:
     docker:
@@ -227,7 +247,12 @@ jobs:
           path: packs
       - run:
           name: upload
-          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+          command: |
+            if [ "$CIRCLE_BRANCH" == "main" ]; then
+              dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+            else
+              echo 'no main, no push'
+            fi
 
   eml:
     docker:
@@ -287,7 +312,12 @@ jobs:
           path: packs
       - run:
           name: upload
-          command: dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+          command: |
+            if [ "$CIRCLE_BRANCH" == "main" ]; then
+              dotnet nuget push --source "${NUGET_FEED_URL}" --api-key="${NUGET_KEY}" packs/*.nupkg --skip-duplicate
+            else
+              echo 'no main, no push'
+            fi
 
 workflows:
   version: 2.1
