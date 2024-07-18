@@ -89,6 +89,20 @@ namespace Keon.NHibernate.Queries
 			return aggregate(origin, destiny, SummarizeType.Max);
 		}
 
+		/// <summary>
+		/// Add property to find Min value
+		/// </summary>
+		/// <param name="origin">Property on original entity</param>
+		/// <param name="destiny">Corresponding property on result class</param>
+		/// <typeparam name="Prop">Type of the property</typeparam>
+		public Transformer<Entity, ID, Result> Min<Prop>(
+			Expression<Func<Entity, Prop>> origin,
+			Expression<Func<Result, Prop>> destiny
+		)
+		{
+			return aggregate(origin, destiny, SummarizeType.Min);
+		}
+
 		private Transformer<Entity, ID, Result> aggregate<Prop>(
 			Expression<Func<Entity, Prop>> origin,
 			Expression<Func<Result, Prop>> destiny,

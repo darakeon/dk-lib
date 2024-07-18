@@ -19,5 +19,10 @@ namespace Keon.NHibernate.Queries
 		/// Sum all items
 		/// </summary>
 		Sum = 3,
+
+		/// <summary>
+		/// Get smallest item
+		/// </summary>
+		Min = 4,
 	}
 }

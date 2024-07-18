@@ -14,10 +14,10 @@
 	<RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
 	<PackageTags>utility nhibernate orm</PackageTags>
-	<PackageReleaseNotes>Upgrade to .NET 8.0</PackageReleaseNotes>
+	<PackageReleaseNotes>Add min projection</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>5.0.2</Version>
+	<Version>5.1.0</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 

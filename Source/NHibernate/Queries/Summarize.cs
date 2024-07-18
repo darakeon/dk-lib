@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Keon.Util.DB;
 using Keon.Util.Reflection;
@@ -30,7 +31,7 @@ namespace Keon.NHibernate.Queries
 			var originName = origin.GetName();
 			var destinyName = destiny.GetName();
 
-			var getProjection = projectionMethod(type);
+			var getProjection = projections[type];
 			var projection = getProjection(originName);
 
 			Projection = Projections.Alias(projection, destinyName);
@@ -38,19 +39,13 @@ namespace Keon.NHibernate.Queries
 
 		internal IProjection Projection { get; }
 
-		private static Func<String, IProjection> projectionMethod(SummarizeType type)
-		{
-			switch (type)
+		private static readonly IDictionary<SummarizeType, Func<String, IProjection>> projections =
+			new Dictionary<SummarizeType, Func<String, IProjection>>
 			{
-				case SummarizeType.Count:
-					return Projections.Count;
-				case SummarizeType.Max:
-					return Projections.Max;
-				case SummarizeType.Sum:
-					return Projections.Sum;
-				default:
-					throw new NotImplementedException();
-			}
-		}
+				{ SummarizeType.Count, Projections.Count },
+				{ SummarizeType.Max, Projections.Max },
+				{ SummarizeType.Sum, Projections.Sum },
+				{ SummarizeType.Min, Projections.Min },
+			};
 	}
 }
