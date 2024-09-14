@@ -27,6 +27,10 @@ for diff_file in diff_files:
 
     file_path = diff_file.split(' ')[1]
     project = file_path.split('/')[1]
+
+    if project.endswith('.Tests'):
+        continue
+
     acronym = commit_acronyms[project]
 
     commit_message = f'{acronym}: update version'
