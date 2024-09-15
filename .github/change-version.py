@@ -52,6 +52,8 @@ for diff_file in diff_files:
         with open(file_path, 'w') as file:
             file.write(content)
 
-        system(f'git add {file_path}')
-        system(f'git commit -m "{commit_message}"')
-        system(f'git push')
+        with open('file_path', 'w') as file:
+            file.write(file_path)
+
+        with open('commit_message', 'w') as file:
+            file.write(commit_message)
