@@ -327,6 +327,23 @@ jobs:
       - run:
           name: change version of csproj changed files
           command: python .github/change-version.py
+      - run:
+          name: add, commit and push
+          command: |
+            if [ -e file_path ]; then
+              eval "$(ssh-agent -s)"
+              echo "$GITHUB_CIRCLE_PK" | sed "s/\\\n/\n/g" > ~/.ssh/id_ed25519
+              chmod 600 ~/.ssh/id_ed25519
+              ssh-add ~/.ssh/id_ed25519
+
+              git config --global user.email "$GITHUB_CIRCLE_EMAIL"
+              git config --global user.name "$GITHUB_CIRCLE_NAME"
+
+              git add $(cat file_path)
+              git commit -m "$(cat commit_message)"
+              git push --set-upstream origin $CIRCLE_BRANCH
+            fi
+
 
 workflows:
   version: 2.1
