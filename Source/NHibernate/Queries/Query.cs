@@ -94,6 +94,39 @@ namespace Keon.NHibernate.Queries
 		}
 
 		/// <summary>
+		/// List of entities where certain properties is in a list of possibilities
+		/// </summary>
+		/// <param name="acceptedValues">List to be verified</param>
+		/// <param name="properties">Lambdas of properties to test</param>
+		public Query<Entity, ID> In<Prop>(
+			IEnumerable<Prop> acceptedValues,
+			params Expression<Func<Entity, Prop>>[] properties
+		)
+		{
+			AbstractCriterion mainRestriction = null;
+			var acceptedArray = acceptedValues.ToArray();
+
+			foreach (var property in properties)
+			{
+				var propertyName = property.GetName();
+
+				var restriction = Restrictions.In(
+					propertyName,
+					acceptedArray
+				);
+
+				mainRestriction =
+					mainRestriction == null
+						? restriction
+						: Restrictions.Or(mainRestriction, restriction);
+			}
+
+			criteria.Add(mainRestriction);
+
+			return this;
+		}
+
+		/// <summary>
 		/// List of entities where certain property is NOT in a list of possibilities
 		/// </summary>
 		/// <param name="property">Lambda of property to test</param>
