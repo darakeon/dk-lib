@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <AssemblyName>Keon.Eml</AssemblyName>
     <Authors>darakeon</Authors>
     <Company>Dara Keon</Company>
@@ -17,8 +17,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>eml reader</PackageTags>
     <RootNamespace>Keon.Eml</RootNamespace>
-    <Version>6.0.0</Version>
-    <PackageReleaseNotes>Upgrade to .NET 8.0</PackageReleaseNotes>
+    <Version>7.0.0</Version>
+    <PackageReleaseNotes>Upgrade to .NET 9.0</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>net8.0</TargetFramework>
+	<TargetFramework>net9.0</TargetFramework>
 	<AssemblyName>Keon.MVC</AssemblyName>
 	<RootNamespace>Keon.MVC</RootNamespace>
 	<Authors>darakeon</Authors>
@@ -14,10 +14,10 @@
 	<RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
 	<PackageTags>utility mvc</PackageTags>
-	<PackageReleaseNotes>Upgrade to .NET 8.0</PackageReleaseNotes>
+	<PackageReleaseNotes>Upgrade to .NET 9.0</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>5.0.7</Version>
+	<Version>6.0.0</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
@@ -26,9 +26,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.10" />
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.0" />
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	<PackageReference Include="System.Drawing.Common" Version="8.0.10" />
+	<PackageReference Include="System.Drawing.Common" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
