@@ -39,7 +39,7 @@ jobs:
             fi
       - run:
           path: Source/Util.Tests
-          name: security check
+          name: security check tests
           command: |
             RESULT=$(dotnet list package --vulnerable --include-transitive)
 
@@ -292,7 +292,7 @@ jobs:
             fi
       - run:
           path: Source/Eml.Tests
-          name: security check
+          name: security check tests
           command: |
             RESULT=$(dotnet list package --vulnerable --include-transitive)
 
