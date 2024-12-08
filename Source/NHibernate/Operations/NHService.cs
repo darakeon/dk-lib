@@ -29,9 +29,9 @@ namespace Keon.NHibernate.Operations
 
 				return result;
 			}
-			catch (Exception)
+			catch (Exception error)
 			{
-				controller.Rollback();
+				controller.Rollback(error);
 
 				onError?.Invoke();
 

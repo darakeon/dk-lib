@@ -71,7 +71,7 @@ namespace Keon.NHibernate.Sessions
 			state = State.EndCommit;
 		}
 
-		public void Rollback()
+		public void Rollback(Exception error)
 		{
 			if (session == null) return;
 
@@ -84,7 +84,7 @@ namespace Keon.NHibernate.Sessions
 
 			if (session.Connection.State != ConnectionState.Closed)
 			{
-				testTransaction("rollback");
+				testTransaction("rollback", error);
 				transaction.Rollback();
 			}
 
@@ -95,12 +95,15 @@ namespace Keon.NHibernate.Sessions
 			state = State.EndRollback;
 		}
 
-		private void testTransaction(String action)
+		private void testTransaction(String action, Exception error = null)
 		{
 			if (session == null) return;
 
-			if (transaction.WasCommitted || transaction.WasRolledBack)
-				throw new DKException($"There's a Transaction opened already, cannot {action}.");
+			if (transaction.WasCommitted)
+				throw new DKException($"Transaction already committed, cannot {action}.", error);
+
+			if (transaction.WasRolledBack)
+				throw new DKException($"Transaction already rolled back, cannot {action}.", error);
 		}
 
 		private String toString(ITransaction other)

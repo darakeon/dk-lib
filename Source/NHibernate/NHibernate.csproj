@@ -14,10 +14,10 @@
 	<RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
 	<PackageTags>utility nhibernate orm</PackageTags>
-	<PackageReleaseNotes>Add min projection</PackageReleaseNotes>
+	<PackageReleaseNotes>Improve transaction error message with inner exception for rollback</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>5.2.0</Version>
+	<Version>5.3.0</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
