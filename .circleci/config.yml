@@ -339,6 +339,11 @@ jobs:
               git config --global user.email "$GITHUB_CIRCLE_EMAIL"
               git config --global user.name "$GITHUB_CIRCLE_NAME"
 
+              echo $GITHUB_CIRCLE_GPG_KEY | base64 -d > private.pgp
+              gpg --import private.pgp
+              git config --global user.signingkey $GITHUB_CIRCLE_GPG_ID
+              git config --global commit.gpgsign true
+
               git add $(cat file_path)
               git commit -m "$(cat commit_message)"
               git push --set-upstream origin $CIRCLE_BRANCH
