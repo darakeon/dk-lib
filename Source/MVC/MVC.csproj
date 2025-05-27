@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Upgrade to .NET 8.0</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>5.0.11</Version>
+	<Version>5.0.12</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
@@ -26,9 +26,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.15" />
+	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.16" />
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	<PackageReference Include="System.Drawing.Common" Version="9.0.4" />
+	<PackageReference Include="System.Drawing.Common" Version="9.0.5" />
   </ItemGroup>
 
   <ItemGroup>
