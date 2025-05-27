@@ -12,32 +12,33 @@ namespace Keon.NHibernate.Schema
 	internal class SessionFactoryBuilder
 	{
 		/// <summary>
-		///  Create Session Factory.
-		///  To be used at Application_Start.
+		/// Create Session Factory, using the AppSettings.
+		/// The keys required are the ConnectionInfo class properties.
+		/// To be used at Application_Start.
 		/// </summary>
-		///  <typeparam name="Map">Any mapping class. Passed automatic by passing to AutoMappingInfo.</typeparam>
-		///  <typeparam name="Entity">Any entity class. Passed automatic by passing to AutoMappingInfo.</typeparam>
+		/// <typeparam name="Map">Any mapping class. Passed automatic by passing to AutoMappingInfo.</typeparam>
+		/// <typeparam name="Entity">Any entity class. Passed automatic by passing to AutoMappingInfo.</typeparam>
 		/// <param name="config">Dictionary of application configuration</param>
-		/// <param name="connectionInfo">About database connection</param>
 		/// <param name="autoMappingInfo">About mappings on the entities</param>
-		/// <param name="dbAction"></param>
-		private static ISessionFactory start<Map, Entity>(
+		/// <param name="dbAction">Action into DB when start project</param>
+		/// <param name="logQueries">Method to log queries if needed</param>
+		internal static ISessionFactory Start<Map, Entity>(
 			IConfiguration config,
-			ConnectionInfo connectionInfo,
 			AutoMappingInfo<Map, Entity> autoMappingInfo,
-			DBAction dbAction
+			DBAction dbAction,
+			Action<String> logQueries
 		)
 			where Map : IAutoMappingOverride<Entity>
 		{
 			return createSessionFactory(
 				config,
-				connectionInfo ?? getConnectionInfo(config),
+				getConnectionInfo(config, logQueries),
 				autoMappingInfo,
 				dbAction
 			);
 		}
 
-		private static ConnectionInfo getConnectionInfo(IConfiguration config)
+		private static ConnectionInfo getConnectionInfo(IConfiguration config, Action<String> logQueries)
 		{
 			var scriptFileFullName = getScriptFileFullName(config);
 
@@ -45,6 +46,7 @@ namespace Keon.NHibernate.Schema
 			{
 				DBMS = config["DBMS"].Cast<DBMS>(),
 				ScriptFileFullName = scriptFileFullName,
+				LogQueries = logQueries,
 				ShowSQL = (config["ShowSQL"] ?? "false").ToLower() == "true",
 			};
 
@@ -91,22 +93,6 @@ namespace Keon.NHibernate.Schema
 			return scriptFileFullName;
 		}
 
-		/// <summary>
-		/// Create Session Factory, using the AppSettings.
-		/// The keys required are the ConnectionInfo class properties.
-		/// To be used at Application_Start.
-		/// </summary>
-		/// <typeparam name="Map">Any mapping class. Passed automatic by passing to AutoMappingInfo.</typeparam>
-		/// <typeparam name="Entity">Any entity class. Passed automatic by passing to AutoMappingInfo.</typeparam>
-		/// <param name="config">Dictionary of application configuration</param>
-		/// <param name="autoMappingInfo">About mappings on the entities</param>
-		/// <param name="dbAction">Action into DB when start project</param>
-		internal static ISessionFactory Start<Map, Entity>(IConfiguration config, AutoMappingInfo<Map, Entity> autoMappingInfo, DBAction dbAction)
-			where Map : IAutoMappingOverride<Entity>
-		{
-			return start(config, null, autoMappingInfo, dbAction);
-		}
-
 		private static ISessionFactory createSessionFactory<Map, Entity>(
 			IConfiguration config, ConnectionInfo connectionInfo,
 			AutoMappingInfo<Map, Entity> autoMappingInfo,
@@ -114,7 +100,10 @@ namespace Keon.NHibernate.Schema
 		)
 			where Map : IAutoMappingOverride<Entity>
 		{
-			var schemaChanger = new SchemaChanger(connectionInfo.ScriptFileFullName);
+			var schemaChanger = new SchemaChanger(
+				connectionInfo.ScriptFileFullName,
+				connectionInfo.LogQueries
+			);
 
 			var autoMapping = autoMappingInfo.CreateAutoMapping();
 

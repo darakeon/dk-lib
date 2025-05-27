@@ -15,11 +15,12 @@ namespace Keon.NHibernate.Schema
 	public class SchemaChanger
 	{
 		private readonly String scriptFileName;
+		private readonly Action<String> logQueries;
 
 		/// <summary>
 		/// Construct class with the name of the script
 		/// </summary>
-		public SchemaChanger(String scriptFileName)
+		public SchemaChanger(String scriptFileName, Action<String> logQueries)
 		{
 			var addressPattern = new Regex(@"^(\\|[A-Z]\:).*");
 
@@ -33,6 +34,8 @@ namespace Keon.NHibernate.Schema
 			{
 				Directory.CreateDirectory(info.Directory.FullName);
 			}
+
+			this.logQueries = logQueries;
 		}
 
 		internal void Build(Configuration config)
@@ -72,26 +75,27 @@ namespace Keon.NHibernate.Schema
 		private delegate void scriptActionDelegate(Action<String> scriptAction, Boolean execute);
 		private void scriptAction(scriptActionDelegate schemaActionDelegate, Boolean execute)
 		{
-			if (scriptFileName == null)
-			{
-				schemaActionDelegate(null, execute);
-			}
-			else
+			if (scriptFileName != null)
 			{
 				var format = "yyyy-MM-dd hh:mm:ss ===========================";
 				var time = DateTime.Now.ToString(format);
-				write(scriptFileName, time);
-
-				schemaActionDelegate(text => write(scriptFileName, text), execute);
+				write(time);
 			}
+
+			schemaActionDelegate(write, execute);
 		}
 
-		private void write(String path, String text)
+		private void write(String text)
 		{
-			if (!File.Exists(path))
-				File.WriteAllLines(path, new[] { text });
-			else
-				File.AppendAllLines(path, new[] { text });
+			if (scriptFileName != null)
+			{
+				if (!File.Exists(scriptFileName))
+					File.WriteAllLines(scriptFileName, new[] { text });
+				else
+					File.AppendAllLines(scriptFileName, new[] { text });
+			}
+
+			logQueries?.Invoke(text);
 		}
 	}
 }

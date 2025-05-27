@@ -41,10 +41,15 @@ namespace Keon.NHibernate.UserPassed
 		public DBMS DBMS { get; set; }
 
 		/// <summary>
-		/// The File Full Name for export Script.
-		/// Just fill if see the script is needed
+		/// The File Full Name for export Queries
+		/// Just fill if see the Queries is needed
 		/// </summary>
 		public String ScriptFileFullName { get; set; }
+
+		/// <summary>
+		/// Log the Queries
+		/// </summary>
+		public Action<String> LogQueries { get; set; }
 
 		/// <summary>
 		/// Whether to show SQL in log

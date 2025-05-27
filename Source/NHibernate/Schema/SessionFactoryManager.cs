@@ -23,10 +23,14 @@ namespace Keon.NHibernate.Schema
 		/// Initialize function, need to be called before use instance
 		/// </summary>
 		/// <param name="config">Dictionary of application configuration</param>
-		public static void Initialize<TMap, TEntity>(IConfiguration config)
+		/// <param name="logQueries">Method to log queries if needed</param>
+		public static void Initialize<TMap, TEntity>(
+			IConfiguration config,
+			Action<String> logQueries = null
+		)
 			where TMap : IAutoMappingOverride<TEntity>
 		{
-			Initialize<TMap, TEntity>(config, null);
+			Initialize<TMap, TEntity>(config, null, logQueries);
 		}
 
 		/// <summary>
@@ -34,9 +38,11 @@ namespace Keon.NHibernate.Schema
 		/// </summary>
 		/// <param name="config">Dictionary of application configuration</param>
 		/// <param name="dbInitializer">Object to pre-populate DB</param>
+		/// <param name="logQueries">Method to log queries if needed</param>
 		public static void Initialize<TMap, TEntity>(
 			IConfiguration config,
-			IDataInitializer dbInitializer
+			IDataInitializer dbInitializer,
+			Action<String> logQueries = null
 		)
 			where TMap : IAutoMappingOverride<TEntity>
 		{
@@ -51,7 +57,7 @@ namespace Keon.NHibernate.Schema
 
 			var dbAction = getDBAction(config, dbInitializer);
 
-			Instance = SessionFactoryBuilder.Start(config, mapInfo, dbAction);
+			Instance = SessionFactoryBuilder.Start(config, mapInfo, dbAction, logQueries);
 
 			if (dbInitializer != null && dbAction == DBAction.Recreate)
 				dbInitializer.PopulateDB();
