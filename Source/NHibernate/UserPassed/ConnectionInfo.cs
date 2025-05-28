@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentNHibernate.Cfg.Db;
+using Keon.NHibernate.Logging;
 using Keon.NHibernate.Schema;
 using Keon.Util.Exceptions;
 
@@ -168,7 +169,16 @@ namespace Keon.NHibernate.UserPassed
 					: connection.ConnectionString(ConnectionString);
 
 			if (ShowSQL)
+			{
 				configuration = configuration.ShowSql();
+
+				if (LogQueries != null)
+					SqlLoggerFactory.Config(LogQueries);
+			}
+			else if (LogQueries != null)
+			{
+				throw new DKException("Cannot log queries without ShowSQL enabled");
+			}
 
 			return configuration;
 		}

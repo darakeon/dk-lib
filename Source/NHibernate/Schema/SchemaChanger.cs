@@ -82,21 +82,24 @@ namespace Keon.NHibernate.Schema
 			{
 				var format = "yyyy-MM-dd hh:mm:ss ===========================";
 				var time = DateTime.Now.ToString(format);
-				write(time);
+				writeToScriptFile(time);
 			}
 
-			schemaActionDelegate(write, execute);
+			schemaActionDelegate(writeAll, execute);
 		}
 
-		private void write(String text)
+		private void writeToScriptFile(String text)
+		{
+			if (!File.Exists(scriptFileName))
+				File.WriteAllLines(scriptFileName, new[] { text });
+			else
+				File.AppendAllLines(scriptFileName, new[] { text });
+		}
+
+		private void writeAll(String text)
 		{
 			if (scriptFileName != null)
-			{
-				if (!File.Exists(scriptFileName))
-					File.WriteAllLines(scriptFileName, new[] { text });
-				else
-					File.AppendAllLines(scriptFileName, new[] { text });
-			}
+				writeToScriptFile(text);
 
 			logQueries?.Invoke(text);
 		}
