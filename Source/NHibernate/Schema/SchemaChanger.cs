@@ -22,17 +22,20 @@ namespace Keon.NHibernate.Schema
 		/// </summary>
 		public SchemaChanger(String scriptFileName, Action<String> logQueries)
 		{
-			var addressPattern = new Regex(@"^(\\|[A-Z]\:).*");
-
-			this.scriptFileName = addressPattern.IsMatch(scriptFileName)
-				? scriptFileName
-				: Path.Combine(AppDomain.CurrentDomain.BaseDirectory, scriptFileName);
-
-			var info = new FileInfo(this.scriptFileName);
-
-			if (info.Directory is {Exists: false})
+			if (scriptFileName != null)
 			{
-				Directory.CreateDirectory(info.Directory.FullName);
+				var addressPattern = new Regex(@"^(\\|[A-Z]\:).*");
+
+				this.scriptFileName = addressPattern.IsMatch(scriptFileName)
+					? scriptFileName
+					: Path.Combine(AppDomain.CurrentDomain.BaseDirectory, scriptFileName);
+
+				var info = new FileInfo(this.scriptFileName);
+
+				if (info.Directory is { Exists: false })
+				{
+					Directory.CreateDirectory(info.Directory.FullName);
+				}
 			}
 
 			this.logQueries = logQueries;
