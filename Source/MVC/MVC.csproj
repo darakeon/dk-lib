@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Upgrade to .NET 8.0</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>5.0.12</Version>
+	<Version>5.0.13</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
