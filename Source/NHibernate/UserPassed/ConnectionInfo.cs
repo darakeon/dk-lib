@@ -169,16 +169,10 @@ namespace Keon.NHibernate.UserPassed
 					: connection.ConnectionString(ConnectionString);
 
 			if (ShowSQL)
-			{
 				configuration = configuration.ShowSql();
 
-				if (LogQueries != null)
-					SqlLoggerFactory.Config(LogQueries);
-			}
-			else if (LogQueries != null)
-			{
-				throw new DKException("Cannot log queries without ShowSQL enabled");
-			}
+			if (LogQueries != null)
+				SqlLoggerFactory.Config(LogQueries);
 
 			return configuration;
 		}
