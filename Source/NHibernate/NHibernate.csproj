@@ -17,7 +17,7 @@
 	<PackageReleaseNotes>Improve transaction error message with inner exception for rollback</PackageReleaseNotes>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>5.6.0</Version>
+	<Version>5.6.1</Version>
 	<PackageIcon>image.png</PackageIcon>
   </PropertyGroup>
 
