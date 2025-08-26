@@ -1,39 +1,38 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>net8.0</TargetFramework>
-	<AssemblyName>Keon.Util</AssemblyName>
-	<RootNamespace>Keon.Util</RootNamespace>
-	<Authors>darakeon</Authors>
-	<Company>Dara Keon</Company>
-	<Product>Keon Util</Product>
-	<Description>Generic helpers for .NET projects</Description>
-	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-	<PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
-	<PackageIconUrl></PackageIconUrl>
-	<RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
-	<RepositoryType>git</RepositoryType>
-	<PackageTags>utility</PackageTags>
-	<PackageReleaseNotes>Add inner exception to specific exception</PackageReleaseNotes>
-	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Version>5.1.0</Version>
-	<PackageIcon>image.png</PackageIcon>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>Keon.Util</AssemblyName>
+    <RootNamespace>Keon.Util</RootNamespace>
+    <Authors>darakeon</Authors>
+    <Company>Dara Keon</Company>
+    <Product>Keon Util</Product>
+    <Description>Generic helpers for .NET projects</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
+    <PackageIconUrl></PackageIconUrl>
+    <RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>utility</PackageTags>
+    <PackageReleaseNotes>Add inner exception to specific exception</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>5.1.1</Version>
+    <PackageIcon>image.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	<DocumentationFile>Keon.Util.xml</DocumentationFile>
+    <DocumentationFile>Keon.Util.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
-	<PackageReference Include="BouncyCastle.NetCore" Version="2.2.1" />
+    <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
+    <PackageReference Include="BouncyCastle.NetCore" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>
-	<None Include="..\..\Nuget\image.png">
-	  <Pack>True</Pack>
-	  <PackagePath></PackagePath>
-	</None>
+    <None Include="..\..\Nuget\image.png" Pack="true" PackagePath="\" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 </Project>
