@@ -17,7 +17,7 @@
     <PackageReleaseNotes>Upgrade to .NET 8.0</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.0.4</Version>
+    <Version>4.0.5</Version>
     <PackageIcon>image.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
