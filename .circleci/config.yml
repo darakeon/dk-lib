@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   util:
     docker:
-      - image: darakeon/netcore
+      - image: darakeon/netcore:alpine-net8
     steps:
       - checkout
       - restore_cache:
@@ -68,7 +68,7 @@ jobs:
 
   nhibernate:
     docker:
-      - image: darakeon/netcore
+      - image: darakeon/netcore:alpine-net8
     steps:
       - checkout
       - restore_cache:
@@ -115,7 +115,7 @@ jobs:
 
   mvc:
     docker:
-      - image: darakeon/netcore
+      - image: darakeon/netcore:alpine-net8
     steps:
       - checkout
       - restore_cache:
@@ -162,7 +162,7 @@ jobs:
 
   tfa:
     docker:
-      - image: darakeon/netcore
+      - image: darakeon/netcore:alpine-net8
     steps:
       - checkout
       - restore_cache:
@@ -209,7 +209,7 @@ jobs:
 
   xml:
     docker:
-      - image: darakeon/netcore
+      - image: darakeon/netcore:alpine-net8
     steps:
       - checkout
       - restore_cache:
@@ -256,7 +256,7 @@ jobs:
 
   eml:
     docker:
-      - image: darakeon/netcore
+      - image: darakeon/netcore:alpine-net8
     steps:
       - checkout
       - restore_cache:
