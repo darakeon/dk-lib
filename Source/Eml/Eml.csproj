@@ -3,22 +3,22 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>Keon.Eml</AssemblyName>
+    <RootNamespace>Keon.Eml</RootNamespace>
     <Authors>darakeon</Authors>
     <Company>Dara Keon</Company>
     <Product>Keon Eml</Product>
     <Description>Eml files translations to email headers + body</Description>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/darakeon/dk-lib</PackageProjectUrl>
-    <PackageIcon>image.png</PackageIcon>
-    <PackageIconUrl />
+    <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>eml reader</PackageTags>
-    <RootNamespace>Keon.Eml</RootNamespace>
-    <Version>6.0.2</Version>
     <PackageReleaseNotes>Upgrade to .NET 8.0</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>6.0.2</Version>
+    <PackageIcon>image.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
