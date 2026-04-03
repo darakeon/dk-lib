@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <AssemblyName>Keon.NHibernate</AssemblyName>
     <RootNamespace>Keon.NHibernate</RootNamespace>
     <Authors>darakeon</Authors>
@@ -14,10 +14,10 @@
     <RepositoryUrl>https://github.com/darakeon/dk-lib</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>utility nhibernate orm</PackageTags>
-    <PackageReleaseNotes>Improve transaction error message with inner exception for rollback</PackageReleaseNotes>
+    <PackageReleaseNotes>Upgrade to .NET 9.0</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.6.9</Version>
+    <Version>6.0.1</Version>
     <PackageIcon>image.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
